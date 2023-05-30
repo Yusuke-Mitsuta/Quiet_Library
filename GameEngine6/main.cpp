@@ -6,15 +6,37 @@
 
 
 
+
+template<int n>
+void a(const char(&str)[n])
+{
+
+	std::cout << str << std::endl;
+	std::cout << typeid(decltype( str)).name() << std::endl;
+	
+}
+
 int main()
 {
 
-	N_Constexpr::String str("aiueo");
+	//T<"‚ ‚¢ua"> a;
 
-	
-	N_Constexpr::Array a(1,2,3);
-	
+
+
+
+	N_Constexpr::String str("a");
+
+	N_Constexpr::Array<char,8> a(1,2,3,4,5,6);
+
+	for (int i = 0; i < 8; i++)
+	{
+
+		std::cout << str.str[i] << std::endl;
+		std::cout << a[i] << std::endl;
+	}
+
 	
 	return 0;
-}
 
+}
+	
