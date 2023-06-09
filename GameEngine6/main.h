@@ -4,17 +4,17 @@
 #include"Constexpr_Array.h"
 #include"Constexpr_String.h"
 
-template<N_Constexpr::String str>
-class T
-{
+#define CLASS(className,bassClassName) \
+template<> \
+class Core<className> : \
+public Core<bassClassName> \
+{ \
+public: \
+ \
+template<N_Constexpr::String t_Str> \
+void Hoge(){} \
 
-public:
-	int a;
-};
+#define DONT_COPY(ClassName) \
+ClassName(ClassName&) = delete; \
+void operator=(auto) = delete; \
 
-template<>
-class T<"aiu">
-{
-public:
-	int aa;
-};

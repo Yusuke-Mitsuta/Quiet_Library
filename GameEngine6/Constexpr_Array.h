@@ -1,6 +1,7 @@
 #pragma once
 
 #include<initializer_list>
+#include<compare>
 #include"Concept.h"
 
 #include"Array_Capacity.h"
@@ -66,7 +67,6 @@ namespace N_Constexpr::N_Array
 		return E_AccesState::END;
 
 	}
-
 
 	//d—l
 	//Constexpr_Array‚ÌŠe—v‘f‚ğ“ñi”‚ÅŠi”[‚·‚é
@@ -134,7 +134,7 @@ namespace N_Constexpr::N_Array
 	{
 	public:
 
-		T Data=T();
+		T Data = T();
 
 		constexpr T& operator[](unsigned int selectNum)
 		{
@@ -155,7 +155,6 @@ namespace N_Constexpr
 	class Array
 	{
 	private:
-
 		//d—l
 		//[u]‚ğ[t_Number]‚ÉŠi”[‚·‚é
 		//
@@ -200,10 +199,24 @@ namespace N_Constexpr
 
 
 		template<unsigned int ref_Size = t_Size, class Array_T = T, class U, class ...V >
-			requires std::same_as< std::true_type, typename Array_Capacity<Array_T, ref_Size, U, V...>::Bool_Type>
+			requires std::same_as< std::true_type, typename N_Array::Capacity<Array_T, ref_Size, U, V...>::Bool_Type>
 		constexpr Array(U u, V... v);
 
 		constexpr Array() {}
+
+		template<std::same_as<Array<T,t_Size>> T_2>
+		constexpr bool operator==(T_2 t)
+		{
+			for (int i = 0; i < t_Size; i++)
+			{
+				if (this->operator[](i) != t[i])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
 
 
 	};
@@ -224,7 +237,7 @@ namespace N_Constexpr
 	};
 
 	template<class U, class ...V>
-	Array(U, V...) -> Array<U, Array_Capacity<U, 0, U, V...>::Size>;
+	Array(U, V...) -> Array<U, N_Array::Capacity<U, 0, U, V...>::Size>;
 
 
 	template<class T, unsigned int t_Size>
@@ -232,7 +245,6 @@ namespace N_Constexpr
 	inline constexpr void Array<T, t_Size>::Set(U u, V ...v)
 	{
 		this->operator[](t_Number) = static_cast<T>(u);
-		//this->operator[](t_Number) = 'a';
 		Set<t_Number + 1, V...>(v...);
 	}
 
@@ -250,7 +262,7 @@ namespace N_Constexpr
 
 	template<class T, unsigned int t_Size>
 	template<unsigned int ref_Size, class Array_T, class U, class ...V>
-		requires std::same_as< std::true_type, typename Array_Capacity<Array_T, ref_Size, U, V...>::Bool_Type>
+		requires std::same_as< std::true_type, typename N_Array::Capacity<Array_T, ref_Size, U, V...>::Bool_Type>
 	inline constexpr Array<T, t_Size>::Array(U u, V ...v)
 	{
 		Set<0, U, V...>(u, v..., std::nullopt);
