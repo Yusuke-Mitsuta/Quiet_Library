@@ -17,9 +17,9 @@ int main()
 	
 	
 	Core<"Game_Object"> b;
+
 	//std::cout << Core_Name("aiueo").className.Change_stdString();
-	std::cout << b.flont.className.Change_stdString();
-		//typeid(b).name();
+
 
 	int aa = 1 + 2;
 	//N_Constexpr::String str("Game_Object");

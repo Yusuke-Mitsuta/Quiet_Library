@@ -26,7 +26,6 @@ public:
 
 	Core_Name flont = Flont<t_Root...>();
 
-
 	template<N_Constexpr::String t_Address = "", N_Constexpr::String t_message = "">
 	class Message
 	{
