@@ -55,20 +55,18 @@ namespace N_Constexpr
 			}
 		}
 
-		//template<int t_StrSize>
-		//	requires Fg<(t_Size >= t_StrSize)>
-		//void operator=(String<t_StrSize> str2)
-		//{
-		//	for (int i = 0; i < t_StrSize; i++)
-		//	{
-		//		str[i] = str2.str[i];
-		//	}
-		//}
 
-		template<class T>
-		constexpr bool operator==(T t)
+		template<int t_StrSize>
+		constexpr bool operator==(String<t_StrSize> str2)
 		{
-			return (str == t.str);
+			for (int i = 0;str[i] + str2.str[i]; i++)
+			{
+				if (str[i] - str2.str[i])
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
 		template<class T>

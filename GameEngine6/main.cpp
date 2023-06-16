@@ -8,20 +8,40 @@
 #include"Game_Object.h"
 
 
-//const N_Constexpr::String str("Game_Object");
+#include<list>
 
 #include"Message.h"
 int main()
 {
-	Core<"Object"> a;
-	
-	
-	Core<"Game_Object"> b;
 
+	std::list<int> List;
+
+	for (std::list<int>::iterator itr = List.begin(); itr != List.end(); itr++)
+	{
+		
+	}
+
+
+
+	Core<"Object"> a;
+
+
+	Core<"Game_Object"> b;
+	constexpr int aa = '\0';
+
+
+	Core<"Game_Object">* c = new Core<"Game_Object">;
+
+
+	Core_Name aaaa("aiueo");
+	Message<"Test", "Test"> ab;
+
+	
+
+	std::cout << sizeof(ab);
 	//std::cout << Core_Name("aiueo").className.Change_stdString();
 
 
-	int aa = 1 + 2;
 	//N_Constexpr::String str("Game_Object");
 
 	//A("aiu");

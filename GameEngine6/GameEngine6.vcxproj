@@ -19,29 +19,45 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Add_Component.h" />
+    <ClInclude Include="Add_Core.h" />
+    <ClInclude Include="Add_Object.h" />
+    <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Concept.h" />
     <ClInclude Include="Constexpr_Array.h" />
     <ClInclude Include="Constexpr_String.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Core_Control_Tower.h" />
+    <ClInclude Include="Core_Manager.h" />
     <ClInclude Include="Core_Name.h" />
+    <ClInclude Include="Core_Parentage.h" />
+    <ClInclude Include="Core_Storge.h" />
+    <ClInclude Include="Game_Engine.h" />
     <ClInclude Include="Game_Object.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Message_Router.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scene_Manager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Constexpr_Array.cpp" />
     <ClCompile Include="Constexpr_String.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Core_Name.cpp" />
+    <ClCompile Include="Core_Storge.cpp" />
+    <ClCompile Include="Game_Engine.cpp" />
     <ClCompile Include="Game_Object.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Message_Router.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
