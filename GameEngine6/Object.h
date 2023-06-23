@@ -2,9 +2,8 @@
 
 #include"Core.h"
 
-template<>
-class Core<"Object">:
-	public Core<>
+Class_Core(Object) :
+	public Core<"Core">
 {
 public:
 };

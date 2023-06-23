@@ -14,9 +14,11 @@
 #include<optional>
 #include <type_traits>
 
+#include"Using_Type.h"
+
 namespace N_Constexpr
 {
-	template<class T, unsigned int t_Size>
+	template<class T, Size_Type t_Size>
 	class Array;
 };
 
@@ -35,7 +37,7 @@ namespace N_Constexpr
 //型TがArray型でなく、引数の型がArray型の時、Arrayが分解され、それぞれ一つの型として確認する
 namespace N_Constexpr::N_Array
 {
-	template<class T, int t_Initial_Capacity, class U, class ...V>
+	template<class T, Size_Type t_Initial_Capacity, class U, class ...V>
 	class Capacity
 	{
 	private:
@@ -68,12 +70,12 @@ namespace N_Constexpr::N_Array
 
 		}
 
-		template<int remaining_Capacity, E_State t_State, class U, class ...V>
+		template<Size_Type remaining_Capacity, E_State t_State, class U, class ...V>
 		class Calcu;
 
 		//仕様
 		//型[U]がArrayに格納な型か判定する
-		template<int remaining_Capacity, class U, class ...V>
+		template<Size_Type remaining_Capacity, class U, class ...V>
 		class Calcu<remaining_Capacity, E_State::T_CONVERTIBLE_U, U, V...>
 		{
 		public:
@@ -83,7 +85,7 @@ namespace N_Constexpr::N_Array
 
 		//仕様
 		//型[U]がArray型かつ、型[T]がArray型でないか判定する
-		template<int remaining_Capacity, class Array_T, int t_ArraySize, class ...V>
+		template<Size_Type remaining_Capacity, class Array_T, Size_Type t_ArraySize, class ...V>
 		class Calcu<remaining_Capacity, E_State::ARRAY_DISASSEMBLY, N_Constexpr::Array<Array_T, t_ArraySize>, V...>
 		{
 		public:
@@ -95,7 +97,7 @@ namespace N_Constexpr::N_Array
 		//
 		//補足
 		//[Array_Capacity::Type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
-		template<int remaining_Capacity, E_State t_State, class U, class ...V>
+		template<Size_Type remaining_Capacity, E_State t_State, class U, class ...V>
 		class Calcu
 		{
 		private:
@@ -126,7 +128,7 @@ namespace N_Constexpr::N_Array
 
 			//仕様
 			//要素数を返す
-			static constexpr int Size = t_Initial_Capacity - remaining_Capacity;
+			static constexpr Size_Type Size = t_Initial_Capacity - remaining_Capacity;
 		};
 
 		//仕様
@@ -144,7 +146,7 @@ namespace N_Constexpr::N_Array
 
 		//仕様
 		//要素数を返す
-		static constexpr int Size = Type::Size;
+		static constexpr Size_Type Size = Type::Size;
 
 	};
 };

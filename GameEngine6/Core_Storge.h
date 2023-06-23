@@ -1,36 +1,38 @@
 #pragma once
 
-#include"Core_Name.h"
 #include"Concept.h"
+#include"Core_Base.h"
 #include<list>
 
 
 
-template<Core_Name className>
-class Core;
-
-
 namespace N_Core_Control
 {
-	using Base = Core<"Base">;
+
+
+	using Base = Core<"Core">;
 	using Scene = Core<"Scene">;
 	using Object = Core<"Object">;
-	using Conponent = Core<"Component">;
+	using Component = Core<"Component">;
+
+
+	class Tower;
 
 	class Storge
 	{
 	protected:
 
-
-		std::list<Base> childList;
+		std::list<Tower*> childList;
 
 	public:
 
-
+		std::list<Tower*>& Get_ChildList();
 
 
 
 	};
+
+
 
 
 }

@@ -11,12 +11,12 @@ namespace N_Constexpr
 	//
 	//template
 	//t_Size::•¶Žš—ñ‚Ì’·‚³
-	template<size_t t_Size>
+	template<Size_Type t_Size>
 	class String
 	{
 	public:
 
-		Array<char, t_Size> str;
+		Array<char,t_Size> str;
 
 		constexpr String(const char(&initstr)[t_Size]) :
 			str()
@@ -28,7 +28,7 @@ namespace N_Constexpr
 			}
 		}
 
-		template<int t_StrSize>
+		template<Size_Type t_StrSize>
 			requires Fg<(t_Size > t_StrSize)>
 			constexpr String(const char(&initstr)[t_StrSize]) :
 			str()
@@ -45,7 +45,7 @@ namespace N_Constexpr
 
 		constexpr String() :String("") {}
 
-		template<int t_StrSize>
+		template<Size_Type t_StrSize>
 			requires Fg<(t_Size >= t_StrSize)>
 		constexpr String(String<t_StrSize> str2)
 		{
@@ -56,7 +56,7 @@ namespace N_Constexpr
 		}
 
 
-		template<int t_StrSize>
+		template<Size_Type t_StrSize>
 		constexpr bool operator==(String<t_StrSize> str2)
 		{
 			for (int i = 0;str[i] + str2.str[i]; i++)

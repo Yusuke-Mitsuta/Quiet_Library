@@ -15,3 +15,6 @@ template <class _From, class _To>
 concept not_convertible_to = !(convertible_to<_From,_To>);
 
 using std::derived_from;
+
+template <class _Derived, class _Base>
+concept not_derived_from = !(derived_from<_Derived, _Base>);

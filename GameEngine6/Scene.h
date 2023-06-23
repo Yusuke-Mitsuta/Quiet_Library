@@ -2,9 +2,16 @@
 
 #include "Core.h"
 
-template<>
-class Core<"Scene">:
+
+Class_Core(Scene) :
     public Core<"Core">
 {
+public:
+
+    Core<"Scene">()
+    {
+    
+    }
+
 };
 

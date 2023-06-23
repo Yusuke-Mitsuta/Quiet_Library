@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Add_Component.h" />
-    <ClInclude Include="Add_Core.h" />
+    <ClInclude Include="Add_Origin.h" />
     <ClInclude Include="Add_Object.h" />
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
@@ -31,29 +31,44 @@
     <ClInclude Include="Constexpr_String.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Core_Control_Tower.h" />
-    <ClInclude Include="Core_Manager.h" />
+    <ClInclude Include="Core_Base.h" />
+    <ClInclude Include="Manager_Component.h" />
+    <ClInclude Include="Manager_Object.h" />
+    <ClInclude Include="Manager_Origin.h" />
     <ClInclude Include="Core_Name.h" />
     <ClInclude Include="Core_Parentage.h" />
     <ClInclude Include="Core_Storge.h" />
     <ClInclude Include="Game_Engine.h" />
     <ClInclude Include="Game_Object.h" />
+    <ClInclude Include="Get_Component.h" />
+    <ClInclude Include="Get_Object.h" />
+    <ClInclude Include="Get_Origin.h" />
+    <ClInclude Include="Get_Scene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Message_Router.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Scene_Manager.h" />
+    <ClInclude Include="Manager_Scene.h" />
+    <ClInclude Include="Storge_Access.h" />
+    <ClInclude Include="Type_Nameh.h" />
+    <ClInclude Include="Using_Type.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Add_Origin.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Constexpr_Array.cpp" />
     <ClCompile Include="Constexpr_String.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Core_Name.cpp" />
+    <ClCompile Include="Core_Parentage.cpp" />
     <ClCompile Include="Core_Storge.cpp" />
+    <ClCompile Include="Core_Type.h" />
     <ClCompile Include="Game_Engine.cpp" />
     <ClCompile Include="Game_Object.cpp" />
+    <ClCompile Include="Get_Origin.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Manager_Origin.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Message_Router.cpp" />
     <ClCompile Include="Object.cpp" />

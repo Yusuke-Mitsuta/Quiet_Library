@@ -2,16 +2,20 @@
 
 #include"Core.h"
 
-template<>
-class Core<"Game_Engine"> :
+Class_Core(Engine) :
 	public Core<"Core">
 {
 private:
 
-	static Core<"Game_Engine"> Game_Engine;
+	static Core<"Engine"> Game_Engine;
 
 public:
 
-	static Core<"Game_Engine">* Get_GameEngine();
+	Core();
+
+	static constexpr Engine* Get_Engine()
+	{
+		return &Game_Engine;
+	}
 
 };

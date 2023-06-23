@@ -1,8 +1,13 @@
 #include "Game_Engine.h"
 
-Core<"Game_Engine"> Core<"Game_Engine">::Game_Engine;
+Engine Engine::Game_Engine;
 
-Core<"Game_Engine">* Core<"Game_Engine">::Get_GameEngine()
+
+Engine::Core()
 {
-	return &Game_Engine;
+	Game_Engine.parentage.Set_Manager(nullptr,E_Core_Type::Engine);
+
+	Game_Engine.parentage.Get_Tower()->this_Core = &Game_Engine;
 }
+
+

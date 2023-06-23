@@ -1,18 +1,17 @@
 #pragma once
 
-#include"Add_Origin.h"
+#include"Get_Origin.h"
 
 namespace N_Core_Control
 {
+
 	template<>
-	class Add<Component> :
-		public Add_Origin
+	class Get<Component> :
+		public Get_Origin
 	{
 	public:
 
-
 	};
-
 
 
 }

@@ -1,40 +1,41 @@
 #pragma once
 
 #include"Core_Storge.h"
+#include"Core_Type.h"
 
 namespace N_Core_Control
 {
-
-	//template<class T,bool t_Core>
-	//class Manager;
-
 	template<class C_T>
+	class Manager;
+
+	class Manager_Origin;
+
 	class Tower
 	{
 	public:
 
-		Storge storge;
+		template<class C_T>
+		struct Manager_With_Tower
+		{
+			Manager<C_T>* manager;
+			Tower* tower;
+		};
 
-		template<class T>
-			requires convertible_to<T, C_T>&&
-		not_same_as<C_T, Base>
-			T* Select_Manager() {}
 
-		template<class T>
-			requires convertible_to<T, Scene>
-		T* Select_Manager() {}
+		Storge* storge;
 
-		template<class T>
-			requires convertible_to<T, Object>
-		T* Select_Manager(){}
+		Tower* parent_Tower;
 
-		template<class T>
-			requires convertible_to<T, Conponent>
-		T* Select_Manager(){}
+		Core<"Core">* this_Core;
+		E_Core_Type type;
 
+		Tower* Scene_Tower;
+
+		Tower* Object_Tower;
+
+		Tower* Component_Tower;
 
 	};
-
 
 
 

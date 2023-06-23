@@ -1,29 +1,28 @@
 #pragma once
 
-#include"Core_Name.h"
+#include"Core_Base.h"
+#include"Core_Parentage.h"
 #include<iostream>
-#include<list>
-#include<string>
-#include<functional>
-#include<concepts>
 
 
-
-template<Core_Name t_ClassName = "Base">
-class Core
+template<>
+class Core<"Core"> :
+	public Core<>
 {
 protected:
 
 
 public:
 
+	N_Core_Control::Parentage parentage;
 
-	void Update(){}
 
-	template<N_Constexpr::String t_Str>
-	void Hoge(){}
-
+	virtual N_Core_Control::Parentage* Get_Parentage()final;
 
 
 };
 
+inline N_Core_Control::Parentage* Core<"Core">::Get_Parentage()
+{
+	return &parentage;
+}

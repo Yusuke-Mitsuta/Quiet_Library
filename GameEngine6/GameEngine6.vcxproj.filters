@@ -22,11 +22,23 @@
     <Filter Include="ヘッダー ファイル\Message">
       <UniqueIdentifier>{246979ea-f37b-47d1-92af-70d0143b1f41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Core_Control">
+      <UniqueIdentifier>{cf2e13f7-f655-46f5-b911-3d913f39f68e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\String">
+      <UniqueIdentifier>{29933a39-dfbd-41b2-ac34-fcc5746085cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Core_Control\Manager">
+      <UniqueIdentifier>{271c0601-246f-4d03-bc3e-5521ef77b26a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Core_Control\Add">
+      <UniqueIdentifier>{f94522a7-3fc1-4508-bf0c-d3c685fc31b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Core_Control\Get">
+      <UniqueIdentifier>{e6c87ec7-f9e7-4477-90e8-5e6b86a8d580}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Constexpr_String.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -69,32 +81,65 @@
     <ClInclude Include="Message_Router.h">
       <Filter>ヘッダー ファイル\Message</Filter>
     </ClInclude>
-    <ClInclude Include="Core_Storge.h">
+    <ClInclude Include="Type_Nameh.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Add_Core.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Core_Parentage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Add_Scene.h">
+    <ClInclude Include="Using_Type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Core_Control_Tower.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Core_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Core_Parentage.h">
+      <Filter>ヘッダー ファイル\Core_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Core_Storge.h">
+      <Filter>ヘッダー ファイル\Core_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Constexpr_String.h">
+      <Filter>ヘッダー ファイル\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_Scene.h">
+      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Add_Scene.h">
+      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
     </ClInclude>
     <ClInclude Include="Add_Object.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Core_Manager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
     </ClInclude>
     <ClInclude Include="Add_Component.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_Manager.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Manager_Origin.h">
+      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Add_Origin.h">
+      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
+    </ClInclude>
+    <ClInclude Include="Get_Origin.h">
+      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
+    </ClInclude>
+    <ClInclude Include="Get_Scene.h">
+      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
+    </ClInclude>
+    <ClInclude Include="Get_Object.h">
+      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
+    </ClInclude>
+    <ClInclude Include="Get_Component.h">
+      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_Component.h">
+      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_Object.h">
+      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Storge_Access.h">
+      <Filter>ヘッダー ファイル\Core_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Core_Base.h">
+      <Filter>ヘッダー ファイル\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +180,21 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Core_Storge.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager_Origin.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Core_Parentage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Add_Origin.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Core_Type.h">
+      <Filter>ヘッダー ファイル\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Get_Origin.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
