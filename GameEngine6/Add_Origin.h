@@ -7,55 +7,35 @@ namespace N_Core_Control
 
 	class Add_Origin
 	{
+		friend class Add_Origin;
+
 	protected:
+
 
 		virtual constexpr Tower*& Get_Tower() = 0;
 
 		virtual void SetUp_Child(Base* material) {}
 
-	public:
-
 		void Add_Child(Tower* manager_Tower,Base* material,E_Core_Type type);
 
-		template<class T>
-			requires derived_from<T,Scene>
-		T* Add_Child();
+	public:
+
 
 		template<class T>
-			requires derived_from<T,Object>
-		T* Add_Child();
-
-		template<class T>
-			requires derived_from<T, Component>
+			requires derived_from<T,Base> &&
+		not_same_as<T,Base>
 		T* Add_Child();
 
 	};
 
 
 	template<class T>
-		requires derived_from<T, Scene>
+		requires derived_from<T, Base> &&
+		not_same_as<T, Base>
 	inline T* Add_Origin::Add_Child()
 	{
 		T* material = new T();
-		Add_Child(Get_Tower()->Scene_Tower,material,E_Core_Type::Scene);
-		return material;
-	}
-
-	template<class T>
-		requires derived_from<T, Object>
-	inline T* Add_Origin::Add_Child()
-	{
-		T* material = new T();
-		Add_Child(Get_Tower()->Object_Tower,material, E_Core_Type::Object);
-		return material;
-	}
-
-	template<class T>
-		requires derived_from<T, Component>
-	inline T* Add_Origin::Add_Child()
-	{
-		T* material = new T();
-		Add_Child(Get_Tower()->Component_Tower, material,E_Core_Type::Component);
+		Add_Child(Get_Tower()->Scene_Tower,material,Select_Core_Type<T>());
 		return material;
 	}
 

@@ -1,10 +1,15 @@
 #pragma once
 
 #include"Core.h"
+#include"Constexpr_String.h"
 
-Class_Core(Object) :
+template<>
+class Core<"Object"> :
 	public Core<"Core">
 {
 public:
+
+	void object() {}
+
 };
 

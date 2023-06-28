@@ -7,18 +7,15 @@
 
 template<>
 class Core<"Core"> :
-	public Core<>
+	public Core<"Base">
 {
 protected:
-
 
 public:
 
 	N_Core_Control::Parentage parentage;
 
-
 	virtual N_Core_Control::Parentage* Get_Parentage()final;
-
 
 };
 

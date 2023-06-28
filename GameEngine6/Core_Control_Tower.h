@@ -14,19 +14,12 @@ namespace N_Core_Control
 	{
 	public:
 
-		template<class C_T>
-		struct Manager_With_Tower
-		{
-			Manager<C_T>* manager;
-			Tower* tower;
-		};
-
-
 		Storge* storge;
 
 		Tower* parent_Tower;
 
 		Core<"Core">* this_Core;
+
 		E_Core_Type type;
 
 		Tower* Scene_Tower;

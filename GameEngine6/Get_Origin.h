@@ -1,7 +1,7 @@
 #pragma once
 
 #include"Core_Control_Tower.h"
-
+#include<vector>
 
 
 namespace N_Core_Control
@@ -9,76 +9,95 @@ namespace N_Core_Control
 
 	class Get_Origin
 	{
+		friend class Get_Origin;
 	protected:
+		
+		static constexpr Size_Type Default_Level=999;
+		static constexpr Size_Type Default_Max_HitNum=999;
 
 		virtual constexpr Tower*& Get_Tower() = 0;
 
 		Storge*& Get_Storge(E_Core_Type type);
 
-		template<class T>
-		T* Search(E_Core_Type type);
+		template<class T, Size_Type t_Level, Size_Type t_Max_HitNum>
+		std::vector<T*> Search();
 
+		template<class T,Size_Type t_Level, Size_Type t_Max_HitNum>
+		void Search(E_Core_Type type, std::vector<T*>& hit_List);
 
 	public:
-		
-		template<class T>
-			requires derived_from<T, Scene>
+
+		template<class T,Size_Type t_Level = Default_Level>
+			requires derived_from<T, Base>&&
+		not_same_as<T, Base>
 		T* Get_Child();
 
-		template<class T>
-			requires derived_from<T, Object>
-		T* Get_Child();
-
-		template<class T>
-			requires derived_from<T, Component>
-		T* Get_Child();
-
+		template<class T,Size_Type t_Level= Default_Level,Size_Type t_Max_HitNum =Default_Max_HitNum>
+			requires derived_from<T, Base> &&
+		not_same_as<T,Base>
+		std::vector<T*> Get_Childs();
 	};
 
 	template<class C_T>
 	class Get :
-		public Get_Origin{};
+		public Get_Origin {};
 
-	template<class T>
-	inline T* Get_Origin::Search(E_Core_Type type)
+	template<class T,Size_Type t_Level, Size_Type t_Max_HitNum>
+	inline std::vector<T*> Get_Origin::Search()
 	{
+		std::vector<T*> hit_List;
+		Search<T, t_Max_HitNum, t_Level>(Select_Core_Type<T>(), hit_List);
+		return hit_List;
+	}
+
+	template<class T,Size_Type t_Level, Size_Type t_Max_HitNum>
+	inline void Get_Origin::Search(E_Core_Type type, std::vector<T*>& hit_List)
+	{
+
 		for (auto tower : Get_Storge(type)->Get_ChildList())
 		{
 			T* material = static_cast<T*>(tower->this_Core);
 
 			if (material != nullptr)
 			{
-				return material;
+				hit_List.emplace_back(material);
+
+				if (t_Max_HitNum==hit_List.size())
+				{
+					break;
+				}
 			}
 
-			material = static_cast<Get_Origin*>(tower->this_Core->Get_Parentage())->Get_Child<T>();
+			static_cast<Get_Origin*>(tower->this_Core->Get_Parentage())->Search<T,t_Level-1, t_Max_HitNum>(type, hit_List);
 
-			if (material != nullptr)
+			if (t_Max_HitNum == hit_List.size())
 			{
-				return material;
+				break;
 			}
 		}
-		return nullptr;
+		return;
 	}
 
-	template<class T>
-		requires derived_from<T, Scene>
+	template<class T, Size_Type t_Level>
+		requires derived_from<T, Base>&&
+	not_same_as<T, Base>
 	inline T* Get_Origin::Get_Child()
 	{
-		return Search<Scene>(E_Core_Type::Scene);
+		std::vector<T*> hit = Search<T, t_Level, 1>();
+
+		if (hit.empty())
+		{
+			return nullptr;
+		}
+
+		return hit.front();
 	}
 
-	template<class T>
-		requires derived_from<T, Object>
-	inline T* Get_Origin::Get_Child()
+	template<class T, Size_Type t_Level, Size_Type t_Max_HitNum>
+		requires derived_from<T, Base>&&
+	not_same_as<T, Base>
+	inline std::vector<T*> Get_Origin::Get_Childs()
 	{
-		return Search<Object>(E_Core_Type::Object);
-	}
-
-	template<class T>
-		requires derived_from<T,Component>
-	inline T* Get_Origin::Get_Child()
-	{
-		return Search<Component>(E_Core_Type::Component);
+		return Search<T,t_Level,t_Max_HitNum>();
 	}
 }

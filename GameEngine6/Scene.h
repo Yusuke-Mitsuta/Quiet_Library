@@ -3,7 +3,10 @@
 #include "Core.h"
 
 
-Class_Core(Scene) :
+using Scene = Core<"Scene">;
+
+template<>
+class Core<"Scene">:
     public Core<"Core">
 {
 public:
@@ -14,4 +17,3 @@ public:
     }
 
 };
-

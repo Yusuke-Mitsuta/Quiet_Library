@@ -1,7 +1,6 @@
 
-#include"Concept.h"
 #include"Core_Base.h"
-
+#include"Concept.h"
 
 enum class E_Core_Type
 {
@@ -12,11 +11,17 @@ enum class E_Core_Type
 }; 
 
 template<class T>
-requires derived_from<T,Core<"Scene">>
-E_Core_Type Select_Type();
-
-template<class T>
-inline E_Core_Type Select_Type()
+constexpr E_Core_Type Select_Core_Type()
 {
-	return E_Core_Type::Scene;
+	if (derived_from<T,Core<"Scene">>)
+	{
+		return E_Core_Type::Scene;
+	}
+
+	if (derived_from<T,Core<"Object">>)
+	{
+		return E_Core_Type::Object;
+	}
+
+	return E_Core_Type::Component;
 }

@@ -1,6 +1,13 @@
 #pragma once
 
 #include<concepts>
+#include<typeinfo>
+#include<iostream>
+
+#define Debug 1;
+
+#define TYPE_ID(className) \
+std::cout<<typeid(className).name()<<std::endl; \
 
 
 #define DONT_COPY(ClassName) \
@@ -11,4 +18,5 @@ void operator=(auto) = delete; \
 using Name = Core<#Name>;\
 template<> \
 class Core<#Name> \
+
 

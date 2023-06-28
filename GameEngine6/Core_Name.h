@@ -10,7 +10,7 @@ private:
 
 public:
 
-	N_Constexpr::String<className_Size> className;
+	char className[className_Size];
 
 	constexpr Core_Name(
 		const char(&set_ClassName)[className_Size]) :
@@ -18,10 +18,8 @@ public:
 	{
 		for (int i = 0; i < className_Size; i++)
 		{
-			className.str[i] = set_ClassName[i];
+			className[i] = set_ClassName[i];
 		}
 	}
-
-
 
 };

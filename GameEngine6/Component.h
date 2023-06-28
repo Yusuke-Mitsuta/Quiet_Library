@@ -2,7 +2,8 @@
 
 #include"Core.h"
 
-Class_Core(Component) :
+template<>
+class Core<"Component"> :
 	public Core<"Core">
 {
 

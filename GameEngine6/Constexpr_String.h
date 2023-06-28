@@ -1,7 +1,7 @@
 #pragma once
 
-#include"Constexpr_Array.h"
 #include<string>
+#include"Using_Type.h"
 #include"Concept.h"
 
 namespace N_Constexpr
@@ -16,17 +16,18 @@ namespace N_Constexpr
 	{
 	public:
 
-		Array<char,t_Size> str;
+		char str[t_Size];
 
-		constexpr String(const char(&initstr)[t_Size]) :
+		constexpr String(
+			const char(&set_Str)[t_Size]) :
 			str()
 		{
-			
 			for (int i = 0; i < t_Size; i++)
 			{
-				str[i] = initstr[i];
+				str[i] = set_Str[i];
 			}
 		}
+
 
 		template<Size_Type t_StrSize>
 			requires Fg<(t_Size > t_StrSize)>

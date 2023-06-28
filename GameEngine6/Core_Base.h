@@ -6,16 +6,16 @@ namespace N_Core_Control
 	class Parentage;
 }
 
-template<Core_Name className = "Base">
+
+template<Core_Name className="Base">
 class Core
 {
 protected:
 
 public:
 
-	virtual N_Core_Control::Parentage* Get_Parentage() = 0;
-	
+	virtual N_Core_Control::Parentage* Get_Parentage()=0;
+
 
 
 };
-
