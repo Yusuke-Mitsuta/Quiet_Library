@@ -16,5 +16,6 @@ public:
 	virtual N_Core_Control::Parentage* Get_Parentage()=0;
 
 
-	void Receive();
+
+
 };
