@@ -17,9 +17,9 @@
 int main()
 {
 	Core<"Core">* b = new Core<"Core">();
-	b->Receive<"Test">();
+	//b->Receive<"Test">();
 
-	//static_cast<Core<"Base">*>(b)->Receive();
+	static_cast<Core<"Base">*>(b)->Receive<"Update">();
 
 	Engine::Get_Engine()->Start();
 

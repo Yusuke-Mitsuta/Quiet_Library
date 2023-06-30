@@ -24,6 +24,7 @@ public:
 
 	virtual void Execute() = 0;
 
+
 };
 
 template<N_Constexpr::String t_Address = "", N_Constexpr::String t_Message = "">
@@ -41,10 +42,10 @@ public:
 
 	void Execute()
 	{
-		
+
 	}
 
-	static constexpr N_Constexpr::String address = t_Address;
+	using Addarss = Core_Name<t_Address>;
 
 	static constexpr N_Constexpr::String message = t_Message;
 

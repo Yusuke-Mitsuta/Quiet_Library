@@ -15,6 +15,7 @@ namespace N_Core_Control
 	using Object = Core<"Object">;
 	using Component = Core<"Component">;
 
+	//template<class C_T>
 	class Tower;
 
 	class Storge

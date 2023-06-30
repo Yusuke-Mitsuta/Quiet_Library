@@ -10,6 +10,7 @@ namespace N_Core_Control
 
 	class Manager_Origin;
 
+	//template<class C_T>
 	class Tower
 	{
 	public:

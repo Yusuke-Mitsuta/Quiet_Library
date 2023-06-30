@@ -21,7 +21,7 @@ namespace N_Core_Control
 		Storge*& Get_Storge(E_Core_Type type);
 
 		template<class T, Size_Type t_Level, Size_Type t_Max_HitNum>
-		std::vector<T*> Search();
+		std::vector<T*>& Search();
 
 		template<class T,Size_Type t_Level, Size_Type t_Max_HitNum>
 		requires Fg<!(t_Level)>
@@ -41,7 +41,7 @@ namespace N_Core_Control
 		template<class T,Size_Type t_Level= Default_Level,Size_Type t_Max_HitNum =Default_Max_HitNum>
 			requires derived_from<T, Base> &&
 		not_same_as<T,Base>
-		std::vector<T*> Get_Childs();
+		std::vector<T*>& Get_Childs();
 	};
 
 	template<class C_T>
@@ -49,7 +49,7 @@ namespace N_Core_Control
 		public Get_Origin {};
 
 	template<class T,Size_Type t_Level, Size_Type t_Max_HitNum>
-	inline std::vector<T*> Get_Origin::Search()
+	inline std::vector<T*>& Get_Origin::Search()
 	{
 		std::vector<T*> hit_List;
 		Search<T, t_Max_HitNum, t_Level>(Select_Core_Type<T>(), &hit_List);
@@ -89,7 +89,7 @@ namespace N_Core_Control
 	not_same_as<T, Base>
 	inline T* Get_Origin::Get_Child()
 	{
-		std::vector<T*> hit = Search<T, t_Level, 1>();
+		std::vector<T*>& hit = Search<T, t_Level, 1>();
 
 		if (hit.empty())
 		{
@@ -102,7 +102,7 @@ namespace N_Core_Control
 	template<class T, Size_Type t_Level, Size_Type t_Max_HitNum>
 		requires derived_from<T, Base>&&
 	not_same_as<T, Base>
-	inline std::vector<T*> Get_Origin::Get_Childs()
+	inline std::vector<T*>& Get_Origin::Get_Childs()
 	{
 		return Search<T,t_Level,t_Max_HitNum>();
 	}

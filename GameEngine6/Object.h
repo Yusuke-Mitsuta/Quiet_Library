@@ -4,12 +4,11 @@
 #include"Constexpr_String.h"
 
 template<>
-class Core<"Object"> :
+class Core<"Object">:
 	public Core<"Core">
 {
 public:
 	
-	void object() {}
+	void object(){}
 
 };
-
