@@ -1,48 +1,51 @@
 #pragma once
 
 #include"Constexpr_String.h"
+#include"Core_Base.h"
 #include<list>
 
-#define MESSAGE_RECEIVE(SelectMessage,...) \
-template<class T> \
-requires requires \
-{\
-	requires (T::message == N_Constexpr::String(SelectMessage));\
-}\
-	void Receive(__VA_ARGS__) \
 
+//#define RECEIVE(SelectMessage) \
+//template<N_Constexpr::String t_Address = "", N_Constexpr::String t_Message = "">\
+//requires requires \
+//{\
+//	requires (t_Message == N_Constexpr::String(#SelectMessage));\
+//	requires derived_from<Core<t_Address>,Core>;\
+//}\
+//	void Receive() \
+//
 
-
-class Message_Core
+class Message_Origin
 {
-protected:
-	constexpr Message_Core() {}
 
+protected:
+	Message_Origin() {}
 public:
 
-	virtual void Execute() {}
+	virtual void Execute() = 0;
 
 };
 
-template<N_Constexpr::String t_Address="", N_Constexpr::String t_Message ="">
-class Message
+template<N_Constexpr::String t_Address = "", N_Constexpr::String t_Message = "">
+class Message:
+	public Message_Origin
 {
 protected:
+
+	Core<"Core">* target_Core;
+
 public:
 
-	static int Size_Type = 0;
-
-	static std::list<Message> 
-
-	constexpr Message() {}
+	Message(Core<"Core">* set_Target_P) :
+		target_Core(set_Target_P) {}
 
 	void Execute()
 	{
-
+		
 	}
 
 	static constexpr N_Constexpr::String address = t_Address;
 
 	static constexpr N_Constexpr::String message = t_Message;
-};
 
+};

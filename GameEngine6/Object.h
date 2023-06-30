@@ -8,7 +8,7 @@ class Core<"Object"> :
 	public Core<"Core">
 {
 public:
-
+	
 	void object() {}
 
 };

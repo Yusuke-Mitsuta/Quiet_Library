@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "Game_Engine.h"
 
 
 using Scene = Core<"Scene">;
@@ -11,7 +12,7 @@ class Core<"Scene">:
 {
 public:
 
-    Core<"Scene">()
+    Core()
     {
     
     }

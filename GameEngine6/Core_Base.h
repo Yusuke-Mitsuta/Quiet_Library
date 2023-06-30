@@ -6,7 +6,6 @@ namespace N_Core_Control
 	class Parentage;
 }
 
-
 template<Core_Name className="Base">
 class Core
 {
@@ -17,5 +16,5 @@ public:
 	virtual N_Core_Control::Parentage* Get_Parentage()=0;
 
 
-
+	void Receive();
 };

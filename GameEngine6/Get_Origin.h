@@ -13,6 +13,7 @@ namespace N_Core_Control
 	protected:
 		
 		static constexpr Size_Type Default_Level=999;
+
 		static constexpr Size_Type Default_Max_HitNum=999;
 
 		virtual constexpr Tower*& Get_Tower() = 0;
@@ -23,7 +24,12 @@ namespace N_Core_Control
 		std::vector<T*> Search();
 
 		template<class T,Size_Type t_Level, Size_Type t_Max_HitNum>
-		void Search(E_Core_Type type, std::vector<T*>& hit_List);
+		requires Fg<!(t_Level)>
+		void Search(E_Core_Type type, std::vector<T*>* hit_List);
+
+		template<class T, Size_Type t_Level, Size_Type t_Max_HitNum>
+			requires Fg<(t_Level)>
+		void Search(E_Core_Type type, std::vector<T*>* hit_List){};
 
 	public:
 
@@ -46,33 +52,33 @@ namespace N_Core_Control
 	inline std::vector<T*> Get_Origin::Search()
 	{
 		std::vector<T*> hit_List;
-		Search<T, t_Max_HitNum, t_Level>(Select_Core_Type<T>(), hit_List);
+		Search<T, t_Max_HitNum, t_Level>(Select_Core_Type<T>(), &hit_List);
 		return hit_List;
 	}
 
 	template<class T,Size_Type t_Level, Size_Type t_Max_HitNum>
-	inline void Get_Origin::Search(E_Core_Type type, std::vector<T*>& hit_List)
+	requires Fg<!(t_Level)>
+	inline void Get_Origin::Search(E_Core_Type type, std::vector<T*>* hit_List)
 	{
-
 		for (auto tower : Get_Storge(type)->Get_ChildList())
 		{
 			T* material = static_cast<T*>(tower->this_Core);
 
 			if (material != nullptr)
 			{
-				hit_List.emplace_back(material);
+				hit_List->emplace_back(material);
 
-				if (t_Max_HitNum==hit_List.size())
+				if (t_Max_HitNum==hit_List->size())
 				{
-					break;
+					return;
 				}
 			}
 
 			static_cast<Get_Origin*>(tower->this_Core->Get_Parentage())->Search<T,t_Level-1, t_Max_HitNum>(type, hit_List);
 
-			if (t_Max_HitNum == hit_List.size())
+			if (t_Max_HitNum == hit_List->size())
 			{
-				break;
+				return;
 			}
 		}
 		return;

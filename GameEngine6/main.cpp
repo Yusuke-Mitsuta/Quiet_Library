@@ -8,29 +8,29 @@
 #include"Game_Object.h"
 #include"Scene.h"
 #include"Manager_Scene.h"
-
+#include"Timer.h"
 #include<list>
 
 #include"Message.h"
 
+
 int main()
 {
+	Core<"Core">* b = new Core<"Core">();
+	b->Receive<"Test">();
 
-	Core<"Object"> b;
+	//static_cast<Core<"Base">*>(b)->Receive();
 
-	b
-	//Core<"Core"> a
-	
-	std::cout << typeid(decltype(b)).name() << std::endl;
-	
+	Engine::Get_Engine()->Start();
+
 
 	auto s = Engine::Get_Engine()->parentage.Add_Child<Scene>();
 	auto ss= s->parentage.Add_Child<Scene>();
 	auto sss= ss->parentage.Add_Child<Scene>();
 	auto ssss= sss->parentage.Add_Child<Scene>();
 
-	auto list =Engine::Get_Engine()->parentage.Get_Childs<Scene,2>();
-	auto a = list.front();
+	auto list = Engine::Get_Engine()->parentage.Get_Childs<Scene>();
+
 	
 	return 0;
 

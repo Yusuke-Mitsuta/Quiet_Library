@@ -37,6 +37,9 @@
     <Filter Include="ヘッダー ファイル\Core_Control\Get">
       <UniqueIdentifier>{e6c87ec7-f9e7-4477-90e8-5e6b86a8d580}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Time">
+      <UniqueIdentifier>{1fc74d49-c527-4e45-8818-b0c90fd035fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -141,6 +144,24 @@
     <ClInclude Include="Core_Base.h">
       <Filter>ヘッダー ファイル\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Tag.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>ヘッダー ファイル\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeControl.h">
+      <Filter>ヘッダー ファイル\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>ヘッダー ファイル\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>ヘッダー ファイル\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Link.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -195,6 +216,21 @@
       <Filter>ヘッダー ファイル\Core</Filter>
     </ClCompile>
     <ClCompile Include="Get_Origin.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeControl.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Link.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

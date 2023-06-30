@@ -32,6 +32,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Core_Control_Tower.h" />
     <ClInclude Include="Core_Base.h" />
+    <ClInclude Include="Link.h" />
     <ClInclude Include="Manager_Component.h" />
     <ClInclude Include="Manager_Object.h" />
     <ClInclude Include="Manager_Origin.h" />
@@ -51,6 +52,11 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />
     <ClInclude Include="Storge_Access.h" />
+    <ClInclude Include="Tag.h" />
+    <ClInclude Include="Time.h" />
+    <ClInclude Include="TimeControl.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimerManager.h" />
     <ClInclude Include="Type_Nameh.h" />
     <ClInclude Include="Using_Type.h" />
   </ItemGroup>
@@ -67,12 +73,17 @@
     <ClCompile Include="Game_Engine.cpp" />
     <ClCompile Include="Game_Object.cpp" />
     <ClCompile Include="Get_Origin.cpp" />
+    <ClCompile Include="Link.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager_Origin.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Message_Router.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="TimeControl.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

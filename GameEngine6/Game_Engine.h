@@ -2,7 +2,10 @@
 
 #include"Core.h"
 
-Class_Core(Engine) :
+using Engine = Core<"Engine">;
+
+template<>
+class Core<"Engine"> :
 	public Core<"Core">
 {
 private:
@@ -12,6 +15,8 @@ private:
 public:
 
 	Core();
+
+	void Start();
 
 	static constexpr Engine* Get_Engine()
 	{
