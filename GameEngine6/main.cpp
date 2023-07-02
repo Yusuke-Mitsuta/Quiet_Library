@@ -25,7 +25,7 @@ void Hoge()
 	//C_OUT(a); 
 //	C_OUT(b); 
 }
-void Hoge3(int a)
+void Hoge3(int a,int b)
 {
 	//C_OUT(a); 
 //	C_OUT(b); 
@@ -44,6 +44,7 @@ int main()
 
 	//std::tuple<int,int,int,int,int> t1(1,3, 3,5,7);
 	std::tuple<int, int> t2(4, 2);
+	std::tuple<> t4();
 	std::tuple t3(3,t2,3,4);
 
 
@@ -53,21 +54,26 @@ int main()
 	//b->Receive<"Test">();
 	//b->a();
 	//b->a(2);
-
 	H h;
 
-	//Message<"Test">::Receive aa(&H::Hoge,&h);
+		//Message<"Test">::Receive aa(&H::Hoge,&h);
 
 
-	//Message<"Test">::Receive aaa(&H::Hoge, &h,t2);
+	Function_Address aaa(&H::Hoge3, &h,t4);
 	
-	S_Function_Select<std::tuple<int, int>, 0, decltype(&H::Hoge)>::Type a;
+	S_Function_Select<std::tuple<int>, 0, decltype(&H::Hoge), decltype(&H::Hoge3),decltype(t4), decltype(t4),int>::Type6::Type1:
+
+
+
+	//S_tuple_convertible_to_Access<std::tuple<int,i//nt>,std::tuple<int,int,std::tuple<>>>::Type0//::Type1::Type1::Type3::Type5:
 
 
 	//aaa.operator()();
 	C_OUT(typeid(
-		
-		S_Function_Select<std::tuple<>,0, decltype(&H::Hoge)>::Type::C_Name).name());
+
+		S_Function_Select<std::tuple<int>, 0, decltype(&aaa)>:
+	
+	).name());
 
 	//aaa.ffn(2);
 
