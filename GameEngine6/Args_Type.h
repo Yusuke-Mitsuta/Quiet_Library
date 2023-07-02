@@ -9,7 +9,7 @@
 //struct arg_type_impl
 //{
 //	template<unsigned int N>
-//	using Type = typename std::tuple_element<N, std::tuple<Args...>>::type;
+//	using Type = typename std::tuple_element<N, std::default_Args_Tuple<Args...>>::type;
 //};
 //
 //// 可変個引数テンプレート

@@ -11,8 +11,9 @@ void N_Core_Control::Add_Origin::Add_Child(Tower* manager_Tower, Base* material,
 	
 	material->parentage.Set_Manager(Get_Tower(), type);
 
+	material->parentage.Get_Tower()->this_Core = material;
+
 	manager_Tower->storge->Get_ChildList().emplace_back(
 		material->parentage.Get_Tower());
 
-	material->parentage.Get_Tower()->this_Core = material;
 }

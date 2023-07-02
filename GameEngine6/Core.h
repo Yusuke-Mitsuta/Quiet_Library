@@ -31,17 +31,6 @@ public:
 	}
 
 
-	template<class T>
-		requires derived_from<T, Message_Origin>
-	void Relay();
-
-	//template<>
-	void Receive<"Update">()
-	{
-		C_OUT("AB")
-	}
-
-
 };
 
 inline N_Core_Control::Parentage* Core<"Core">::Get_Parentage()
@@ -50,11 +39,3 @@ inline N_Core_Control::Parentage* Core<"Core">::Get_Parentage()
 }
 
 
-template<class T>
-	requires derived_from<T, Message_Origin>
-inline void Core<"Core">::Relay()
-{
-
-
-
-}

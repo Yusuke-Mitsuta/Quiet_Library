@@ -8,7 +8,17 @@ class Core<"Object">:
 	public Core<"Core">
 {
 public:
-	
-	void object(){}
+
+	void Test(int a,int b)
+	{
+		C_OUT("TEST");
+	}
+
+	//Message<"Test">::Receive<decltype(&Core::Test)> a = {&Core::Test, this};
+
+	Core()
+	{
+
+	}
 
 };

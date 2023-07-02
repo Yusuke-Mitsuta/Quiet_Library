@@ -1,5 +1,6 @@
 #pragma once
 #include<concepts>
+#include<tuple>
 
 template <bool t_Fg>
 concept Fg = t_Fg;
@@ -11,8 +12,8 @@ concept not_same_as = !(same_as<_Ty1, _Ty2>);
 
 using std::convertible_to;
 
-template <class _From, class _To>
-concept not_convertible_to = !(convertible_to<_From,_To>);
+template <class _From, class C_To>
+concept not_convertible_to = !(convertible_to<_From,C_To>);
 
 using std::derived_from;
 

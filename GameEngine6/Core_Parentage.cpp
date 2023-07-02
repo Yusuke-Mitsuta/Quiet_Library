@@ -41,6 +41,8 @@ void N_Core_Control::Parentage::Set_Manager(Tower* parent_Tower,E_Core_Type type
 		break;
 	}
 
+	Get_Tower()->type = type;
+
 	Get_Tower()->parent_Tower = parent_Tower;
 
 	Get_Tower()->Scene_Tower = Scene_Tower.Get_Tower();

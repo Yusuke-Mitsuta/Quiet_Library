@@ -47,7 +47,9 @@
     <ClInclude Include="Get_Scene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="Message_Receive.h" />
     <ClInclude Include="Message_Router.h" />
+    <ClInclude Include="Function.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />
@@ -57,6 +59,7 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="tuple_convertible_to.h" />
     <ClInclude Include="Type_Nameh.h" />
     <ClInclude Include="Using_Type.h" />
   </ItemGroup>
@@ -78,6 +81,7 @@
     <ClCompile Include="Manager_Origin.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Message_Router.cpp" />
+    <ClCompile Include="Function_Address.h" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Time.cpp" />

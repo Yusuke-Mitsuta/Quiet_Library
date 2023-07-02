@@ -162,6 +162,15 @@
     <ClInclude Include="Link.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Message_Receive.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple_convertible_to.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -232,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="Link.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Function_Address.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
