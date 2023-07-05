@@ -171,6 +171,9 @@
     <ClInclude Include="Function.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple_Agrs.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -244,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="Function_Address.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Agrs.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

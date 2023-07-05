@@ -25,10 +25,6 @@ namespace N_Core_Control
 		DONT_COPY(Manager_Origin)
 		Manager_Origin() {}
 
-
-		template<N_Constexpr::String t_Address = "", N_Constexpr::String t_Message = "">
-		void Order() {}
-
 	};
 
 	inline constexpr Tower*& N_Core_Control::Manager_Origin::Get_Tower()

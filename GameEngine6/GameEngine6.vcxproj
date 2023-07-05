@@ -59,6 +59,7 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="Tuple_Agrs.h" />
     <ClInclude Include="tuple_convertible_to.h" />
     <ClInclude Include="Type_Nameh.h" />
     <ClInclude Include="Using_Type.h" />
@@ -88,6 +89,7 @@
     <ClCompile Include="TimeControl.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="Tuple_Agrs.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

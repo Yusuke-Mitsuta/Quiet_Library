@@ -15,7 +15,8 @@
 #include"Message.h"
 #include"Message_Receive.h"
 #include"Function.h"
-
+#include"Tuple_Agrs.h"
+#include<type_traits>
 class H
 {
 public:
@@ -25,13 +26,21 @@ void Hoge()
 	//C_OUT(a); 
 //	C_OUT(b); 
 }
+
 void Hoge3(int a,int b)
+{
+}
+};
+template<class T, class U>
+	requires requires(T t)
+{
+	{typename T::tuple()};
+}
+void Hoge3(T a, U b)
 {
 	//C_OUT(a); 
 //	C_OUT(b); 
 }
-};
-
 template<class _Flom, class _To>
 requires std::same_as<std::true_type, typename S_tuple_convertible_to<_Flom, _To>::Type>
 void HHH(_Flom t, _To u)
@@ -41,16 +50,19 @@ void HHH(_Flom t, _To u)
 int main()
 {
 	
-
 	//std::tuple<int,int,int,int,int> t1(1,3, 3,5,7);
 	std::tuple<int, int> t2(4, 2);
-	std::tuple<> t4();
-	std::tuple t3(3,t2,3,4);
+	std::tuple<> t4;
+	std::tuple t3(3,t2,t4,3,4);
+
+	//Hoge3<std::tuple<int, int>, std::tuple<>>(t2, t4);
+
+	TYPE_ID(
+	I_S_TupleUnzip<decltype(t3)>::Type);
 
 
 	//HHH(t1, t3);
 
-	Core<"Object">* b = new Core<"Object">();
 	//b->Receive<"Test">();
 	//b->a();
 	//b->a(2);
@@ -59,9 +71,13 @@ int main()
 		//Message<"Test">::Receive aa(&H::Hoge,&h);
 
 
+
+
+
+
 	Function_Address aaa(&H::Hoge3, &h,t4);
 	
-	S_Function_Select<std::tuple<int>, 0, decltype(&H::Hoge), decltype(&H::Hoge3),decltype(t4), decltype(t4),int>::Type6::Type1:
+	//S_Function_Select<std::tuple<int>, 0, decltype(&H::Hoge), decltype(&H::Hoge3),decltype(t4), decltype(t4),int>
 
 
 
@@ -69,11 +85,11 @@ int main()
 
 
 	//aaa.operator()();
-	C_OUT(typeid(
+	//C_OUT(typeid(
 
-		S_Function_Select<std::tuple<int>, 0, decltype(&aaa)>:
-	
-	).name());
+	//	S_Function_Select<std::tuple<int>, 0, decltype(&aaa)>:
+	//
+	//).name());
 
 	//aaa.ffn(2);
 

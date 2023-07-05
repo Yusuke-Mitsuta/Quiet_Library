@@ -20,16 +20,6 @@ public:
 
 	N_Core_Control::Parentage* Get_Parentage()final;
 
-	template<N_Constexpr::String str>
-		requires requires
-	{
-		requires (N_Constexpr::String("Test") == str);
-	}
-	void Receive() 
-	{
-		C_OUT("ABV");
-	}
-
 
 };
 
