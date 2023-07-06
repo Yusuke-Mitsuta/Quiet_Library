@@ -27,9 +27,9 @@ struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, t_Fn, t_Fns...>
 };
 
 //指定引数あり、Function_Address
-template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...T_Args, class ...t_Set_Args, class ...t_Fns>
-	requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<Args..., t_Set_Args...>>
-struct S_Function_Select< std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(T_Args...), t_Set_Args...>,t_Fns...>
+template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...T_Args, class ...T_SetArgs, class ...t_Fns>
+	requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<Args..., T_SetArgs...>>
+struct S_Function_Select< std::tuple<Args...>, t_Fns_Number, S_Address<t_R_Type(t_C_Name::*)(T_Args...), T_SetArgs...>,t_Fns...>
 {
 	using Type2 = S_Function_Data<t_Fns_Number,t_C_Name,t_R_Type>;
 };
@@ -37,7 +37,7 @@ struct S_Function_Select< std::tuple<Args...>, t_Fns_Number, Function_Address<t_
 //指定引数なし、Function_Address
 template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...T_Args,class ...t_Fns>
 	requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<Args...>>
-struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(T_Args...)>, t_Fns...>
+struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, S_Address<t_R_Type(t_C_Name::*)(T_Args...)>, t_Fns...>
 {
 	using Type3 = S_Function_Data<t_Fns_Number, t_C_Name, t_R_Type>;
 	
@@ -46,7 +46,7 @@ struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, Function_Address<t_R
 //引数なし、Function_Address
 template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...t_Fns>
 	requires (sizeof...(Args) == 0)
-struct S_Function_Select< std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(void)>, t_Fns...>
+struct S_Function_Select< std::tuple<Args...>, t_Fns_Number, S_Address<t_R_Type(t_C_Name::*)(void)>, t_Fns...>
 {
 	using Type4 = S_Function_Data<t_Fns_Number, t_C_Name, t_R_Type>;
 };
@@ -66,7 +66,7 @@ struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, t_R_Type(t_C_Name::*
 {
 
 	//using Type = S_Function_Select<std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(T_Args...), Set_Args>, t_Fns...>::Type;
-	using Type6 = S_Function_Select<std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(T_Args...), Set_Args>, t_Fns...>;
+	using Type6 = S_Function_Select<std::tuple<Args...>, t_Fns_Number, S_Address<t_R_Type(t_C_Name::*)(T_Args...), Set_Args>, t_Fns...>;
 };
 
 template<class Args,class ...T_Fns>
@@ -85,7 +85,7 @@ class Function
 
 public:
 
-	template<class T,class ...t_Fns, std::make_integer_sequence<int, std::tuple_size<I_S_TupleUnzip<t_Fns...>::Type>::value> N=0>
+	template<class T,class ...t_Fns>//, std::make_integer_sequence<int, std::tuple_size<typename I_S_TupleUnzip<t_Fns...>::Type>::value> N=0>
 	constexpr Function(T* set_p, t_Fns ...set_Fns):
 		p(set_p), fns(set_Fns...) {}
 
@@ -104,11 +104,12 @@ public:
 	//	return std::invoke(std::forward<F>(f), std::get<I>(std::forward<Tuple>(t))...);
 	//}
 
-
 };
+
+
 //void f(Args&&... args) {
 	//hoge(std::forward<Args>(args)...);
 	// std::make_index_sequence<std::tuple_size_v<std::remove_reference_t<Tuple>>>
 //std::make_integer_sequence<int, 3>
-template<class T,class ...t_Fns>
-Function(T* set_p,t_Fns ...set_Fns) -> Function<T, typename std::tuple_element<0,typename I_S_TupleUnzip<t_Fns...>::Type>::type>;
+template<class T, class ...t_Fns>
+Function(T* set_p,t_Fns ...set_Fns) -> Function<T, typename I_S_TupleUnzip<t_Fns...>::Type>;
