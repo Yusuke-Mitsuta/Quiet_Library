@@ -43,7 +43,7 @@ public:
 
 
 template<class C_Name, class R_Type, class ...T_Args, class ...t_Set_Args>
-struct Function_Address<R_Type(C_Name::*)(T_Args...), t_Set_Args...>
+struct Function_Address<R_Type(C_Name::*)(T_Args...),std::tuple<t_Set_Args...>>
 {
 private:
 
@@ -55,22 +55,6 @@ private:
 
 public:
 
-	template<int Select_default_Args_Tuple_Number, class ...Args>
-	constexpr R_Type Function_Execution(Args... args)
-	{
-		return Function_Execution<Select_default_Args_Tuple_Number - 1, Args...>
-			(std::get<Select_default_Args_Tuple_Number>(default_Args_Tuple), args...);
-	}
-
-	template<int Select_default_Args_Tuple_Number, class ...Args>
-		requires Fg<(Select_default_Args_Tuple_Number == 0)>
-	constexpr R_Type Function_Execution(Args... args)
-	{
-		std::function<R_Type()> method = std::bind(fn, p,
-			std::get<Select_default_Args_Tuple_Number>(default_Args_Tuple), args...);
-
-		return method();
-	}
 
 	constexpr Function_Address(R_Type(C_Name::* set_Fn)(T_Args...), C_Name* set_P, t_Set_Args ...args) :
 		fn(set_Fn), p(set_P), default_Args_Tuple(args...) {}

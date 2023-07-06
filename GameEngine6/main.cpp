@@ -15,8 +15,14 @@
 #include"Message.h"
 #include"Message_Receive.h"
 #include"Function.h"
-#include"Tuple_Agrs.h"
+#include"Tuple_Unzip.h"
+#include"Function_Bind_Args.h"
 #include<type_traits>
+
+#include"Constexpr_Array.h"
+
+
+
 class H
 {
 public:
@@ -32,10 +38,6 @@ void Hoge3(int a,int b)
 }
 };
 template<class T, class U>
-	requires requires(T t)
-{
-	{typename T::tuple()};
-}
 void Hoge3(T a, U b)
 {
 	//C_OUT(a); 
@@ -47,14 +49,42 @@ void HHH(_Flom t, _To u)
 {
 }
 
+
+
+
+template<class T>
+struct Hoge
+{
+	T t=1;
+};
+
+
+
+
+
+
 int main()
 {
+
+	N_Constexpr::Array<int, 3> array_3(1,2,3);
+
+	N_Constexpr::Array<int, 7> array_7(1,2,3,4,5,6,7);
+
+	N_Constexpr::Array<int, 10> array_10(array_3,array_7);
+
+	
+	N_Function::I_S_BindArgs<decltype(&H::Hoge3), int, int>::Type;
+
+	
 	
 	//std::tuple<int,int,int,int,int> t1(1,3, 3,5,7);
 	std::tuple<int, int> t2(4, 2);
+	std::tuple<int, char> t6(4, 2);
+	std::tuple t5(t2, t6);
 	std::tuple<> t4;
-	std::tuple t3(3,t2,t4,3,4);
+	std::tuple t3(3,t2,t4,3,4,t5);
 
+	//I_S_Function_Select<t6> 
 	//Hoge3<std::tuple<int, int>, std::tuple<>>(t2, t4);
 
 	TYPE_ID(
@@ -75,7 +105,7 @@ int main()
 
 
 
-	Function_Address aaa(&H::Hoge3, &h,t4);
+	S_Address aaa(&H::Hoge3, &h,t4);
 	
 	//S_Function_Select<std::tuple<int>, 0, decltype(&H::Hoge), decltype(&H::Hoge3),decltype(t4), decltype(t4),int>
 

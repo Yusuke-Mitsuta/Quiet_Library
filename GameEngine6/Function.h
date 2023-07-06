@@ -1,10 +1,11 @@
 #pragma once
 #include"Function_Address.h"
 #include"Using_Type.h"
+
 #include"tuple_convertible_to.h"
+#include"Tuple_Unzip.h"
 
 template<class Args, int t_Fns_Number = 0, class ...t_Fns>
-	//requires (sizeof...(t_Fns) == 0)
 struct S_Function_Select
 {
 	using Type0 = bool;
@@ -63,32 +64,16 @@ struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, t_R_Type(t_C_Name::*
 template<class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...T_Args, class ...t_Fns>
 struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, t_R_Type(t_C_Name::*)(T_Args...), t_Fns...>
 {
-	template <int t_Set_Args_Num,class ...t_Fns>
-	struct S_Set_Args
-	{
-		using Type = S_Set_Args<t_Set_Args_Num, std::tuple<>,t_Fns...>::Type;
-	};
-
-	template <int t_Set_Args_Num, class... t_Set_Args, class t_Fn, class ...t_Fns>
-	struct S_Set_Args<t_Set_Args_Num, std::tuple<t_Set_Args...>, t_Fn, t_Fns...>
-	{
-		using Type = S_Set_Args<t_Set_Args_Num - 1, std::tuple<t_Set_Args..., t_Fn>, t_Fns...>::Type;
-	};
-
-	template <int t_Set_Args_Num, class... t_Set_Args, class ...t_Fns>
-		requires (t_Set_Args_Num < 0) || (sizeof...(t_Fns) == 0)
-	struct S_Set_Args<t_Set_Args_Num,std::tuple<t_Set_Args...>,t_Fns...>
-	{
-		using Type = std::tuple<t_Set_Args...>;
-	};
-
-	//template <int t_Set_Args_Num, class ...t_Fns>
-	using Set_Args = S_Set_Args<sizeof...(T_Args) - sizeof...(Args),t_Fns...>::Type;
 
 	//using Type = S_Function_Select<std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(T_Args...), Set_Args>, t_Fns...>::Type;
 	using Type6 = S_Function_Select<std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(T_Args...), Set_Args>, t_Fns...>;
 };
 
+template<class Args,class ...T_Fns>
+struct I_S_Function_Select
+{
+	using Type=S_Function_Select<I_S_TupleUnzip<Args>,>
+};
 
 
 template<class T, class ...t_Fns>
@@ -100,7 +85,8 @@ class Function
 
 public:
 
-	constexpr Function(T* set_p, t_Fns ...set_Fns) :
+	template<class T,class ...t_Fns, std::make_integer_sequence<int, std::tuple_size<I_S_TupleUnzip<t_Fns...>::Type>::value> N=0>
+	constexpr Function(T* set_p, t_Fns ...set_Fns):
 		p(set_p), fns(set_Fns...) {}
 
 
@@ -108,11 +94,21 @@ public:
 		//requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<t_Set_Args..., Args...>>
 	constexpr void operator()(Args ...args)
 	{
+		std::apply();
 		//Function_Execution<sizeof...(t_Set_Args) - 1>(args...);
 	}
 
-
+	//// C++17
+	//template<class F, class Tuple, size_t... I>
+	//constexpr decltype(auto) apply - impl(F && f, Tuple && t, std::index_sequence<I...>) {
+	//	return std::invoke(std::forward<F>(f), std::get<I>(std::forward<Tuple>(t))...);
+	//}
 
 
 };
-
+//void f(Args&&... args) {
+	//hoge(std::forward<Args>(args)...);
+	// std::make_index_sequence<std::tuple_size_v<std::remove_reference_t<Tuple>>>
+//std::make_integer_sequence<int, 3>
+template<class T,class ...t_Fns>
+Function(T* set_p,t_Fns ...set_Fns) -> Function<T, typename std::tuple_element<0,typename I_S_TupleUnzip<t_Fns...>::Type>::type>;

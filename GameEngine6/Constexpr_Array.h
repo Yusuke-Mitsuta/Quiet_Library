@@ -203,7 +203,11 @@ namespace N_Constexpr
 
 
 		template<Size_Type ref_Size = t_Size, class Array_T = T, class U, class ...V >
-			requires std::same_as< std::true_type, typename N_Array::Capacity<Array_T, ref_Size, U, V...>::Bool_Type>
+			requires std::same_as<std::true_type, typename N_Array::Capacity<Array_T, ref_Size, U, V...>::Bool_Type> &&
+			requires{
+			requires(N_Array::Capacity<Array_T, ref_Size, U, V...>::Size <= ref_Size);
+		}
+
 		constexpr Array(U u, V... v);
 
 		constexpr Array() {}
