@@ -2,9 +2,6 @@
 #include<tuple>
 #include"Concept.h"
 
-
-
-
 template<class T_Tuple, class T_UnzipTuple>
 struct S_TupleUnzip
 {

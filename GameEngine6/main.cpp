@@ -44,8 +44,8 @@ void Hoge3(T a, U b)
 //	C_OUT(b); 
 }
 template<class _Flom, class _To>
-requires std::same_as<std::true_type, typename S_tuple_convertible_to<_Flom, _To>::Type>
-void HHH(_Flom t, _To u)
+	requires tuple_back_part_convertible_to<_Flom, _To>
+void HHH()
 {
 }
 
@@ -66,17 +66,34 @@ struct Hoge
 int main()
 {
 
-	N_Constexpr::Array<int, 3> array_3(1,2,3);
+	//N_Constexpr::Array<int, 3> array_3(1,2,3);
 
-	N_Constexpr::Array<int, 7> array_7(1,2,3,4,5,6,7);
+	//N_Constexpr::Array<int, 7> array_7(1,2,3,4,5,6,7);
 
-	N_Constexpr::Array<int, 10> array_10(array_3,array_7);
+	//N_Constexpr::Array<int, 10> array_10(array_3,array_7);
 
-	
-	N_Function::I_S_BindArgs<decltype(&H::Hoge3), int, int>::Type;
+	//TYPE_ID(
+		//N_Function::I_S_BindArgs<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, float>::Type);
 
-	
-	
+	std::tuple<int, int> Int;
+	std::tuple<int, int> Intt;
+
+	//HHH<std::tuple<float, int>, std::tuple<int,int,int>>();
+
+	//HHH<std::tuple<int, int>, std::tuple<int, int,int>>();
+
+	//HHH<std::tuple<int, int, int>, std::tuple<int, int>>();
+
+
+
+	C_OUT(typeid(N_Function::I_S_BindArgs<decltype(&H::Hoge3), int,int,decltype(&H::Hoge3), int, int>::Judge).name())
+	//C_OUT(typeid(S_tuple_convertible_to_Access<
+	//	std::tuple<int, int>, std::tuple<int, int,int>>::BackPart
+	//	
+	//	).name())
+
+
+
 	//std::tuple<int,int,int,int,int> t1(1,3, 3,5,7);
 	std::tuple<int, int> t2(4, 2);
 	std::tuple<int, char> t6(4, 2);
@@ -105,7 +122,7 @@ int main()
 
 
 
-	S_Address aaa(&H::Hoge3, &h,t4);
+//	S_Address aaa(&H::Hoge3, &h,t4);
 	
 	//S_Function_Select<std::tuple<int>, 0, decltype(&H::Hoge), decltype(&H::Hoge3),decltype(t4), decltype(t4),int>
 
