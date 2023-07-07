@@ -1,93 +1,31 @@
 #pragma once
 #include"Function_Address.h"
+#include"Function_Bind_Args.h"
 #include"Using_Type.h"
 
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
 
-template<class Args, int t_Fns_Number = 0, class ...t_Fns>
-struct S_Function_Select
-{
-	using Type0 = bool;
-};
-
-template<int t_Fns_Number,class t_C_Name, class t_R_Type>
-struct S_Function_Data
-{
-	static constexpr int Fns_Number = t_Fns_Number;
-	using C_Name = t_C_Name;
-	using R_Type = t_R_Type;
-};
-
-template<class ...Args,int t_Fns_Number,class t_Fn, class ...t_Fns>
-struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, t_Fn, t_Fns...>
-{
-	//using Type = S_Function_Select<std::tuple<Args...>, t_Fns_Number + 1, t_Fns...>::Type;
-	using Type1 = S_Function_Select<std::tuple<Args...>, t_Fns_Number + 1, t_Fns...>;
-};
-
-//指定引数あり、Function_Address
-template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...T_Args, class ...T_SetArgs, class ...t_Fns>
-	requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<Args..., T_SetArgs...>>
-struct S_Function_Select< std::tuple<Args...>, t_Fns_Number, N_Function::S_Address<t_R_Type(t_C_Name::*)(T_Args...), T_SetArgs...>,t_Fns...>
-{
-	using Type2 = S_Function_Data<t_Fns_Number,t_C_Name,t_R_Type>;
-};
-
-//指定引数なし、Function_Address
-template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...T_Args,class ...t_Fns>
-	requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<Args...>>
-struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, N_Function::S_Address<t_R_Type(t_C_Name::*)(T_Args...)>, t_Fns...>
-{
-	using Type3 = S_Function_Data<t_Fns_Number, t_C_Name, t_R_Type>;
-	
-};
-
-//引数なし、Function_Address
-template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...t_Fns>
-	requires (sizeof...(Args) == 0)
-struct S_Function_Select< std::tuple<Args...>, t_Fns_Number, N_Function::S_Address<t_R_Type(t_C_Name::*)(void)>, t_Fns...>
-{
-	using Type4 = S_Function_Data<t_Fns_Number, t_C_Name, t_R_Type>;
-};
-
-//引数なし、アドレス直渡し
-template< class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...t_Fns>
-	requires (sizeof...(Args) == 0)
-struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, t_R_Type(t_C_Name::*)(void), t_Fns...>
-{
-	using Type5 = S_Function_Data<t_Fns_Number, t_C_Name, t_R_Type>;
-};
 
 
-//指定引数なし、アドレス直渡し
-template<class ...Args, int t_Fns_Number, class t_C_Name, class t_R_Type, class ...T_Args, class ...t_Fns>
-struct S_Function_Select<std::tuple<Args...>, t_Fns_Number, t_R_Type(t_C_Name::*)(T_Args...), t_Fns...>
-{
-
-	//using Type = S_Function_Select<std::tuple<Args...>, t_Fns_Number, Function_Address<t_R_Type(t_C_Name::*)(T_Args...), Set_Args>, t_Fns...>::Type;
-	//using Type6 = S_Function_Select<std::tuple<Args...>, t_Fns_Number, N_Function::S_Address<t_R_Type(t_C_Name::*)(T_Args...),>, t_Fns...>;
-};
-
-template<class Args,class ...T_Fns>
-struct I_S_Function_Select
-{
-	using Type = S_Function_Select<I_S_TupleUnzip<Args>,0, std::tuple<>>;
-};
 
 
-template<class T, class ...t_Fns>
+template<class T, class ...T_Fns>
 class Function
 {
 	T* p;
 
-	std::tuple<t_Fns...> fns;
+	std::tuple<T_Fns...> fns;
 
 public:
 
-	template<class T,class ...t_Fns>//, std::make_integer_sequence<int, std::tuple_size<typename I_S_TupleUnzip<t_Fns...>::Type>::value> N=0>
-	constexpr Function(T* set_p, t_Fns ...set_Fns):
-		p(set_p), fns(set_Fns...) {}
+	template<class T,class ...T_Fns>
+	constexpr Function(T* set_p,T_Fns ...setFns):
+		p(set_p)
+	{
+
+	
+	}
 
 
 	template<class ...Args>
@@ -106,10 +44,5 @@ public:
 
 };
 
-
-//void f(Args&&... args) {
-	//hoge(std::forward<Args>(args)...);
-	// std::make_index_sequence<std::tuple_size_v<std::remove_reference_t<Tuple>>>
-//std::make_integer_sequence<int, 3>
-template<class T, class ...t_Fns>
-Function(T* set_p,t_Fns ...set_Fns) -> Function<T, typename I_S_TupleUnzip<t_Fns...>::Type>;
+template<class T, class ...T_FnsDataBase>
+Function(T* set_p,T_FnsDataBase ...set_Fns) -> Function<T, typename N_Function::I_S_BindArgs<typename I_S_TupleUnzip<T_FnsDataBase...>::Type>::Type>;

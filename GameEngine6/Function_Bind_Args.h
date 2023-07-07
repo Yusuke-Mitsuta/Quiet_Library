@@ -69,7 +69,7 @@ namespace N_Function
 		template<class ...T_NewDefaultSetArgs, class ...T_Flont_Fn, class ...T_Fn_Args>
 		struct S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, S_Address<T_Flont_Fn...>, T_Fn_Args...>
 		{
-			using Type = S_BindArgsExecution <std::tuple<T_NewDefaultSetArgs...>, std::nullopt_t>::Type;
+			using Type = S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, std::nullopt_t>::Type;
 		};
 
 		using Type = S_BindArgsExecution<std::tuple<>,T_Fn_Args...>::Type;
