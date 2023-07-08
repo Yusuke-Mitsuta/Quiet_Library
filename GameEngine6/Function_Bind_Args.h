@@ -1,165 +1,108 @@
 #pragma once
 #include"Function_Address.h"
-#include<tuple>
 #include<optional>
-#include<utility>
 
 namespace N_Function
 {
-
-	template<class T_Fn_Args>
+	//仕様
+	//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
+	//
+	//テンプレート
+	//T_Fn_Args::関数ポインター、指定する引数、のパラメータパック
+	//
+	//補足
+	//T_Fn_Argsは関数ポインター、それに指定する引数、次の関数ポインター、となるようにする事
+	template<class ...T_Fn_Args>
 	struct IS_BindArgs
 	{
-	//private:
+	private:
 
-		
-		template<size_t _Index>
-		using tuple_element_type = std::tuple_element<_Index % std::tuple_size<T_Fn_Args>::value, T_Fn_Args>::type;
+		template<class ...T_Fn_Args>
+		struct S_BindArgs {};
 
-		template<int t_MethodNumber,class ...T_BoundFn>
-		struct S_BoundArgs
+		template<class C_Name, class R_Type, class ...T_Args, class ...T_Fn_Args>
+		struct S_BindArgs<R_Type(C_Name::*)(T_Args...), T_Fn_Args...>
 		{
-
-			template<class T_Args, int t_NextMethodNumber, class ...T_NewSetArgs>
-			struct S_BindArgs
-			{
-
-
-				static constexpr int a = t_MethodNumber;
-				static constexpr int b = t_NextMethodNumber;
-				static constexpr int c = std::tuple_size<T_Fn_Args>::value - 1;
-
-				using Type = S_BindArgs<tuple_element_type<t_NextMethodNumber + 1>, t_NextMethodNumber + 1, T_NewSetArgs..., T_Args>::Type;
-
-				using Bind = S_BoundArgs::End;
-
-				using End = S_BoundArgs::End;
-			};
-
-			template< class ...T_NewSetArgs>
-			struct S_BindArgs<tuple_element_type<0>, std::tuple_size<T_Fn_Args>::value, T_NewSetArgs...>
-			{
-				static constexpr int a = t_MethodNumber;
-				static constexpr int c = std::tuple_size<T_Fn_Args>::value - 1;
-				using Type = S_BindArgs<tuple_element_type<t_MethodNumber>, -1, T_NewSetArgs...>::End;
-			};
-
-			template<class C_Name, class R_Type, class ...T_Args,int t_NextMethodNumber, class ...T_NewSetArgs>
-				requires not_same_as<tuple_element_type<t_MethodNumber>,R_Type(C_Name::*)(T_Args...)> ||
-			tuple_back_part_convertible_to<std::tuple<T_NewSetArgs...>, std::tuple<T_Args...>>
-			struct S_BindArgs<R_Type(C_Name::*)(T_Args...), t_NextMethodNumber,T_NewSetArgs...>
-			{
-
-				static constexpr int a = t_MethodNumber;
-				static constexpr int b = t_NextMethodNumber;
-				static constexpr int c = std::tuple_size<T_Fn_Args>::value - 1;
-				using BoundArgs = S_BoundArgs<t_NextMethodNumber, T_BoundFn..., S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_NewSetArgs...>>>;
-
-				using Type = S_BindArgs<tuple_element_type<t_MethodNumber>, t_NextMethodNumber, T_NewSetArgs...>::Bind;
-
-				using Bind = BoundArgs::Type;
-
-				using End = BoundArgs::End;
-			};
-
-
-			template<class C_Name, class R_Type, class ...T_Args, class ...T_DefaultSetArgs, int t_NextMethodNumber, class ...T_NewSetArgs>
-				requires not_same_as<tuple_element_type<t_MethodNumber>, S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_DefaultSetArgs...>>> ||
-			tuple_back_part_convertible_to<std::tuple<T_NewSetArgs..., T_DefaultSetArgs...>, std::tuple<T_Args...>>
-			struct S_BindArgs<S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_DefaultSetArgs...>>, t_NextMethodNumber,T_NewSetArgs...>
-			{
-				using BoundArgs = S_BoundArgs<t_NextMethodNumber, T_BoundFn..., S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_NewSetArgs..., T_DefaultSetArgs...>>>;
-
-				using Type = S_BindArgs<tuple_element_type<t_MethodNumber>, t_NextMethodNumber, T_NewSetArgs...>::Bind;
-
-				using Bind = BoundArgs::Type;
-
-				using End = BoundArgs::End;
-			};
-
-
-			using Type = S_BindArgs<tuple_element_type<t_MethodNumber + 1>, t_MethodNumber + 1>::Type;
-
-			using End = S_BoundArgs;
-
-			using TupleType = std::tuple<T_BoundFn...>;
-
-			using Judge = std::bool_constant<!(t_MethodNumber - std::tuple_size<T_Fn_Args>::value)>;
+			using Type = S_BindArgs<S_Address
+				<R_Type(C_Name::*)(T_Args...), std::tuple<>>, T_Fn_Args...>::Type;
 		};
 
-		using Type = S_BoundArgs<0>::Type;
+		template<class ...T_Zip_Fn_Args, class ...T_Fn_Args>
+		struct S_BindArgs<std::tuple<T_Zip_Fn_Args...>, T_Fn_Args...>
+		{
+			using Type = S_BindArgs<T_Zip_Fn_Args..., T_Fn_Args...>::Type;
+		};
 
-		//using TupleType =Type::TupleType;
+		//仕様
+		//関数ポインターを指定し、引数を精査する
+		template< class C_Name, class R_Type, class ...T_Args, class ...T_DefaultSetArgs, class ...T_Fn_Args>
+		struct S_BindArgs<S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_DefaultSetArgs...>>, T_Fn_Args...>
+		{
+			using T_Method = R_Type(C_Name::*)(T_Args...);
 
-		//using Judge = Type::Judge;
+			template<class Args, class ...T_Fn_Args>
+			struct S_BindArgsExecution {};
+
+			//仕様
+			//指定した関数に対して、引数の型を集める
+			template<class ...T_NewDefaultSetArgs, class ...T_Fn_Args>
+			struct S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, std::nullopt_t, T_Fn_Args...>
+			{
+				using Type = S_BindArgsExecution;
+				using Judge = std::bool_constant<tuple_back_part_convertible_to<std::tuple<T_NewDefaultSetArgs..., T_DefaultSetArgs...>, std::tuple<T_Args...>>>;
+				using Tuple = std::tuple<T_Fn_Args..., S_Address<T_Method, std::tuple<T_NewDefaultSetArgs..., T_DefaultSetArgs...>>>;
+			};
+
+			//仕様
+			//指定した関数に対して、引数の型を集める
+			template<class ...T_NewDefaultSetArgs, class T_SetArgs, class ...T_Fn_Args>
+			struct S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, T_SetArgs, T_Fn_Args...>
+			{
+				using Type = S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs..., T_SetArgs>, T_Fn_Args...>::Type;
+			};
+
+			//仕様
+			//ヒットした関数ポインターをS_Address型に変換し、引数を集めるのを終了する。
+			template<class ...T_NewDefaultSetArgs, class C_Name, class R_Type, class ...T_Args, class ...T_Fn_Args>
+			struct S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, R_Type(C_Name::*)(T_Args...), T_Fn_Args...>
+			{
+				using Type = S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>,
+					S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<>>, T_Fn_Args...>::Type;
+			};
+
+			//仕様
+			//次の関数ポインターがヒットした際、指定した関数に対しての引数を集めるのを終了し、それが正しい型の引数か判定する
+			//その後ヒットした関数ポインターに対しての、引数を集めを開始する
+			template<class ...T_NewDefaultSetArgs, class ...T_Flont_Fn, class ...T_Fn_Args>
+				requires tuple_back_part_convertible_to<std::tuple<T_NewDefaultSetArgs..., T_DefaultSetArgs...>, std::tuple<T_Args...>>
+			struct S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, S_Address<T_Flont_Fn...>, T_Fn_Args...>
+			{
+				using Type = S_BindArgs<S_Address<T_Flont_Fn...>, T_Fn_Args...,
+					S_Address<T_Method, std::tuple<T_NewDefaultSetArgs..., T_DefaultSetArgs...>>>::Type;
+			};
+
+			//仕様
+			//指定した関数に対しての引数を集めるのを終了し、それが正しくない場合、処理を終了する
+			template<class ...T_NewDefaultSetArgs, class ...T_Flont_Fn, class ...T_Fn_Args>
+			struct S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, S_Address<T_Flont_Fn...>, T_Fn_Args...>
+			{
+				using Type = S_BindArgsExecution<std::tuple<T_NewDefaultSetArgs...>, std::nullopt_t>::Type;
+			};
+
+			using Type = S_BindArgsExecution<std::tuple<>, T_Fn_Args...>::Type;
+		};
+
+		using Type = S_BindArgs<T_Fn_Args..., std::nullopt_t>::Type;
+
+	public:
+		//仕様
+		//関数ポインター、引数の型をtupleのS_Address型にまとめた型が返る
+		using TupleType = Type::Tuple;
+
+		//仕様
+		//関数ポインター、引数の型をtupleのS_Address型にまとめた結果、成功どうか返る
+		using Judge = Type::Judge;
 
 	};
 
-
-
 }
-
-//template<size_t _Index>
-//using tuple_element_type = std::tuple_element<_Index% std::tuple_size<T_Fn_Args>::value, T_Fn_Args>::type;
-//
-//template<int t_MethodNumber, class ...T_BoundFn>
-//struct S_BoundArgs
-//{
-//
-//	template<class T_Args, int t_NextMethodNumber, class ...T_NewSetArgs>
-//	struct S_BindArgs
-//	{
-//
-//
-//		static constexpr int a = t_MethodNumber;
-//		static constexpr int b = t_NextMethodNumber;
-//		static constexpr int c = std::tuple_size<T_Fn_Args>::value - 1;
-//
-//		using Type2 = S_BindArgs<tuple_element_type<t_NextMethodNumber + 1>, t_NextMethodNumber + 1, T_NewSetArgs..., T_Args>;
-//
-//		using Bind2e = S_BoundArgs;
-//
-//		using End2e = S_BoundArgs;
-//	};
-//
-//	template< class ...T_NewSetArgs>
-//	struct S_BindArgs<tuple_element_type<0>, std::tuple_size<T_Fn_Args>::value, T_NewSetArgs...>
-//	{
-//		static constexpr int a = t_MethodNumber;
-//		static constexpr int b = t_NextMethodNumber;
-//		static constexpr int c = std::tuple_size<T_Fn_Args>::value - 1;
-//		using Type5e = S_BindArgs<tuple_element_type<t_MethodNumber>, -1, T_NewSetArgs...>;
-//	};
-//
-//	template<class C_Name, class R_Type, class ...T_Args, int t_NextMethodNumber, class ...T_NewSetArgs>
-//		requires not_same_as<tuple_element_type<t_MethodNumber>, R_Type(C_Name::*)(T_Args...)> ||
-//	tuple_back_part_convertible_to<std::tuple<T_NewSetArgs...>, std::tuple<T_Args...>>
-//		struct S_BindArgs<R_Type(C_Name::*)(T_Args...), t_NextMethodNumber, T_NewSetArgs...>
-//	{
-//
-//		static constexpr int a = t_MethodNumber;
-//		static constexpr int b = t_NextMethodNumber;
-//		static constexpr int c = std::tuple_size<T_Fn_Args>::value - 1;
-//		using BoundArgs = S_BoundArgs<t_NextMethodNumber, T_BoundFn..., S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_NewSetArgs...>>>;
-//
-//		using Type3b = S_BindArgs<tuple_element_type<t_MethodNumber>, t_NextMethodNumber, T_NewSetArgs...>;
-//
-//		using Bind3t = BoundArgs;
-//
-//		using End3e = BoundArgs;
-//	};
-//
-//
-//	template<class C_Name, class R_Type, class ...T_Args, class ...T_DefaultSetArgs, int t_NextMethodNumber, class ...T_NewSetArgs>
-//		requires not_same_as<tuple_element_type<t_MethodNumber>, S_Address<R_Type(C_Name::*)(T_Args...)>> ||
-//	tuple_back_part_convertible_to<std::tuple<T_NewSetArgs..., T_DefaultSetArgs...>, std::tuple<T_Args...>>
-//		struct S_BindArgs<S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_DefaultSetArgs...>>, t_NextMethodNumber, T_NewSetArgs...>
-//	{
-//		using BoundArgs = S_BoundArgs<t_NextMethodNumber, T_BoundFn..., S_Address<R_Type(C_Name::*)(T_Args...), std::tuple<T_NewSetArgs..., T_DefaultSetArgs...>>>;
-//
-//		using Type4b = S_BindArgs<tuple_element_type<t_MethodNumber>, t_NextMethodNumber, T_NewSetArgs...>;
-//
-//		using Bind4t = BoundArgs;
-//
-//		using End4e = BoundArgs;
-//	};

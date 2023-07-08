@@ -6,10 +6,6 @@
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
 
-
-
-
-
 template<class T, class ...T_Fns>
 class Function
 {
@@ -23,8 +19,6 @@ public:
 	constexpr Function(T* set_p,T_Fns ...setFns):
 		p(set_p)
 	{
-
-	
 	}
 
 
@@ -45,4 +39,4 @@ public:
 };
 
 template<class T, class ...T_FnsDataBase>
-Function(T* set_p,T_FnsDataBase ...set_Fns) -> Function<T, typename N_Function::I_S_BindArgs<typename I_S_TupleUnzip<T_FnsDataBase...>::Type>::Type>;
+Function(T* set_p,T_FnsDataBase ...set_Fns) -> Function<T, typename N_Function::IS_BindArgs<typename I_S_TupleUnzip<T_FnsDataBase...>::Type>::Type>;

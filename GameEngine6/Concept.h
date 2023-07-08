@@ -12,8 +12,8 @@ concept not_same_as = !(same_as<_Ty1, _Ty2>);
 
 using std::convertible_to;
 
-template <class _From, class C_To>
-concept not_convertible_to = !(convertible_to<_From,C_To>);
+template <class _From, class T_To>
+concept not_convertible_to = !(convertible_to<_From,T_To>);
 
 using std::derived_from;
 

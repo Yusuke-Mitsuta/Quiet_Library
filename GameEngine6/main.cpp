@@ -19,6 +19,9 @@
 #include"Function_Bind_Args.h"
 #include<type_traits>
 
+#include<tuple>
+#include<optional>
+#include<utility>
 #include"Constexpr_Array.h"
 
 
@@ -66,6 +69,10 @@ struct Hoge
 int main()
 {
 
+
+	auto a = std::make_index_sequence<5>();
+
+
 	//N_Constexpr::Array<int, 3> array_3(1,2,3);
 
 	//N_Constexpr::Array<int, 7> array_7(1,2,3,4,5,6,7);
@@ -73,21 +80,26 @@ int main()
 	//N_Constexpr::Array<int, 10> array_10(array_3,array_7);
 
 	//TYPE_ID(
-		//N_Function::I_S_BindArgs<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, float>::Type);
+		//N_Function::IS_BindArgs<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, float>::Type);
 
 	std::tuple<int, int> Int;
 	std::tuple<int, int> Intt;
 
-	//HHH<std::tuple<float, int>, std::tuple<int,int,int>>();
+	HHH<std::tuple<int, int>, std::tuple<int, int>>();
 
-	//HHH<std::tuple<int, int>, std::tuple<int, int,int>>();
+	HHH<std::tuple<float, int>, std::tuple<H(), int, int>>();
 
-	//HHH<std::tuple<int, int, int>, std::tuple<int, int>>();
+	//HHH<std::tuple<int, int,int>, std::tuple<int, int>>();
 
 
+	//IS_tuple_convertible_to<std::tuple<int, int,int>, std::tuple<H(),int>>::All:
 
-	C_OUT(typeid(N_Function::I_S_BindArgs<decltype(&H::Hoge3), int,int,decltype(&H::Hoge3), int, int>::Judge).name())
-	//C_OUT(typeid(S_tuple_convertible_to_Access<
+	
+		
+		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
+
+		C_OUT(typeid(N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Judge).name());
+	//C_OUT(typeid(IS_tuple_convertible_to<
 	//	std::tuple<int, int>, std::tuple<int, int,int>>::BackPart
 	//	
 	//	).name())
@@ -95,17 +107,19 @@ int main()
 
 
 	//std::tuple<int,int,int,int,int> t1(1,3, 3,5,7);
-	std::tuple<int, int> t2(4, 2);
-	std::tuple<int, char> t6(4, 2);
-	std::tuple t5(t2, t6);
-	std::tuple<> t4;
-	std::tuple t3(3,t2,t4,3,4,t5);
+	//std::tuple<int, int> t2(4, 2);
+	//std::tuple<int, char> t6(4, 2);
+	//std::tuple t5(t2, t6);
+	//std::tuple<> t4;
+	//std::tuple t3(3,t2,t4,3,4,t5);
 
 	//I_S_Function_Select<t6> 
 	//Hoge3<std::tuple<int, int>, std::tuple<>>(t2, t4);
 
-	TYPE_ID(
-	I_S_TupleUnzip<decltype(t3)>::Type);
+	C_OUT(typeid(std::make_index_sequence<5>()).name());
+
+	//TYPE_ID(std::make_index_sequence<5>);
+//	I_S_TupleUnzip<decltype(t3)>::Type);
 
 
 	//HHH(t1, t3);
@@ -128,7 +142,7 @@ int main()
 
 
 
-	//S_tuple_convertible_to_Access<std::tuple<int,i//nt>,std::tuple<int,int,std::tuple<>>>::Type0//::Type1::Type1::Type3::Type5:
+	//IS_tuple_convertible_to<std::tuple<int,i//nt>,std::tuple<int,int,std::tuple<>>>::Type0//::Type1::Type1::Type3::Type5:
 
 
 	//aaa.operator()();
