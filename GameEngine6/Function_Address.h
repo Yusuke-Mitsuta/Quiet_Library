@@ -62,7 +62,6 @@ namespace N_Function
 			requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<T_SetArgs..., Args...>>
 		constexpr R_Type operator()(Args ...args)
 		{
-			//Function_Execution<sizeof...(Set_Args) - 1>(args...);
 		}
 
 	};

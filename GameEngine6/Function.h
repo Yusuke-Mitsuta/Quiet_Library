@@ -19,6 +19,7 @@ public:
 	constexpr Function(T* set_p,T_Fns ...setFns):
 		p(set_p)
 	{
+
 	}
 
 

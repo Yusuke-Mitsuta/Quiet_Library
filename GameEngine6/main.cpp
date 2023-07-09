@@ -92,13 +92,14 @@ int main()
 	//HHH<std::tuple<int, int,int>, std::tuple<int, int>>();
 
 
-	//IS_tuple_convertible_to<std::tuple<int, int,int>, std::tuple<H(),int>>::All:
+	//IS_tuple_convertible_to<std::tuple<int, int,int>, std::tuple<H(),int>>::
 
 	
 		
 		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
+//	N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Type::Judge
 
-		C_OUT(typeid(N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Judge).name());
+	C_OUT(typeid(N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Type::Judge).name());
 	//C_OUT(typeid(IS_tuple_convertible_to<
 	//	std::tuple<int, int>, std::tuple<int, int,int>>::BackPart
 	//	
