@@ -21,6 +21,7 @@ public:
 	N_Core_Control::Parentage* Get_Parentage()final;
 
 
+
 };
 
 inline N_Core_Control::Parentage* Core<"Core">::Get_Parentage()

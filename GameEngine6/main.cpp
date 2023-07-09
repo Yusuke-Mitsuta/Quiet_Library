@@ -30,15 +30,28 @@ class H
 {
 public:
 
-void Hoge() 
-{ 
-	//C_OUT(a); 
-//	C_OUT(b); 
-}
+	void Hoge()
+	{
+		//C_OUT(a); 
+	//	C_OUT(b); 
+	}
 
-void Hoge3(int a,int b)
-{
-}
+	//template<class C_Name, class R_Type, class ...T_Args>
+	//template<class T>
+	void Hogege( void(H::*P)()) 
+	{
+		//TYPE_ID(P)
+	}
+
+
+	void Hoge3(int a, int b)
+	{
+		Hogege(&H::Hoge);
+	}
+
+
+
+
 };
 template<class T, class U>
 void Hoge3(T a, U b)
@@ -46,6 +59,7 @@ void Hoge3(T a, U b)
 	//C_OUT(a); 
 //	C_OUT(b); 
 }
+
 template<class _Flom, class _To>
 	requires tuple_back_part_convertible_to<_Flom, _To>
 void HHH()
@@ -55,19 +69,37 @@ void HHH()
 
 
 
-template<class T>
+template<class ...T>
 struct Hoge
 {
-	T t=1;
+
+	void hoge()
+	{
+		//TYPE_ID(T);
+	}
+
 };
 
+template<class T>
+struct Hoge<T*>
+{
+	void hoge()
+	{
+		TYPE_ID(T);
+		TYPE_ID(T);
+		TYPE_ID(T);
+	}
 
 
+};
 
+#include"ClassFunction.h"
 
 
 int main()
 {
+	Hoge<decltype(&H::Hoge3)> abs;
+	abs.hoge();
 
 
 	auto a = std::make_index_sequence<5>();
@@ -81,25 +113,43 @@ int main()
 
 	//TYPE_ID(
 		//N_Function::IS_BindArgs<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, float>::Type);
+	H iih;
+	iih.Hoge3(1,2);
 
-	std::tuple<int, int> Int;
-	std::tuple<int, int> Intt;
+	//TYPE_ID(decltype(&H::Hoge3));
+	std::tuple<int, int> Int(3,7);
+	std::tuple<float,char> Intt;
+	std::tuple<decltype(Int), decltype(Intt)> abcd;
 
 	HHH<std::tuple<int, int>, std::tuple<int, int>>();
 
-	HHH<std::tuple<float, int>, std::tuple<H(), int, int>>();
+	Hoge<decltype(abcd), decltype(abcd), decltype(Int)> atosti;
 
+	auto NNN= IS_TupleUnzip<decltype(Int)>::I_TupleUnzip(Int);
+	Function fn(&H::Hoge3,Int);
+	
+	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType
+
+
+	C_OUT(
+		typeid(N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType).name()
+
+	)
 	//HHH<std::tuple<int, int,int>, std::tuple<int, int>>();
 
 
 	//IS_tuple_convertible_to<std::tuple<int, int,int>, std::tuple<H(),int>>::
 
-	
-		
-		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
-//	N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Type::Judge
 
-	C_OUT(typeid(N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Type::Judge).name());
+		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
+	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
+
+
+//	N_Function::IS_BindArgs aaaa(tu);
+
+	C_OUT(
+		
+		typeid(N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Type::Judge).name());
 	//C_OUT(typeid(IS_tuple_convertible_to<
 	//	std::tuple<int, int>, std::tuple<int, int,int>>::BackPart
 	//	
@@ -120,7 +170,7 @@ int main()
 	C_OUT(typeid(std::make_index_sequence<5>()).name());
 
 	//TYPE_ID(std::make_index_sequence<5>);
-//	I_S_TupleUnzip<decltype(t3)>::Type);
+//	IS_TupleUnzip<decltype(t3)>::Type);
 
 
 	//HHH(t1, t3);
@@ -130,7 +180,7 @@ int main()
 	//b->a(2);
 	H h;
 
-		//Message<"Test">::Receive aa(&H::Hoge,&h);
+	//Message<"Test">::Receive aa(&H::Hoge,&h);
 
 
 
@@ -138,7 +188,7 @@ int main()
 
 
 //	S_Address aaa(&H::Hoge3, &h,t4);
-	
+
 	//S_Function_Select<std::tuple<int>, 0, decltype(&H::Hoge), decltype(&H::Hoge3),decltype(t4), decltype(t4),int>
 
 
@@ -171,8 +221,7 @@ int main()
 
 	//auto list = Engine::Get_Engine()->parentage.Get_Childs<Scene>();
 
-	
+
 	return 0;
 
 }
-	

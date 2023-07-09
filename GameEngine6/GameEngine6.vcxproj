@@ -25,6 +25,7 @@
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
+    <ClInclude Include="ClassFunction.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Concept.h" />
     <ClInclude Include="Constexpr_Array.h" />
@@ -84,7 +85,7 @@
     <ClCompile Include="Manager_Origin.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Message_Router.cpp" />
-    <ClCompile Include="Function_Address.h" />
+    <ClCompile Include="Function_BindFn.h" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Time.cpp" />

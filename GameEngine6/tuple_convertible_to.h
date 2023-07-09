@@ -1,6 +1,7 @@
 #pragma once
 #include<tuple>
 #include"Concept.h"
+#include"Using_Type.h"
 
 //仕様
 //tuple型の要素のが変換可能か、全体、前方、後方の三種類で判定する

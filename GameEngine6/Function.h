@@ -1,27 +1,27 @@
 #pragma once
-#include"Function_Address.h"
+#include"Function_BindFn.h"
 #include"Function_Bind_Args.h"
 #include"Using_Type.h"
 
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
 
-template<class T, class ...T_Fns>
+
+template<class T_Fn, class ...T_Args>
+	//requires same_as<std::true_type,typename N_Function::IS_BindFn<T_Fn, T_Args...>::Type::Judge>
 class Function
 {
-	T* p;
-
-	std::tuple<T_Fns...> fns;
-
 public:
 
-	template<class T,class ...T_Fns>
-	constexpr Function(T* set_p,T_Fns ...setFns):
-		p(set_p)
+	T_Fn fn;
+	std::tuple<T_Args...> args;
+
+	template<class T_Fn, class ...T_Args>
+	constexpr Function(T_Fn setFn,T_Args& ...setArgs):
+		fn(setFn),args(IS_TupleUnzip<T_Args...>::I_TupleUnzip(setArgs...))
 	{
-
+		
 	}
-
 
 	template<class ...Args>
 		//requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<t_Set_Args..., Args...>>
@@ -31,13 +31,26 @@ public:
 		//Function_Execution<sizeof...(t_Set_Args) - 1>(args...);
 	}
 
-	//// C++17
-	//template<class F, class Tuple, size_t... I>
-	//constexpr decltype(auto) apply - impl(F && f, Tuple && t, std::index_sequence<I...>) {
-	//	return std::invoke(std::forward<F>(f), std::get<I>(std::forward<Tuple>(t))...);
-	//}
+};
+
+template<class T_Fn, class ...T_Args>
+class Function<std::tuple<T_Fn,T_Args...>>
+{
+public:
+
+	T_Fn fn;
+	std::tuple<T_Args...> args;
+
+	template<class T_Fn, class ...T_Args>
+	constexpr Function(T_Fn setFn, T_Args& ...setArgs) :
+		fn(setFn), args(IS_TupleUnzip<T_Args...>::I_TupleUnzip(setArgs...))
+	{
+		
+	}
 
 };
 
-template<class T, class ...T_FnsDataBase>
-Function(T* set_p,T_FnsDataBase ...set_Fns) -> Function<T, typename N_Function::IS_BindArgs<typename I_S_TupleUnzip<T_FnsDataBase...>::Type>::Type>;
+
+//N_Function::IS_BindFn<T_Fn, T_Args...>
+template<class T_Fn, class ...T_Args>
+Function(T_Fn fn, T_Args& ...setArgs) -> Function<typename N_Function::IS_BindFn<T_Fn,T_Args...>::Type::FnType>;
