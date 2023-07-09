@@ -51,11 +51,11 @@ private:
 			return Type{tuple... };
 		}
 	};
+
 	static constexpr auto TupleUnzip(T_Tuple&... tuple)
 	{
 		End a;
 		return S_TupleUnzip<T_Tuple...,End>::TupleUnzip(tuple...,a);
-	
 	}
 
 public:
