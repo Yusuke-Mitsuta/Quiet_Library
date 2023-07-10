@@ -18,7 +18,7 @@ public:
 
 	template<class MT_Fn, class ...MT_Args>
 	constexpr Function(MT_Fn setFn,MT_Args... setArgs)
-		//:fn(setFn),args(IS_TupleUnzip<MT_Args...>::I_TupleUnzip(setArgs...))
+		:fn(setFn),args(IS_TupleUnzip<MT_Args...>::I_TupleUnzip(setArgs...))
 	{
 	}
 
@@ -33,9 +33,6 @@ public:
 };
 
 
-template<class MT_Fn, class ...MT_Args>
-Function(MT_Fn setFn, MT_Args... setArgs)-> Function<typename N_Function::IS_BindFn<MT_Fn, MT_Args...>::Type::FnType>;
-
 template<class T_Fn, class ...T_Args>
 class Function<std::tuple<T_Fn,T_Args...>>
 {
@@ -45,9 +42,13 @@ public:
 	std::tuple<T_Args...> args;
 
 	template<class MT_Fn, class ...MT_Args>
-	constexpr Function(MT_Fn setFn, MT_Args ...setArgs) :
-		fn(setFn), args(IS_TupleUnzip<MT_Args...>::I_TupleUnzip(setArgs...))
+	constexpr Function(MT_Fn setFn, MT_Args ...setArgs) 
+		: fn(setFn), args(IS_TupleUnzip<MT_Args...>::I_TupleUnzip(setArgs...))
 	{
+		//type_id(IS_TupleUnzip<MT_Args...>::I_TupleUnzip(std::forward<MT_Args>(setArgs)...))
 	}
 
 };
+
+template<class MT_Fn, class ...MT_Args>
+Function(MT_Fn setFn, MT_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn, MT_Args...>::Type::FnType>;

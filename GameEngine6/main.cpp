@@ -23,8 +23,22 @@
 #include<optional>
 #include<utility>
 #include"Constexpr_Array.h"
+#include"ClassFunction.h"
 
-
+std::string getLastPathComponent(std::string path) {
+	std::string r;
+	int p = 0;
+	for (int i = path.size() - 1; i > 0; i--)
+	{
+		if (path[i] == '\\')
+		{
+			p = i; break;
+		}
+	}
+	for (int i = p + 1; i < path.size(); i++)
+		r.push_back(path[i]);
+	return r;
+}
 
 class H
 {
@@ -69,38 +83,14 @@ void HHH()
 
 
 
-template<class ...T>
-struct Hoge
-{
-
-	void hoge()
-	{
-		//TYPE_ID(T);
-	}
-
-};
-
-template<class T>
-struct Hoge<T*>
-{
-	void hoge()
-	{
-		TYPE_ID(T);
-		TYPE_ID(T);
-		TYPE_ID(T);
-	}
 
 
-};
-
-#include"ClassFunction.h"
 
 
 int main()
 {
-	Hoge<decltype(&H::Hoge3)> abs;
-	abs.hoge();
 
+	
 
 	auto a = std::make_index_sequence<5>();
 
@@ -113,8 +103,7 @@ int main()
 
 	//TYPE_ID(
 		//N_Function::IS_BindArgs<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, float>::Type);
-	H iih;
-	iih.Hoge3(1,2);
+
 
 	//TYPE_ID(decltype(&H::Hoge3));
 	std::tuple<int, int> Int(3,7);
@@ -123,16 +112,15 @@ int main()
 
 	HHH<std::tuple<int, int>, std::tuple<int, int>>();
 
-	Hoge<decltype(abcd), decltype(abcd), decltype(Int)> atosti;
 
-	auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 5);
+	int Num = 6;
+	//auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 1);
 
-	//Function fn(&H::Hoge3, 2, 7);
+	Function fn(&H::Hoge3, 2, 7);
 	
 	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType
 
-
-	C_OUT(typeid(decltype(NNN)).name())
+	//C_OUT(typeid(decltype(NNN)).name())
 			//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType).name()
 
 	
@@ -145,7 +133,8 @@ int main()
 		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
 	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
 
-	Function b(&H::Hoge3,3,6);
+	Function b(&H::Hoge3,5,5);
+
 
 	//N_Function::IS_BindArgs aaaa(tu);
 
