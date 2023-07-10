@@ -118,8 +118,6 @@ namespace N_Function
 		//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
 		using Type = BoundArgs::Type;
 
-		//T_Fn_Args fns;
-
 		template<class MT_Fn_Args>
 		constexpr IS_BindArgs(MT_Fn_Args& t_Fn_Args)
 		{

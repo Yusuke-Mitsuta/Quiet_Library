@@ -125,16 +125,17 @@ int main()
 
 	Hoge<decltype(abcd), decltype(abcd), decltype(Int)> atosti;
 
-	auto NNN= IS_TupleUnzip<decltype(Int)>::I_TupleUnzip(Int);
-	Function fn(&H::Hoge3,Int);
+	auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 5);
+
+	//Function fn(&H::Hoge3, 2, 7);
 	
 	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType
 
 
-	C_OUT(
-		typeid(N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType).name()
+	C_OUT(typeid(decltype(NNN)).name())
+			//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType).name()
 
-	)
+	
 	//HHH<std::tuple<int, int,int>, std::tuple<int, int>>();
 
 
@@ -144,11 +145,11 @@ int main()
 		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
 	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
 
+	Function b(&H::Hoge3,3,6);
 
-//	N_Function::IS_BindArgs aaaa(tu);
+	//N_Function::IS_BindArgs aaaa(tu);
 
 	C_OUT(
-		
 		typeid(N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Type::Judge).name());
 	//C_OUT(typeid(IS_tuple_convertible_to<
 	//	std::tuple<int, int>, std::tuple<int, int,int>>::BackPart
