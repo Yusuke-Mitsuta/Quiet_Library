@@ -5,73 +5,67 @@
 template<class ...T_Tuple>
 struct IS_TupleUnzip
 {
-	using Type = IS_TupleUnzip<std::tuple<T_Tuple...>>::Type;
 
-	static constexpr auto I_TupleUnzip(T_Tuple&... tuple)
-	{
-		return IS_TupleUnzip<std::tuple<T_Tuple...>>::I_TupleUnzip(tuple...);
-	}
-};
-
-template<template<class...>class Base, class ...T_Tuple>
-struct IS_TupleUnzip<Base<T_Tuple...>>
-{
-private:
-	template<class T_Flont_Type,class ...T_Tuple>
+	template<int t_Number,class T_Flont_Type, class ...T_Tuple>
 	struct S_TupleUnzip
 	{
-		using Type = S_TupleUnzip<T_Tuple..., T_Flont_Type>::Type;
+		using Type = S_TupleUnzip<t_Number+1,T_Tuple..., T_Flont_Type>::Type;
 
-		static constexpr auto TupleUnzip(T_Flont_Type& flont, T_Tuple&... tuple)
+		template<class T,class MT_FlontType,class ...MT_Tuple>
+		static constexpr void TupleUnzip(T& set_Tuple, MT_FlontType& flont, MT_Tuple&... tuple)
 		{
-			return S_TupleUnzip<T_Tuple..., T_Flont_Type>::
-				TupleUnzip(tuple...,flont);
+			std::get<t_Number>(set_Tuple) = flont;
+			C_OUT(t_Number)
+			S_TupleUnzip<t_Number+1,T_Tuple..., T_Flont_Type>::TupleUnzip(set_Tuple,tuple...);
+		}
+		static constexpr void TupleUnzip()
+		{}
+	};
+
+	template<int t_Number,class ...T_TupleInside, class ...T_Tuple>
+	struct S_TupleUnzip<t_Number,std::tuple<T_TupleInside...>, T_Tuple...>
+	{
+		using Type = S_TupleUnzip<t_Number+1,T_TupleInside..., T_Tuple...>::Type;
+
+		template<size_t ...N, class MT_FlontType, class ...MT_Tuple>
+		static constexpr void TupleUnzip(auto& set_Tuple,std::integer_sequence<size_t,N...> , MT_FlontType& flont_Tuple, MT_Tuple&... tuple)
+		{
+			//type_id(std::get<t_Number>(flont_Tuple))
+			S_TupleUnzip<t_Number,T_TupleInside..., T_Tuple...>::TupleUnzip(set_Tuple, std::get<N>(flont_Tuple)..., tuple...);
+		}
+		
+		template<class MT_FlontType, class ...MT_Tuple>
+		static constexpr void TupleUnzip(auto& set_Tuple, MT_FlontType& flont_Tuple, MT_Tuple&... tuple)
+		{
+			S_TupleUnzip<t_Number, std::tuple<T_TupleInside...>,T_Tuple...>::TupleUnzip(set_Tuple,std::make_index_sequence<sizeof...(T_TupleInside)>(),flont_Tuple,tuple...);
 		}
 	};
 
-	template<class ...T_TupleInside,class ...T_Tuple>
-	struct S_TupleUnzip<std::tuple<T_TupleInside...>,T_Tuple...>
+	template<int t_Number,class ...T_Tuple>
+	struct S_TupleUnzip<t_Number,End, T_Tuple...>
 	{
-		using Type = S_TupleUnzip<T_TupleInside...,T_Tuple...>::Type;
+		using Type = std::tuple<T_Tuple...>;
 
-		static constexpr auto TupleUnzip(T_TupleInside&... flont_Tuple, T_Tuple&... tuple)
-		{
-			return S_TupleUnzip<T_TupleInside..., T_Tuple...>::
-				TupleUnzip(flont_Tuple...,tuple...);
-		}
+		static constexpr void TupleUnzip(auto& set_Tuple)
+		{}
 	};
 
-	template<class ...T_Tuple>
-	struct S_TupleUnzip<End, T_Tuple...>
+	using Type = S_TupleUnzip<0,T_Tuple..., End>::Type;
+
+
+	Type tuple;
+
+	constexpr IS_TupleUnzip(T_Tuple&... set_Tuple)
 	{
-		using Type = Base<T_Tuple...>;
-
-		static constexpr Type TupleUnzip(End& nullopt, T_Tuple&... tuple)
-		{
-			return Type{tuple... };
-		}
-	};
-
-
-public:
-	static constexpr auto I_TupleUnzip(T_Tuple&... tuple)
-	{
-		End a;
-		return S_TupleUnzip<T_Tuple..., End>::TupleUnzip(tuple..., a);
+		S_TupleUnzip<0, T_Tuple..., End>::TupleUnzip(tuple, set_Tuple...);
 	}
 
-private:
-	static constexpr auto TupleUnzip(T_Tuple&... tuple)
+	constexpr operator Type()
 	{
-		End a;
-		return S_TupleUnzip<T_Tuple..., End>::TupleUnzip(tuple..., a);
-	}
-public:
-	static constexpr auto I_TupleUnzip(Base<T_Tuple...>& tuple)
-	{
-		return std::apply(&IS_TupleUnzip::TupleUnzip, tuple);
+		return tuple;
 	}
 
 
-	using Type = S_TupleUnzip<T_Tuple..., End>::Type;
+
+
 };

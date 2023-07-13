@@ -27,8 +27,8 @@
 
 std::string getLastPathComponent(std::string path) {
 	std::string r;
-	int p = 0;
-	for (int i = path.size() - 1; i > 0; i--)
+	size_t p = 0;
+	for (size_t i = path.size() - 1; i > 0; i--)
 	{
 		if (path[i] == '\\')
 		{
@@ -81,42 +81,37 @@ void HHH()
 }
 
 
+template<class ...T>
+class Ho
+{
 
+public:
 
-
-
+	template<class ...U>
+	Ho(U&&... num)
+	{
+		C_OUT(num);
+		type_id(num);
+	}
+};
+template<class ...U>
+Ho(U&&... a) -> Ho<U&&...>;
 
 
 int main()
 {
-
-	
-
-	auto a = std::make_index_sequence<5>();
-
-
-	//N_Constexpr::Array<int, 3> array_3(1,2,3);
-
-	//N_Constexpr::Array<int, 7> array_7(1,2,3,4,5,6,7);
-
-	//N_Constexpr::Array<int, 10> array_10(array_3,array_7);
-
-	//TYPE_ID(
-		//N_Function::IS_BindArgs<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, float>::Type);
-
-
 	//TYPE_ID(decltype(&H::Hoge3));
 	std::tuple<int, int> Int(3,7);
-	std::tuple<float,char> Intt;
-	std::tuple<decltype(Int), decltype(Intt)> abcd;
+	std::tuple<float,char> Intt(3,'8');
+	std::tuple abcd(Int,Intt);
 
 	HHH<std::tuple<int, int>, std::tuple<int, int>>();
 
-
-	int Num = 6;
+	
+	int i = 9;
 	//auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 1);
 
-	Function fn(&H::Hoge3, 2, 7);
+	//Function fn(&H::Hoge3, 2, 7);
 	
 	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType
 
@@ -129,17 +124,34 @@ int main()
 
 	//IS_tuple_convertible_to<std::tuple<int, int,int>, std::tuple<H(),int>>::
 
+	//IS_TupleUnzip<decltype(abcd), decltype(abcd)>::Type t;
+
+	IS_TupleUnzip t(abcd, abcd);
+
+	//TYPE_ID(IS_TupleUnzip<decltype(abcd)>::Type);
+	type_id(t)
 
 		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
 	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
+	//IS_TupleUnzip tuo(3,Num);
+	
+	//IS_TupleUnzip a(3,4,i);
 
+
+	
 	Function b(&H::Hoge3,5,5);
+	Function ab(&H::Hoge3,Int);
 
+	//N_Function::IS_BindFns<std::tuple<decltype(&H::Hoge3),
+	//	int, int, decltype(&H::Hoge3), int, int>>::Type::
+	//C_OUT(
+		//typeid(
+		//N_Function::IS_BindFns<std::tuple<decltype(&H::Hoge3),
+		//int, int, decltype(&H::Hoge3), int, int>>::Type::Fns).name())
+	//N_Function::IS_BindFns aaaa(tu);
 
-	//N_Function::IS_BindArgs aaaa(tu);
+			
 
-	C_OUT(
-		typeid(N_Function::IS_BindArgs<std::tuple<decltype(&H::Hoge3), int, int, decltype(&H::Hoge3), int, int>>::Type::Judge).name());
 	//C_OUT(typeid(IS_tuple_convertible_to<
 	//	std::tuple<int, int>, std::tuple<int, int,int>>::BackPart
 	//	
@@ -156,8 +168,6 @@ int main()
 
 	//I_S_Function_Select<t6> 
 	//Hoge3<std::tuple<int, int>, std::tuple<>>(t2, t4);
-
-	C_OUT(typeid(std::make_index_sequence<5>()).name());
 
 	//TYPE_ID(std::make_index_sequence<5>);
 //	IS_TupleUnzip<decltype(t3)>::Type);

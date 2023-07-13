@@ -33,6 +33,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Core_Control_Tower.h" />
     <ClInclude Include="Core_Base.h" />
+    <ClInclude Include="FunctionMultiple.h" />
     <ClInclude Include="Function_Bind_Args.h" />
     <ClInclude Include="Function_Select.h" />
     <ClInclude Include="Link.h" />

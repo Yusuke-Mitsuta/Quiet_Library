@@ -37,7 +37,6 @@ public:
 		using Type = S_tuple_convertible_to<t_TupleFinishNumber,t_TupleFlomNumber+1, t_TupleToNumber+1>::Type;
 	};
 
-
 	//仕様
 	//tuple型の要素の変換可能か判定する
 	using All = S_tuple_convertible_to<std::tuple_size<T_To>::value>::Type;
