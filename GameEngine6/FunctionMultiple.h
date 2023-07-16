@@ -25,6 +25,3 @@ public:
 	}
 
 };
-
-//template<class ...MT_Fn>
-//FunctionMultiple(MT_Fn... fn)->FunctionMultiple<N_Function::IS_BindFns>

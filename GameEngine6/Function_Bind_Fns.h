@@ -44,7 +44,7 @@ namespace N_Function
 
 				static auto Bind(T_Fn_Args&& t_Fn_Args)
 				{
-					C_OUT("TEST");
+					C_OUT("TEST")
 					return 0;
 				}
 			};
@@ -57,12 +57,12 @@ namespace N_Function
 				using T_Fn = R_Type(C_Name::*)(T_Args...);
 				//仕様
 				//引数が後方一致するか判定する
-				using Fn = IS_BindFn<Function<T_Fn>, T_NewSetArgs...>::Type;
+				using Fn = IS_BindFn<Function<T_Fn, T_NewSetArgs...>>::Type;
 				//仕様
 				//引数が後方一致しない、若しくは最後の関数なら格納を終了に移行する
 				//一致するなら、格納を継続する
 
-				using Type = S_BoundFns<t_NextNumber* Fn::Judge::value, t_NextNumber,typename Fn::FnType,T_Bounds...>::Type;
+				using Type = S_BoundFns<t_NextNumber* Fn::Judge::value, t_NextNumber,Fn::FnType,T_Bounds...>::Type;
 
 			};
 
@@ -73,12 +73,12 @@ namespace N_Function
 			{	
 				//仕様
 				//引数が後方一致するか判定する
-				using Fn = IS_BindFn<Function<T_Fn...>, T_NewSetArgs...>::Type;
+				using Fn = IS_BindFn<Function<T_Fn...,T_NewSetArgs...>>::Type;
 
 				//仕様
 				//引数が後方一致しない、若しくは最後の関数なら格納を終了に移行する
 				//一致するなら、格納を継続する
-				using Type = S_BoundFns<t_NextNumber* Fn::Judge::value,t_NextNumber,typename Fn::FnType,T_Bounds...>::Type;
+				using Type = S_BoundFns<t_NextNumber* Fn::Judge::value,t_NextNumber,Fn::FnType,T_Bounds...>::Type;
 			};
 
 
@@ -118,12 +118,13 @@ namespace N_Function
 		using BoundFns = S_BoundFns<std::tuple_size<T_Fn_Args>::value>;
 
 		//仕様
-		//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
-		//using Type = BoundFns::Type;
+		//関数ポインターに対して、引数の値が正しいか、後方一致で判定す
 		using Type = BoundFns::Type;
 
 
 	};
+
+
 
 	//template<class ...MT_Fns>
 	//IS_BindFns(MT_Fns... fns)

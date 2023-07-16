@@ -13,8 +13,12 @@ class Function
 protected:
 	constexpr Function() {}
 public:
+
 	template<class MT_Fn, class ...MT_Args>
 	constexpr Function(MT_Fn setFn, MT_Args... setArgs) {}
+
+	//template<class MT_Fn, class ...MT_Args>
+	//constexpr Function(std::tuple<MT_Fn,MT_Args...> setFn) {}
 };
 
 template<class T_Fn, class ...T_Args>
@@ -28,6 +32,9 @@ public:
 	template<class MT_Fn, class ...MT_Args>
 	constexpr Function(MT_Fn setFn, MT_Args ...setArgs)
 		:fn(setFn),args(IS_TupleUnzip(setArgs...)){}
+
+	template<class MT_Fn, class ...MT_Args>
+	constexpr Function(std::tuple<MT_Fn, MT_Args...> setFn){}
 
 };
 
