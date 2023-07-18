@@ -24,14 +24,14 @@ namespace N_Function
 		static constexpr int tuple_size = std::tuple_size<T_Tuple>::value;
 
 		template<int _Index>
-		using tuple_element = std::tuple_element<
+		using reverse_tuple_element = std::tuple_element<
 			tuple_size - _Index, T_Tuple>::type;
 
 		//仕様
 		//引数のバインド済み関数ポインターを格納し、最後の関数なら格納処理を終了する
 		//
 		//テンプレート
-		//t_TupleNumber::現在、精査したタプルの要素数
+		//t_MethodTupleNumber::現在、精査したタプルの要素数
 		//...T_BoundFns::引数のバインド済み関数ポインター
 		//補足
 		//t_TupleNumberは後ろから何番目にアクセスするかを示す
@@ -40,38 +40,72 @@ namespace N_Function
 		{
 			//仕様
 			//関数ポインターに対して引数をセットする
-			template<class T_Args, int t_TupleNumber=0, int ...t_ArgsNumber>
+			template<class T_Args, int t_TupleNumber = 0, int ...t_ArgsNumber>
 			struct S_BindFns
 			{
-				using Type = S_BindFns<tuple_element<t_TupleNumber + 1>, t_TupleNumber + 1, t_TupleNumber, t_ArgsNumber...>::Type;
+				using Type = S_BindFns<reverse_tuple_element<t_TupleNumber + 1>, t_TupleNumber + 1, t_TupleNumber, t_ArgsNumber...>::Type;
+
+				void BindFns(auto& inputTuple, T_Tuple& outputTuple)
+				{
+					
+				}
 			};
 
 			//仕様
 			//Functionに対して引数をセットする
-			template<class T_CName, class T_RType, class ...T_Args, int t_TupleNumber, int ...t_ArgsNumber>
-			struct S_BindFns<T_RType(T_CName::*)(T_Args...), t_TupleNumber, t_ArgsNumber...>
+			template<class T_CName, class T_RType, class ...T_Args, int t_MethodTupleNumber, int ...t_ArgsNumber>
+			struct S_BindFns<T_RType(T_CName::*)(T_Args...), t_MethodTupleNumber, t_ArgsNumber...>
 			{
-				static constexpr bool judge = tuple_back_part_convertible_to<std::tuple<tuple_element<t_ArgsNumber>...>, std::tuple<T_Args...>>;
+				static constexpr bool judge = tuple_back_part_convertible_to<std::tuple<reverse_tuple_element<t_ArgsNumber>...>, std::tuple<T_Args...>>;
 
-				using Type =
-					S_BoundFns<(t_TupleNumber + 1)* judge,
-					Function<std::tuple<T_RType(T_CName::*)(T_Args...), tuple_element<t_ArgsNumber>...>>,
+				using Type = 
+					S_BoundFns<(t_MethodTupleNumber + 1) * judge,
+					Function<std::tuple<T_RType(T_CName::*)(T_Args...), reverse_tuple_element<t_ArgsNumber>...>>,
 					T_BoundFns...>::Type;
+
+				template<size_t ...N>
+				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple,std::index_sequence<N...>)
+				{
+					std::get<std::tuple_size<decltype(inputTuple)>::value - 1 - sizeof...(T_BoundFns)>(inputTuple) =
+						Function(std::tuple(std::get<tuple_size - t_TupleNumber - N>(outputTuple)...));
+				}
+
+				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple)
+				{
+					S_BindFns::BindFns(inputTuple, outputTuple, std::make_index_sequence<t_MethodTupleNumber - t_TupleNumber>());
+				}
 			};
 
 			//仕様
 			//Functionに対して引数をセットする
-			template<class T_CName, class T_RType, class ...T_Args, class ...T_DefaultSetArgs, int t_TupleNumber, int ...t_ArgsNumber>
-			struct S_BindFns<Function<std::tuple<T_RType(T_CName::*)(T_Args...), T_DefaultSetArgs...>>, t_TupleNumber, t_ArgsNumber...>
+			template<class ...T_Fn_Args,int t_MethodTupleNumber, int ...t_ArgsNumber>
+			struct S_BindFns<Function<T_Fn_Args...>, t_MethodTupleNumber, t_ArgsNumber...>
 			{
-				static constexpr bool judge = tuple_back_part_convertible_to<std::tuple<tuple_element<t_ArgsNumber>..., T_DefaultSetArgs...>,std::tuple<T_Args...>>;
 
-				using Type = S_BoundFns<(t_TupleNumber + 1)* judge,
-					Function<std::tuple<T_RType(T_CName::*)(T_Args...), tuple_element<t_ArgsNumber>..., T_DefaultSetArgs...>>,
+				//メモ
+				//Defaultの引数と設定した引数を分ける
+				static constexpr bool judge = tuple_back_part_convertible_to<typename 
+					IS_TupleUnzip<std::tuple<reverse_tuple_element<t_ArgsNumber>..., Function<T_Fn_Args...>::Args>>::Type,std::tuple<T_Args...>>;
+
+				using Type = S_BoundFns<(t_MethodTupleNumber + 1)* judge,
+					Function<Function<T_Fn_Args...>,reverse_tuple_element<t_ArgsNumber>...>,
 					T_BoundFns...>::Type;
+
+				template<size_t ...N>
+				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple, std::index_sequence<N...>)
+				{
+					std::get<std::tuple_size<decltype(inputTuple)>::value - 1 - sizeof...(T_BoundFns)>(inputTuple) =
+						Function(std::tuple(std::get<tuple_size - t_TupleNumber - N>(outputTuple)...));
+				}
+
+				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple)
+				{
+					S_BindFns::BindFns(inputTuple, outputTuple, std::make_index_sequence<t_MethodTupleNumber - t_TupleNumber>());
+				}
+
 			};
 
-			using Type = S_BindFns<tuple_element<t_TupleNumber>, t_TupleNumber>::Type;
+			using Type = S_BindFns<reverse_tuple_element<t_TupleNumber>, t_TupleNumber>::Type;
 		};
 
 		//仕様
@@ -98,9 +132,12 @@ namespace N_Function
 		using Judge = Type::Judge;
 		using FnsType = Type::FnsType;
 
-		//FnsType fns;
+		FnsType fns;
 
-		//IS_BindFns(T_Fn_Args... fn_Args){}
+		IS_BindFns(T_Fn_Args... fn_Args)
+		{
+			S_BoundFns<1>::BindFns(IS_TupleUnzip(fn_Args...));
+		}
 
 	};
 }

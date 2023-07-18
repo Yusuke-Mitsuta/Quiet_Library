@@ -68,6 +68,11 @@ public:
 	}
 
 
+	void Hoge5(int a,int b,int c,int d,int e)
+	{
+
+	}
+
 
 
 };
@@ -139,17 +144,17 @@ int main()
 
 	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int, int>::Type::Judge;
 
-	C_OUT(typeid(
+	/*C_OUT(typeid(
 		N_Function::IS_BindFns<
 		decltype(&H::Hoge3), int, int,
-		decltype(&H::Hoge),
+		decltype(&H::Hoge),0
 		decltype(&H::Hoge3), int,int,int
 
 		>::Type
-	).name());
+	).name());*/
 
 
-	FunctionMultiple aaa(f0,f2);
+	//FunctionMultiple aaa(f0,f2);
 
 	//auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 1);
 
@@ -173,8 +178,13 @@ int main()
 	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
 
 	
-	Function b(&H::Hoge3,5,5);
+	Function b(&H::Hoge5,1);
 	Function ab(&H::Hoge3,Int);
+
+
+	//Function<Function<Function<Function<decltype(b), int>,int>,int>,int>::Args
+
+	C_OUT(typeid(Function<Function<Function<Function<decltype(b), int>, int>, int>, int>::Args).name());
 
 	return 0;
 
