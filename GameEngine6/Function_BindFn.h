@@ -5,11 +5,17 @@
 #include"Concept.h"
 #include"main.h"
 #include"tuple_convertible_to.h"
+
 #include"Tuple_Unzip.h"
 
+namespace N_Function
+{
+	template<class ...T_Args>
+	struct IS_BindFn;
+}
 
-//template<class T_Fn, class ...T_Args>
-//class Function;
+template<class T_Fn, class ...T_Args>
+class Function;
 
 namespace N_Function
 {
@@ -20,7 +26,7 @@ namespace N_Function
 		struct S_BindFn
 		{
 			using Type = S_BindFn;
-			using FnType = std::tuple<T_Args...>;
+			using FnType = std::nullopt_t;
 			using Judge = std::false_type;
 		};
 
@@ -39,9 +45,10 @@ namespace N_Function
 			using Judge = std::true_type;
 		};
 
-		template<template<class...> class T_Function ,class T_CName, class T_RType, class ...T_Args, class ...T_DefaultSetArgs, class ...T_SetArgs>
+		template<class T_CName, class T_RType, class ...T_Args, class ...T_DefaultSetArgs, class ...T_SetArgs>
+
 			requires tuple_back_part_convertible_to<std::tuple<T_SetArgs..., T_DefaultSetArgs...>, std::tuple<T_Args...>>
-		struct S_BindFn<T_Function<T_RType(T_CName::*)(T_Args...), T_DefaultSetArgs...>, T_SetArgs...>
+		struct S_BindFn<Function<T_RType(T_CName::*)(T_Args...), T_DefaultSetArgs...>, T_SetArgs...>
 		{
 			using Type = S_BindFn;
 			using FnType= std::tuple<T_RType(T_CName::*)(T_Args...), T_SetArgs..., T_DefaultSetArgs...>;
@@ -50,6 +57,9 @@ namespace N_Function
 		};
 
 		using Type = S_BindFn<typename IS_TupleUnzip<T_Args...>::Type>::Type;
+
+		using FnType = Type::FnType;
+		using Judge = Type::Judge;
 
 	};
 

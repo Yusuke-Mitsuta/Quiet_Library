@@ -16,7 +16,7 @@
 #include"Message_Receive.h"
 #include"Function.h"
 #include"Tuple_Unzip.h"
-#include"Function_Bind_Args.h"
+#include"FunctionMultiple.h"
 #include<type_traits>
 
 #include<tuple>
@@ -24,6 +24,7 @@
 #include<utility>
 #include"Constexpr_Array.h"
 #include"ClassFunction.h"
+#include"Function_Bind_Fns.h"
 
 std::string getLastPathComponent(std::string path) {
 	std::string r;
@@ -57,10 +58,13 @@ public:
 		//TYPE_ID(P)
 	}
 
+	void Hoge4(int a)
+	{
+	}
+
 
 	void Hoge3(int a, int b)
 	{
-		Hogege(&H::Hoge);
 	}
 
 
@@ -97,7 +101,6 @@ public:
 template<class ...U>
 Ho(U&&... a) -> Ho<U&&...>;
 
-
 int main()
 {
 	//TYPE_ID(decltype(&H::Hoge3));
@@ -105,10 +108,49 @@ int main()
 	std::tuple<float,char> Intt(3,'8');
 	std::tuple abcd(Int,Intt);
 
-	HHH<std::tuple<int, int>, std::tuple<int, int>>();
+	//HHH<std::tuple<int, int>, std::tuple<int, int>>();
 
+	//Function<decltype(&H::Hoge3), int, int, int,int> b;
 	
+	std::tuple m(&H::Hoge3, 13,30);
+
 	int i = 9;
+
+	//N_Function::IS_BindFns<decltype(&H::Hoge3),int,int,int>::Judge
+	FunctionMultiple ff1(&H::Hoge3, 22,3,&H::Hoge);
+
+	Function f0(&H::Hoge3, 13,3);
+	Function f1(m);
+	Function f2(&H::Hoge4, 1);
+	Function f3(&H::Hoge);
+	//constexpr int aa =
+		//N_Function::IS_BindFns<decltype(&H::Hoge), decltype(&H::Hoge3), int, int>::Type;
+
+//	N_Function::IS_BindFn<decltype(&H::Hoge3), int>::Type::Judge
+
+
+//N_Function::IS_BindFns<decltype(&H::Hoge), decltype(&H::Hoge3), int, int, int>::Type
+	//C_OUT(typeid(
+	//IS_tuple_convertible_to<std::tuple<int,int,int,int>,std::tuple<int,int>>::BackPart::value).nam//e()
+		//int).name()
+
+	//bool bo = IS_tuple_convertible_to<std::tuple<int, int>, std::tuple<int, int, int>>::BackPart::value;
+	
+
+	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int, int>::Type::Judge;
+
+	C_OUT(typeid(
+		N_Function::IS_BindFns<
+		decltype(&H::Hoge3), int, int,
+		decltype(&H::Hoge),
+		decltype(&H::Hoge3), int,int,int
+
+		>::Type
+	).name());
+
+
+	FunctionMultiple aaa(f0,f2);
+
 	//auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 1);
 
 	//Function fn(&H::Hoge3, 2, 7);
@@ -122,105 +164,17 @@ int main()
 	//HHH<std::tuple<int, int,int>, std::tuple<int, int>>();
 
 
-	//IS_tuple_convertible_to<std::tuple<int, int,int>, std::tuple<H(),int>>::
+	//IS_tuple_convertible_to<std::tuple<int, int,int>, std:
 
-	//IS_TupleUnzip<decltype(abcd), decltype(abcd)>::Type t;
 
 	IS_TupleUnzip t(abcd, abcd);
 
-	//TYPE_ID(IS_TupleUnzip<decltype(abcd)>::Type);
-	type_id(t)
-
-		//Type0::Type1::Type2::Type2::Type3b::Bind3t::Type1::Type2::Type2::Type5e::End3e::End1
+	type_id(t.tuple);
 	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
-	//IS_TupleUnzip tuo(3,Num);
-	
-	//IS_TupleUnzip a(3,4,i);
-
 
 	
 	Function b(&H::Hoge3,5,5);
 	Function ab(&H::Hoge3,Int);
-
-	//N_Function::IS_BindFns<std::tuple<decltype(&H::Hoge3),
-	//	int, int, decltype(&H::Hoge3), int, int>>::Type::
-	//C_OUT(
-		//typeid(
-		//N_Function::IS_BindFns<std::tuple<decltype(&H::Hoge3),
-		//int, int, decltype(&H::Hoge3), int, int>>::Type::Fns).name())
-	//N_Function::IS_BindFns aaaa(tu);
-
-			
-
-	//C_OUT(typeid(IS_tuple_convertible_to<
-	//	std::tuple<int, int>, std::tuple<int, int,int>>::BackPart
-	//	
-	//	).name())
-
-
-
-	//std::tuple<int,int,int,int,int> t1(1,3, 3,5,7);
-	//std::tuple<int, int> t2(4, 2);
-	//std::tuple<int, char> t6(4, 2);
-	//std::tuple t5(t2, t6);
-	//std::tuple<> t4;
-	//std::tuple t3(3,t2,t4,3,4,t5);
-
-	//I_S_Function_Select<t6> 
-	//Hoge3<std::tuple<int, int>, std::tuple<>>(t2, t4);
-
-	//TYPE_ID(std::make_index_sequence<5>);
-//	IS_TupleUnzip<decltype(t3)>::Type);
-
-
-	//HHH(t1, t3);
-
-	//b->Receive<"Test">();
-	//b->a();
-	//b->a(2);
-	H h;
-
-	//Message<"Test">::Receive aa(&H::Hoge,&h);
-
-
-
-
-
-
-//	S_Address aaa(&H::Hoge3, &h,t4);
-
-	//S_Function_Select<std::tuple<int>, 0, decltype(&H::Hoge), decltype(&H::Hoge3),decltype(t4), decltype(t4),int>
-
-
-
-	//IS_tuple_convertible_to<std::tuple<int,i//nt>,std::tuple<int,int,std::tuple<>>>::Type0//::Type1::Type1::Type3::Type5:
-
-
-	//aaa.operator()();
-	//C_OUT(typeid(
-
-	//	S_Function_Select<std::tuple<int>, 0, decltype(&aaa)>:
-	//
-	//).name());
-
-	//aaa.ffn(2);
-
-	//aa.ffn(3);
-
-//	aa.ffn();
-
-	//static_cast<Core<"Base">*>(b)->Order<"a">();
-
-	//Engine::Get_Engine()->SC_tart();
-
-
-	//auto s = Engine::Get_Engine()->parentage.Add_Child<Scene>();
-	//auto ss= s->parentage.Add_Child<Scene>();
-	//auto sss= ss->parentage.Add_Child<Scene>();
-	//auto ssss= sss->parentage.Add_Child<Scene>();
-
-	//auto list = Engine::Get_Engine()->parentage.Get_Childs<Scene>();
-
 
 	return 0;
 
