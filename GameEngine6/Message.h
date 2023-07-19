@@ -57,8 +57,8 @@ public:
 	//	Receive(C_Fn setfn):
 	//		fn(setfn){}
 	//	Receive(C_Fn setfn, void* p){}
-	//	Receive(C_Fn setfn, void* p, t_Set_Args ...args){}
-	//	Receive(C_Fn setfn, void* p, std::tuple<t_Set_Args...> args){}
+	//	Receive(C_Fn setfn, void* p, t_Set_Args ...setArgs){}
+	//	Receive(C_Fn setfn, void* p, std::tuple<t_Set_Args...> setArgs){}
 	//};
 
 
@@ -79,9 +79,9 @@ public:
 
 	//	template<class ...Args>
 	//		requires tuple_convertible_to<std::tuple<T_Args...>, std::tuple<Args...>>
-	//	constexpr R_Type operator()(Args ...args)
+	//	constexpr R_Type operator()(Args ...setArgs)
 	//	{
-	//		std::function<R_Type()> method = std::bind(fn, p,args...);
+	//		std::function<R_Type()> method = std::bind(fn, p,setArgs...);
 	//		return method();
 	//	}
 
@@ -102,30 +102,30 @@ public:
 	//public:
 
 	//	template<int Select_default_Args_Tuple_Number,class ...Args>
-	//	constexpr R_Type Function_Execution(Args... args)
+	//	constexpr R_Type Function_Execution(Args... setArgs)
 	//	{
 	//		return Function_Execution<Select_default_Args_Tuple_Number-1,Args...>
-	//			(std::get<Select_default_Args_Tuple_Number>(default_Args_Tuple),args...);
+	//			(std::get<Select_default_Args_Tuple_Number>(default_Args_Tuple),setArgs...);
 	//	}
 
 	//	template<int Select_default_Args_Tuple_Number,class ...Args>
 	//		requires Fg<(Select_default_Args_Tuple_Number == 0)>
-	//	constexpr R_Type Function_Execution(Args... args)
+	//	constexpr R_Type Function_Execution(Args... setArgs)
 	//	{
 	//		std::function<R_Type()> method = std::bind(fn, p,
-	//			std::get<Select_default_Args_Tuple_Number>(default_Args_Tuple), args...);
+	//			std::get<Select_default_Args_Tuple_Number>(default_Args_Tuple), setArgs...);
 
 	//		return method();
 	//	}
 
-	//	constexpr Receive(R_Type(C_Name::* set_Fn)(T_Args...),C_Name* set_P,t_Set_Args ...args) :
-	//		fn(set_Fn),p(set_P),default_Args_Tuple(args...){}
+	//	constexpr Receive(R_Type(C_Name::* set_Fn)(T_Args...),C_Name* set_P,t_Set_Args ...setArgs) :
+	//		fn(set_Fn),p(set_P),default_Args_Tuple(setArgs...){}
 
 	//	template<class ...Args>
 	//		requires tuple_convertible_to<std::tuple<T_Args...>,std::tuple<t_Set_Args...,Args...>>
-	//	constexpr R_Type operator()(Args ...args)
+	//	constexpr R_Type operator()(Args ...setArgs)
 	//	{
-	//		Function_Execution<sizeof...(Set_Args) - 1>(args...);
+	//		Function_Execution<sizeof...(Set_Args) - 1>(setArgs...);
 	//	}
 
 	//};

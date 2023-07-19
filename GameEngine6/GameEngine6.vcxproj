@@ -63,6 +63,7 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="tuple_Helper.h" />
     <ClInclude Include="Tuple_Unzip.h" />
     <ClInclude Include="tuple_convertible_to.h" />
     <ClInclude Include="Type_Nameh.h" />

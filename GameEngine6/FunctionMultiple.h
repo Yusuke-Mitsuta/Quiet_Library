@@ -13,14 +13,14 @@ protected:
 
 public:
 
-	//std::tuple<T_FlontFn, T_Fns...> fns;
+	std::tuple<T_FlontFn, T_Fns...> fns;
 
 	//ƒƒ‚
 	//7/17
 	//fns‚Ì•ÏŠ·‚ğÀ‘•‚·‚é
 	template<class ...MT_Fns>
-	constexpr FunctionMultiple(MT_Fns... setFns){}
-		//:fns()
+	constexpr FunctionMultiple(MT_Fns... setFns)
+		:fns(N_Function::IS_BindFns(setFns...)) {}
 	
 
 };

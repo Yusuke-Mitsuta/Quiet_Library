@@ -2,6 +2,7 @@
 #include<tuple>
 #include"Concept.h"
 #include"Using_Type.h"
+#include"tuple_Helper.h"
 
 //仕様
 //tuple型の要素のが変換可能か、全体、前方、後方の三種類で判定する
@@ -13,17 +14,19 @@ template<class T_Flom, class T_To>
 struct IS_tuple_convertible_to
 {
 private:
+
 	template<size_t t_FlomNumber>
-	using flom_tuple_element = std::tuple_element<t_FlomNumber% std::tuple_size<T_Flom>::value, T_Flom>::type;
+	using flom_tuple_element = tuple_element_t_overflow<t_FlomNumber, T_Flom>;
 
 	template<size_t t_ToNumber>
-	using to_tuple_element = std::tuple_element<t_ToNumber%std::tuple_size<T_To>::value, T_To>::type;
+	using to_tuple_element = tuple_element_t_overflow<t_ToNumber, T_To>;
 public:
 
 	//仕様
 	//型の判定の結果
 	template<int t_TupleFinishNumber, int t_TupleFlomNumber = 0, int t_TupleToNumber = 0,
-		bool t_LoopFg = (t_TupleFinishNumber > t_TupleToNumber) && (0 <= t_TupleToNumber)>
+		bool t_LoopFg =(t_TupleFinishNumber > t_TupleToNumber) && (0 <= t_TupleToNumber)
+>
 	struct S_tuple_convertible_to
 	{
 		static constexpr int flom = t_TupleFlomNumber;
@@ -38,12 +41,12 @@ public:
 	{
 		static constexpr int flom = t_TupleFlomNumber;
 		static constexpr int to = t_TupleToNumber;
-		using Type = S_tuple_convertible_to<t_TupleFinishNumber,t_TupleFlomNumber+1, t_TupleToNumber+1>::Type;
+		using Type = S_tuple_convertible_to<t_TupleFinishNumber, t_TupleFlomNumber + 1, t_TupleToNumber + 1>::Type;
 	};
 
 	//仕様
 	//tuple型の要素の変換可能か判定する
-	using All = S_tuple_convertible_to<std::tuple_size<T_To>::value>::Type;
+	using All = S_tuple_convertible_to<std::max(std::tuple_size_v<T_Flom>,std::tuple_size_v<T_To>)>::Type;
 
 	//仕様
 	//tuple型の要素の前方が変換可能か判定する

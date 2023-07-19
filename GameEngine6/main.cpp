@@ -47,7 +47,7 @@ public:
 
 	void Hoge()
 	{
-		//C_OUT(a); 
+		C_OUT('aa');
 	//	C_OUT(b); 
 	}
 
@@ -65,11 +65,22 @@ public:
 
 	void Hoge3(int a, int b)
 	{
+		C_OUT('b');
 	}
 
 
+	void Hoge1(int a)
+	{
+		C_OUT('a');
+
+	}
 	void Hoge5(int a,int b,int c,int d,int e)
 	{
+		C_OUT(a);
+		C_OUT(b);
+		C_OUT(c);
+		C_OUT(d);
+		C_OUT(e);
 
 	}
 
@@ -106,6 +117,9 @@ public:
 template<class ...U>
 Ho(U&&... a) -> Ho<U&&...>;
 
+template<class T>
+using Fn = Function<std::tuple<T, H>>;
+
 int main()
 {
 	//TYPE_ID(decltype(&H::Hoge3));
@@ -122,7 +136,7 @@ int main()
 	int i = 9;
 
 	//N_Function::IS_BindFns<decltype(&H::Hoge3),int,int,int>::Judge
-	FunctionMultiple ff1(&H::Hoge3, 22,3,&H::Hoge);
+	//FunctionMultiple ff1(&H::Hoge3, 22,3,&H::Hoge);
 
 	Function f0(&H::Hoge3, 13,3);
 	Function f1(m);
@@ -154,7 +168,7 @@ int main()
 	).name());*/
 
 
-	//FunctionMultiple aaa(f0,f2);
+	FunctionMultiple aaa(f0,f2);
 
 	//auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 1);
 
@@ -178,14 +192,34 @@ int main()
 	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
 
 	
-	Function b(&H::Hoge5,1);
+	Function b(&H::Hoge5,1.0);
 	Function ab(&H::Hoge3,Int);
 
+	using tupleInt = std::tuple<int>;
 
-	//Function<Function<Function<Function<decltype(b), int>,int>,int>,int>::Args
+	//template<class T>
+	//using Fn = Function<std::tuple<T, int>>;
 
-	C_OUT(typeid(Function<Function<Function<Function<decltype(b), int>, int>, int>, int>::Args).name());
+	H* h = new H();
 
+	Function _1(&H::Hoge5,5);
+
+
+
+	_1.classP = h;
+
+	//_1.operator()();
+	//_1.operator()(1,2,3);
+	_1.operator()(1,2,3,4);
+	//_1.operator()(1,2,3,4,5);
+	Function _2(_1, 2);
+	Function _3(_2, 3);
+	Function _4(_3, 2);
+	Function _5(_4, 1);
+	_5();
+	//IS_tuple_convertible_to<typename IS_TupleUnzip<int,int,int,int,int>::Type, std::tuple<int, int, int,int>>::
+
+	//C_OUT(nnn);
 	return 0;
 
 }

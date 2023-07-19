@@ -66,41 +66,43 @@ namespace N_Function
 				template<size_t ...N>
 				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple,std::index_sequence<N...>)
 				{
-					std::get<std::tuple_size<decltype(inputTuple)>::value - 1 - sizeof...(T_BoundFns)>(inputTuple) =
-						Function(std::tuple(std::get<tuple_size - t_TupleNumber - N>(outputTuple)...));
+					//std::get<std::tuple_size<decltype(inputTuple)>::value - 1 - sizeof...(T_BoundFns)>(inputTuple) =
+					//	Function(std::tuple(std::get<tuple_size - t_TupleNumber - N>(outputTuple)...));
 				}
 
-				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple)
+				static constexpr void BindFns(auto& inputTuple,auto& outputTuple)
 				{
-					S_BindFns::BindFns(inputTuple, outputTuple, std::make_index_sequence<t_MethodTupleNumber - t_TupleNumber>());
+					//S_BindFns::BindFns(inputTuple, outputTuple, std::make_index_sequence<t_MethodTupleNumber - t_TupleNumber>//());
 				}
 			};
 
 			//仕様
 			//Functionに対して引数をセットする
-			template<class ...T_Fn_Args,int t_MethodTupleNumber, int ...t_ArgsNumber>
-			struct S_BindFns<Function<T_Fn_Args...>, t_MethodTupleNumber, t_ArgsNumber...>
+			template<class T_FunctionInner,int t_MethodTupleNumber, int ...t_ArgsNumber>
+			struct S_BindFns<Function<T_FunctionInner>, t_MethodTupleNumber, t_ArgsNumber...>
 			{
+				using Fn = Function<T_FunctionInner>;
 
 				//メモ
 				//Defaultの引数と設定した引数を分ける
 				static constexpr bool judge = tuple_back_part_convertible_to<typename 
-					IS_TupleUnzip<std::tuple<reverse_tuple_element<t_ArgsNumber>..., Function<T_Fn_Args...>::Args>>::Type,std::tuple<T_Args...>>;
+					IS_TupleUnzip<std::tuple<reverse_tuple_element<t_ArgsNumber>..., 
+					typename Fn::SetArgs>>::Type,typename Fn::Args>;
 
 				using Type = S_BoundFns<(t_MethodTupleNumber + 1)* judge,
-					Function<Function<T_Fn_Args...>,reverse_tuple_element<t_ArgsNumber>...>,
+					Function<Fn,std::tuple<reverse_tuple_element<t_ArgsNumber>...>>,
 					T_BoundFns...>::Type;
 
 				template<size_t ...N>
 				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple, std::index_sequence<N...>)
 				{
-					std::get<std::tuple_size<decltype(inputTuple)>::value - 1 - sizeof...(T_BoundFns)>(inputTuple) =
-						Function(std::tuple(std::get<tuple_size - t_TupleNumber - N>(outputTuple)...));
+					//std::get<std::tuple_size<decltype(inputTuple)>::value - 1 - sizeof...(T_BoundFns)>(inputTuple) =
+					//	Function(std::tuple(std::get<tuple_size - t_TupleNumber - N>(outputTuple)...));
 				}
 
 				static constexpr void BindFns(auto& inputTuple, T_Tuple& outputTuple)
 				{
-					S_BindFns::BindFns(inputTuple, outputTuple, std::make_index_sequence<t_MethodTupleNumber - t_TupleNumber>());
+					//S_BindFns::BindFns(inputTuple, outputTuple, std::make_index_sequence<t_MethodTupleNumber - t_TupleNumber>());
 				}
 
 			};
@@ -134,9 +136,15 @@ namespace N_Function
 
 		FnsType fns;
 
-		IS_BindFns(T_Fn_Args... fn_Args)
+		constexpr IS_BindFns(T_Fn_Args... fn_Args)
 		{
-			S_BoundFns<1>::BindFns(IS_TupleUnzip(fn_Args...));
+			IS_TupleUnzip unzipTuple(fn_Args...);
+			S_BoundFns<1>::BindFns(fns, unzipTuple.tuple);
+		}
+
+		operator FnsType()
+		{
+			return fns;
 		}
 
 	};
