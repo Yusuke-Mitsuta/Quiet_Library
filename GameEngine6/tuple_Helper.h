@@ -16,24 +16,16 @@ struct tuple_element_overflow<_Index, _Tuple, true>
 template<int _Index, class _Tuple>
 using tuple_element_t_overflow = tuple_element_overflow<_Index, _Tuple>::type;
 
-template<template<class...>class _To,class ..._Flom>
-struct IS_Move_Template_Type
+template<class T_Tuple>
+struct S_EnvelopOptional;
+
+//仕様
+//tuple内の型[...T_TupleInnerType]を[optional]でラッピングする
+//
+//template
+//[optional]でラッピングするtuple
+template<class ...T_TupleInnerType>
+struct S_EnvelopOptional<std::tuple<T_TupleInnerType...>>
 {
-	template<class _ToInnerType,class ..._Flom>
-	struct S_Move_Template_Type;
-
-	template<class ..._ToInnerType,class ..._FlomInnerType, class ..._Flom>
-	struct S_Move_Template_Type<std::tuple<_ToInnerType...>,std::tuple<_FlomInnerType...>,_Flom...>
-	{
-		using Type = S_Move_Template_Type<std::tuple<_ToInnerType..., _FlomInnerType...>, _Flom...>::Type;
-	};
-
-	template<class ..._ToInnerType, class ..._FlomInnerType>
-	struct S_Move_Template_Type<std::tuple<_ToInnerType...>, std::tuple<_FlomInnerType...>>
-	{
-		using Type = _To<_ToInnerType...,_FlomInnerType...>;
-	};
-
-	using Type = S_Move_Template_Type<std::tuple<>, _Flom...>::Type;
+	using Type = std::tuple<std::optional<T_TupleInnerType>...>;
 };
-

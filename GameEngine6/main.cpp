@@ -26,7 +26,7 @@
 #include"ClassFunction.h"
 #include"Function_Bind_Fns.h"
 
-std::string getLastPathComponent(std::string path) {
+constexpr std::string getLastPathComponent(std::string path) {
 	std::string r;
 	size_t p = 0;
 	for (size_t i = path.size() - 1; i > 0; i--)
@@ -65,7 +65,8 @@ public:
 
 	void Hoge3(int a, int b)
 	{
-		C_OUT('b');
+		C_OUT(a);
+		C_OUT(b);
 	}
 
 
@@ -122,23 +123,31 @@ using Fn = Function<std::tuple<T, H>>;
 
 int main()
 {
+
+
+	H* h = new H();
+
 	//TYPE_ID(decltype(&H::Hoge3));
-	std::tuple<int, int> Int(3,7);
-	std::tuple<float,char> Intt(3,'8');
-	std::tuple abcd(Int,Intt);
+	std::tuple<int, int> Int(3, 7);
+	std::tuple<float, char> Intt(3, '8');
+	std::tuple abcd(Int, Intt);
 
 	//HHH<std::tuple<int, int>, std::tuple<int, int>>();
 
 	//Function<decltype(&H::Hoge3), int, int, int,int> b;
-	
-	std::tuple m(&H::Hoge3, 13,30);
+
+	std::tuple m(&H::Hoge3, 13, 30);
 
 	int i = 9;
 
 	//N_Function::IS_BindFns<decltype(&H::Hoge3),int,int,int>::Judge
 	//FunctionMultiple ff1(&H::Hoge3, 22,3,&H::Hoge);
 
-	Function f0(&H::Hoge3, 13,3);
+	//Function<decltype(&H::Hoge1),int> f0();
+	Function f0(&H::Hoge3, 3);
+	f0.classP = h;
+	Function f01(f0, 5);
+
 	Function f1(m);
 	Function f2(&H::Hoge4, 1);
 	Function f3(&H::Hoge);
@@ -154,7 +163,7 @@ int main()
 		//int).name()
 
 	//bool bo = IS_tuple_convertible_to<std::tuple<int, int>, std::tuple<int, int, int>>::BackPart::value;
-	
+
 
 	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int, int>::Type::Judge;
 
@@ -167,19 +176,23 @@ int main()
 		>::Type
 	).name());*/
 
+	FunctionMultiple(f0,3,f2);
+	int iii = 1;
+	N_Function::IS_BindFns fff(f0,5,f2);
 
-	FunctionMultiple aaa(f0,f2);
-
+	std::get<0>(fff.fns)();
+	//IS_TupleUnzip tp(f0, f2);
+	//type_id(tp);
 	//auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 1);
 
 	//Function fn(&H::Hoge3, 2, 7);
-	
+
 	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType
 
 	//C_OUT(typeid(decltype(NNN)).name())
 			//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType).name()
 
-	
+
 	//HHH<std::tuple<int, int,int>, std::tuple<int, int>>();
 
 
@@ -191,18 +204,17 @@ int main()
 	type_id(t.tuple);
 	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
 
-	
-	Function b(&H::Hoge5,1.0);
-	Function ab(&H::Hoge3,Int);
+
+	Function b(&H::Hoge5, 1.0);
+	Function ab(&H::Hoge3, Int);
 
 	using tupleInt = std::tuple<int>;
 
 	//template<class T>
 	//using Fn = Function<std::tuple<T, int>>;
 
-	H* h = new H();
 
-	Function _1(&H::Hoge5,5);
+	Function _1(&H::Hoge5, 5);
 
 
 
@@ -210,7 +222,7 @@ int main()
 
 	//_1.operator()();
 	//_1.operator()(1,2,3);
-	_1.operator()(1,2,3,4);
+	_1.operator()(1, 2, 3, 4);
 	//_1.operator()(1,2,3,4,5);
 	Function _2(_1, 2);
 	Function _3(_2, 3);

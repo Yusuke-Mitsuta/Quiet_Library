@@ -6,7 +6,7 @@
 #include<string>
 #define Debug 1;
 
-std::string getLastPathComponent(std::string path);
+constexpr std::string getLastPathComponent(std::string path);
 
 #define C_OUT(message) \
 std::cout<<getLastPathComponent(__FILE__)<<" : "<<__LINE__<< " << " <<message<<std::endl; \

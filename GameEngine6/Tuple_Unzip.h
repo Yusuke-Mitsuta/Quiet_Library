@@ -80,7 +80,7 @@ struct IS_TupleUnzip
 		//[set_Tuple]の値の格納を終了する
 		static constexpr void TupleUnzip(auto& set_Tuple){}
 	};
-
+public:
 	//仕様
 	//[...T_Tuple]内の全てのTupleを分解し、1つのTupleに格納した型
 	using Type = S_TupleUnzip<0,T_Tuple..., std::nullopt_t>::Type;
@@ -89,13 +89,27 @@ struct IS_TupleUnzip
 	//分解し、格納したTupleの変数を取得する
 	Type tuple;
 
+private:
+
+	//仕様
+	//[set_Tuple...]内のTupleを分解し、1つのTupleにまとめた値を返す
+	//
+	//引数
+	//set_Tuple::分解するTuple
+	template<size_t ...N>
+	constexpr auto TupleUnzip(std::index_sequence<N...>, T_Tuple&... set_Tuple)
+	{
+		typename S_EnvelopOptional<Type>::Type optionalTuple;
+		S_TupleUnzip<0, T_Tuple..., std::nullopt_t>::TupleUnzip(optionalTuple, set_Tuple...);
+		Type tuple(std::get<N>(optionalTuple).value()...);
+		return tuple;
+	}
+public:
+
 	//仕様
 	//[...set_Tuple]内の全てのTupleを分解し、1つのTupleに格納する
-	//template<class MT_Tuple>
 	constexpr IS_TupleUnzip(T_Tuple&... set_Tuple)
-	{
-		S_TupleUnzip<0, T_Tuple..., std::nullopt_t>::TupleUnzip(tuple,set_Tuple...);
-	}
+		:tuple(TupleUnzip(std::make_index_sequence<std::tuple_size_v<Type>>(), set_Tuple...)){}
 
 	constexpr operator Type()
 	{
@@ -103,6 +117,5 @@ struct IS_TupleUnzip
 	}
 
 };
-//
-//template<class ...MT_Tuple>
-//IS_TupleUnzip(MT_Tuple&... set_Tuple) -> IS_TupleUnzip<typename IS_TupleUnzip<MT_Tuple...>::Type>;
+
+

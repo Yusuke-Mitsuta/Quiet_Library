@@ -7,16 +7,17 @@
 
 
 template<class T_Fn, class ...T_Args>
+	//requires not_same_as<T_Fn,std::nullopt_t>
 class Function
 {
 protected:
 	//constexpr Function() {}
 public:
+
 };
 
 template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs>
-class Function<std::tuple<T_RType(T_CName::*)(T_Args...), T_SetArgs...>>:
-	public Function<T_RType(T_CName::*)(T_Args...), T_SetArgs...>
+class Function<std::tuple<T_RType(T_CName::*)(T_Args...), T_SetArgs...>>
 {
 public:
 
@@ -54,31 +55,29 @@ public:
 };
 
 template<class T_FunctionInner, class ...T_NewArgs>
-class Function<std::tuple<Function<T_FunctionInner>,T_NewArgs...>>
+class Function<std::tuple<Function<T_FunctionInner>, T_NewArgs...>>
 {
 private:
 	using ParentFn = Function<T_FunctionInner>;
 
 public:
-	
 
-	using SetArgs = IS_TupleUnzip<std::tuple<T_NewArgs...,typename ParentFn::SetArgs>>::Type;
+	using SetArgs = IS_TupleUnzip<std::tuple<T_NewArgs..., typename ParentFn::SetArgs>>::Type;
 	using Fn = ParentFn::Fn;
 	using Args = ParentFn::Args;
 
-
-	ParentFn& fn;
+	ParentFn fn;
 	std::tuple<T_NewArgs...> defaultSetArgs;
 
 	template<class MT_FunctionInner, class ...MT_NewArgs>
-	constexpr Function(Function<MT_FunctionInner>& setFn,MT_NewArgs... newSetArgs)
-		:fn(setFn), defaultSetArgs(IS_TupleUnzip(newSetArgs...)){}
+	constexpr Function(Function<MT_FunctionInner> setFn,MT_NewArgs... newSetArgs)
+		:fn(setFn),defaultSetArgs(IS_TupleUnzip(newSetArgs...)){}
 
 	template<class ...MT_Args>
 		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args..., SetArgs>::Type, Args>
 	constexpr auto operator()(MT_Args... args)
 	{
-		return fn(args..., defaultSetArgs);
+		return fn.operator()(args..., defaultSetArgs);
 	}
 
 };
@@ -89,5 +88,5 @@ Function(MT_Fn setFn, MT_Args... setArgs) -> Function<typename N_Function::IS_Bi
 
 
 template<class MT_FunctionInner, class ...MT_NewArgs>
-Function(Function<MT_FunctionInner>& setFn, MT_NewArgs&&... newSetArgs)
+Function(Function<MT_FunctionInner> setFn, MT_NewArgs... newSetArgs)
 	-> Function<typename IS_TupleUnzip<Function<MT_FunctionInner>,MT_NewArgs...>::Type>;

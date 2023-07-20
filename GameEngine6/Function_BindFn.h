@@ -52,7 +52,7 @@ namespace N_Function
 		struct S_BindFn<Function<T_FunctionInner>,T_SetArgs...>
 		{
 			using Type = S_BindFn;
-			using FnType = std::tuple<Function<Function<T_FunctionInner>,T_SetArgs...>>;
+			using FnType = std::tuple<Function<std::tuple< Function<T_FunctionInner>,T_SetArgs...>>>;
 			using Judge = std::true_type;
 
 		};
