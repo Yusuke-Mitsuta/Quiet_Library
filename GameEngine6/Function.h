@@ -21,7 +21,6 @@ public:
 	using Args = MethodData::Args;
 	using Fn = MethodData::Fn;
 	
-
 	CName* classP;
 	Fn fn;
 	BindArgs bindArgs;
