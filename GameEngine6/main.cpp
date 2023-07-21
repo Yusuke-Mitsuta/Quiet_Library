@@ -41,197 +41,54 @@ constexpr std::string getLastPathComponent(std::string path) {
 	return r;
 }
 
-class H
+struct H
 {
-public:
-
-	void Hoge()
+	void Args_1(int a)
 	{
-		C_OUT('aa');
-	//	C_OUT(b); 
+		C_OUT(a);
 	}
 
-	//template<class C_Name, class R_Type, class ...T_Args>
-	//template<class T>
-	void Hogege( void(H::*P)()) 
-	{
-		//TYPE_ID(P)
-	}
-
-	void Hoge4(int a)
-	{
-	}
-
-
-	void Hoge3(int a, int b)
+	void Args_2(int a,int b)
 	{
 		C_OUT(a);
 		C_OUT(b);
 	}
 
-
-	void Hoge1(int a)
+	void Args_3(int a, int b,int c)
 	{
-		C_OUT('a');
-
-	}
-	void Hoge5(int a,int b,int c,int d,int e)
-	{
-		C_OUT(a);
-		C_OUT(b);
+		Args_2(a, b);
 		C_OUT(c);
-		C_OUT(d);
-		C_OUT(e);
-
 	}
 
-
-
-};
-template<class T, class U>
-void Hoge3(T a, U b)
-{
-	//C_OUT(a); 
-//	C_OUT(b); 
-}
-
-template<class _Flom, class _To>
-	requires tuple_back_part_convertible_to<_Flom, _To>
-void HHH()
-{
-}
-
-
-template<class ...T>
-class Ho
-{
-
-public:
-
-	template<class ...U>
-	Ho(U&&... num)
+	void Args_4(int a, int b, int c,int d)
 	{
-		C_OUT(num);
-		type_id(num);
+		Args_3(a, b,c);
+		C_OUT(d);
+
+	}
+
+	void Args_5(int a, int b, int c, int d,int e)
+	{
+		Args_4(a, b,c,d);
+		C_OUT(e);
 	}
 };
-template<class ...U>
-Ho(U&&... a) -> Ho<U&&...>;
-
-template<class T>
-using Fn = Function<std::tuple<T, H>>;
 
 int main()
 {
-
-
 	H* h = new H();
 
-	//TYPE_ID(decltype(&H::Hoge3));
-	std::tuple<int, int> Int(3, 7);
-	std::tuple<float, char> Intt(3, '8');
-	std::tuple abcd(Int, Intt);
-
-	//HHH<std::tuple<int, int>, std::tuple<int, int>>();
-
-	//Function<decltype(&H::Hoge3), int, int, int,int> b;
-
-	std::tuple m(&H::Hoge3, 13, 30);
-
-	int i = 9;
-
-	//N_Function::IS_BindFns<decltype(&H::Hoge3),int,int,int>::Judge
-	//FunctionMultiple ff1(&H::Hoge3, 22,3,&H::Hoge);
-
-	//Function<decltype(&H::Hoge1),int> f0();
-	Function f0(&H::Hoge3, 3);
-	f0.classP = h;
-	Function f01(f0, 5);
-
-	Function f1(m);
-	Function f2(&H::Hoge4, 1);
-	Function f3(&H::Hoge);
-	//constexpr int aa =
-		//N_Function::IS_BindFns<decltype(&H::Hoge), decltype(&H::Hoge3), int, int>::Type;
-
-//	N_Function::IS_BindFn<decltype(&H::Hoge3), int>::Type::Judge
-
-
-//N_Function::IS_BindFns<decltype(&H::Hoge), decltype(&H::Hoge3), int, int, int>::Type
-	//C_OUT(typeid(
-	//IS_tuple_convertible_to<std::tuple<int,int,int,int>,std::tuple<int,int>>::BackPart::value).nam//e()
-		//int).name()
-
-	//bool bo = IS_tuple_convertible_to<std::tuple<int, int>, std::tuple<int, int, int>>::BackPart::value;
-
-
-	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int, int>::Type::Judge;
-
-	/*C_OUT(typeid(
-		N_Function::IS_BindFns<
-		decltype(&H::Hoge3), int, int,
-		decltype(&H::Hoge),0
-		decltype(&H::Hoge3), int,int,int
-
-		>::Type
-	).name());*/
-
-	FunctionMultiple(f0,3,f2);
-	int iii = 1;
-	N_Function::IS_BindFns fff(f0,5,f2);
-
-	std::get<0>(fff.fns)();
-	//IS_TupleUnzip tp(f0, f2);
-	//type_id(tp);
-	//auto NNN = IS_TupleUnzip<int, int>::I_TupleUnzip(2, 1);
-
-	//Function fn(&H::Hoge3, 2, 7);
-
-	//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType
-
-	//C_OUT(typeid(decltype(NNN)).name())
-			//N_Function::IS_BindFn<decltype(&H::Hoge3), int, int>::Type::FnType).name()
-
-
-	//HHH<std::tuple<int, int,int>, std::tuple<int, int>>();
-
-
-	//IS_tuple_convertible_to<std::tuple<int, int,int>, std:
-
-
-	IS_TupleUnzip t(abcd, abcd);
-
-	type_id(t.tuple);
-	std::tuple  tu(&H::Hoge3, 2, 3, &H::Hoge3, 5, 9);
-
-
-	Function b(&H::Hoge5, 1.0);
-	Function ab(&H::Hoge3, Int);
-
-	using tupleInt = std::tuple<int>;
-
-	//template<class T>
-	//using Fn = Function<std::tuple<T, int>>;
-
-
-	Function _1(&H::Hoge5, 5);
-
-
-
+	Function _1(&H::Args_1, 3);
 	_1.classP = h;
+	_1();
+	Function a1(&H::Args_2, 5);
+	a1.classP = h;
+	type_id(a1)
+	Function a2(a1,4);
 
-	//_1.operator()();
-	//_1.operator()(1,2,3);
-	_1.operator()(1, 2, 3, 4);
-	//_1.operator()(1,2,3,4,5);
-	Function _2(_1, 2);
-	Function _3(_2, 3);
-	Function _4(_3, 2);
-	Function _5(_4, 1);
-	_5();
-	//IS_tuple_convertible_to<typename IS_TupleUnzip<int,int,int,int,int>::Type, std::tuple<int, int, int,int>>::
+	a2();
+	
 
-	//C_OUT(nnn);
 	return 0;
 
 }

@@ -8,13 +8,8 @@
 
 #include"Tuple_Unzip.h"
 
-namespace N_Function
-{
-	template<class ...T_Args>
-	struct IS_BindFn;
-}
 
-template<class T_Fn, class ...T_Args>
+template<not_same_as<std::nullopt_t> T_Fn, class ...T_Args>
 class Function;
 
 namespace N_Function

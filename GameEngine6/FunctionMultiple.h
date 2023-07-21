@@ -23,7 +23,6 @@ public:
 	template<class ...MT_Fns>
 	constexpr FunctionMultiple(MT_Fns... setFns)
 		:fns(N_Function::IS_BindFns(setFns...)) {}
-	
 
 };
 

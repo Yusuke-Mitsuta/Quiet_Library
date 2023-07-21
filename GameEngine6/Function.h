@@ -4,89 +4,66 @@
 
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
+#include"MethodData.h"
 
-
-template<class T_Fn, class ...T_Args>
-	//requires not_same_as<T_Fn,std::nullopt_t>
+template<not_same_as<std::nullopt_t> T_Fn,class ...T_Args>
 class Function
 {
 protected:
-	//constexpr Function() {}
+
+	using MethodData = N_Function::S_MethodData<T_Fn, T_Args...>;
+
 public:
+	using BoundArgs = MethodData::BoundArgs;
+	using BindArgs = MethodData::BindArgs;
+	using CName = MethodData::CName;
+	using RType = MethodData::RType;
+	using Args = MethodData::Args;
+	using Fn = MethodData::Fn;
+	
 
-};
-
-template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs>
-class Function<std::tuple<T_RType(T_CName::*)(T_Args...), T_SetArgs...>>
-{
-public:
-
-	T_CName* classP;
-
-	using SetArgs = std::tuple<T_SetArgs...>;
-	using Fn = T_RType(T_CName::*)(T_Args...);
-	using Args = std::tuple<T_Args...>;
-
+	CName* classP;
 	Fn fn;
-	std::tuple<T_SetArgs...> defaultSetArgs;
+	BindArgs bindArgs;
+
+	template<size_t ...N>
+	constexpr RType Execution(auto args, std::index_sequence<N...>);
 
 	template<class MT_Fn, class ...MT_Args>
 	constexpr Function(MT_Fn setFn, MT_Args ...setArgs)
-		:fn(setFn),defaultSetArgs(IS_TupleUnzip(setArgs...)){}
+		:fn(setFn), bindArgs(IS_TupleUnzip(setArgs...)) {}
 
 	template<class MT_Fn, class ...MT_Args>
-	constexpr Function(std::tuple<MT_Fn, MT_Args...> setFn){}
-	
-	template<size_t ...N>
-	constexpr T_RType Execution(auto args,std::index_sequence<N...>)
+	constexpr Function(std::tuple<MT_Fn, MT_Args...> setFn)
+		: fn(std::get<0>(setFn)), bindArgs(setFn) {}
+
+	template<class ...MT_Args>
+		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args...,BindArgs>::Type, Args>&& same_as<std::true_type, typename MethodData::Root>
+	constexpr auto operator()(MT_Args... args)
 	{
-		return (classP->*fn)(std::get<N>((args.tuple))...);
+		return Execution(IS_TupleUnzip(args..., bindArgs), std::make_index_sequence<std::tuple_size_v<Args>>());
 	}
 
 	template<class ...MT_Args>
-		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args..., T_SetArgs...>::Type, Args>
+		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args...,BoundArgs>::Type, Args> && same_as<std::false_type,typename MethodData::Root>
 	constexpr auto operator()(MT_Args... args)
 	{
-		TYPE_ID(Args);
-		using T = IS_TupleUnzip<MT_Args..., T_SetArgs...>::Type;
-		TYPE_ID(T);
-		return Execution(IS_TupleUnzip(args..., defaultSetArgs), std::make_index_sequence<sizeof...(T_Args)>());
-	}
-};
-
-template<class T_FunctionInner, class ...T_NewArgs>
-class Function<std::tuple<Function<T_FunctionInner>, T_NewArgs...>>
-{
-private:
-	using ParentFn = Function<T_FunctionInner>;
-
-public:
-
-	using SetArgs = IS_TupleUnzip<std::tuple<T_NewArgs..., typename ParentFn::SetArgs>>::Type;
-	using Fn = ParentFn::Fn;
-	using Args = ParentFn::Args;
-
-	ParentFn fn;
-	std::tuple<T_NewArgs...> defaultSetArgs;
-
-	template<class MT_FunctionInner, class ...MT_NewArgs>
-	constexpr Function(Function<MT_FunctionInner> setFn,MT_NewArgs... newSetArgs)
-		:fn(setFn),defaultSetArgs(IS_TupleUnzip(newSetArgs...)){}
-
-	template<class ...MT_Args>
-		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args..., SetArgs>::Type, Args>
-	constexpr auto operator()(MT_Args... args)
-	{
-		return fn.operator()(args..., defaultSetArgs);
+		return fn.operator()(args..., bindArgs);
 	}
 
 };
 
 template<class MT_Fn, class ...MT_Args>
-	requires same_as<std::true_type, typename N_Function::IS_BindFn<MT_Fn, MT_Args...>::Judge>
 Function(MT_Fn setFn, MT_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn,MT_Args...>::Type::FnType>;
-
 
 template<class MT_FunctionInner, class ...MT_NewArgs>
 Function(Function<MT_FunctionInner> setFn, MT_NewArgs... newSetArgs)
 	-> Function<typename IS_TupleUnzip<Function<MT_FunctionInner>,MT_NewArgs...>::Type>;
+
+
+template<not_same_as<std::nullopt_t> T_Fn,class ...T_Args>
+template<size_t ...N>
+inline constexpr Function<T_Fn, T_Args...>::RType Function<T_Fn, T_Args...>::Execution(auto args, std::index_sequence<N...>)
+{
+	return (classP->*fn)(std::get<N>((args.tuple))...);
+}

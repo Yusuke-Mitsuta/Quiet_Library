@@ -38,7 +38,6 @@ namespace N_Function
 		template<int t_TupleNumber=1, class ...T_BoundFns>
 		struct S_BoundFns
 		{
-
 			//仕様
 			//関数ポインターに対して引数をセットする
 			template<class T_Args, int t_TupleNumber, int ...t_ArgsNumber>
@@ -74,7 +73,7 @@ namespace N_Function
 			};
 
 			//仕様
-			//Functionに対して引数をセットする
+			//Function引数をbindしない関数を設定する
 			template<class T_FunctionInner, int t_MethodTupleNumber>
 			struct S_BindFns<Function<T_FunctionInner>, t_MethodTupleNumber>
 			{
@@ -87,6 +86,12 @@ namespace N_Function
 
 				using Type = NextClass::Type;
 
+				//仕様
+				//[t_MethodTupleNumber]番目の関数を[inputTuple]に保存する
+				//
+				//引数
+				//inputTuple::bindした関数を保存するTuple
+				//tuple::入力された関数、引数のTuple
 				template<class T_InputTuple>
 				static constexpr void BindFns(T_InputTuple& inputTuple, auto& tuple)
 				{
@@ -100,8 +105,8 @@ namespace N_Function
 			{
 				using Fn = Function<T_FunctionInner>;
 
-				//メモ
-				//Defaultの引数と設定した引数を分ける
+				//仕様
+				//引数が関数に対して、正しいか判定する
 				static constexpr bool judge = tuple_back_part_convertible_to<typename 
 					IS_TupleUnzip<std::tuple<reverse_tuple_element<t_ArgsNumber>..., 
 					typename Fn::SetArgs>>::Type,typename Fn::Args>;
@@ -113,11 +118,16 @@ namespace N_Function
 
 				using Type = NextClass::Type;
 
+				//仕様
+				//[t_MethodTupleNumber]番目の関数に対して、[t_ArgsNumber...]番目の引数をbindする
+				//
+				//引数
+				//inputTuple::bindした関数を保存するTuple
+				//tuple::入力された関数、引数のTuple
 				template<class T_InputTuple>
 				static constexpr void BindFns(T_InputTuple& inputTuple, auto& tuple)
 				{
 					std::get<(std::tuple_size_v<T_InputTuple>-1) - sizeof...(T_BoundFns)>(inputTuple).emplace(std::get<tuple_size - t_MethodTupleNumber>(tuple), std::get<tuple_size - t_ArgsNumber>(tuple)...);
-
 				}
 			};
 			using NextClass = S_BindFns<reverse_tuple_element<t_TupleNumber>, t_TupleNumber>;
