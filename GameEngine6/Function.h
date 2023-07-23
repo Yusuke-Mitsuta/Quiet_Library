@@ -32,10 +32,6 @@ public:
 	constexpr Function(MT_Fn setFn, MT_Args ...setArgs)
 		:fn(setFn), bindArgs(IS_TupleUnzip(setArgs...)) {}
 
-	template<class MT_Fn, class ...MT_Args>
-	constexpr Function(std::tuple<MT_Fn, MT_Args...> setFn)
-		: fn(std::get<0>(setFn)), bindArgs(setFn) {}
-
 	template<class ...MT_Args>
 		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args...,BindArgs>::Type, Args>&& same_as<std::true_type, typename MethodData::Root>
 	constexpr auto operator()(MT_Args... args)
@@ -54,11 +50,6 @@ public:
 
 template<class MT_Fn, class ...MT_Args>
 Function(MT_Fn setFn, MT_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn,MT_Args...>::Type::FnType>;
-
-template<class MT_FunctionInner, class ...MT_NewArgs>
-Function(Function<MT_FunctionInner> setFn, MT_NewArgs... newSetArgs)
-	-> Function<typename IS_TupleUnzip<Function<MT_FunctionInner>,MT_NewArgs...>::Type>;
-
 
 template<not_same_as<std::nullopt_t> T_Fn,class ...T_Args>
 template<size_t ...N>

@@ -81,13 +81,27 @@ int main()
 	Function _1(&H::Args_1, 3);
 	_1.classP = h;
 	_1();
-	Function a1(&H::Args_2, 5);
+	Function a1(&H::Args_5, 5);
 	a1.classP = h;
 	type_id(a1)
 	Function a2(a1,4);
+	Function a3(a2,1);
 
-	a2();
-	
+
+	FunctionMultiple aa1(a1,a1,1,a1,2,2,a1,3,3,3,a1,4,4,4,4);
+	//using T = decltype(aa1)::IS_MethodSearch<int>::S_MethodSearch<1,1>::Type::Type
+		//:T;
+		
+	//using T = FunctionMultiple<std::tuple< decltype(a1), int, int, decltype(a1), int>>::IS_MethodSearch<>::Judge;
+	//FunctionMultiple<decltype(a1), int, int, decltype(a1), int>::
+	aa1(9, 9, 9, 9);
+	aa1(9,9,9);
+	aa1(9,9);
+	aa1(9);
+	aa1();
+	//TYPE_ID(T)
+	//a2(7);
+	//a3();
 
 	return 0;
 

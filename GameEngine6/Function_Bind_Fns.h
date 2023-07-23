@@ -109,7 +109,7 @@ namespace N_Function
 				//ˆø”‚ªŠÖ”‚É‘Î‚µ‚ÄA³‚µ‚¢‚©”»’è‚·‚é
 				static constexpr bool judge = tuple_back_part_convertible_to<typename 
 					IS_TupleUnzip<std::tuple<reverse_tuple_element<t_ArgsNumber>..., 
-					typename Fn::SetArgs>>::Type,typename Fn::Args>;
+					typename Fn::BoundArgs>>::Type,typename Fn::Args>;
 
 				using NextClass = S_BoundFns<(t_MethodTupleNumber + 1)* judge,Function<std::tuple<Fn,reverse_tuple_element<t_ArgsNumber>...>>,
 					T_BoundFns...>;

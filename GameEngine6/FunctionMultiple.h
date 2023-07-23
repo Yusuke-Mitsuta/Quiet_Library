@@ -1,6 +1,7 @@
 #pragma once
-#include"FunctionMultiple.h"
 #include"Function.h"
+#include"tuple_Helper.h"
+#include"MethodSearch.h"
 #include"Function_Bind_Fns.h"
 
 //仕様
@@ -12,17 +13,23 @@
 //補足
 //T_FlontFn,T_Fns...は関数ポインター、それに指定する引数、次の関数ポインター、となるようにする事
 //関数ポインター、それに対する引数が不適正なら[T_FlontFn]が[std::nullopt_t]になる
-template<class T_FlontFn, class ...T_Fns>
-	requires not_same_as<T_FlontFn, std::nullopt_t>
+template<not_same_as<std::nullopt_t> T_FlontFn, class ...T_Fns>
 class FunctionMultiple
 {
-public:
+	T_FlontFn fns;
 
-	std::tuple<T_FlontFn, T_Fns...> fns;
+public:
 
 	template<class ...MT_Fns>
 	constexpr FunctionMultiple(MT_Fns... setFns)
 		:fns(N_Function::IS_BindFns(setFns...)) {}
+	
+	template<class ...MT_Args>
+		requires std::same_as <typename N_Function::IS_MethodSearch<T_FlontFn,MT_Args...>::Judge, std::true_type>
+	constexpr auto operator()(MT_Args... args)
+	{
+		return std::get<N_Function::IS_MethodSearch<T_FlontFn,MT_Args...>::MethodNumber>(fns)(args...);
+	}
 
 };
 
