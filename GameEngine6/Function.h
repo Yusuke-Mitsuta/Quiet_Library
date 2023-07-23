@@ -28,28 +28,28 @@ public:
 	template<size_t ...N>
 	constexpr RType Execution(auto args, std::index_sequence<N...>);
 
-	template<class MT_Fn, class ...MT_Args>
-	constexpr Function(MT_Fn setFn, MT_Args ...setArgs)
+	template<class MT_Fn, class ...T_Args>
+	constexpr Function(MT_Fn setFn, T_Args ...setArgs)
 		:fn(setFn), bindArgs(IS_TupleUnzip(setArgs...)) {}
 
-	template<class ...MT_Args>
-		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args...,BindArgs>::Type, Args>&& same_as<std::true_type, typename MethodData::Root>
-	constexpr auto operator()(MT_Args... args)
+	template<class ...T_Args>
+		requires tuple_convertible_to<typename IS_TupleUnzip<T_Args...,BindArgs>::Type, Args>&& same_as<std::true_type, typename MethodData::Root>
+	constexpr auto operator()(T_Args... args)
 	{
 		return Execution(IS_TupleUnzip(args..., bindArgs), std::make_index_sequence<std::tuple_size_v<Args>>());
 	}
 
-	template<class ...MT_Args>
-		requires tuple_convertible_to<typename IS_TupleUnzip<MT_Args...,BoundArgs>::Type, Args> && same_as<std::false_type,typename MethodData::Root>
-	constexpr auto operator()(MT_Args... args)
+	template<class ...T_Args>
+		requires tuple_convertible_to<typename IS_TupleUnzip<T_Args...,BoundArgs>::Type, Args> && same_as<std::false_type,typename MethodData::Root>
+	constexpr auto operator()(T_Args... args)
 	{
 		return fn.operator()(args..., bindArgs);
 	}
 
 };
 
-template<class MT_Fn, class ...MT_Args>
-Function(MT_Fn setFn, MT_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn,MT_Args...>::Type::FnType>;
+template<class MT_Fn, class ...T_Args>
+Function(MT_Fn setFn, T_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn,T_Args...>::Type::FnType>;
 
 template<not_same_as<std::nullopt_t> T_Fn,class ...T_Args>
 template<size_t ...N>
