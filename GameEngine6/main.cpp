@@ -36,7 +36,7 @@ constexpr std::string getLastPathComponent(std::string path) {
 			p = i; break;
 		}
 	}
-	for (int i = p + 1; i < path.size(); i++)
+	for (int i = static_cast<int>(p) + 1; i < path.size(); i++)
 		r.push_back(path[i]);
 	return r;
 }
@@ -90,6 +90,7 @@ int main()
 	type_id(a3);
 
 	FunctionMultiple aa1(a1,a1,1,a1,2,2,a1,3,3,3,a1,4,4,4,4);
+	FunctionMultiple aa2(a1);
 
 		//, decltype(a1),int, decltype(a1),int,int>::
 

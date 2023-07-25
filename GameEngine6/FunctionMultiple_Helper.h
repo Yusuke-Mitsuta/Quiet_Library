@@ -35,10 +35,6 @@ namespace N_Function
 		static constexpr int tuple_size = std::tuple_size<T_Tuple>::value;
 
 		template<int _Index>
-		using reverse_tuple_element = std::tuple_element<
-			tuple_size - _Index, T_Tuple>::type;
-
-		template<int _Index>
 		using tuple_element = std::tuple_element_t<
 			_Index %tuple_size, T_Tuple>;
 
@@ -83,7 +79,7 @@ namespace N_Function
 			{
 				static constexpr bool judge =
 					same_as<typename IS_tuple_convertible_to<typename IS_TupleUnzip<T_FlontArgs,tuple_element<t_ArgsNumber>...>::Type,
-					typename Fn::Args, static_cast<int>(t_Mode)>::Select,std::bool_constant<static_cast<int>(t_Mode)>>;
+					typename Fn::Args, static_cast<int>(t_Mode)>::Select,std::bool_constant<static_cast<bool>(t_Mode)>>;
 					
 				using NextClass = S_CorrectType<t_Mode,judge,t_MethodTupleNumber>;
 
@@ -103,7 +99,7 @@ namespace N_Function
 				//引数が関数に対して、正しいか判定する
 				static constexpr bool judge = 
 					std::same_as<typename IS_tuple_convertible_to<typename IS_TupleUnzip<T_FlontArgs,tuple_element<t_ArgsNumber>...,typename Fn::BoundArgs>::Type, 
-					typename Fn::Args,static_cast<int>(t_Mode)>::Select, std::bool_constant<static_cast<int>(t_Mode)>>;
+					typename Fn::Args,static_cast<int>(t_Mode)>::Select, std::bool_constant<static_cast<bool>(t_Mode)>>;
 
 				using NextClass = S_CorrectType<t_Mode,judge,t_MethodTupleNumber>;
 				using NextMethod = S_Judge;
@@ -138,7 +134,6 @@ namespace N_Function
 
 		};
 
-
 		//仕様
 		//Functionsに対して[T_FlontArgs]で呼び出せる関数が存在する場合
 		template<int t_FunctionNumber, int ...t_FnArgsNumber>
@@ -161,7 +156,6 @@ namespace N_Function
 		using SetJudge= S_CorrectType<E_Mode::SetJudge>::Type;
 
 		using MethodSearch= S_CorrectType<E_Mode::MethodSearch>::Type;
-
 
 	};
 

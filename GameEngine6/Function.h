@@ -30,7 +30,7 @@ public:
 
 	template<class MT_Fn, class ...T_Args>
 	constexpr Function(MT_Fn setFn, T_Args ...setArgs)
-		:fn(setFn), bindArgs(IS_TupleUnzip(setArgs...)) {}
+		:fn(setFn), bindArgs(setArgs...) {}
 
 	template<class ...T_Args>
 		requires tuple_convertible_to<typename IS_TupleUnzip<T_Args...,BindArgs>::Type, Args>&& same_as<std::true_type, typename MethodData::Root>
