@@ -10,7 +10,7 @@
 //template
 //T_Flom::判定する型
 //T_To::ベースの型
-template<class T_Flom, class T_To>
+template<class T_Flom, class T_To,int t_Mode=0>
 struct IS_tuple_convertible_to
 {
 private:
@@ -56,6 +56,26 @@ public:
 	//tuple型の要素の後方が変換可能か判定する
 	using BackPart = S_tuple_convertible_to<std::tuple_size<T_To>::value, 0,std::tuple_size<T_To>::value - std::tuple_size<T_Flom>::value>::Type;
 
+	
+
+	template<int t_Mode>
+	struct S_Type
+	{
+		using Type = All;
+	};
+
+	template<>
+	struct S_Type<1>
+	{
+		using Type = FlontPart;
+	};
+	template<>
+	struct S_Type<2>
+	{
+		using Type = BackPart;
+	};
+
+	using Select = S_Type<t_Mode>::Type;
 };
 
 //仕様

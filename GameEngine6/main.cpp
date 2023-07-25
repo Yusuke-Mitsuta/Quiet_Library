@@ -41,64 +41,36 @@ constexpr std::string getLastPathComponent(std::string path) {
 	return r;
 }
 
-struct H
-{
-	void Args_1(int a)
-	{
-		C_OUT(a);
-	}
-
-	void Args_2(int a,int b)
-	{
-		C_OUT(a);
-		C_OUT(b);
-	}
-
-	void Args_3(int a, int b,int c)
-	{
-		Args_2(a, b);
-		C_OUT(c);
-	}
-
-	void Args_4(int a, int b, int c,int d)
-	{
-		Args_3(a, b,c);
-		C_OUT(d);
-
-	}
-
-	void Args_5(int a, int b, int c, int d,int e)
-	{
-		Args_4(a, b,c,d);
-		C_OUT(e);
-	}
-};
-
 int main()
 {
+
 	H* h = new H();
 
 	Function _1(&H::Args_1, 3);
-	_1.classP = h;
+	//_1.classP = h;
 	_1();
 	Function a1(&H::Args_5, 5);
-	a1.classP = h;
 	type_id(a1)
-	Function a2(a1,4);
+	Function a2(a1,2);
 	Function a3(a2,1);
 
+	type_id(a3);
 
 	FunctionMultiple aa1(a1,a1,1,a1,2,2,a1,3,3,3,a1,4,4,4,4);
+
+		//, decltype(a1),int, decltype(a1),int,int>::
+
+	//constexpr FunctionMultiple aa2(a1,a1);
 	//using T = decltype(aa1)::IS_MethodSearch<int>::S_MethodSearch<1,1>::Type::Type
 		//:T;
 		
 	//using T = FunctionMultiple<std::tuple< decltype(a1), int, int, decltype(a1), int>>::IS_MethodSearch<>::Judge;
 	//FunctionMultiple<decltype(a1), int, int, decltype(a1), int>::
-	aa1(9, 9, 9, 9);
-	aa1(9,9,9);
-	aa1(9,9);
-	aa1(9);
-	aa1();
+	//aa1(9, 9, 9, 9);
+	//aa1(9,9,9);
+	//aa1(9,9);
+	//aa1(9);
+	//aa1();
 	//TYPE_ID(T)
 	//a2(7);
 	//a3();

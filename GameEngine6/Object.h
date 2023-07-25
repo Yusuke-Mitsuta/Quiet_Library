@@ -14,11 +14,12 @@ public:
 		C_OUT("TEST");
 	}
 
-	//Message<"Test">::Receive<decltype(&Core::Test)> a = {&Core::Test, this};
+	static constexpr Function a = {&Test,3,4 };
+
+	static constexpr FunctionMultiple b ={&Test,3,45 };
 
 	Core()
 	{
-
 	}
 
 };

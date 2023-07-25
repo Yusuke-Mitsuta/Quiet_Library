@@ -10,12 +10,13 @@
 //テンプレート
 //T_Fns::tupleにラッピングされた複数の[Function]
 //関数ポインター、それに対する引数が不適正なら[T_Fns]が[std::nullopt_t]になる
-template<not_same_as<std::nullopt_t> T_Fns>
+template<not_same_as<std::nullopt_t> T_FlontFn,class ...T_Fns>
 class FunctionMultiple
 {
-	T_Fns fns;
+	std::tuple<T_FlontFn,T_Fns...> fns;
 
 public:
+
 	//仕様
 	//複数の関数ポインター、及びそれに対する引数の値が正しいか、後方一致で判定する
 	//
@@ -24,9 +25,10 @@ public:
 	//
 	//補足
 	//関数に対して引数が正しくない場合T_Fnsが[std::nullopt_t]になり生成不可になる
-	template<class ...MT_Fns>
-	constexpr FunctionMultiple(MT_Fns... setFns)
-		:fns(N_Function::IS_BindFns(setFns...)) {}
+	template<class MT_FlontFn,class ...MT_Fns>
+	constexpr FunctionMultiple(MT_FlontFn setfn, MT_Fns... setFns)
+		:fns(setfn,setFns...)
+	{}
 	
 	//仕様
 	//複数の[Function]から[T_Args...]で呼び出せる関数オブジェクトを実行する
@@ -34,13 +36,16 @@ public:
 	//引数
 	//args::入力する引数
 	template<class ...T_Args>
-		requires std::same_as<typename N_Function::IS_MethodSearch<T_Fns,T_Args...>::Judge, std::true_type>
+		requires not_same_as<typename N_Function::IS_BindFns<std::tuple<T_Args...>,T_FlontFn,T_Fns...>::MethodSearch, std::nullopt_t>
 	constexpr auto operator()(T_Args... args)
 	{
-		return std::get<N_Function::IS_MethodSearch<T_Fns,T_Args...>::MethodNumber>(fns)(args...);
+		return N_Function::IS_BindFns<std::tuple<T_Args...>, T_FlontFn, T_Fns...>::MethodSearch::Execution(fns, args...);
 	}
 
 };
 
-template<class ...MT_Fns>
-FunctionMultiple(MT_Fns... fns) -> FunctionMultiple<typename N_Function::IS_BindFns<MT_Fns...>::FnsType>;
+template<class MT_FlontFn, class ...MT_Fns>
+FunctionMultiple(MT_FlontFn setfn, MT_Fns... setFns) -> FunctionMultiple
+//<MT_FlontFn, MT_Fns...>;
+<typename N_Function::IS_BindFns<std::tuple<>,MT_FlontFn, MT_Fns...>::SetJudge, MT_Fns...>;
+

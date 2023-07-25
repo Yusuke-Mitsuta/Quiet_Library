@@ -36,18 +36,18 @@ namespace N_Function
 		struct S_BindFn<T_RType(T_CName::*)(T_Args...), T_SetArgs...>
 		{
 			using Type = S_BindFn;
-			using FnType =std::tuple<T_RType(T_CName::*)(T_Args...), T_SetArgs...>;
+			using FnType = T_RType(T_CName::*)(T_Args...);
 			using Judge = std::true_type;
 		};
 
-		template<class T_FunctionInner,class ...T_SetArgs>
+		template<class ...T_FunctionInner,class ...T_SetArgs>
 			requires tuple_back_part_convertible_to<
-				typename IS_TupleUnzip<T_SetArgs...,typename Function<T_FunctionInner>::BoundArgs>::Type,
-					typename Function<T_FunctionInner>::Args>
-		struct S_BindFn<Function<T_FunctionInner>,T_SetArgs...>
+				typename IS_TupleUnzip<T_SetArgs...,typename Function<T_FunctionInner...>::BoundArgs>::Type,
+					typename Function<T_FunctionInner...>::Args>
+		struct S_BindFn<Function<T_FunctionInner...>,T_SetArgs...>
 		{
 			using Type = S_BindFn;
-			using FnType = std::tuple<Function<T_FunctionInner>,T_SetArgs...>;
+			using FnType = Function<T_FunctionInner...>;
 			using Judge = std::true_type;
 
 		};

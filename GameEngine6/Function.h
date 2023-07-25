@@ -6,6 +6,40 @@
 #include"Tuple_Unzip.h"
 #include"MethodData.h"
 
+
+struct H
+{
+	void Args_1(int a)
+	{
+		C_OUT(a);
+	}
+
+	void Args_2(int a, int b)
+	{
+		C_OUT(a);
+		C_OUT(b);
+	}
+
+	void Args_3(int a, int b, int c)
+	{
+		Args_2(a, b);
+		C_OUT(c);
+	}
+
+	void Args_4(int a, int b, int c, int d)
+	{
+		Args_3(a, b, c);
+		C_OUT(d);
+
+	}
+
+	void Args_5(int a, int b, int c, int d, int e)
+	{
+		Args_4(a, b, c, d);
+		C_OUT(e);
+	}
+};
+
 template<not_same_as<std::nullopt_t> T_Fn,class ...T_Args>
 class Function
 {
@@ -21,7 +55,7 @@ public:
 	using Args = MethodData::Args;
 	using Fn = MethodData::Fn;
 	
-	CName* classP;
+	CName* classP = nullptr;
 	Fn fn;
 	BindArgs bindArgs;
 
@@ -49,11 +83,11 @@ public:
 };
 
 template<class MT_Fn, class ...T_Args>
-Function(MT_Fn setFn, T_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn,T_Args...>::Type::FnType>;
+Function(MT_Fn setFn, T_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn,T_Args...>::Type::FnType,T_Args...>;
 
 template<not_same_as<std::nullopt_t> T_Fn,class ...T_Args>
 template<size_t ...N>
 inline constexpr Function<T_Fn, T_Args...>::RType Function<T_Fn, T_Args...>::Execution(auto args, std::index_sequence<N...>)
 {
-	return (classP->*fn)(std::get<N>((args.tuple))...);
+	//return (classP->*fn)(std::get<N>((args.tuple))...);
 }

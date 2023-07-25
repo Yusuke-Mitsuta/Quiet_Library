@@ -41,16 +41,16 @@ namespace N_Function
 		using Root = std::true_type;
 	};
 
-	template<class T_FunctionInner, class ...T_SetArgs >
-	struct S_MethodData<Function<T_FunctionInner>, T_SetArgs...>
+	template<class ...T_FunctionInner, class ...T_SetArgs >
+	struct S_MethodData<Function<T_FunctionInner...>, T_SetArgs...>
 	{
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = Function<T_FunctionInner>;
+		using Fn = Function<T_FunctionInner...>;
 
 		//仕様
 		//[Fn]のMethodDataにアクセスする
-		using ParentFn = S_MethodData<T_FunctionInner>;
+		using ParentFn = S_MethodData<T_FunctionInner...>;
 
 		using BindArgs = std::tuple<T_SetArgs...>;
 
@@ -64,11 +64,4 @@ namespace N_Function
 		using Root = std::false_type;
 	};
 
-	template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs >
-	struct S_MethodData<std::tuple<T_RType(T_CName::*)(T_Args...), T_SetArgs...>>:
-		public S_MethodData<T_RType(T_CName::*)(T_Args...), T_SetArgs...>{};
-
-	template<class T_FunctionInner, class ...T_SetArgs >
-	struct S_MethodData<std::tuple<Function<T_FunctionInner>, T_SetArgs...>> :
-		public S_MethodData<Function<T_FunctionInner>, T_SetArgs...>{};
 }
