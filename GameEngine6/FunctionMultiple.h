@@ -1,8 +1,7 @@
 #pragma once
 #include"Function.h"
 #include"tuple_Helper.h"
-#include"MethodSearch.h"
-#include"Function_Bind_Fns.h"
+#include"FunctionMultiple_Helper.h"
 
 //仕様
 //複数の関数ポインター、及びそれに対する引数の値が正しいか、後方一致で判定する
@@ -36,10 +35,10 @@ public:
 	//引数
 	//args::入力する引数
 	template<class ...T_Args>
-		requires not_same_as<typename N_Function::IS_BindFns<std::tuple<T_Args...>,T_FlontFn,T_Fns...>::MethodSearch, std::nullopt_t>
+		requires not_same_as<typename N_Function::IS_FunctionMultiple_Helper<std::tuple<T_Args...>,T_FlontFn,T_Fns...>::MethodSearch, std::nullopt_t>
 	constexpr auto operator()(T_Args... args)
 	{
-		return N_Function::IS_BindFns<std::tuple<T_Args...>, T_FlontFn, T_Fns...>::MethodSearch::Execution(fns, args...);
+		return N_Function::IS_FunctionMultiple_Helper<std::tuple<T_Args...>, T_FlontFn, T_Fns...>::MethodSearch::Execution(fns, args...);
 	}
 
 };
@@ -47,5 +46,5 @@ public:
 template<class MT_FlontFn, class ...MT_Fns>
 FunctionMultiple(MT_FlontFn setfn, MT_Fns... setFns) -> FunctionMultiple
 //<MT_FlontFn, MT_Fns...>;
-<typename N_Function::IS_BindFns<std::tuple<>,MT_FlontFn, MT_Fns...>::SetJudge, MT_Fns...>;
+<typename N_Function::IS_FunctionMultiple_Helper<std::tuple<>,MT_FlontFn, MT_Fns...>::SetJudge, MT_Fns...>;
 

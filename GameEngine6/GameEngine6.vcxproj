@@ -34,7 +34,7 @@
     <ClInclude Include="Core_Control_Tower.h" />
     <ClInclude Include="Core_Base.h" />
     <ClInclude Include="FunctionMultiple.h" />
-    <ClInclude Include="Function_Bind_Fns.h" />
+    <ClInclude Include="FunctionMultiple_Helper.h" />
     <ClInclude Include="Function_Select.h" />
     <ClInclude Include="Link.h" />
     <ClInclude Include="Manager_Component.h" />
@@ -55,7 +55,6 @@
     <ClInclude Include="Message_Router.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="MethodData.h" />
-    <ClInclude Include="MethodSearch.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />

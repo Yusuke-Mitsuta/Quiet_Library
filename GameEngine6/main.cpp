@@ -24,7 +24,7 @@
 #include<utility>
 #include"Constexpr_Array.h"
 #include"ClassFunction.h"
-#include"Function_Bind_Fns.h"
+#include"FunctionMultiple_Helper.h"
 
 constexpr std::string getLastPathComponent(std::string path) {
 	std::string r;
@@ -40,6 +40,39 @@ constexpr std::string getLastPathComponent(std::string path) {
 		r.push_back(path[i]);
 	return r;
 }
+
+struct H
+{
+	void Args_1(int a)
+	{
+		C_OUT(a);
+	}
+
+	void Args_2(int a, int b)
+	{
+		C_OUT(a);
+		C_OUT(b);
+	}
+
+	void Args_3(int a, int b, int c)
+	{
+		Args_2(a, b);
+		C_OUT(c);
+	}
+
+	void Args_4(int a, int b, int c, int d)
+	{
+		Args_3(a, b, c);
+		C_OUT(d);
+
+	}
+
+	void Args_5(int a, int b, int c, int d, int e)
+	{
+		Args_4(a, b, c, d);
+		C_OUT(e);
+	}
+};
 
 int main()
 {

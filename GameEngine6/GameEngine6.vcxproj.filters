@@ -40,6 +40,12 @@
     <Filter Include="ヘッダー ファイル\Time">
       <UniqueIdentifier>{1fc74d49-c527-4e45-8818-b0c90fd035fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Function">
+      <UniqueIdentifier>{d80d7c99-db8f-4eba-9366-bf0c706e949b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple">
+      <UniqueIdentifier>{9c7b0b27-3408-436a-b360-6cb5eece5889}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -165,35 +171,32 @@
     <ClInclude Include="Message_Receive.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="tuple_convertible_to.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Function.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Bind_Fns.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Select.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Unzip.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="ClassFunction.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionMultiple.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Function.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="tuple_Helper.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="FunctionMultiple_Helper.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Select.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionMultiple.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="MethodData.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="MethodSearch.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="tuple_convertible_to.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple_Helper.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Unzip.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,11 +269,11 @@
     <ClCompile Include="Link.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Function_BindFn.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Tuple_Agrs.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Function_BindFn.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
