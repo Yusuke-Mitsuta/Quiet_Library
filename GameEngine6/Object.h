@@ -16,14 +16,14 @@ public:
 
 	//static constexpr Function a = {&Test,3,4};
 
-	//S_MoveTupleInnerType<FunctionMultiple, std::tuple<decltype(&Test)>>::Type aaa;
+	//static constexpr S_MoveTupleInnerType<FunctionMultiple, std::tuple<decltype(&Test)>>::Type aaa = {&Test};
+
 
 	//FUNCTION_MULTIPLE(b, &Test)
 
-
 	Core()
 	{
-
+		
 	}
 
 };

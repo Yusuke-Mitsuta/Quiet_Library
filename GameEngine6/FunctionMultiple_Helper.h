@@ -1,14 +1,9 @@
 #pragma once
-//#include"Function_BindFn.h"
 #include"tuple_convertible_to.h"
-#include"Tuple_Unzip.h"
 #include"Function.h"
-#include"tuple_Helper.h"
-#include<tuple>
-#include<optional>
 
 #define FUNCTION_MULTIPLE(Variable,...)\
-typename S_MoveTupleInnerType<FunctionMultiple,decltype(std::tuple(__VA_ARGS__))>::Type Variable = { __VA_ARGS__ };\
+S_MoveTupleInnerType<FunctionMultiple,decltype(std::tuple(__VA_ARGS__))>::Type Variable = { __VA_ARGS__ };\
 
 namespace N_Function
 {

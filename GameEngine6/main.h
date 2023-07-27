@@ -32,3 +32,25 @@ using Name = Core<#Name>;\
 template<> \
 class Core<#Name> \
 
+
+
+struct H
+{
+	void Args_1(int a);
+
+	void Args_2(int a, int b);
+
+	void Args_3(int a, int b, int c);
+
+	void Args_4(int a, int b, int c, int d);
+
+	void Args_5(int a, int b, int c, int d, int e);
+
+	void Args_6(int a, int b, int c, int d, int e, int f);
+
+	void Args_7(int a, int b, int c, int d, int e, int f, int g);
+
+
+};
+
+static H* h = new H();

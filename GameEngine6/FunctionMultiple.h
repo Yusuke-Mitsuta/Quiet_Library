@@ -1,7 +1,5 @@
 #pragma once
-#include"Function.h"
-#include"tuple_Helper.h"
-#include"FunctionMultiple_Helper.h"
+
 #include"FunctionMultipleOperator.h"
 
 //Žd—l

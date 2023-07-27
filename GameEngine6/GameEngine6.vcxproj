@@ -37,7 +37,6 @@
     <ClInclude Include="FunctionMultipleOperator.h" />
     <ClInclude Include="FunctionMultiple_Helper.h" />
     <ClInclude Include="Function_Operator.h" />
-    <ClInclude Include="Function_Select.h" />
     <ClInclude Include="Link.h" />
     <ClInclude Include="Manager_Component.h" />
     <ClInclude Include="Manager_Object.h" />

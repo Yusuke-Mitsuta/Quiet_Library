@@ -1,6 +1,10 @@
 #pragma once
 
+#include <iostream>
+
 #include"MethodData.h"
+#include"SwapType.h"
+#include"main.h"
 
 namespace N_Function 
 {
@@ -28,11 +32,41 @@ namespace N_Function
 		using Fn = MethodData::Fn;
 
 		IS_FunctionOperator() = delete;
+
 	public:
 
 		template<class T_Args_Number,class T_Request_Args_Number>
 		struct S_FunctionOperator;
 
+
+		//仕様
+		//bindArgsを持たない[Function]のOperator部分の実装
+		//
+		//template
+		//...t_Request_Args_Number::operator()()の引数で要求する型の[size_t]パラメータパック
+		template<size_t... t_Request_Args_Number>
+		struct S_FunctionOperator<std::nullopt_t,
+			std::index_sequence<t_Request_Args_Number...>>
+		{
+		private:
+			Fn fn;
+		public:
+			template<class MT_Fn>
+			constexpr S_FunctionOperator(MT_Fn setFn)
+				:fn(setFn) {}
+
+			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
+				requires same_as<std::true_type, typename MethodData::Root>
+			{
+				return (h->*fn)(args...);
+			}
+
+			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
+				requires same_as<std::false_type, typename MethodData::Root>
+			{
+				return fn.operator()(args...);
+			}
+		};
 
 		//仕様
 		//[Function]のOperator部分の実装
@@ -42,33 +76,40 @@ namespace N_Function
 		//...t_Request_Args_Number::operator()()の引数で要求する型の[size_t]パラメータパック
 		template<size_t ...t_Args_BindNumber,size_t... t_Request_Args_Number>
 		struct S_FunctionOperator<std::index_sequence<t_Args_BindNumber...>,
-			std::index_sequence<t_Request_Args_Number...>>
+			std::index_sequence<t_Request_Args_Number...>>:
+			public S_FunctionOperator<std::nullopt_t,
+			std::make_index_sequence<
+			std::tuple_size_v<typename MethodData::Args> -
+			std::tuple_size_v<typename MethodData::BoundArgs>+
+			sizeof...(T_Args)>>
 		{
 		private:
-			CName* classP = nullptr;
-			Fn fn;
+			using Fn = S_FunctionOperator<std::nullopt_t,
+				std::make_index_sequence<
+				std::tuple_size_v<typename MethodData::Args> -
+				std::tuple_size_v<typename MethodData::BoundArgs>+
+				sizeof...(T_Args)>>;
+
 			BindArgs bindArgs;
 		public:
 
 			template<class MT_Fn, class ...MT_Args>
 			constexpr S_FunctionOperator(MT_Fn setFn, MT_Args ...setArgs)
-				:fn(setFn), bindArgs(setArgs...) {}
+				:Fn(setFn), bindArgs(setArgs...) {}
 
 			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
-				requires same_as<std::true_type, typename MethodData::Root>
 			{
-				return (classP->*fn)(args..., std::get<t_Args_BindNumber>(bindArgs)...);
-			}
-
-			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
-				requires same_as<std::false_type, typename MethodData::Root>
-			{
-				return fn.operator()(args..., std::get<t_Args_BindNumber> (bindArgs)...);
+				Fn::operator()(args..., std::get<t_Args_BindNumber>(bindArgs)...);
 			}
 		};
 
+	private:
+		using Swap = IS_SwapType<std::nullopt_t,
+			std::make_index_sequence<std::tuple_size_v<typename MethodData::BindArgs>>, 
+			sizeof...(T_Args)>;
 	public:
-		using Type = S_FunctionOperator<std::make_index_sequence<std::tuple_size_v< typename MethodData::BindArgs>>,std::make_index_sequence<std::tuple_size_v<typename MethodData::Args>-std::tuple_size_v<typename MethodData::BoundArgs>>>;
+
+		using Type = S_FunctionOperator<typename Swap::Type_1,std::make_index_sequence<std::tuple_size_v<typename MethodData::Args>-std::tuple_size_v<typename MethodData::BoundArgs>>>;
 
 	};
 

@@ -2,7 +2,6 @@
 
 #include"Function.h"
 #include"FunctionMultiple_Helper.h"
-#include"Function_Operator.h"
 #include"SwapType.h"
 
 namespace N_Function

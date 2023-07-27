@@ -1,5 +1,7 @@
 #pragma once
 
+#include"Concept.h"
+
 //仕様
 //[T_1],[T_2]を[t_Order]によって入れ替える
 //
@@ -7,7 +9,7 @@
 //T_1::タイプ1
 //T_2::タイプ2
 //t_Order::trueなら[T_1],[T_2]を入れ替える
-template<class T_1, class T_2, bool t_Order>
+template<class T_1, class T_2,int t_Order>
 struct IS_SwapType
 {
 	template<bool t_Order>
@@ -22,7 +24,7 @@ struct IS_SwapType
 		using Type = T_2;
 	};
 
-	using Type_1 = S_SwapType<t_Order>::Type;
-	using Type_2 = S_SwapType<!t_Order>::Type;
+	using Type_1 = S_SwapType<static_cast<bool>(t_Order)>::Type;
+	using Type_2 = S_SwapType<!static_cast<bool>(t_Order)>::Type;
 };
 

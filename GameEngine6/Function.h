@@ -36,5 +36,5 @@ public:
 };
 
 template<class MT_Fn, class ...T_Args>
-Function(MT_Fn setFn, T_Args... setArgs) -> Function<typename N_Function::IS_BindFn<MT_Fn,T_Args...>::Type::FnType,T_Args...>;
+Function(MT_Fn setFn, T_Args... setArgs) -> Function<typename N_Function::IS_FunctionHelper<MT_Fn,T_Args...>::Type::FnType,T_Args...>;
 
