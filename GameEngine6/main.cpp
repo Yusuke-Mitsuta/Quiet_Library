@@ -25,6 +25,8 @@
 #include"Constexpr_Array.h"
 #include"ClassFunction.h"
 #include"FunctionMultiple_Helper.h"
+#include"tuple_Helper.h"
+
 
 constexpr std::string getLastPathComponent(std::string path) {
 	std::string r;
@@ -40,6 +42,7 @@ constexpr std::string getLastPathComponent(std::string path) {
 		r.push_back(path[i]);
 	return r;
 }
+
 
 struct H
 {
@@ -72,25 +75,87 @@ struct H
 		Args_4(a, b, c, d);
 		C_OUT(e);
 	}
+
+	void Args_6(int a, int b, int c, int d, int e,int f)
+	{
+		Args_5(a, b, c, d,e);
+		C_OUT(f);
+	}
+
+	void Args_7(int a, int b, int c, int d, int e, int f,H g)
+	{
+		Args_6(a, b, c, d, e,f);
+		//C_OUT(g);
+	}
+
+	template<class ...T>
+	struct M
+	{
+		void (*p)(T...);
+	};
+
 };
 
+
+
+constexpr Function a1(&H::Args_7, H());
+//static FunctionMultiple aa2 = {a1,1,3,344,4};
 int main()
 {
+	FUNCTION_MULTIPLE(AA, &H::Args_5, 1, 3, 4);
 
-	H* h = new H();
+	
+	
 
-	Function _1(&H::Args_1, 3);
+	//std::tuple<DECLT1(1, 3, 4, 2)> a;
+	
+	
+	Function _1(&H::Args_4, 3,2);
+	
+	
 	//_1.classP = h;
-	_1();
-	Function a1(&H::Args_5, 5);
+	//_1();
+	//constexpr Function a1(&H::Args_5, 5);
 	type_id(a1)
-	Function a2(a1,2);
-	Function a3(a2,1);
+	Function a2(a1,1,0,3);
 
-	type_id(a3);
+//	a2(3,4);
 
-	FunctionMultiple aa1(a1,a1,1,a1,2,2,a1,3,3,3,a1,4,4,4,4);
-	FunctionMultiple aa2(a1);
+	//Function a3(a2,1,3);
+
+	//type_id(a3);
+
+	Function ab(&H::Args_1);
+	Function ab2(ab);
+	
+
+	FunctionMultiple aa1(
+		//a1, 7, 7, 7, 7, 7, 7,7,
+		a1, 6, 6, 6, 6, 6, 6
+		,a1, 5, 5, 5, 5, 5
+		,a1, 4, 4, 4, 4
+		,a1, 3, 3, 3
+		,a1, 2, 2
+		,a1, 1
+		,a1
+	);
+
+
+
+
+	aa1();
+	aa1(1);
+	aa1(2,2);
+	aa1(3,3,3);
+	aa1(4,4,4,4);
+	aa1(5,5,5,5,5);
+	aa1(6,6,6,6,6,6);
+	//aa1(7,7,7,7,7,7,7);
+
+		//5 3 1 0 2 4
+	//aa2.Execution();
+
+	//aa3(1, 2, 3, 4);
 
 		//, decltype(a1),int, decltype(a1),int,int>::
 

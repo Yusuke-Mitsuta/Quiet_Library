@@ -4,22 +4,27 @@
 #include"Constexpr_String.h"
 
 template<>
-class Core<"Object">:
+class Core<"Object"> :
 	public Core<"Core">
 {
 public:
 
-	void Test(int a,int b)
+	void Test(int a, int b)
 	{
 		C_OUT("TEST");
 	}
 
-	static constexpr Function a = {&Test,3,4 };
+	//static constexpr Function a = {&Test,3,4};
 
-	static constexpr FunctionMultiple b ={&Test,3,45 };
+	//S_MoveTupleInnerType<FunctionMultiple, std::tuple<decltype(&Test)>>::Type aaa;
+
+	//FUNCTION_MULTIPLE(b, &Test)
+
 
 	Core()
 	{
+
 	}
 
 };
+

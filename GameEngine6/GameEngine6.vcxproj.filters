@@ -198,6 +198,15 @@
     <ClInclude Include="Tuple_Unzip.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
+    <ClInclude Include="Function_Operator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionMultipleOperator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapType.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
