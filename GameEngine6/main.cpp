@@ -88,7 +88,13 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	C_OUT(g);
 }
 
-
+//template<auto ...v>
+//struct TEST:
+//	N_Function::IS_FunctionMultipleOperatorStatic<v...>::Type
+//{
+//
+//
+//};
 
 constexpr Function a1(&H::Args_7);
 static FunctionMultiple aa2 = { a1,a1,3 };
