@@ -28,7 +28,7 @@ namespace N_Function
 		static constexpr auto Parameter_Element_v = S_Parameter_Element_v<_Index, t_Fns...>;
 		
 		template<size_t t_Parameter_FnNumber,size_t ...t_Parameter_ArgsNumber>
-		using Fn_Static =typename FunctionStatic<Parameter_Element_v<t_Parameter_FnNumber>,
+		using Fn_Static =FunctionStatic<Parameter_Element_v<t_Parameter_FnNumber>,
 		Parameter_Element_v<(t_Parameter_FnNumber+1)+t_Parameter_ArgsNumber>...>;
 
 		static constexpr int Fns_Num = std::tuple_size_v<Fns>;
@@ -40,7 +40,7 @@ namespace N_Function
 
 		template<class T_Fn_Static = std::tuple<>, int t_FnCount = 0, int t_Parameter_Number = 0,class T_Bind_ArgsNum= std::make_index_sequence<Bind_Args_Num<t_FnCount>>>
 		struct S_CreateFunctionStatic;
-		
+
 		//édól
 		//[t_fns...]Ç©ÇÁ[FunctionStatic]Çç\ê¨Ç∑ÇÈ
 		//
@@ -55,8 +55,17 @@ namespace N_Function
 		{
 			using T_FnStatic_Add = std::tuple<Fn_Static<t_Parameter_Number, t_Bind_ArgsNum...>, T_Fn_Static...>;
 
-			using Type = IS_Swap_t1<T_FnStatic_Add, typename
-				S_CreateFunctionStatic<T_FnStatic_Add, t_FnCount + 1, t_Parameter_Number + 1 + Bind_Args_Num<t_FnCount>>::Type, Fns_Num - t_FnCount - 1>;
+			using Type = S_CreateFunctionStatic<T_FnStatic_Add, t_FnCount + 1, t_Parameter_Number + 1 + Bind_Args_Num<t_FnCount>>::Type;
+		};
+
+		template<class ...T_Fn_Static,int t_Parameter_Number,
+			size_t ...t_Bind_ArgsNum>
+		struct S_CreateFunctionStatic<std::tuple<T_Fn_Static...>, Fns_Num-1, t_Parameter_Number,
+			std::index_sequence<t_Bind_ArgsNum...>>
+		{
+			using Type = std::tuple<
+				Fn_Static<t_Parameter_Number, t_Bind_ArgsNum...>, 
+				T_Fn_Static...>;
 
 		};
 
@@ -73,7 +82,8 @@ namespace N_Function
 			using T_FnsStatic::Execution...;
 		};
 
-		using Type = S_FunctionMultipleOperatorStatic<typename S_CreateFunctionStatic<>::Type>;
+		using Type =
+			S_FunctionMultipleOperatorStatic<typename S_CreateFunctionStatic<>::Type>;
 	};
 
 }

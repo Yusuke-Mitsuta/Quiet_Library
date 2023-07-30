@@ -88,7 +88,13 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	C_OUT(g);
 }
 
-
+//template<auto ...v>
+//struct TEST:
+//	N_Function::IS_FunctionMultipleOperatorStatic<v...>::Type
+//{
+//
+//
+//};
 
 
 constexpr Function a1(&H::Args_7);
@@ -104,24 +110,36 @@ int main()
 	static constexpr FunctionStatic<aaa2,9> aaa3;
 
 	FunctionMultipleStatic<
-		&H::Args_5, 4, 4, 4,3
-		//&H::Args_7, 7, 7, 7, 7, 7, 7, 7
+		&H::Args_5, 4, 4, 4,3,
+		&H::Args_7, 7, 7, 7, 7, 7, 7, 7
 	> bab;
 
-	FunctionMultipleStatic<
-		&H::Args_7,7,7,7,7,7,7,7,
-		&H::Args_7,6,6,6,6,6,6,
-		&H::Args_7,5,5,5,5,5,
-		&H::Args_7,4,4,4,4,
-		&H::Args_7,3,3,3,
-		&H::Args_7,2,2,
-		&H::Args_7,1,
-		&H::Args_7
-	> O;
-	
 
+	static constexpr FunctionMultipleStatic<
+		&H::Args_7,7,7,7,7,7,7,7,
+		&H::Args_7,6,6,6,6,6,6
+		,&H::Args_7,5,5,5,5,5
+		,&H::Args_7,4,4,4,4
+		,&H::Args_7,3,3,3
+		,&H::Args_7,2,2
+		,&H::Args_7,1
+		,&H::Args_7
+	> O;
+
+	O.Execution();
+	O.Execution(1);
+	O.Execution(2,2);
+	O.Execution(3,3,3);
+	O.Execution(4,4,4,4);
+	O.Execution(5,5,5,5,5);
+	O.Execution(6,6,6,6,6,6);
+	O.Execution(7,7,7,7,7,7,7);
+
+	//
 	
-		//Bind_Args_Num<0>;
+	//static constexpr int abab = N_Function::IS_FunctionMultipleOperatorStatic<&H::Args_2, 2>::Bind_Args_Num<0>;
+
+	//constexpr int b= S_Parameter_Element_v<6, 1, 2, 3, 4, 5, 6>;
 
 	//aaa3.Execution(99, 33, 55);
 
