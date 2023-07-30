@@ -1,6 +1,16 @@
 #pragma once
 
 #include<tuple>
+#include"Tuple_Unzip.h"
+#include"Function_BindFn.h"
+#include"Concept.h"
+
+template<not_same_as<std::nullopt_t> T_Fn, class ...T_Args>
+class Function;
+
+template<auto t_Fn, auto ...t_Args>
+	requires not_same_as<typename N_Function::IS_FunctionHelper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, std::nullopt_t>
+class FunctionStatic;
 
 namespace N_Function
 {
@@ -58,6 +68,30 @@ namespace N_Function
 		//仕様
 		//今までに指定済みの引数の型
 		using BoundArgs = IS_TupleUnzip<BindArgs,typename ParentFn::BoundArgs>::Type;
+
+		using CName = ParentFn::CName;
+		using RType = ParentFn::RType;
+		using Args = ParentFn::Args;
+		using Root = std::false_type;
+	};
+
+	template<auto t_Function_v, auto ...t_FunctionArgs_v, class ...T_SetArgs >
+	struct S_MethodData<FunctionStatic<t_Function_v,t_FunctionArgs_v...>, T_SetArgs...>
+	{
+
+		//仕様
+		//既に一部引数を指定済みの関数の型
+		using Fn = FunctionStatic<t_Function_v,t_FunctionArgs_v...>;
+
+		//仕様
+		//[Fn]のMethodDataにアクセスする
+		using ParentFn = S_MethodData<std::remove_const_t<decltype(t_Function_v)>,decltype(t_FunctionArgs_v)...>;
+
+		using BindArgs = std::tuple<T_SetArgs...>;
+
+		//仕様
+		//今までに指定済みの引数の型
+		using BoundArgs = IS_TupleUnzip<BindArgs, typename ParentFn::BoundArgs>::Type;
 
 		using CName = ParentFn::CName;
 		using RType = ParentFn::RType;

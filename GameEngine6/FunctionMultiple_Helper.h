@@ -21,7 +21,7 @@ namespace N_Function
 	struct IS_FunctionMultiple_Helper
 	{
 	private:
-		using T_Tuple = std::tuple <T_FlontFn, T_Fn_Args... >;
+		using T_Tuple = std::tuple<T_FlontFn, T_Fn_Args... >;
 
 		static constexpr int tuple_size = std::tuple_size<T_Tuple>::value;
 
@@ -103,7 +103,7 @@ namespace N_Function
 			using Fns = std::tuple<T_BoundFns...>;
 		};
 	public:
-		using SetJudge= S_CorrectType<>::Type::Judge;
+		using Judge= S_CorrectType<>::Type::Judge;
 
 		using Fns= S_CorrectType<>::Type::Fns;
 

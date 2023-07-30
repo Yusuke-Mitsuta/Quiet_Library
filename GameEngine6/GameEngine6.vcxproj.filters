@@ -204,6 +204,15 @@
     <ClInclude Include="FunctionMultipleOperator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
+    <ClInclude Include="Function_Args.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionMultipleOperator_Static.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Element.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -279,6 +288,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Function_BindFn.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionOperator_Static.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function_Static.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionMultiple_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
   </ItemGroup>

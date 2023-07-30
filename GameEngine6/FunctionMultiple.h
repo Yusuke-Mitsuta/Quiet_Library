@@ -1,6 +1,7 @@
 #pragma once
 
 #include"FunctionMultipleOperator.h"
+#include"FunctionMultiple_Static.h"
 
 //仕様
 //複数の関数ポインター、及びそれに対する引数の値が正しいか、後方一致で判定する
@@ -32,5 +33,5 @@ public:
 
 template<class MT_FlontFn, class ...MT_Fns>
 FunctionMultiple(MT_FlontFn setfn, MT_Fns... setFns) -> FunctionMultiple
-<typename N_Function::IS_FunctionMultiple_Helper<MT_FlontFn, MT_Fns...>::SetJudge, MT_Fns...>;
+<typename N_Function::IS_FunctionMultiple_Helper<MT_FlontFn, MT_Fns...>::Judge, MT_Fns...>;
 

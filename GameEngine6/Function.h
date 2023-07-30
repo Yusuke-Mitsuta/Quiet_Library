@@ -6,7 +6,7 @@
 #include"Tuple_Unzip.h"
 #include"MethodData.h"
 #include"Function_Operator.h"
-
+#include"Function_Static.h"
 
 template<not_same_as<std::nullopt_t> T_Fn,class ...T_Args>
 class Function :
@@ -36,5 +36,5 @@ public:
 };
 
 template<class MT_Fn, class ...T_Args>
-Function(MT_Fn setFn, T_Args... setArgs) -> Function<typename N_Function::IS_FunctionHelper<MT_Fn,T_Args...>::Type::FnType,T_Args...>;
+Function(MT_Fn setFn, T_Args... setArgs) -> Function<typename N_Function::IS_FunctionHelper<MT_Fn,T_Args...>::Judge,T_Args...>;
 

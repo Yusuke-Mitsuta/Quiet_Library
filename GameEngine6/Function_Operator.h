@@ -38,7 +38,6 @@ namespace N_Function
 		template<class T_Args_Number,class T_Request_Args_Number>
 		struct S_FunctionOperator;
 
-
 		//仕様
 		//bindArgsを持たない[Function]のOperator部分の実装
 		//
@@ -49,7 +48,9 @@ namespace N_Function
 			std::index_sequence<t_Request_Args_Number...>>
 		{
 		private:
+
 			Fn fn;
+
 		public:
 			template<class MT_Fn>
 			constexpr S_FunctionOperator(MT_Fn setFn)
@@ -66,7 +67,16 @@ namespace N_Function
 			{
 				return fn.operator()(args...);
 			}
+
 		};
+
+		//仕様
+		//要求する関数の引数の番号のデフォルト値
+		template<size_t t_Changes = 0 >
+		using T_Default_Request_Args_Number =
+			std::make_index_sequence<
+			std::tuple_size_v<typename MethodData::Args> -
+			std::tuple_size_v<typename MethodData::BoundArgs>+t_Changes>;
 
 		//仕様
 		//[Function]のOperator部分の実装
@@ -78,17 +88,12 @@ namespace N_Function
 		struct S_FunctionOperator<std::index_sequence<t_Args_BindNumber...>,
 			std::index_sequence<t_Request_Args_Number...>>:
 			public S_FunctionOperator<std::nullopt_t,
-			std::make_index_sequence<
-			std::tuple_size_v<typename MethodData::Args> -
-			std::tuple_size_v<typename MethodData::BoundArgs>+
-			sizeof...(T_Args)>>
+			T_Default_Request_Args_Number<sizeof...(T_Args)>>
 		{
 		private:
+
 			using Fn = S_FunctionOperator<std::nullopt_t,
-				std::make_index_sequence<
-				std::tuple_size_v<typename MethodData::Args> -
-				std::tuple_size_v<typename MethodData::BoundArgs>+
-				sizeof...(T_Args)>>;
+				T_Default_Request_Args_Number<sizeof...(T_Args)>>;
 
 			BindArgs bindArgs;
 		public:
@@ -99,18 +104,16 @@ namespace N_Function
 
 			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
 			{
-				Fn::operator()(args..., std::get<t_Args_BindNumber>(bindArgs)...);
+				return Fn::operator()(args..., std::get<t_Args_BindNumber>(bindArgs)...);
 			}
 		};
 
 	private:
-		using Swap = IS_SwapType<std::nullopt_t,
-			std::make_index_sequence<std::tuple_size_v<typename MethodData::BindArgs>>, 
-			sizeof...(T_Args)>;
+		using Judge = IS_JudgeType_t<std::make_index_sequence<sizeof...(T_Args)>,
+			(sizeof...(T_Args))>;
 	public:
 
-		using Type = S_FunctionOperator<typename Swap::Type_1,std::make_index_sequence<std::tuple_size_v<typename MethodData::Args>-std::tuple_size_v<typename MethodData::BoundArgs>>>;
-
+		using Type = S_FunctionOperator<Judge,T_Default_Request_Args_Number<>>;
 	};
 
 }

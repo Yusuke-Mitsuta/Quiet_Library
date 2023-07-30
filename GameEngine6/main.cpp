@@ -26,7 +26,9 @@
 #include"ClassFunction.h"
 #include"FunctionMultiple_Helper.h"
 #include"tuple_Helper.h"
+#include"Function_Args.h"
 
+#include"Parameter_Element.h"
 
 constexpr std::string getLastPathComponent(std::string path) {
 	std::string r;
@@ -93,12 +95,40 @@ constexpr Function a1(&H::Args_7);
 static FunctionMultiple aa2 = { a1,a1,3 };
 int main()
 {
+
+
 	FUNCTION_MULTIPLE(AA, &H::Args_5, 1, 3, 4);
 
+	static constexpr FunctionStatic<&H::Args_5, 3> aaa2;
+
+	static constexpr FunctionStatic<aaa2,9> aaa3;
+
+	//FunctionMultipleStatic<&H::Args_2, 3> aaa4 = {};
+
+	
+	
+	
+	
+	//N_Function::IS_FunctionMultipleOperatorStatic<&H::Args_2,3>::Type
+
+	//aaa3.Execution(99, 33, 55);
 
 
+	//N_Function::S_MethodData<decltype(aaa2),int>::ParentFn::
+	//N_Function::IS_FunctionOperator_Static<aaa3>::Type
+	//N_Function::S_MethodData<decltype(aaa2)
+
+
+
+	//C_OUT(sizeof(aaa2));
+
+
+	//Core<"Object"> o;
 
 	//std::tuple<DECLT1(1, 3, 4, 2)> a;
+
+	//using T = decltype(aaa3)::FunctionOperator;
+
 
 
 	Function _1(&H::Args_4, 3, 2);

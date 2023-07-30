@@ -47,7 +47,7 @@ namespace N_Function
 			//仕様
 			//実装するoperator()()が引数の順番になるようにする
 			//総数が偶数かつ、残りの[Function]が偶数、又は総数が奇数かつ、残りの[Function]が奇数ならT_1とT_2を入れ替える
-			using SwapType =typename IS_SwapType<
+			using SwapType =typename IS_Swap_Type<
 				S_FunctionMultipleOperator<std::tuple<T_Fns...>>, 
 				Function<T_FlontFn, T_BindArgs...>, 
 				t_Even>;

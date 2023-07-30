@@ -8,6 +8,8 @@
 
 constexpr std::string getLastPathComponent(std::string path);
 
+#define Constant static constexpr auto \
+
 #define C_OUT(message) \
 std::cout<<getLastPathComponent(__FILE__)<<" : "<<__LINE__<< " << " <<message<<std::endl; \
 
@@ -54,3 +56,31 @@ struct H
 };
 
 static H* h = new H();
+
+struct MyStruct
+{
+
+private:
+
+	void Hoge(){}
+
+public:
+
+	int a = 1;
+};
+
+template<class T>
+struct TYPEa
+{
+	T u;
+
+	constexpr TYPEa(T t):
+	u(t){}
+
+};
+template<auto b>
+struct TYPE
+{
+	//static constexpr auto m = t;
+	int nn=5;
+};
