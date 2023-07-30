@@ -19,16 +19,16 @@ private:
 	template<auto t_Variable>
 	struct S_Variable
 	{
-		Constant Variable = t_Variable;
+		static constexpr auto Variable = t_Variable;
 	};
 public:
 
 	using Type = IS_Swap_t1<S_Variable<t_FlontParameter>, typename S_Parameter_Element_Variable<_Index - 1, t_Parameters...>::Type, _Index>;
 
-	Constant Variable = Type::Variable;
+	static constexpr auto Variable = Type::Variable;
 };
 
 template<size_t _Index, auto ...t_Parameters>
-using S_Parameter_Element_v = S_Parameter_Element_Variable<_Index, t_Parameters...>::Variable;
+static constexpr auto S_Parameter_Element_v = S_Parameter_Element_Variable<_Index, t_Parameters...>::Variable;
 
 

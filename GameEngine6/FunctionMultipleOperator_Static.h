@@ -1,151 +1,79 @@
 #pragma once
 
-#include <iostream>
+#include<iostream>
 #include<tuple>
 #include"Function.h"
+#include"Parameter_Element.h"
 
 namespace N_Function
 {
 	//仕様
-	//[Function]のOperator部分の実装
+	//[FunctionMultipleStatic]のOperator部分の実装
 	//
 	//template
-	//T_Fn::関数の型
-	//...T_Args::Bindする引数の型リスト
+	//t_Fns...::関数ポインターor[FunctionStatic]、それに対する引数、の繰り返し
 	//
 	//補足
-	//IS_FunctionOperatorの実体化は禁止とする
-	//IS_FunctionOperator::Typeを実体化する事
+	//[IS_FunctionMultipleOperatorStatic::Type]を継承する事
+	//t_Fnsに[FunctionStatic]をセットする際は[static constexpr]で修飾する事
 	template <auto ...t_Fns>
 	struct IS_FunctionMultipleOperatorStatic
 	{
 		using Fns = typename IS_FunctionMultiple_Helper<std::remove_const_t<decltype(t_Fns)>...>::Fns;
-		
 
 		template<size_t _Index>
 		using Fns_element = std::tuple_element_t<_Index, Fns>;
+		
+		template<size_t _Index>
+		static constexpr auto Parameter_Element_v = S_Parameter_Element_v<_Index, t_Fns...>;
+		
+		template<size_t t_Parameter_FnNumber,size_t ...t_Parameter_ArgsNumber>
+		using Fn_Static =typename FunctionStatic<Parameter_Element_v<t_Parameter_FnNumber>,
+		Parameter_Element_v<(t_Parameter_FnNumber+1)+t_Parameter_ArgsNumber>...>;
 
 		static constexpr int Fns_Num = std::tuple_size_v<Fns>;
 
 		template<size_t _Index>
-		static constexpr int Args_Num= std::tuple_size_v<typename Function<Fns_element<_Index>>::Args>;
-
-		template<size_t _Index>
-		static constexpr int Bind_Args_Num= std::tuple_size_v<typename Function<Fns_element<_Index>>::BindArgs>;
-
-		template<size_t _Index>
-		static constexpr int Request_Args_Num= Args_Num<_Index>- std::tuple_size_v<typename Function<Fns_element<_Index>>::BoundArgs>;
+		static constexpr int Bind_Args_Num= std::tuple_size_v<
+			typename Fns_element<_Index>::BindArgs>;
 
 
-
-		//template<int t_FnCount,
-		//	class T_Args_Num,//=std::index_sequence<Args_Num<t_FnCount>>,
-		//	class T_Bind_Args,//= std::index_sequence<Bind_Args_Num<t_FnCount>>,
-		//	class T_Request_ArgsNum,//= std::index_sequence<Request_Args_Num<t_FnCount>>,
-		//	bool t_Even,//= !((sizeof...(t_Fns) + t_FnNumber) % 2),
-		//	auto ...t_Fns_Remaining>
-		//struct S_FunctionMultipleOperatorStatic
-		//{
-		//	int b;
-		//};
-
-
-
-		//template<int t_FnCount,
-		//	size_t ...t_Args_Num,
-		//	size_t ...t_BindArgs_Num, 
-		//	size_t ...t_Request_Args_Num,
-		//	bool t_Even,
-		//	auto ...t_Fns_Remaining>
-		//struct S_FunctionMultipleOperatorStatic<t_FnCount,
-		//	std::index_sequence<t_Args_Num...>,
-		//	std::index_sequence<t_BindArgs_Num...>,
-		//	std::index_sequence<t_Request_Args_Num...>,
-		//	t_Even,t_Fns_Remaining...>
-		//{
-		//	template<auto t_Fn, std::tuple_element<t_BindArgs_Num, typename Fns_element<Fns_Num - 1>::BindArgs>::type... t_Args, auto ...t_Fns_Remaining>
-		//	struct S:
-		//		public FunctionStatic<t_Fn,t_Args...>,
-		//		public S_FunctionMultipleOperatorStatic
-		//		<
-		//			t_FnCount + 1,
-		//			std::make_index_sequence<Args_Num<t_FnCount + 1>>,
-		//			std::make_index_sequence<Bind_Args_Num<t_FnCount + 1>>,
-		//			std::make_index_sequence<Request_Args_Num<t_FnCount + 1>>,
-		//			!((Fns_Num + t_FnCount) % 2),
-		//			t_Fns_Remaining...
-		//		>::Type
-		//	{
-		//		using FunctionStatic<t_Fn, t_Args...>::operator();
-
-		//		using S_FunctionMultipleOperatorStatic
-		//			<
-		//			t_FnCount + 1,
-		//			std::make_index_sequence<Args_Num<t_FnCount + 1>>,
-		//			std::make_index_sequence<Bind_Args_Num<t_FnCount + 1>>,
-		//			std::make_index_sequence<Request_Args_Num<t_FnCount + 1>>,
-		//			!((Fns_Num + t_FnCount) % 2),
-		//			t_Fns_Remaining...
-		//			>::Type::operator();
-		//	
-		//	};
-
-		//	using Type = S<t_Fns_Remaining...>;
-		//};
-
-		//template<//int t_FnCount,
-		//	size_t ...t_Args_Num,
-		//	size_t ...t_BindArgs_Num,
-		//	size_t ...t_Request_Args_Num,
-		//	bool t_Even,
-		//	auto ...t_Fns_Remaining>
-		//struct S_FunctionMultipleOperatorStatic<Fns_Num-1,
-		//	std::index_sequence<t_Args_Num...>,
-		//	std::index_sequence<t_BindArgs_Num...>,
-		//	std::index_sequence< t_Request_Args_Num...>,
-		//	t_Even, t_Fns_Remaining...>
-		//{
-		//	template<auto t_Fn,std::tuple_element<t_BindArgs_Num, typename Fns_element<Fns_Num - 1>::BindArgs>::type... t_Args,auto ...t_Fns_Remaining>
-		//	struct S :
-		//		public IS_FunctionOperator_Static<t_Fn,t_Args...>::Type
-		//		//public FunctionStatic<t_Fn, t_Args...>
-		//	{
-		//		using MethodData =S_MethodData<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>;
-		//		using Args = MethodData::Args;
-		//		using RType = MethodData::RType;
-		//		//仕様
-		//		//静的な状態で関数にアクセスする
-		//		static constexpr RType Execution(std::tuple_element_t<t_Request_Args_Num, Args>... args)
-		//			requires same_as<std::true_type, typename MethodData::Root>
-		//		{
-		//			return (h->*t_Fn)(args..., t_Args...);
-		//		}
-
-		//		static constexpr RType Execution(std::tuple_element_t<t_Request_Args_Num, Args>... args)
-		//			requires same_as<std::false_type, typename MethodData::Root>
-		//		{
-		//			return t_Fn.Execution(args..., t_Args...);
-		//		}
-
-		//		constexpr RType operator()(std::tuple_element_t<t_Request_Args_Num, Args>... args)
-		//		{
-		//			return Execution(args...);
-		//		}
-		//	};
-
-		//	using Type = S<t_Fns_Remaining...>;
-
+		template<class T_Fn_Static = std::tuple<>, int t_FnCount = 0, int t_Parameter_Number = 0,class T_Bind_ArgsNum= std::make_index_sequence<Bind_Args_Num<t_FnCount>>>
+		struct S_CreateFunctionStatic;
+		
+		//仕様
+		//[t_fns...]から[FunctionStatic]を構成する
 		//
-		//};
+		//template
+		//T_Fn_Static::構成した[FunctionStatic]のtuple
+		//t_FnCount::現在作成中の[FunctionStatic]の番号
+		//t_Parameter_Number::[t_FnCount]番目の[FunctionStatic]を作成する為要素が[t_Fns...]の何番目から示す番号
+		template<class ...T_Fn_Static,int t_FnCount, int t_Parameter_Number ,
+			size_t ...t_Bind_ArgsNum>
+		struct S_CreateFunctionStatic<std::tuple<T_Fn_Static...>,t_FnCount, t_Parameter_Number,
+			std::index_sequence<t_Bind_ArgsNum...>>
+		{
+			using T_FnStatic_Add = std::tuple<Fn_Static<t_Parameter_Number, t_Bind_ArgsNum...>, T_Fn_Static...>;
 
+			using Type = IS_Swap_t1<T_FnStatic_Add, typename
+				S_CreateFunctionStatic<T_FnStatic_Add, t_FnCount + 1, t_Parameter_Number + 1 + Bind_Args_Num<t_FnCount>>::Type, Fns_Num - t_FnCount - 1>;
 
-using Type = int;
-			//S_FunctionMultipleOperatorStatic<0,
-		/*	std::make_index_sequence<static_cast<int>(Args_Num<0>)>,
-			std::make_index_sequence<static_cast<int>(Bind_Args_Num<0>)>,
-			std::make_index_sequence<static_cast<int>(Request_Args_Num<0>)>,
-			static_cast<bool>(!(Fns_Num % 2)),
-			t_Fns...>::Type;*/
+		};
+
+		template<class T_FnsStatic>
+		struct S_FunctionMultipleOperatorStatic;
+
+		//仕様
+		//構成した[FunctionStatic]を全て継承する
+		template<class ...T_FnsStatic>
+		struct S_FunctionMultipleOperatorStatic<std::tuple<T_FnsStatic...>> :
+			public T_FnsStatic...
+		{
+			using T_FnsStatic::operator()...;
+			using T_FnsStatic::Execution...;
+		};
+
+		using Type = S_FunctionMultipleOperatorStatic<typename S_CreateFunctionStatic<>::Type>;
 	};
 
 }

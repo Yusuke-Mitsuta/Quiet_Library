@@ -8,9 +8,10 @@ template<auto ...t_Fns>
 class FunctionMultipleStatic :
 	public N_Function::IS_FunctionMultipleOperatorStatic<t_Fns...>::Type
 {
+private:
+	using FunctionOperator = N_Function::IS_FunctionOperator_Static<t_Fns...>::Type;
 public:
 
-	using FunctionOperator = N_Function::IS_FunctionOperator_Static<t_Fns...>::Type;
 
 	using FunctionOperator::operator();
 };

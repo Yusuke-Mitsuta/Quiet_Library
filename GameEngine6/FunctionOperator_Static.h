@@ -9,15 +9,15 @@
 namespace N_Function
 {
 	//仕様
-	//[Function]のOperator部分の実装
+	//[FunctionStatic]のOperator部分の実装
 	//
 	//template
-	//T_Fn::関数の型
-	//...T_Args::Bindする引数の型リスト
+	//t_Fn::関数ポインターor[FunctionStatic]
+	//...t_Args::Bindする引数
 	//
 	//補足
-	//IS_FunctionOperatorの実体化は禁止とする
-	//IS_FunctionOperator::Typeを実体化する事
+	//[IS_FunctionOperator_Static::Type]を継承する事
+	//t_Fnに[FunctionStatic]をセットする際は[static constexpr]で修飾する事
 	template <auto t_Fn, auto ...t_Args>
 	struct IS_FunctionOperator_Static
 	{

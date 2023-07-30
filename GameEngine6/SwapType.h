@@ -41,11 +41,11 @@ template<class T, int t_Order>
 using IS_JudgeType_t = typename IS_Judge<T, t_Order>::Type_1;
 
 //仕様
-//[T_1],[T_2]を[t_Order]によって入れ替える
+//[t_1],[t_2]を[t_Order]によって入れ替える
 //
 //template
-//T_1::タイプ1
-//T_2::タイプ2
+//T_1::変数１
+//T_2::変数１
 //t_Order::trueなら[T_1],[T_2]を入れ替える
 template<auto t_1, auto t_2, int t_Order>
 struct IS_Swap_Variable

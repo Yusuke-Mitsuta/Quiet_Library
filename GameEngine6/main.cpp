@@ -103,13 +103,25 @@ int main()
 
 	static constexpr FunctionStatic<aaa2,9> aaa3;
 
-	//FunctionMultipleStatic<&H::Args_2, 3> aaa4 = {};
+	FunctionMultipleStatic<
+		&H::Args_5, 4, 4, 4,3
+		//&H::Args_7, 7, 7, 7, 7, 7, 7, 7
+	> bab;
+
+	FunctionMultipleStatic<
+		&H::Args_7,7,7,7,7,7,7,7,
+		&H::Args_7,6,6,6,6,6,6,
+		&H::Args_7,5,5,5,5,5,
+		&H::Args_7,4,4,4,4,
+		&H::Args_7,3,3,3,
+		&H::Args_7,2,2,
+		&H::Args_7,1,
+		&H::Args_7
+	> O;
+	
 
 	
-	
-	
-	
-	//N_Function::IS_FunctionMultipleOperatorStatic<&H::Args_2,3>::Type
+		//Bind_Args_Num<0>;
 
 	//aaa3.Execution(99, 33, 55);
 

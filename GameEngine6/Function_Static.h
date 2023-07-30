@@ -18,6 +18,8 @@ class FunctionStatic :
 public:
 
 	using FunctionOperator = N_Function::IS_FunctionOperator_Static<t_Fn, t_Args...>::Type;
-
+	
 	using FunctionOperator::operator();
+	using FunctionOperator::Execution;
+
 };
