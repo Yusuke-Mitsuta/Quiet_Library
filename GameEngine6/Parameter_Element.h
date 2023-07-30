@@ -25,12 +25,6 @@ template<size_t _Index, class ...T_Parameters>
 	requires (_Index <= sizeof...(T_Parameters))
 using S_Parameter_Element_t = S_Parameter_Element_Type<_Index, T_Parameters...>::Type;
 
-template<auto t_Variable>
-struct S_Variablea
-{
-	static constexpr auto Variable = t_Variable;
-};
-
 //仕様
 //パラメータパック[t_Parameters...]から[_Index]番目の変数を取り出す
 //
