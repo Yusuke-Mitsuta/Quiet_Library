@@ -2,7 +2,7 @@
 
 #include"Core.h"
 #include"Constexpr_String.h"
-#include"Function_Static.h"
+#include"Function_Single_Static.h"
 
 template<>
 class Core<"Object"> :
@@ -17,9 +17,7 @@ public:
 		C_OUT(b);
 	}
 
-	static constexpr Function a = {&Test,3,4};
 
-	static S_MoveTupleInnerType<FunctionMultiple, std::tuple<decltype(&Test)>>::Type aaa;
 
 	//static constexpr FUNCTION_MULTIPLE(b, &Test)
 
@@ -27,11 +25,6 @@ public:
 	Core()
 	{
 		
-		//(this->*(obj.M))(3, 4);
-
-		//b.E(2,4);
-		
 	}
 
 };
-

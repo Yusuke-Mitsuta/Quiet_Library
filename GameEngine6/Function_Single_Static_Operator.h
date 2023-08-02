@@ -2,24 +2,26 @@
 
 #include <iostream>
 
-#include"MethodData.h"
 #include"SwapType.h"
 #include"main.h"
 
 namespace N_Function
 {
+	template<class T_Method, class ...T_Args>
+	struct S_MethodData;
+
 	//仕様
-	//[FunctionStatic]のOperator部分の実装
+	//[Function_Single_Static]のOperator部分の実装
 	//
 	//template
-	//t_Fn::関数ポインターor[FunctionStatic]
+	//t_Fn::関数ポインターor[Function_Single_Static]
 	//...t_Args::Bindする引数
 	//
 	//補足
-	//[IS_FunctionOperator_Static::Type]を継承する事
-	//t_Fnに[FunctionStatic]をセットする際は[static constexpr]で修飾する事
+	//[IS_Function_Single_Static_Operator::Type]を継承する事
+	//t_Fnに[Function_Single_Static]をセットする際は[static constexpr]で修飾する事
 	template <auto t_Fn, auto ...t_Args>
-	struct IS_FunctionOperator_Static
+	struct IS_Function_Single_Static_Operator
 	{
 	private:
 		using MethodData = N_Function::S_MethodData<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>;
@@ -28,7 +30,7 @@ namespace N_Function
 		using RType = MethodData::RType;
 		using Args = MethodData::Args;
 
-		IS_FunctionOperator_Static() = delete;
+		IS_Function_Single_Static_Operator() = delete;
 
 	public:
 

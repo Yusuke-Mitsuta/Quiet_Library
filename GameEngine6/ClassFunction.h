@@ -1,2 +1,2 @@
 #pragma once
-#include"Function.h"
+#include"Function_Single.h"
