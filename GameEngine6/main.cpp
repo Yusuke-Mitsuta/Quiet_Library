@@ -88,11 +88,6 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	C_OUT(g);
 }
 
-void H::Message(const char* str)
-{
-	C_OUT(str);
-}
-
 //template<auto ...v>
 //struct TEST:
 //	N_Function::IS_FunctionMultipleOperatorStatic<v...>::Type
@@ -118,7 +113,6 @@ int main()
 		&H::Args_7, 7, 7, 7, 7, 7, 7, 7
 	> bab;
 
-	Core<"Object">();
 
 	static constexpr FunctionMultipleStatic<
 		&H::Args_7,7,7,7,7,7,7,7,

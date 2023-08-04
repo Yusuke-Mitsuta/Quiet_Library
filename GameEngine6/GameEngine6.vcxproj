@@ -96,7 +96,7 @@
     <ClCompile Include="Manager_Origin.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Message_Router.cpp" />
-    <ClCompile Include="Function_Helper.h" />
+    <ClCompile Include="Function_BindFn.h" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Time.cpp" />

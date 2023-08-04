@@ -52,7 +52,7 @@ struct H
 
 	void Args_7(int a, int b, int c, int d, int e, int f, int g);
 
-	void Message(const char* str);
+
 };
 
 static H* h = new H();
