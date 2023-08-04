@@ -27,20 +27,20 @@ namespace N_Function
 		struct S_FunctionMultipleOperator;
 
 		template<class T_FlontFn, class ...T_BindArgs,bool t_Even>
-		struct S_FunctionMultipleOperator<std::tuple<Function::Single<T_FlontFn, T_BindArgs...>>,t_Even> :
-			public Function::Single<T_FlontFn, T_BindArgs...>
+		struct S_FunctionMultipleOperator<std::tuple<Function_Single<T_FlontFn, T_BindArgs...>>,t_Even> :
+			public Function_Single<T_FlontFn, T_BindArgs...>
 		{
-			using Function::Single<T_FlontFn, T_BindArgs...>::operator();
+			using Function_Single<T_FlontFn, T_BindArgs...>::operator();
 
 
 			constexpr S_FunctionMultipleOperator(T_FlontFn fn, T_BindArgs... args) :
-				Function::Single<T_FlontFn, T_BindArgs...>(fn, args...) {}
+				Function_Single<T_FlontFn, T_BindArgs...>(fn, args...) {}
 		};
 
 
 		template<class T_FlontFn, class ...T_BindArgs, class ...T_Fns,bool t_Even>
-		struct S_FunctionMultipleOperator<std::tuple<Function::Single<T_FlontFn, T_BindArgs...>,T_Fns...>,t_Even> : 
-			public Function::Single<T_FlontFn, T_BindArgs...>,
+		struct S_FunctionMultipleOperator<std::tuple<Function_Single<T_FlontFn, T_BindArgs...>,T_Fns...>,t_Even> : 
+			public Function_Single<T_FlontFn, T_BindArgs...>,
 			public S_FunctionMultipleOperator<std::tuple<T_Fns...>>
 		{
 			//仕様
@@ -48,7 +48,7 @@ namespace N_Function
 			//総数が偶数かつ、残りの[Function_Single]が偶数、又は総数が奇数かつ、残りの[Function_Single]が奇数ならT_1とT_2を入れ替える
 			using SwapType =typename IS_Swap_Type<
 				S_FunctionMultipleOperator<std::tuple<T_Fns...>>, 
-				Function::Single<T_FlontFn, T_BindArgs...>, 
+				Function_Single<T_FlontFn, T_BindArgs...>, 
 				t_Even>;
 
 			using SwapType::Type_1::operator();
@@ -56,7 +56,7 @@ namespace N_Function
 
 			template<class ...MT_Fns>
 			constexpr S_FunctionMultipleOperator(T_FlontFn fn,T_BindArgs... args,MT_Fns... fns):
-				Function::Single<T_FlontFn, T_BindArgs...>(fn,args...),
+				Function_Single<T_FlontFn, T_BindArgs...>(fn,args...),
 				S_FunctionMultipleOperator<std::tuple<T_Fns...>>(fns...) {}
 		};
 

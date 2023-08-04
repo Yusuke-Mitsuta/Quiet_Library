@@ -2,11 +2,14 @@
 
 #include<iostream>
 #include<tuple>
-#include"Function_Single.h"
 #include"Parameter_Element.h"
-
+#include"Function_Single_Static.h"
 namespace N_Function
 {
+
+	template<class T_Method, class ...T_Args>
+	struct S_MethodData;
+
 	//Žd—l
 	//[Function_Multiple_Static]‚ÌOperator•”•ª‚ÌŽÀ‘•
 	//
@@ -34,8 +37,8 @@ namespace N_Function
 		static constexpr int Fns_Num = std::tuple_size_v<Fns>;
 
 		template<size_t _Index>
-		static constexpr int Bind_Args_Num= std::tuple_size_v<
-			typename Fns_element<_Index>::BindArgs>;
+		static constexpr int Bind_Args_Num= std::tuple_size_v<typename 
+			S_MethodData<Fns_element<_Index>>::ParentFn::BindArgs>;
 
 
 		template<class T_Fn_Static = std::tuple<>, int t_FnCount = 0, int t_Parameter_Number = 0,class T_Bind_ArgsNum= std::make_index_sequence<Bind_Args_Num<t_FnCount>>>

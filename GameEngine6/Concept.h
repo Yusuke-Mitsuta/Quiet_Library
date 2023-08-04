@@ -19,3 +19,5 @@ using std::derived_from;
 
 template <class _Derived, class _Base>
 concept not_derived_from = !(derived_from<_Derived, _Base>);
+
+using std::constructible_from;

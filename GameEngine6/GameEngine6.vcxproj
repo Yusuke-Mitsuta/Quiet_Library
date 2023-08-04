@@ -34,7 +34,6 @@
     <ClInclude Include="Core_Control_Tower.h" />
     <ClInclude Include="Core_Base.h" />
     <ClInclude Include="Function.h" />
-    <ClInclude Include="I_Function.h" />
     <ClInclude Include="Function_Multiple.h" />
     <ClInclude Include="Function_Multiple_Operator.h" />
     <ClInclude Include="Function_Multiple_Static_Operator.h" />
