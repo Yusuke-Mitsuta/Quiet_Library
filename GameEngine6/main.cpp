@@ -79,11 +79,13 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 }
 
 
+{
+	C_OUT(str);
+}
 
 #include"Function.h"
 
-int main()
-{
+#include"Function.h"
 
 	N_Function::Function_Multiple a(&H::Args_3, 1, 2, &H::Args_3, 1);
 	
@@ -98,6 +100,9 @@ int main()
 
 
 	
+{
+
+	Function::Multiple a(&H::Args_3, 1, 2, &H::Args_3, 1);
 
 	a(33,2);
 	//Function::Single b(&H::Args_3, 1, 2);
