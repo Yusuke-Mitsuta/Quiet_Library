@@ -78,16 +78,23 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	C_OUT(g);
 }
 
-void H::Message(const char* str)
-{
-	C_OUT(str);
-}
 
+
+#include"Function.h"
 
 int main()
 {
 
-	Function::Multiple a(&H::Args_3, 1, 2, &H::Args_3, 1);
+	N_Function::Function_Multiple a(&H::Args_3, 1, 2, &H::Args_3, 1);
+	
+	Function::Single_Static<& H::Args_3, 1,2> aa;
+	
+	N_Function::Function_Multiple_Static<&H::Args_3, 3, 3> aba;
+	
+	 
+	Function::Multiple_Static<&H::Args_2> aaa = {};
+
+	aaa(99999,3);
 
 	a(33,2);
 	//Function::Single b(&H::Args_3, 1, 2);

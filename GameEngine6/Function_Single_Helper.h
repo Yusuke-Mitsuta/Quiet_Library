@@ -8,7 +8,6 @@ namespace N_Function
 	template<class T_Method, class ...TP_Args>
 	struct S_MethodData;
 	
-
 	template<class T_Mtehod,class ...TP_Args>
 	struct IS_Function_Single_Helper
 	{

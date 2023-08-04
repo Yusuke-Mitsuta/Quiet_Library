@@ -2,13 +2,19 @@
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
 
-#include"I_Function.h"
-
 #define FUNCTION_MULTIPLE(Variable,...)\
 S_MoveTupleInnerType<FunctionMultiple,decltype(std::tuple(__VA_ARGS__))>::Type Variable = { __VA_ARGS__ };\
 
 namespace N_Function
 {
+
+	template<class T_Method, class ...T_Args>
+	struct S_MethodData;
+
+	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
+	class Function_Single;
+
+
 	//仕様
 	//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
 	//
@@ -62,14 +68,14 @@ namespace N_Function
 
 				using Type = S_CorrectType<t_MethodTupleNumber* judge,
 					T_BoundFns...,
-					Function::Single<tuple_element<t_FunctionNumber>, tuple_element<t_ArgsNumber>...>>::Type;
+					Function_Single<tuple_element<t_FunctionNumber>, tuple_element<t_ArgsNumber>...>>::Type;
 
 			};
 
 			//仕様
 			//Functionに対して引数を判定する
 			template<class ...T_FunctionInner,int t_MethodTupleNumber, int ...t_ArgsNumber>
-			struct S_Judge<Function::Single<T_FunctionInner...>, t_MethodTupleNumber, t_ArgsNumber...>
+			struct S_Judge<Function_Single<T_FunctionInner...>, t_MethodTupleNumber, t_ArgsNumber...>
 			{
 
 				//仕様
@@ -79,7 +85,7 @@ namespace N_Function
 
 				using Type = S_CorrectType<t_MethodTupleNumber* judge,
 					T_BoundFns...,
-					Function::Single<tuple_element<t_FunctionNumber>, tuple_element<t_ArgsNumber>...>>::Type;
+					Function_Single<tuple_element<t_FunctionNumber>, tuple_element<t_ArgsNumber>...>>::Type;
 
 			};
 			using Type = S_Judge<tuple_element<t_FunctionNumber + 1>, t_FunctionNumber + 1>::Type;

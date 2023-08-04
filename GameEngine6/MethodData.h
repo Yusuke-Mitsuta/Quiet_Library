@@ -4,10 +4,15 @@
 #include"Tuple_Unzip.h"
 #include"Concept.h"
 
-#include"I_Function.h"
-
 namespace N_Function
 {
+
+	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
+	class Function_Single;
+
+	template<auto t_Fn, auto ...t_Args>
+		requires not_same_as<typename N_Function::IS_Function_Single_Helper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, std::nullopt_t>
+	class Function_Single_Static;
 
 	//仕様
 	//先頭の関数に対して、戻り値、クラス、引数の型を返す。
@@ -48,11 +53,11 @@ namespace N_Function
 	};
 
 	template<class ...T_FunctionInner, class ...T_SetArgs >
-	struct S_MethodData<Function::Single<T_FunctionInner...>, T_SetArgs...>
+	struct S_MethodData<Function_Single<T_FunctionInner...>, T_SetArgs...>
 	{
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = Function::Single<T_FunctionInner...>;
+		using Fn = Function_Single<T_FunctionInner...>;
 
 		//仕様
 		//[Method]のMethodDataにアクセスする
@@ -71,12 +76,12 @@ namespace N_Function
 	};
 
 	template<auto t_Function_v, auto ...t_FunctionArgs_v, class ...T_SetArgs >
-	struct S_MethodData<Function::Single_Static<t_Function_v,t_FunctionArgs_v...>, T_SetArgs...>
+	struct S_MethodData<Function_Single_Static<t_Function_v,t_FunctionArgs_v...>, T_SetArgs...>
 	{
 
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = Function::Single_Static<t_Function_v,t_FunctionArgs_v...>;
+		using Fn = Function_Single_Static<t_Function_v,t_FunctionArgs_v...>;
 
 		//仕様
 		//[Method]のMethodDataにアクセスする
