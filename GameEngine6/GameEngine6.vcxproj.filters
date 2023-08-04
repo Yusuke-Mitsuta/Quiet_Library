@@ -174,13 +174,13 @@
     <ClInclude Include="ClassFunction.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Single.h">
+    <ClInclude Include="Function.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Multiple_Helper.h">
+    <ClInclude Include="FunctionMultiple_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Multiple.h">
+    <ClInclude Include="FunctionMultiple.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="MethodData.h">
@@ -198,26 +198,20 @@
     <ClInclude Include="SwapType.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Single_Operator.h">
+    <ClInclude Include="Function_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Multiple_Operator.h">
+    <ClInclude Include="FunctionMultipleOperator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Function_Args.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Multiple_Static_Operator.h">
+    <ClInclude Include="FunctionMultipleOperator_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Parameter_Element.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="I_Function.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -293,16 +287,16 @@
     <ClCompile Include="Tuple_Agrs.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Function_Single_Helper.h">
+    <ClCompile Include="Function_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
-    <ClCompile Include="Function_Single_Static_Operator.h">
+    <ClCompile Include="FunctionOperator_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
-    <ClCompile Include="Function_Single_Static.h">
+    <ClCompile Include="Function_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
-    <ClCompile Include="Function_Multiple_Static.h">
+    <ClCompile Include="FunctionMultiple_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
   </ItemGroup>

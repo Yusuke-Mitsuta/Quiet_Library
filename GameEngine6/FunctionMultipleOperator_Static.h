@@ -2,24 +2,24 @@
 
 #include<iostream>
 #include<tuple>
-#include"Function_Single.h"
+#include"Function.h"
 #include"Parameter_Element.h"
 
 namespace N_Function
 {
 	//仕様
-	//[Function_Multiple_Static]のOperator部分の実装
+	//[FunctionMultipleStatic]のOperator部分の実装
 	//
 	//template
-	//t_Fns...::関数ポインターor[Function_Single_Static]、それに対する引数、の繰り返し
+	//t_Fns...::関数ポインターor[FunctionStatic]、それに対する引数、の繰り返し
 	//
 	//補足
-	//[IS_Function_Multiple_Static_Operator::Type]を継承する事
-	//t_Fnsに[Function_Single_Static]をセットする際は[static constexpr]で修飾する事
+	//[IS_FunctionMultipleOperatorStatic::Type]を継承する事
+	//t_Fnsに[FunctionStatic]をセットする際は[static constexpr]で修飾する事
 	template <auto ...t_Fns>
-	struct IS_Function_Multiple_Static_Operator
+	struct IS_FunctionMultipleOperatorStatic
 	{
-		using Fns = typename IS_Function_Multiple_Helper<std::remove_const_t<decltype(t_Fns)>...>::Fns;
+		using Fns = typename IS_FunctionMultiple_Helper<std::remove_const_t<decltype(t_Fns)>...>::Fns;
 
 		template<size_t _Index>
 		using Fns_element = std::tuple_element_t<_Index, Fns>;
@@ -28,7 +28,7 @@ namespace N_Function
 		static constexpr auto Parameter_Element_v = S_Parameter_Element_v<_Index, t_Fns...>;
 		
 		template<size_t t_Parameter_FnNumber,size_t ...t_Parameter_ArgsNumber>
-		using Fn_Static =Function_Single_Static<Parameter_Element_v<t_Parameter_FnNumber>,
+		using Fn_Static =FunctionStatic<Parameter_Element_v<t_Parameter_FnNumber>,
 		Parameter_Element_v<(t_Parameter_FnNumber+1)+t_Parameter_ArgsNumber>...>;
 
 		static constexpr int Fns_Num = std::tuple_size_v<Fns>;
@@ -42,12 +42,12 @@ namespace N_Function
 		struct S_CreateFunctionStatic;
 
 		//仕様
-		//[t_fns...]から[Function_Single_Static]を構成する
+		//[t_fns...]から[FunctionStatic]を構成する
 		//
 		//template
-		//T_Fn_Static::構成した[Function_Single_Static]のtuple
-		//t_FnCount::現在作成中の[Function_Single_Static]の番号
-		//t_Parameter_Number::[t_FnCount]番目の[Function_Single_Static]を作成する為要素が[t_Fns...]の何番目から示す番号
+		//T_Fn_Static::構成した[FunctionStatic]のtuple
+		//t_FnCount::現在作成中の[FunctionStatic]の番号
+		//t_Parameter_Number::[t_FnCount]番目の[FunctionStatic]を作成する為要素が[t_Fns...]の何番目から示す番号
 		template<class ...T_Fn_Static,int t_FnCount, int t_Parameter_Number ,
 			size_t ...t_Bind_ArgsNum>
 		struct S_CreateFunctionStatic<std::tuple<T_Fn_Static...>,t_FnCount, t_Parameter_Number,
@@ -73,7 +73,7 @@ namespace N_Function
 		struct S_FunctionMultipleOperatorStatic;
 
 		//仕様
-		//構成した[Function_Single_Static]を全て継承する
+		//構成した[FunctionStatic]を全て継承する
 		template<class ...T_FnsStatic>
 		struct S_FunctionMultipleOperatorStatic<std::tuple<T_FnsStatic...>> :
 			public T_FnsStatic...

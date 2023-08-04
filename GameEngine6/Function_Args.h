@@ -1,17 +1,17 @@
 #pragma once
-#include"Function_Single_Helper.h"
+#include"Function_Helper.h"
 #include"Using_Type.h"
 
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
 #include"MethodData.h"
-#include"Function_Single_Operator.h"
+#include"Function_Operator.h"
 
 
 
 namespace N_Function
 {
-	template<class ...TP_Args>
+	template<class ...T_Args>
 	class Function_Args
 	{
 	protected:
@@ -22,22 +22,22 @@ namespace N_Function
 
 	};
 
-	template<class ...TP_Args>
-	Function_Args(TP_Args... setArgs) -> Function_Args<TP_Args...>;
+	template<class ...T_Args>
+	Function_Args(T_Args... setArgs) -> Function_Args<T_Args...>;
 
 }
 
-template<auto t_Fn=std::nullopt, class T_Method = std::nullopt_t>
+template<auto t_Fn=std::nullopt, class T_Fn = std::nullopt_t>
 class Functiona;
 
-template<class T_Method>
-class Functiona<std::nullopt,T_Method>
+template<class T_Fn>
+class Functiona<std::nullopt,T_Fn>
 {
 public:
-	template<class ...TP_Args>
+	template<class ...T_Args>
 	struct Args
 	{
-		constexpr Args(TP_Args... args) {}
+		constexpr Args(T_Args... args) {}
 	};
 
 	constexpr Functiona() {}
@@ -48,10 +48,10 @@ class Functiona<t_Fn>
 {
 public:
 	
-	template<class ...TP_Args>
+	template<class ...T_Args>
 	struct Args
 	{
-		constexpr Args(TP_Args... args) {}
+		constexpr Args(T_Args... args) {}
 	};
 
 	constexpr Functiona() {}

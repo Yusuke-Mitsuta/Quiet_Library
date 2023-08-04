@@ -2,17 +2,22 @@
 
 #include<tuple>
 #include"Tuple_Unzip.h"
+#include"Function_Helper.h"
 #include"Concept.h"
 
-#include"I_Function.h"
+template<not_same_as<std::nullopt_t> T_Fn, class ...T_Args>
+class Function;
+
+template<auto t_Fn, auto ...t_Args>
+	requires not_same_as<typename N_Function::IS_FunctionHelper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, std::nullopt_t>
+class FunctionStatic;
 
 namespace N_Function
 {
-
 	//仕様
 	//先頭の関数に対して、戻り値、クラス、引数の型を返す。
 	//関数以降の引数に対して、現在バインド済みの引数の型を返す
-	template<class T_Method,class ...T_Args>
+	template<class T_Fn,class ...T_Args>
 	struct S_MethodData {};
 
 	template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs >
@@ -48,14 +53,14 @@ namespace N_Function
 	};
 
 	template<class ...T_FunctionInner, class ...T_SetArgs >
-	struct S_MethodData<Function::Single<T_FunctionInner...>, T_SetArgs...>
+	struct S_MethodData<Function<T_FunctionInner...>, T_SetArgs...>
 	{
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = Function::Single<T_FunctionInner...>;
+		using Fn = Function<T_FunctionInner...>;
 
 		//仕様
-		//[Method]のMethodDataにアクセスする
+		//[Fn]のMethodDataにアクセスする
 		using ParentFn = S_MethodData<T_FunctionInner...>;
 
 		using BindArgs = std::tuple<T_SetArgs...>;
@@ -71,15 +76,15 @@ namespace N_Function
 	};
 
 	template<auto t_Function_v, auto ...t_FunctionArgs_v, class ...T_SetArgs >
-	struct S_MethodData<Function::Single_Static<t_Function_v,t_FunctionArgs_v...>, T_SetArgs...>
+	struct S_MethodData<FunctionStatic<t_Function_v,t_FunctionArgs_v...>, T_SetArgs...>
 	{
 
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = Function::Single_Static<t_Function_v,t_FunctionArgs_v...>;
+		using Fn = FunctionStatic<t_Function_v,t_FunctionArgs_v...>;
 
 		//仕様
-		//[Method]のMethodDataにアクセスする
+		//[Fn]のMethodDataにアクセスする
 		using ParentFn = S_MethodData<std::remove_const_t<decltype(t_Function_v)>,decltype(t_FunctionArgs_v)...>;
 
 		using BindArgs = std::tuple<T_SetArgs...>;

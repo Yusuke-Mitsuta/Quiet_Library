@@ -69,9 +69,18 @@ public:
 	int a = 1;
 };
 
-
-
-struct TYPE
-
+template<class T>
+struct TYPEa
 {
+	T u;
+
+	constexpr TYPEa(T t):
+	u(t){}
+
+};
+template<auto b>
+struct TYPE
+{
+	//static constexpr auto m = t;
+	int nn=5;
 };
