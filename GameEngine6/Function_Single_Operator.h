@@ -52,6 +52,7 @@ namespace N_Function
 			Fn fn;
 
 		public:
+
 			template<class MT_Fn>
 			constexpr S_Function_Operator(MT_Fn setFn)
 				:fn(setFn) {}
@@ -97,7 +98,6 @@ namespace N_Function
 
 			BindArgs bindArgs;
 		public:
-
 			template<class MT_Fn, class ...MT_Args>
 			constexpr S_Function_Operator(MT_Fn setFn, MT_Args ...setArgs)
 				:Fn(setFn), bindArgs(setArgs...) {}
@@ -109,7 +109,7 @@ namespace N_Function
 		};
 
 	private:
-		using Judge = IS_JudgeType_t<std::make_index_sequence<sizeof...(TP_Args)>,
+		using Judge = IS_Judge_t<std::make_index_sequence<sizeof...(TP_Args)>,
 			(sizeof...(TP_Args))>;
 	public:
 

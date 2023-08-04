@@ -18,7 +18,15 @@ namespace N_Function
 	//先頭の関数に対して、戻り値、クラス、引数の型を返す。
 	//関数以降の引数に対して、現在バインド済みの引数の型を返す
 	template<class T_Method,class ...T_Args>
-	struct S_MethodData {};
+	struct S_MethodData 
+	{
+		using Fn = std::nullopt_t;
+		using BindArgs = std::nullopt_t;
+		using BoundArgs = std::nullopt_t;
+		using CName = std::nullopt_t;
+		using RType = std::nullopt_t;
+		using Root = std::nullopt_t;
+	};
 
 	template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs >
 	struct S_MethodData<T_RType(T_CName::*)(T_Args...), T_SetArgs...>
@@ -52,12 +60,13 @@ namespace N_Function
 		using Root = std::true_type;
 	};
 
-	template<class ...T_FunctionInner, class ...T_SetArgs >
-	struct S_MethodData<Function_Single<T_FunctionInner...>, T_SetArgs...>
+	template<template<class...>class T_Function_Single,class ...T_FunctionInner, class ...T_SetArgs >
+		requires convertible_to<T_Function_Single<T_FunctionInner...>, Function_Single<T_FunctionInner...>>
+	struct S_MethodData<T_Function_Single<T_FunctionInner...>, T_SetArgs...>
 	{
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = Function_Single<T_FunctionInner...>;
+		using Fn = T_Function_Single<T_FunctionInner...>;
 
 		//仕様
 		//[Method]のMethodDataにアクセスする
@@ -75,13 +84,15 @@ namespace N_Function
 		using Root = std::false_type;
 	};
 
-	template<auto t_Function_v, auto ...t_FunctionArgs_v, class ...T_SetArgs >
-	struct S_MethodData<Function_Single_Static<t_Function_v,t_FunctionArgs_v...>, T_SetArgs...>
+	template<template<auto...>class T_Function_Single_Static,auto t_Function_v, auto ...t_FunctionArgs_v, class ...T_SetArgs >
+	requires convertible_to<T_Function_Single_Static<t_Function_v,t_FunctionArgs_v...>,
+	Function_Single_Static<t_Function_v, t_FunctionArgs_v...>>
+	struct S_MethodData<T_Function_Single_Static<t_Function_v,t_FunctionArgs_v...>, T_SetArgs...>
 	{
 
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = Function_Single_Static<t_Function_v,t_FunctionArgs_v...>;
+		using Fn = T_Function_Single_Static<t_Function_v,t_FunctionArgs_v...>;
 
 		//仕様
 		//[Method]のMethodDataにアクセスする

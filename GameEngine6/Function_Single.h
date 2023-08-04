@@ -18,10 +18,10 @@ namespace N_Function
 	public:
 
 		using FunctionOperator::operator();
-
 		template<class MT_Fn, class ...MT_Args>
 		constexpr Function_Single(MT_Fn fn, MT_Args ...args) :
-			N_Function::IS_Function_Single_Operator<MT_Fn, MT_Args...>::Type(fn, args...) {}
+			N_Function::IS_Function_Single_Operator<MT_Fn, MT_Args...>::Type(fn, args...) 
+		{}
 
 	};
 

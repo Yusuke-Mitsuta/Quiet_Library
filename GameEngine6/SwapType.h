@@ -39,7 +39,7 @@ template<class T, int t_Order >
 using IS_Judge = IS_Swap_Type<std::nullopt_t, T, t_Order>;
 
 template<class T, int t_Order>
-using IS_JudgeType_t = typename IS_Judge<T, t_Order>::Type_1;
+using IS_Judge_t = typename IS_Judge<T, t_Order>::Type_1;
 
 //Žd—l
 //[t_1],[t_2]‚ð[t_Order]‚É‚æ‚Á‚Ä“ü‚ê‘Ö‚¦‚é

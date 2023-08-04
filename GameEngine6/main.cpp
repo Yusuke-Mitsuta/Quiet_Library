@@ -79,32 +79,47 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 }
 
 
+int main()
 {
-	C_OUT(str);
-}
-
-#include"Function.h"
-
-#include"Function.h"
+	//N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int>::Judge::Type::
 
 	N_Function::Function_Multiple a(&H::Args_3, 1, 2, &H::Args_3, 1);
+
+	Function::Single b(&H::Args_2, 1);
+	Function::Single c(b,6);
 	
-	Function::Single_Static<& H::Args_3, 1,2> aa;
-	
-	N_Function::Function_Multiple_Static<&H::Args_3, 3, 3> aba;
-	
-	 
-	Function::Multiple_Static<&H::Args_2,3,3> aaa = {};
+	//c();
+	static constexpr Function::Single_Static<&H::Args_2, 1> bb;
 
-	auto B = Function::Create<&H::Args_2, 3, 4, &H::Args_2, 3>();
+	Function::Single_Static<bb,2> cc;
+	cc();
 
 
-	
-{
 
-	Function::Multiple a(&H::Args_3, 1, 2, &H::Args_3, 1);
+	//
+	//static constinit auto BB = Function::Create<&H::Args_4, 9999>();
+	//static constexpr N_Function::Function_Single_Static<&H::Args_3,1> aa = {};
 
-	a(33,2);
+	//static constexpr N_Function::Function_Multiple_Static<aa,aa,2,aa,2,3> aa = {};
+
+
+	//static constexpr N_Function::Function_Single_Static<aa, 2> aaa = {};
+
+
+	//
+
+
+	//
+
+	//auto B = Function::Create<&H::Args_2, 3, 4, &H::Args_2, 3>();
+
+	//B(3);
+	//
+
+
+	//Function::Multiple a(&H::Args_3, 1, 2, &H::Args_3, 1);
+
+	//a(33,2);
 	//Function::Single b(&H::Args_3, 1, 2);
 
 	

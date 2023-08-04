@@ -11,7 +11,6 @@ namespace N_Function
 	class Function_Multiple_Static :
 		public N_Function::IS_Function_Multiple_Static_Operator<t_Fns...>::Type
 	{
-		//using FunctionOperator = N_Function::IS_Function_Multiple_Static_Operator<t_Fns...>::Type;
 	};
 
 }

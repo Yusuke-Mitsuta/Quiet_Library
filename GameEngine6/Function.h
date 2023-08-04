@@ -44,21 +44,22 @@ private:
 	static constexpr bool Check_Multiple = not_same_as<typename N_Function::IS_Function_Multiple_Helper<TP...>::Judge, std::nullopt_t>;
 
 public:
+
 	template<class ...TP_Fn>
-		requires (Check_Single<TP_Fn...>) && (Check_Multiple<TP_Fn...>)
-	static constexpr auto Create(TP_Fn... fn);
+		requires (Function::Check_Single<TP_Fn...>) && (Function::Check_Multiple<TP_Fn...>)
+	static constexpr Function::Single<TP_Fn...> Create(TP_Fn... fn);
 
 	template<class ...TP_Fns>
-		requires (!(Check_Single<TP_Fns...>)) && (Check_Multiple<TP_Fns...>)
-	static constexpr auto Create(TP_Fns... fns);
+		requires (!Function::Check_Single<TP_Fns...>) && (Function::Check_Multiple<TP_Fns...>)
+	static constexpr Function::Multiple<TP_Fns...> Create(TP_Fns... fns);
 
 	template<auto ...tP_Fn>
-		requires (Check_Single<decltype(tP_Fn)...>) && (Check_Multiple<decltype(tP_Fn)...>)
-	static constexpr auto Create();
+		requires (Function::Check_Single<decltype(tP_Fn)...>) && (Function::Check_Multiple<decltype(tP_Fn)...>)
+	static constexpr Function::Single_Static<tP_Fn...> Create();
 
 	template<auto ...tP_Fns>
-		requires (!Check_Single<decltype(tP_Fns)...>) && (Check_Multiple<decltype(tP_Fns)...>)
-	static constexpr auto Create();
+		requires (!Function::Check_Single<decltype(tP_Fns)...>) && (Function::Check_Multiple<decltype(tP_Fns)...>)
+	static constexpr Function::Multiple_Static<tP_Fns...> Create();
 
 };
 
@@ -83,28 +84,28 @@ struct Function::Multiple :
 
 template<class ...TP_Fn>
 	requires (Function::Check_Single<TP_Fn...>) && (Function::Check_Multiple<TP_Fn...>)
-constexpr auto Function::Create(TP_Fn ...fn)
+constexpr Function::Single<TP_Fn...> Function::Create(TP_Fn ...fn)
 {
 	return Function::Single(fn...);
 }
 
 template<class ...TP_Fns>
-	requires (!(Function::Check_Single<TP_Fns...>)) && (Function::Check_Multiple<TP_Fns...>)
-static constexpr auto Function::Create(TP_Fns... fns)
+	requires (!Function::Check_Single<TP_Fns...>) && (Function::Check_Multiple<TP_Fns...>)
+static constexpr Function::Multiple<TP_Fns...> Function::Create(TP_Fns... fns)
 {
 	return Function::Multiple(fns...);
 }
 
 template<auto ...tP_Fn>
 	requires (Function::Check_Single<decltype(tP_Fn)...>) && (Function::Check_Multiple<decltype(tP_Fn)...>)
-constexpr auto Function::Create()
+constexpr Function::Single_Static<tP_Fn...> Function::Create()
 {
 	return Function::Single_Static<tP_Fn...>();
 }
 
 template<auto ...tP_Fns>
 	requires (!Function::Check_Single<decltype(tP_Fns)...>) && (Function::Check_Multiple<decltype(tP_Fns)...>)
-constexpr auto Function::Create()
+constexpr Function::Multiple_Static<tP_Fns...> Function::Create()
 {
 	return Function::Multiple_Static<tP_Fns...>();
 }

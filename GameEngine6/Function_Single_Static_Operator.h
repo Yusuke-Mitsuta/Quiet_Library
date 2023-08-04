@@ -46,7 +46,6 @@ namespace N_Function
 		struct S_FunctionOperator_Static<
 			std::index_sequence<t_Request_Args_Number...>>
 		{
-
 			//仕様
 			//静的な状態で関数にアクセスする
 			static constexpr RType Execution(std::tuple_element_t<t_Request_Args_Number, Args>... args)
