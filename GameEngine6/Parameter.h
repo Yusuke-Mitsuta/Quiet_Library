@@ -27,47 +27,49 @@ protected:
 	};
 
 	template<int _Index,size_t t_Size,class ...T_Lapping_Parameter ,class ...T_Remaining_Parameters>
-	struct S_Material<_Index, t_Size, S_Parameter<T_Lapping_Parameter...>, T_Remaining_Parameters...> :
-		public S_Parameter<T_Lapping_Parameter...>,
+	struct S_Material<_Index,t_Size,S_Parameter<T_Lapping_Parameter...>, T_Remaining_Parameters...> :
 		public S_Material<_Index - 1, t_Size+ S_Parameter<T_Lapping_Parameter...>::Size, T_Remaining_Parameters...>
 	{
 		using Flont_Parameter = S_Parameter<T_Lapping_Parameter...>;
 		using Next = S_Material<_Index - 1, t_Size + S_Parameter<T_Lapping_Parameter...>::Size, T_Remaining_Parameters...>;
 
+		Flont_Parameter parameters;
+
 		static constexpr size_t Size = Next::Size;
 
 		constexpr S_Material(S_Parameter<T_Lapping_Parameter...> set_parameters,T_Remaining_Parameters... remaining_Parameters) :
-			Flont_Parameter(set_parameters), 
+			parameters(set_parameters), 
 			Next(remaining_Parameters...){}
 
 		constexpr S_Material(T_Lapping_Parameter... set_parameters, T_Remaining_Parameters... remaining_Parameters) :
-			Flont_Parameter(set_parameters...),
+			parameters(set_parameters...),
 			Next(remaining_Parameters...) {}
 
 		constexpr auto Get(int& number)
 		{
-			auto get = Flont_Parameter::Get(number);
+			auto get = parameters.Get(number);
 			return (number) ? Next::Get(number-=1) : get;
 		}
 	};
 
 	template<size_t t_Size, class ...T_Lapping_Parameter>
-	struct S_Material<0,t_Size, S_Parameter<T_Lapping_Parameter...>>:
-		public S_Parameter<T_Lapping_Parameter...>
+	struct S_Material<0,t_Size, S_Parameter<T_Lapping_Parameter...>>
 	{
 		using Flont_Parameter = S_Parameter<T_Lapping_Parameter...>;
+
+		Flont_Parameter parameters;
 
 		static constexpr size_t Size = t_Size + Flont_Parameter::Size;
 
 		constexpr S_Material(S_Parameter<T_Lapping_Parameter...> set_parameters) :
-			Flont_Parameter(set_parameters) {}
+			parameters(set_parameters) {}
 
 		constexpr S_Material(T_Lapping_Parameter... set_parameters) :
-			Flont_Parameter(set_parameters...){}
+			parameters(set_parameters...){}
 
 		constexpr auto Get(int& number)
 		{
-			return Flont_Parameter::Get(number);
+			return parameters.Get(number);
 		}
 	};
 
