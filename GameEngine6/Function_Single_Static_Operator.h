@@ -35,7 +35,7 @@ namespace N_Function
 	public:
 
 		template<class T_Request_Args_Number>
-		struct S_FunctionOperator_Static;
+		struct S_Function_Operator_Static;
 
 		//仕様
 		//bindArgsを持たない[Function]のOperator部分の実装
@@ -43,7 +43,7 @@ namespace N_Function
 		//template
 		//...t_Request_Args_Number::operator()()の引数で要求する型の[size_t]パラメータパック
 		template<size_t... t_Request_Args_Number>
-		struct S_FunctionOperator_Static<
+		struct S_Function_Operator_Static<
 			std::index_sequence<t_Request_Args_Number...>>
 		{
 			//仕様
@@ -69,7 +69,7 @@ namespace N_Function
 
 	public:
 
-		using Type = S_FunctionOperator_Static
+		using Type = S_Function_Operator_Static
 			<
 				std::make_index_sequence<std::tuple_size_v<typename MethodData::Args>-std::tuple_size_v<typename MethodData::BoundArgs>>
 		

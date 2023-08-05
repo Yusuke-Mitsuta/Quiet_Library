@@ -1,6 +1,7 @@
 #pragma once
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
+#include"Parameter_Element.h"
 #include"SwapType.h"
 
 #define FUNCTION_MULTIPLE(Variable,...)\
@@ -14,29 +15,27 @@ namespace N_Function
 
 	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
 	class Function_Single;
-
+	
 
 	//仕様
 	//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
 	//
 	//テンプレート
-	//T_Fn_Args::関数ポインター、指定する引数、のTuple
+	//TP_Fns::関数ポインター、指定する引数、のTuple
 	//
 	//補足
 	//T_Fn_Argsは関数ポインター、それに指定する引数、次の関数ポインター、となるようにする事
 	// //SetJudge::関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定する
-	//Fns::関数ポインターor[Function_Single]と、後ろに続く引数の型を[Function_Single]としてまとめ、その動作を[T_Fn_Args...]がなくなるまで繰り返す
-	template<class T_FlontFn,class ...T_Fn_Args>
+	//Fns::関数ポインターor[Function_Single]と、後ろに続く引数の型を[Function_Single]としてまとめ、その動作を[TP_Fns...]がなくなるまで繰り返す
+	template<class T_FlontFn,class ...TP_Fns>
 	struct IS_Function_Multiple_Helper
 	{
 	private:
-		using T_Tuple = std::tuple<T_FlontFn, T_Fn_Args... >;
-
-		static constexpr int tuple_size = std::tuple_size<T_Tuple>::value;
-
+		
+		using Parameter = S_Parameter<T_FlontFn, TP_Fns...>;
+		
 		template<int _Index>
-		using tuple_element = std::tuple_element_t<
-			(_Index-1) %tuple_size, T_Tuple>;
+		using Element_t =S_Parameter_Element_t< (_Index - 1) % Parameter::Size, Parameter>;
 
 		//仕様
 		//関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定し、互換性があれば[Function_Single]にまとめる
@@ -48,7 +47,7 @@ namespace N_Function
 		struct S_CorrectType
 		{
 
-			using Method = N_Function::S_MethodData<tuple_element<t_FunctionNumber>>;
+			using MethodData = N_Function::S_MethodData<Element_t<t_FunctionNumber>>;
 
 			//仕様
 			//関数ポインターに対して引数をセットする
@@ -58,22 +57,22 @@ namespace N_Function
 				//仕様
 				//引数が関数に対して、正しいか判定する
 				static constexpr bool judge =
-					tuple_back_part_convertible_to<typename IS_TupleUnzip<tuple_element<t_ArgsNumber>..., typename Method::BoundArgs>::Type, typename Method::Args>;
+					tuple_back_part_convertible_to<typename IS_TupleUnzip<Element_t<t_ArgsNumber>..., typename MethodData::BoundArgs>::Type, typename MethodData::Args>;
 
 				//仕様
 				//関数ポインターに対して引数をセットする
-				using Args_Search = S_Judge<tuple_element<t_TupleNumber + 1>, t_TupleNumber + 1, t_ArgsNumber..., t_TupleNumber>;
+				using Args_Search = S_Judge<Element_t<t_TupleNumber + 1>, t_TupleNumber + 1, t_ArgsNumber..., t_TupleNumber>;
 
 				//仕様
 				//Functionに対して引数を判定する
 				using Hit_Method=S_CorrectType<t_TupleNumber* judge,TP_BoundFns...,
-					Function_Single<tuple_element<t_FunctionNumber>, tuple_element<t_ArgsNumber>...>>;
+					Function_Single<Element_t<t_FunctionNumber>, Element_t<t_ArgsNumber>...>>;
 
 
 				//仕様
 				//次のクラスを指定する
 				//引数であればセットし、次の型の判定に移る、関数であれば引数を精査し、ラッピングする
-				using Swap = IS_Swap_t1<Args_Search, Hit_Method, not_same_as<typename S_MethodData<T>::Fn, std::nullopt_t>>;
+				using Swap = IS_Swap_t1<Args_Search, Hit_Method, not_same_as<typename S_MethodData<T>::Method, std::nullopt_t>>;
 
 				using Type = Swap::Type;
 
@@ -92,9 +91,9 @@ namespace N_Function
 
 			};
 
-			using NextMethod= S_Judge<tuple_element<t_FunctionNumber + 1>, t_FunctionNumber + 1>;
+			using NextMethod= S_Judge<Element_t<t_FunctionNumber + 1>, t_FunctionNumber + 1>;
 
-			using Swap = IS_Swap_t1<S_Result, NextMethod, t_FunctionNumber % (tuple_size + 1)>;
+			using Swap = IS_Swap_t1<S_Result, NextMethod, t_FunctionNumber % (Parameter::Size + 1)>;
 
 			using Type = Swap::Type;
 

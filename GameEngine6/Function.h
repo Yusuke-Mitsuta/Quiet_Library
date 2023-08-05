@@ -5,7 +5,6 @@
 #include"Function_Multiple.h"
 #include"Function_Multiple_Static.h"
 
-
 #include"Concept.h"
 
 class Function

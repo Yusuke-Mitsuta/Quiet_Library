@@ -19,5 +19,10 @@ namespace N_Core_Control
 			tower = new Tower();
 		}
 
+		~Manager<Scene>()
+		{
+			delete tower;
+		}
+
 	};
 }

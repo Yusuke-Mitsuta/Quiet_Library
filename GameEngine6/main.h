@@ -4,7 +4,7 @@
 #include<typeinfo>
 #include<iostream>
 #include<string>
-#define Debug 1;
+//#define Debug 1;
 
 constexpr std::string getLastPathComponent(std::string path);
 
@@ -55,7 +55,7 @@ struct H
 
 };
 
-static H* h = new H();
+static H* h= new H();
 
 struct MyStruct
 {

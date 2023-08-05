@@ -213,11 +213,14 @@
     <ClInclude Include="Parameter_Element.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="I_Function.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function.h">
       <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="DBG_NEW.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

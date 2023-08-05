@@ -21,6 +21,7 @@ namespace N_Function
 	struct S_MethodData 
 	{
 		using Fn = std::nullopt_t;
+		using Method = std::nullopt_t;
 		using BindArgs = std::nullopt_t;
 		using BoundArgs = std::nullopt_t;
 		using CName = std::nullopt_t;
@@ -33,7 +34,9 @@ namespace N_Function
 	{
 		//仕様
 		//関数の型
-		using Fn =T_RType(T_CName::*)(T_Args...);
+		using Fn = T_RType(T_CName::*)(T_Args...);
+
+		using Method = T_RType(T_CName::*)(T_Args...);
 
 		//仕様
 		//引数の型
@@ -58,6 +61,7 @@ namespace N_Function
 		//仕様
 		//関数本体のデータかどうか
 		using Root = std::true_type;
+
 	};
 
 	template<template<class...>class T_Function_Single,class ...T_FunctionInner, class ...T_SetArgs >
@@ -67,6 +71,8 @@ namespace N_Function
 		//仕様
 		//既に一部引数を指定済みの関数の型
 		using Fn = T_Function_Single<T_FunctionInner...>;
+
+		using Method = T_Function_Single<T_FunctionInner...>;
 
 		//仕様
 		//[Method]のMethodDataにアクセスする
@@ -93,6 +99,8 @@ namespace N_Function
 		//仕様
 		//既に一部引数を指定済みの関数の型
 		using Fn = T_Function_Single_Static<t_Function_v,t_FunctionArgs_v...>;
+
+		using Method = T_Function_Single_Static<t_Function_v, t_FunctionArgs_v...>;
 
 		//仕様
 		//[Method]のMethodDataにアクセスする

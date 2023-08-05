@@ -54,7 +54,7 @@ public:
 	
 	//Žd—l
 	//tupleŒ^‚Ì—v‘f‚ÌŒã•û‚ª•ÏŠ·‰Â”\‚©”»’è‚·‚é
-	using BackPart = S_tuple_convertible_to<std::tuple_size<T_To>::value, 0,std::tuple_size<T_To>::value - std::tuple_size<T_Flom>::value>::Type;
+	using BackPart = S_tuple_convertible_to<std::tuple_size<T_To>::value, 0, static_cast<int>(std::tuple_size<T_To>::value - std::tuple_size<T_Flom>::value)>::Type;
 
 	
 

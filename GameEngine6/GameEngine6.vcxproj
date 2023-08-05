@@ -33,6 +33,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Core_Control_Tower.h" />
     <ClInclude Include="Core_Base.h" />
+    <ClInclude Include="DBG_NEW.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Function_Multiple.h" />
     <ClInclude Include="Function_Multiple_Operator.h" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Function_Single.h" />
     <ClInclude Include="MethodData.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Parameter.h" />
     <ClInclude Include="Parameter_Element.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />
@@ -194,6 +196,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <ForcedIncludeFiles>DBG_NEW.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -210,6 +213,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <ForcedIncludeFiles>DBG_NEW.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
