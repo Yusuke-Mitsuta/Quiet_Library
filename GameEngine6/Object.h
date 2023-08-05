@@ -21,7 +21,7 @@ public:
 
 	Core()
 	{
-		TEST.Execution(3, 4);
+		TEST.Execution(3,1);
 	}
 
 };

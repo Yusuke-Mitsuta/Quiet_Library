@@ -1,7 +1,7 @@
 #pragma once
 #include"tuple_convertible_to.h"
 #include"Tuple_Unzip.h"
-#include"Parameter_Element.h"
+#include"Parameter.h"
 #include"SwapType.h"
 
 #define FUNCTION_MULTIPLE(Variable,...)\
@@ -35,7 +35,7 @@ namespace N_Function
 		using Parameter = S_Parameter<T_FlontFn, TP_Fns...>;
 		
 		template<int _Index>
-		using Element_t =S_Parameter_Element_t< (_Index - 1) % Parameter::Size, Parameter>;
+		using Element_t =S_Parameter_Element_t< (_Index-1 ) % Parameter::Size, Parameter>;
 
 		//仕様
 		//関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定し、互換性があれば[Function_Single]にまとめる

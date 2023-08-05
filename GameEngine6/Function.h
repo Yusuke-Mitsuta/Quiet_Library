@@ -77,7 +77,7 @@ struct Function::Multiple :
 {
 	template<class MT_FlontFn, class ...MT_Fns>
 	constexpr Multiple(MT_FlontFn flontFn, MT_Fns... fns) :
-		N_Function::IS_Function_Multiple_Operator<MT_FlontFn, MT_Fns...>::Type(flontFn, fns...) {}
+		N_Function::Function_Multiple<MT_FlontFn, MT_Fns...>(flontFn, fns...) {}
 };
 
 
