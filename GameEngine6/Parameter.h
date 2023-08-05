@@ -27,17 +27,17 @@ protected:
 	};
 
 	template<int _Index,size_t t_Size,class ...T_Lapping_Parameter ,class ...T_Remaining_Parameters>
-	struct S_Material<_Index,t_Size,S_Parameter<T_Lapping_Parameter...>, T_Remaining_Parameters...> :
-		public S_Material<sizeof...(T_Lapping_Parameter)-1,t_Size,T_Lapping_Parameter...>,
+	struct S_Material<_Index, t_Size, S_Parameter<T_Lapping_Parameter...>, T_Remaining_Parameters...> :
+		public S_Parameter<T_Lapping_Parameter...>,
 		public S_Material<_Index - 1, t_Size+ S_Parameter<T_Lapping_Parameter...>::Size, T_Remaining_Parameters...>
 	{
-		using Flont_Parameter = S_Material<sizeof...(T_Lapping_Parameter) - 1, t_Size, T_Lapping_Parameter...>;
+		using Flont_Parameter = S_Parameter<T_Lapping_Parameter...>;
 		using Next = S_Material<_Index - 1, t_Size + S_Parameter<T_Lapping_Parameter...>::Size, T_Remaining_Parameters...>;
 
 		static constexpr size_t Size = Next::Size;
 
 		constexpr S_Material(S_Parameter<T_Lapping_Parameter...> set_parameters,T_Remaining_Parameters... remaining_Parameters) :
-			Flont_Parameter(set_parameters.parameters), 
+			Flont_Parameter(set_parameters), 
 			Next(remaining_Parameters...){}
 
 		constexpr S_Material(T_Lapping_Parameter... set_parameters, T_Remaining_Parameters... remaining_Parameters) :
