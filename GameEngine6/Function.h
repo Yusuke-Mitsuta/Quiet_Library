@@ -15,7 +15,13 @@ public:
 	struct Single;
 
 	template<class T_Method, class ...TP_Args>
-	Single(T_Method meth, TP_Args ...args) -> Single<typename N_Function::IS_Function_Single_Helper<T_Method, TP_Args...>::Judge, TP_Args...>;
+	Single(T_Method& meth, TP_Args ...args) -> Single<typename N_Function::IS_Function_Single_Helper<T_Method, TP_Args...>::Judge, TP_Args...>;
+
+	template<class MT_CName, class MT_Fn, class ...TP_Args>
+	Single(MT_CName* set_p, MT_Fn setFn, TP_Args... setArgs) ->
+		Single<IS_Judge_t<typename N_Function::IS_Function_Single_Helper<MT_Fn, TP_Args...>::Judge,
+		convertible_to<MT_CName, typename N_Function::S_MethodData<MT_Fn, TP_Args...>::CName>>
+		, TP_Args...>;
 
 	template<auto t_Method, auto ...tP_Args>
 		requires constructible_from<N_Function::Function_Single_Static<t_Method,tP_Args...>>
@@ -67,8 +73,13 @@ struct Function::Single :
 	public N_Function::Function_Single<T_Method, TP_Args...>
 {
 	template<class T_Method, class ...TP_Args>
-	Single(T_Method meth, TP_Args ...args) :
+	Single(T_Method& meth, TP_Args ...args) :
 		N_Function::Function_Single<T_Method, TP_Args...>(meth, args...) {}
+
+	template<class T_CName,class T_Method, class ...TP_Args>
+	Single(T_CName* class_p,T_Method meth, TP_Args ...args) :
+		N_Function::Function_Single<T_Method, TP_Args...>(class_p,meth, args...) {}
+	{}
 };
 
 template<not_same_as<std::nullopt_t> T_FlontFn, class ...T_Fns>

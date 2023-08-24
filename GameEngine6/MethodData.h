@@ -32,10 +32,6 @@ namespace N_Function
 	template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs >
 	struct S_MethodData<T_RType(T_CName::*)(T_Args...), T_SetArgs...>
 	{
-		//仕様
-		//関数の型
-		using Fn = T_RType(T_CName::*)(T_Args...);
-
 		using Method = T_RType(T_CName::*)(T_Args...);
 
 		//仕様
@@ -59,6 +55,22 @@ namespace N_Function
 		using Args = std::tuple<T_Args...>;
 
 		//仕様
+		//関数の型
+		struct Fn
+		{
+			CName* p;
+			T_RType(T_CName::* method)(T_Args...);
+
+			constexpr Fn(T_CName* set_p, T_RType(T_CName::* set_Methed)(T_Args...)) :
+				p(set_p), method(set_Methed) {}
+
+			constexpr RType operator()(T_Args... args)
+			{
+				return (p->*method)(args...);
+			}
+		};
+
+		//仕様
 		//関数本体のデータかどうか
 		using Root = std::true_type;
 
@@ -70,7 +82,7 @@ namespace N_Function
 	{
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = T_Function_Single<T_FunctionInner...>;
+		using Fn = T_Function_Single<T_FunctionInner...>&;
 
 		using Method = T_Function_Single<T_FunctionInner...>;
 
@@ -98,7 +110,7 @@ namespace N_Function
 
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = T_Function_Single_Static<t_Function_v,t_FunctionArgs_v...>;
+		using Fn = T_Function_Single_Static<t_Function_v,t_FunctionArgs_v...>&;
 
 		using Method = T_Function_Single_Static<t_Function_v, t_FunctionArgs_v...>;
 

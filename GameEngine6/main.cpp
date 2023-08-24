@@ -79,6 +79,21 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	C_OUT(g);
 }
 
+struct TYPE
+{
+	N_Function::Function_Single<decltype(&H::Args_5),int,int,int,int> mt = {h,&H::Args_5, 1, 3, 54,4};
+};
+
+auto AUTO()
+{
+
+	TYPE* ab=new TYPE();
+	TYPE abb;
+	N_Function::Function_Single mt2(abb.mt, 3);
+	return mt2;
+}
+
+
 int main()
 {
 
@@ -96,6 +111,29 @@ int main()
 
 	//IS_Parameter_Element_Type<1,int, float, char>::Next::Next::
 
+	//Function::Single mt(&H::Args_5, 1,3,54,2);
+
+	TYPE ab;
+
+	N_Function::Function_Single mt2(ab.mt,3);
+
+	auto mt3= AUTO();
+
+	mt3();
+
+	//Function::Single mt2(ab.mt);
+	//mt2();
+//	mt2();
+
+	int n = 5;
+	int* np = new int(3);
+	int& nn = *np;
+	int& nnp = *np;
+
+
+	C_OUT(sizeof(mt2));
+	C_OUT(sizeof(ab));
+
 	C_OUT(ma.Size);
 	C_OUT(aaa.Size);
 	C_OUT(maa.Size);
@@ -107,13 +145,9 @@ int main()
 	//}
 	
 	using TT = S_Parameter_Element_t<1, T>;
+	
 
 
-	Function::Multiple ttt(&H::Args_3, 1, 3,3, &H::Args_3, 9,3,&H::Args_3,2,&H::Args_3);
-	ttt();
-	ttt(2);
-	ttt(2,3);
-	ttt(2,3,1);
 
 
 	//Function::Single b(&H::Args_2, 1);

@@ -54,19 +54,16 @@ namespace N_Function
 		public:
 
 			template<class MT_Fn>
-			constexpr S_Function_Operator(MT_Fn setFn)
-				:fn(setFn) {}
+			constexpr S_Function_Operator(MT_Fn&& setFn)
+				:fn(setFn){}
+
+			template<class MT_Fn>
+			constexpr S_Function_Operator(MT_Fn* setFn)
+				: fn(*setFn) {}
 
 			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
-				requires same_as<std::true_type, typename MethodData::Root>
 			{
-				return (h->*fn)(args...);
-			}
-
-			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
-				requires same_as<std::false_type, typename MethodData::Root>
-			{
-				return fn.operator()(args...);
+				return fn(args...);
 			}
 
 		};
@@ -98,14 +95,17 @@ namespace N_Function
 
 			BindArgs bindArgs;
 		public:
+
 			template<class MT_Fn, class ...MT_Args>
-			constexpr S_Function_Operator(MT_Fn setFn, MT_Args ...setArgs)
+			constexpr S_Function_Operator(MT_Fn&& setFn, MT_Args ...setArgs)
 				:Fn(setFn), bindArgs(setArgs...) {}
+
 
 			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
 			{
 				return Fn::operator()(args..., std::get<t_Args_BindNumber>(bindArgs)...);
 			}
+
 		};
 
 	private:

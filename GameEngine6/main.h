@@ -67,11 +67,6 @@ private:
 public:
 
 	int a = 1;
+
 };
 
-
-
-struct TYPE
-
-{
-};

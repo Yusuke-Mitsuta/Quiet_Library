@@ -32,7 +32,6 @@ namespace N_Function
 		{
 			using Function_Single<T_FlontFn, T_BindArgs...>::operator();
 
-
 			constexpr S_FunctionMultipleOperator(T_FlontFn fn, T_BindArgs... args) :
 				Function_Single<T_FlontFn, T_BindArgs...>(fn, args...) {}
 		};

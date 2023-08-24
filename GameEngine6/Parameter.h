@@ -2,6 +2,11 @@
 
 #include"Parameter_Element.h"
 
+//仕様
+//パラメータパック[T_Parameters...]をラッピングする
+//
+//template
+//T_Parameters...::型のパラメータパック
 template<class ...T_Parameters>
 struct S_Parameter
 {
@@ -97,14 +102,23 @@ public:
 
 	static constexpr size_t Size = S_Material<sizeof...(T_Parameters) - 1, 0, T_Parameters...>::Size;
 
-	template<class ...MT_Parameters>
-	constexpr S_Parameter(MT_Parameters... set_Parameters) 
-		: parameters(set_Parameters...) 
-	{}
+	//仕様
+	//[_Index]番目の型の番号を返す
+	// 
+	//補足
+	//パラメータパック[T_Parameters...]にパラメータパック展開が含まれて居ないこと
+	//含まれる場合は[S_Parameter_Element_t]を使用する事
+	template<size_t _Index>
+	using Element = S_Parameter_Element_t<_Index, T_Parameters...>;
 
-	S_Parameter(T_Parameters... set_Parameters) 
-		: parameters(set_Parameters...) 
-	{}
+	//仕様
+	//パラメータパック[mt_Parameters...]をまとめる
+	template<class ...MT_Parameters>
+	constexpr S_Parameter(MT_Parameters... set_Parameters) : 
+		parameters(set_Parameters...) {}
+
+	S_Parameter(T_Parameters... set_Parameters) : 
+		parameters(set_Parameters...) {}
 
 	constexpr auto operator[](int number);
 };
@@ -121,6 +135,6 @@ constexpr auto S_Parameter<T_Parameters...>::Get(int& number)
 template<class ...T_Parameters>
 constexpr auto S_Parameter<T_Parameters...>::operator[](int number)
 {
-	return parameters.Get(number);
+	return Get(number);
 }
 
