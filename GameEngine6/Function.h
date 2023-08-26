@@ -14,14 +14,25 @@ public:
 	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
 	struct Single;
 
-	template<class T_Method, class ...TP_Args>
-	Single(T_Method& meth, TP_Args ...args) -> Single<typename N_Function::IS_Function_Single_Helper<T_Method, TP_Args...>::Judge, TP_Args...>;
+	template<class MT_Pointer_Class, convertible_from<MT_Pointer_Class> T_CName, class T_RType, class ...MT_Args, class ...TP_SetArgs>
+	Single(MT_Pointer_Class* set_p, T_RType(T_CName::* fn)(MT_Args...), TP_SetArgs... setArgs) ->
+		Single<typename N_Function::IS_Function_Single_Helper<T_RType(T_CName::*)(MT_Args...), TP_SetArgs...>::Judge
+		, TP_SetArgs...>;
 
-	template<class MT_CName, class MT_Fn, class ...TP_Args>
-	Single(MT_CName* set_p, MT_Fn setFn, TP_Args... setArgs) ->
-		Single<IS_Judge_t<typename N_Function::IS_Function_Single_Helper<MT_Fn, TP_Args...>::Judge,
-		convertible_to<MT_CName, typename N_Function::S_MethodData<MT_Fn, TP_Args...>::CName>>
-		, TP_Args...>;
+	template<class ...TP_Default_SetArgs, class ...TP_Args>
+	Single(N_Function::Function_Single<TP_Default_SetArgs...> setFn, TP_Args... setArgs) -> Single<typename N_Function::IS_Function_Single_Helper<N_Function::Function_Single<TP_Default_SetArgs...>, TP_Args...>::Judge, TP_Args...>;
+
+	template<class ...TP_Default_SetArgs, class ...TP_Args>
+	Single(N_Function::Function_Single<TP_Default_SetArgs...>* setFn, TP_Args... setArgs) -> Single<typename N_Function::IS_Function_Single_Helper<N_Function::Function_Single<TP_Default_SetArgs...>*, TP_Args...>::Judge, TP_Args...>;
+
+
+
+
+
+
+
+
+
 
 	template<auto t_Method, auto ...tP_Args>
 		requires constructible_from<N_Function::Function_Single_Static<t_Method,tP_Args...>>
@@ -72,14 +83,19 @@ template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
 struct Function::Single :
 	public N_Function::Function_Single<T_Method, TP_Args...>
 {
-	template<class T_Method, class ...TP_Args>
-	Single(T_Method& meth, TP_Args ...args) :
-		N_Function::Function_Single<T_Method, TP_Args...>(meth, args...) {}
 
-	template<class T_CName,class T_Method, class ...TP_Args>
-	Single(T_CName* class_p,T_Method meth, TP_Args ...args) :
-		N_Function::Function_Single<T_Method, TP_Args...>(class_p,meth, args...) {}
-	{}
+	template<class MT_Pointer_Class, convertible_from<MT_Pointer_Class> T_CName, class T_RType, class ...MT_Args, class ...MT_SetArgs>
+	constexpr Single(MT_Pointer_Class* set_p,T_RType(T_CName::* fn)(MT_Args...), MT_SetArgs ...args) :
+		N_Function::IS_Function_Single_Operator<T_RType(T_CName::*)(MT_Args...), MT_SetArgs...>::Type(
+			N_Function::Function_Core<T_RType(T_CName::*)(MT_Args...)>(set_p, fn), args...) {}
+
+	template<class ...TP_Default_SetArgs, class ...MT_Args>
+	constexpr Single(N_Function::Function_Single<TP_Default_SetArgs...> fn, MT_Args ...args) :
+		N_Function::IS_Function_Single_Operator<N_Function::Function_Single<TP_Default_SetArgs...>, MT_Args...>::Type(fn, args...) {}
+
+	template<class ...TP_Default_SetArgs, class ...MT_Args>
+	constexpr Single(N_Function::Function_Single<TP_Default_SetArgs...>* fn, MT_Args ...args) :
+		N_Function::IS_Function_Single_Operator<N_Function::Function_Single<TP_Default_SetArgs...>*, MT_Args...>::Type(fn, args...) {}
 };
 
 template<not_same_as<std::nullopt_t> T_FlontFn, class ...T_Fns>

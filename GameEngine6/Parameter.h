@@ -109,7 +109,7 @@ public:
 	//パラメータパック[T_Parameters...]にパラメータパック展開が含まれて居ないこと
 	//含まれる場合は[S_Parameter_Element_t]を使用する事
 	template<size_t _Index>
-	using Element = S_Parameter_Element_t<_Index, T_Parameters...>;
+	using Element = U_Element_t<_Index, T_Parameters...>;
 
 	//仕様
 	//パラメータパック[mt_Parameters...]をまとめる

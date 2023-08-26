@@ -3,6 +3,7 @@
 #include<tuple>
 #include"Tuple_Unzip.h"
 #include"Concept.h"
+#include"Function_Core.h"
 
 namespace N_Function
 {
@@ -32,6 +33,11 @@ namespace N_Function
 	template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs >
 	struct S_MethodData<T_RType(T_CName::*)(T_Args...), T_SetArgs...>
 	{
+
+		//仕様
+		//関数の型
+		using Fn = Function_Core<T_RType(T_CName::*)(T_Args...)>;
+
 		using Method = T_RType(T_CName::*)(T_Args...);
 
 		//仕様
@@ -55,23 +61,29 @@ namespace N_Function
 		using Args = std::tuple<T_Args...>;
 
 		//仕様
-		//関数の型
-		struct Fn
-		{
-			CName* p;
-			T_RType(T_CName::* method)(T_Args...);
-
-			constexpr Fn(T_CName* set_p, T_RType(T_CName::* set_Methed)(T_Args...)) :
-				p(set_p), method(set_Methed) {}
-
-			constexpr RType operator()(T_Args... args)
-			{
-				return (p->*method)(args...);
-			}
-		};
-
-		//仕様
 		//関数本体のデータかどうか
+		using Root = std::true_type;
+
+	};
+
+	template< class T_RType, class ...T_Args, class ...T_SetArgs >
+	struct S_MethodData<T_RType(*)(T_Args...), T_SetArgs...>
+	{
+
+		using Fn = Function_Core<T_RType(*)(T_Args...)>;
+
+		using Method = T_RType(*)(T_Args...);
+
+		using BindArgs = std::tuple<T_SetArgs...>;
+
+		using BoundArgs = BindArgs;
+
+		using CName = std::nullopt_t;
+
+		using RType = T_RType;
+
+		using Args = std::tuple<T_Args...>;
+
 		using Root = std::true_type;
 
 	};
@@ -82,7 +94,7 @@ namespace N_Function
 	{
 		//仕様
 		//既に一部引数を指定済みの関数の型
-		using Fn = T_Function_Single<T_FunctionInner...>&;
+		using Fn = T_Function_Single<T_FunctionInner...>;
 
 		using Method = T_Function_Single<T_FunctionInner...>;
 
@@ -100,6 +112,16 @@ namespace N_Function
 		using RType = ParentFn::RType;
 		using Args = ParentFn::Args;
 		using Root = std::false_type;
+	};
+
+	template<template<class...>class T_Function_Single, class ...T_FunctionInner, class ...T_SetArgs >
+		requires convertible_to<T_Function_Single<T_FunctionInner...>, Function_Single<T_FunctionInner...>>
+	struct S_MethodData<T_Function_Single<T_FunctionInner...>*, T_SetArgs...> :
+		public S_MethodData<T_Function_Single<T_FunctionInner...>, T_SetArgs...>
+	{
+		//仕様
+		//既に一部引数を指定済みの関数のポインター型
+		using Fn = T_Function_Single<T_FunctionInner...>*;
 	};
 
 	template<template<auto...>class T_Function_Single_Static,auto t_Function_v, auto ...t_FunctionArgs_v, class ...T_SetArgs >

@@ -2,12 +2,14 @@
 
 #include <iostream>
 
-#include"MethodData.h"
 #include"SwapType.h"
 #include"main.h"
 
 namespace N_Function 
 {
+	template<class T_Method, class ...TP_Args>
+	struct S_MethodData;
+
 	//Žd—l
 	//[Function_Single]‚ÌOperator•”•ª‚ÌŽÀ‘•
 	//
@@ -54,16 +56,13 @@ namespace N_Function
 		public:
 
 			template<class MT_Fn>
-			constexpr S_Function_Operator(MT_Fn&& setFn)
-				:fn(setFn){}
-
-			template<class MT_Fn>
-			constexpr S_Function_Operator(MT_Fn* setFn)
-				: fn(*setFn) {}
+			constexpr S_Function_Operator(MT_Fn setFn)
+				:fn(setFn)
+			{}
 
 			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
 			{
-				return fn(args...);
+				return fn->operator()(args...);
 			}
 
 		};
@@ -97,9 +96,8 @@ namespace N_Function
 		public:
 
 			template<class MT_Fn, class ...MT_Args>
-			constexpr S_Function_Operator(MT_Fn&& setFn, MT_Args ...setArgs)
+			constexpr S_Function_Operator(MT_Fn setFn, MT_Args ...setArgs)
 				:Fn(setFn), bindArgs(setArgs...) {}
-
 
 			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
 			{
@@ -109,7 +107,7 @@ namespace N_Function
 		};
 
 	private:
-		using Judge = IS_Judge_t<std::make_index_sequence<sizeof...(TP_Args)>,
+		using Judge = U_Judge_t<std::make_index_sequence<sizeof...(TP_Args)>,
 			(sizeof...(TP_Args))>;
 	public:
 

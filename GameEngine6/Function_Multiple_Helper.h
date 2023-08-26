@@ -35,7 +35,7 @@ namespace N_Function
 		using Parameter = S_Parameter<T_FlontFn, TP_Fns...>;
 		
 		template<int _Index>
-		using Element_t =S_Parameter_Element_t< (_Index-1 ) % Parameter::Size, Parameter>;
+		using Element_t =U_Element_t< (_Index-1 ) % Parameter::Size, Parameter>;
 
 		//仕様
 		//関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定し、互換性があれば[Function_Single]にまとめる
@@ -72,7 +72,7 @@ namespace N_Function
 				//仕様
 				//次のクラスを指定する
 				//引数であればセットし、次の型の判定に移る、関数であれば引数を精査し、ラッピングする
-				using Swap = IS_Swap_t1<Args_Search, Hit_Method, not_same_as<typename S_MethodData<T>::Method, std::nullopt_t>>;
+				using Swap = U_Swap_t1<Args_Search, Hit_Method, not_same_as<typename S_MethodData<T>::Method, std::nullopt_t>>;
 
 				using Type = Swap::Type;
 
@@ -85,15 +85,15 @@ namespace N_Function
 			{
 				using Type = S_Result;
 
-				using Judge = IS_Judge_t<T_FlontFn, t_FunctionNumber>;
+				using Judge = U_Judge_t<T_FlontFn, t_FunctionNumber>;
 
-				using Fns = IS_Judge_t<std::tuple<TP_BoundFns...>, t_FunctionNumber>;
+				using Fns = U_Judge_t<std::tuple<TP_BoundFns...>, t_FunctionNumber>;
 
 			};
 
 			using NextMethod= S_Judge<Element_t<t_FunctionNumber + 1>, t_FunctionNumber + 1>;
 
-			using Swap = IS_Swap_t1<S_Result, NextMethod, t_FunctionNumber % (Parameter::Size + 1)>;
+			using Swap = U_Swap_t1<S_Result, NextMethod, t_FunctionNumber % (Parameter::Size + 1)>;
 
 			using Type = Swap::Type;
 

@@ -35,6 +35,7 @@
     <ClInclude Include="Core_Base.h" />
     <ClInclude Include="DBG_NEW.h" />
     <ClInclude Include="Function.h" />
+    <ClInclude Include="Function_Core.h" />
     <ClInclude Include="Function_Multiple.h" />
     <ClInclude Include="Function_Multiple_Operator.h" />
     <ClInclude Include="Function_Multiple_Static_Operator.h" />

@@ -222,6 +222,9 @@
     <ClInclude Include="DBG_NEW.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Function_Core.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

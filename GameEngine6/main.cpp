@@ -12,7 +12,7 @@
 #include"tuple_convertible_to.h"
 #include"Parameter.h"
 #include<list>
-
+#include"MethodData.h"
 #include<type_traits>
 
 #include<tuple>
@@ -78,65 +78,88 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	Args_6(a, b, c, d, e, f);
 	C_OUT(g);
 }
-
-struct TYPE
+struct H2:
+	public H
 {
-	N_Function::Function_Single<decltype(&H::Args_5),int,int,int,int> mt = {h,&H::Args_5, 1, 3, 54,4};
+	static void Args_H2() {
+		C_OUT("test");
+	}
+};
+struct H3 :
+	public H2
+{
+
 };
 
-auto AUTO()
+H2* h2 = new H2();
+H3* h3 = new H3();
+auto Ho()
 {
 
-	TYPE* ab=new TYPE();
-	TYPE abb;
-	N_Function::Function_Single mt2(abb.mt, 3);
+
+
+
+	N_Function::Function_Single mt(h2, &H::Args_7, 7, 6, 5, 4, 3, 2);
+
+
+	N_Function::Function_Single mt2(mt, 3);
 	return mt2;
 }
 
-
 int main()
 {
+	TYPE_ID(&H2::Args_H2);
+	TYPE_ID(&H2::Args_2);
 
-	using T = S_Parameter<int, int, char>;
+	N_Function::Function_Single ttt(&H2::Args_H2);
+
+	auto s = &H2::Args_H2;
+
+	s();
+
+	//using T = S_Parameter<int, int, char>;
 
 
-	T aaa(2, 5, 'a');
 
-	T aaaa(3, 6, 'b');
+	//T aaa(2, 5, 'a');
 
-	S_Parameter ma(aaa, aaaa);
-	S_Parameter maa(aaa, aaaa,ma,ma,aaaa);
+	//T aaaa(3, 6, 'b');
 
-	using t = S_Parameter_Element_t<2, int, int, char, int, int, char>;
+	//S_Parameter ma(aaa, aaaa);
+	//S_Parameter maa(aaa, aaaa,ma,ma,aaaa);
+
+	//using t = U_Element_t<2, int, int, char, int, int, char>;
 
 	//IS_Parameter_Element_Type<1,int, float, char>::Next::Next::
 
 	//Function::Single mt(&H::Args_5, 1,3,54,2);
 
-	TYPE ab;
+	//TYPE ab;
 
-	N_Function::Function_Single mt2(ab.mt,3);
+	//N_Function::Function_Single mt2(h,&H::Args_3);
+	//using T = N_Function::IS_Function_Single_Helper<H*, decltype(&H::Args_3), int>::Judge;
+	//TYPE_ID(T);
 
-	auto mt3= AUTO();
 
-	mt3();
+	auto mt2 = Ho();
+
+	//mt(1, 2, 3);
+	mt2();
+
+	//N_Function::S_MethodData<decltype(&H::Args_3),int>::
+	//mt2(2, 4);
+	//auto mt3= AUTO();
+
+	//mt3();
 
 	//Function::Single mt2(ab.mt);
 	//mt2();
 //	mt2();
 
-	int n = 5;
-	int* np = new int(3);
-	int& nn = *np;
-	int& nnp = *np;
-
 
 	C_OUT(sizeof(mt2));
-	C_OUT(sizeof(ab));
+	//C_OUT(sizeof(ab));
 
-	C_OUT(ma.Size);
-	C_OUT(aaa.Size);
-	C_OUT(maa.Size);
 
 
 	//for (int i = 0; i < ma.Size; i++)
@@ -144,7 +167,6 @@ int main()
 	//	C_OUT(ma[i]);
 	//}
 	
-	using TT = S_Parameter_Element_t<1, T>;
 	
 
 
