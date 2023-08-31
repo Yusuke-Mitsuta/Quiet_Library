@@ -28,7 +28,7 @@ namespace N_Function
 		using Fns_element = std::tuple_element_t<_Index, Fns>;
 		
 		template<size_t _Index>
-		static constexpr auto Parameter_Element_v = S_Parameter_Element_v<_Index, t_Fns...>;
+		static constexpr auto Parameter_Element_v = U_Element_v<_Index, t_Fns...>;
 		
 		template<size_t t_Parameter_FnNumber,size_t ...t_Parameter_ArgsNumber>
 		using Fn_Static =Function_Single_Static<Parameter_Element_v<t_Parameter_FnNumber>,

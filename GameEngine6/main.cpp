@@ -15,6 +15,8 @@
 #include"MethodData.h"
 #include<type_traits>
 #include"Quick_Sort.h"
+#include"Parameter_Value.h"
+#include"Parameter_Change.h"
 
 #include<tuple>
 #include<optional>
@@ -122,6 +124,9 @@ struct N_Sort
 
 int main()
 {
+	
+	
+
 	TYPE_ID(&H2::Args_H2);
 	TYPE_ID(&H2::Args_2);
 
@@ -131,23 +136,36 @@ int main()
 
 	s();
 
-	using T = S_Parameter<int, int, char>;
+	using T = S_Parameter<short,int, float, char>;
+//	using T2 = S_Parameter<T,T,T>;
+	using Tva= S_Parameter_Value<0, 1>;
+	using Tvb= S_Parameter_Value<2, 3>;
 
-	using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
+	using Tvc= S_Parameter_Value<7, 5>;
+	using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
+	using Tv3 = S_Parameter_Element_Variable<0, Tv2>::Type;
 
-	TYPE_ID(Sort);
 
-	T aaa(2, 5, 'a');
+	using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
 
-	T aaaa(3, 6, 'b');
+	constexpr auto Tvvv = S_Parameter_Element_Variable<4, Tv2>::value;
 
-	S_Parameter ma(aaa, aaaa);
-	S_Parameter maa(aaa, aaaa,ma,ma,aaaa);
+	using Tf = IS_Insert_Parameters<T, 1, float>::Type;
 
-	IS_Remove_Parameters<T, 2,1> ;
+	using Tr = IS_Remove_Parameters<T, 1,3>::Type;
+	using Tr = U_Remove_Element_t<T, 1, 3>;
+	
+	//IS_Change_Parameters
+	using Tcr = IS_Change_Parameters<0, 2, T>::Type;
+
+	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
+
+	//TYPE_ID(Sort);
+
+
 	//using t = U_Element_t<2, int, int, char, int, int, char>;
 
-	//IS_Parameter_Element_Type<1,int, float, char>::Next::Next::
+	//IS_Parameter_Element<1,int, float, char>::Next::Next::
 
 	//Function::Single mt(&H::Args_5, 1,3,54,2);
 

@@ -63,8 +63,11 @@
     <ClInclude Include="MethodData.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Parameter.h" />
+    <ClInclude Include="Parameter_Change.h" />
     <ClInclude Include="Parameter_Control.h" />
     <ClInclude Include="Parameter_Element.h" />
+    <ClInclude Include="Parameter_Insert.h" />
+    <ClInclude Include="Parameter_Value.h" />
     <ClInclude Include="Quick_Sort.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />
@@ -104,6 +107,7 @@
     <ClCompile Include="Message_Router.cpp" />
     <ClCompile Include="Function_Single_Helper.h" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Parameter_Remove.h" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimeControl.cpp" />

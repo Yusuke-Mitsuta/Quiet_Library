@@ -153,12 +153,15 @@ struct IS_Swap_Variable
 		static constexpr auto Variable = t_2;
 	};
 
-	static constexpr auto Variable_1 = S_SwapType<static_cast<bool>(t_Order)>::Variable;
-	static constexpr auto Variable_2 = S_SwapType<!static_cast<bool>(t_Order)>::Variable;
+	static constexpr auto _1 = S_SwapType<static_cast<bool>(t_Order)>::Variable;
+	static constexpr auto _2 = S_SwapType<!static_cast<bool>(t_Order)>::Variable;
 };
 
 template<auto t_1, auto t_2, int t_Order>
-static constexpr auto U_Swap_v1 = IS_Swap_Variable<t_1, t_2, t_Order>::Variable_1;
+using U_Swap_v= IS_Swap_Variable<t_1, t_2, t_Order>;
 
 template<auto t_1, auto t_2, int t_Order>
-static constexpr auto U_Swap_v2 = IS_Swap_Variable<t_1, t_2, t_Order>::Variable_2;
+static constexpr auto U_Swap_v1 = IS_Swap_Variable<t_1, t_2, t_Order>::_1;
+
+template<auto t_1, auto t_2, int t_Order>
+static constexpr auto U_Swap_v2 = IS_Swap_Variable<t_1, t_2, t_Order>::_2;

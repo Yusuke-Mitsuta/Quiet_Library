@@ -234,6 +234,15 @@
     <ClInclude Include="Quick_Sort.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Parameter_Value.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Change.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Insert.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -319,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="Function_Multiple_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Parameter_Remove.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
