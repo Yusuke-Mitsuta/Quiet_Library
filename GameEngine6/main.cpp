@@ -14,6 +14,7 @@
 #include<list>
 #include"MethodData.h"
 #include<type_traits>
+#include"Quick_Sort.h"
 
 #include<tuple>
 #include<optional>
@@ -106,6 +107,19 @@ auto Ho()
 	return mt2;
 }
 
+
+template<int n>
+struct N
+{
+	static constexpr int Num = n;
+};
+
+template<class T,class T2>
+struct N_Sort
+{
+	static constexpr bool Judge = (T::Num < T2::Num);
+};
+
 int main()
 {
 	TYPE_ID(&H2::Args_H2);
@@ -117,17 +131,20 @@ int main()
 
 	s();
 
-	//using T = S_Parameter<int, int, char>;
+	using T = S_Parameter<int, int, char>;
 
+	using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
 
+	TYPE_ID(Sort);
 
-	//T aaa(2, 5, 'a');
+	T aaa(2, 5, 'a');
 
-	//T aaaa(3, 6, 'b');
+	T aaaa(3, 6, 'b');
 
-	//S_Parameter ma(aaa, aaaa);
-	//S_Parameter maa(aaa, aaaa,ma,ma,aaaa);
+	S_Parameter ma(aaa, aaaa);
+	S_Parameter maa(aaa, aaaa,ma,ma,aaaa);
 
+	IS_Remove_Parameters<T, 2,1> ;
 	//using t = U_Element_t<2, int, int, char, int, int, char>;
 
 	//IS_Parameter_Element_Type<1,int, float, char>::Next::Next::

@@ -46,6 +46,9 @@
     <Filter Include="ヘッダー ファイル\Tuple">
       <UniqueIdentifier>{9c7b0b27-3408-436a-b360-6cb5eece5889}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Parameter">
+      <UniqueIdentifier>{b9e8e00c-e0a7-40a6-abbe-cddb542c4ed1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -210,20 +213,26 @@
     <ClInclude Include="Function_Multiple_Static_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Parameter_Element.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Function.h">
       <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="DBG_NEW.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Function_Core.h">
       <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Element.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Control.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Quick_Sort.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

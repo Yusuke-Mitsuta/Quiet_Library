@@ -63,7 +63,9 @@
     <ClInclude Include="MethodData.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Parameter.h" />
+    <ClInclude Include="Parameter_Control.h" />
     <ClInclude Include="Parameter_Element.h" />
+    <ClInclude Include="Quick_Sort.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />
     <ClInclude Include="Storge_Access.h" />

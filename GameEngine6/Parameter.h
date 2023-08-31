@@ -1,6 +1,7 @@
 #pragma once
 
 #include"Parameter_Element.h"
+#include"Parameter_Control.h"
 
 //仕様
 //パラメータパック[T_Parameters...]をラッピングする
@@ -121,6 +122,12 @@ public:
 		parameters(set_Parameters...) {}
 
 	constexpr auto operator[](int number);
+};
+
+template<>
+struct S_Parameter<>
+{
+	static constexpr size_t Size = 0;
 };
 
 template<class ...MT_Parameters>

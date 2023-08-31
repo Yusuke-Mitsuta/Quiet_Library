@@ -87,7 +87,7 @@ namespace N_Function
 
 				using Judge = U_Judge_t<T_FlontFn, t_FunctionNumber>;
 
-				using Fns = U_Judge_t<std::tuple<TP_BoundFns...>, t_FunctionNumber>;
+				using Fns = U_Judge_t<S_Parameter<TP_BoundFns...>, t_FunctionNumber>;
 
 			};
 
