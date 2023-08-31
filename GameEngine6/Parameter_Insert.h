@@ -8,6 +8,7 @@
 template<same_as_template_class<S_Parameter> T_Parameter, int t_Insert_Index_Point, class ...TP_Insert>
 struct IS_Insert_Parameters
 {
+private:
 	template<
 		class T_Rest_Parameter = T_Parameter,
 		class T_Result_Parameter = S_Parameter<>,
@@ -38,6 +39,7 @@ struct IS_Insert_Parameters
 		using Type = S_Parameter<TP_Migrated_Parameter..., TP_Insert..., TP_Rest_Parameter...>;
 	};
 
+public:
 	using Type = S_Insert_Parameters<>::Type;
 
 };

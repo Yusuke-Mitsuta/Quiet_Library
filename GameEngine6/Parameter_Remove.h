@@ -8,6 +8,7 @@
 template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
 struct IS_Remove_Parameters
 {
+private:
 	enum class E_State
 	{
 		Not_Remove,
@@ -60,7 +61,7 @@ struct IS_Remove_Parameters
 	{
 		using Type = S_Remove_Parameters<S_Parameter<TP_Result_Parameter..., U_Element_t<t_Parameter_Number, T_Parameter>>, t_Parameter_Number + 1, t_Remove_Indexs_Number>::Type;
 	};
-
+public:
 	using Type = S_Remove_Parameters<>::Type;
 };
 
@@ -68,4 +69,4 @@ template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs
 using U_Remove_Element = IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>;
 
 template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
-using U_Remove_Element_t = typename IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>::Type;
+using U_Remove_Element_t =IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>::Type;

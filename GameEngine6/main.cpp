@@ -156,7 +156,7 @@ int main()
 	using Tr = U_Remove_Element_t<T, 1, 3>;
 	
 	//IS_Change_Parameters
-	using Tcr = IS_Change_Parameters<0, 2, T>::Type;
+	using Tcr = IS_Change_Parameters<0, 2, T>::Remove;
 
 	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
 
