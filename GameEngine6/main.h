@@ -34,8 +34,6 @@ using Name = Core<#Name>;\
 template<> \
 class Core<#Name> \
 
-
-
 struct H
 {
 	void Args_1(int a);

@@ -3,7 +3,6 @@
 #include"Parameter_Remove.h"
 #include"Parameter_Insert.h"
 
-
 //Žd—l
 //[T_Parameter]‚Ì[t_Change_Number_1]”Ô–Ú‚Ì—v‘f‚Æ[t_Change_Number_2]”Ô–Ú‚Ì—v‘f‚ð“ü‚ê‘Ö‚¦‚é
 template<int t_Change_Number_1, int t_Change_Number_2, same_as_template_class<S_Parameter> T_Parameter>
@@ -28,3 +27,7 @@ using U_Change_Element = IS_Change_Parameters<t_Change_Number_1, t_Change_Number
 
 template<size_t t_Change_Number_1, size_t t_Change_Number_2, same_as_template_class<S_Parameter> T_Parameter>
 using U_Change_Element_t = typename U_Change_Element<t_Change_Number_1, t_Change_Number_2, T_Parameter>::Type;
+
+template<size_t t_Change_Number_1, size_t t_Change_Number_2, same_as_template_value<S_Parameter_Value> T_Parameter_Value>
+using U_Change_Element_v = typename IS_Parameter_Class_Change_Value<
+	typename U_Change_Element<t_Change_Number_1, t_Change_Number_2,typename T_Parameter_Value::Parameter_Type>::Type>::Type;

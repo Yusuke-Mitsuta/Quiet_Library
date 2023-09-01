@@ -137,14 +137,17 @@ int main()
 	s();
 
 	using T = S_Parameter<short,int, float, char>;
+	using T1 = U_Insert_Element_t<T, 1, T>;
 //	using T2 = S_Parameter<T,T,T>;
 	using Tva= S_Parameter_Value<0, 1>;
 	using Tvb= S_Parameter_Value<2, 3>;
 
 	using Tvc= S_Parameter_Value<7, 5>;
 	using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
-	using Tv3 = S_Parameter_Element_Variable<0, Tv2>::Type;
-
+	using Tv3 = Tv2::Parameter_Type;
+	
+		//IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename Tv2::Parameter_Type,4, integral_constant<4>, integral_constant<4>, integral_constant<4>, integral_constant<4>>::Type>::Type;
+	
 
 	using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
 
@@ -156,7 +159,7 @@ int main()
 	using Tr = U_Remove_Element_t<T, 1, 3>;
 	
 	//IS_Change_Parameters
-	using Tcr = IS_Change_Parameters<0, 2, T>::Remove;
+	using Tcr = IS_Change_Parameters<0, 3, T>::Type;
 
 	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
 

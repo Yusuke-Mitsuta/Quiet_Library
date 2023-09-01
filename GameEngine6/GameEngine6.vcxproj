@@ -68,6 +68,7 @@
     <ClInclude Include="Parameter_Element.h" />
     <ClInclude Include="Parameter_Insert.h" />
     <ClInclude Include="Parameter_Value.h" />
+    <ClInclude Include="Parameter_Value_Index_Sequence.h" />
     <ClInclude Include="Quick_Sort.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />

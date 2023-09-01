@@ -1,6 +1,7 @@
 #pragma once
 
 #include<type_traits>
+#include"Parameter_Value_Index_Sequence.h"
 
 template<class ...T_Parameters>
 struct S_Parameter;
@@ -57,4 +58,13 @@ struct S_Parameter_Value
 	using Parameter_Type =S_Inner_Parameter_Value_Search<>::Type;
 
 	static constexpr size_t Size = Parameter_Type::Size;
+};
+
+template<class T_Parameter>
+struct IS_Parameter_Class_Change_Value;
+
+template<auto ...t_Parameters>
+struct IS_Parameter_Class_Change_Value<S_Parameter<integral_constant<t_Parameters>...>>
+{
+	using Type = S_Parameter_Value<t_Parameters...>;
 };

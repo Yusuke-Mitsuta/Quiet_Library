@@ -49,3 +49,6 @@ using U_Insert_Element = IS_Insert_Parameters<T_Parameter, t_Insert_Index_Point,
 
 template<same_as_template_class<S_Parameter> T_Parameter, int t_Insert_Index_Point, class ...TP_Insert>
 using U_Insert_Element_t = typename IS_Insert_Parameters<T_Parameter, t_Insert_Index_Point, TP_Insert...>::Type;
+
+template<same_as_template_value<S_Parameter_Value> T_Parameter_Value, int t_Insert_Index_Point, auto ...tP_Insert>
+using U_Insert_Element_v = typename IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename T_Parameter_Value::Parameter_Type, t_Insert_Index_Point, integral_constant<tP_Insert>...>::Type>::Type;

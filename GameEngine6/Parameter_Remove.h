@@ -69,4 +69,7 @@ template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs
 using U_Remove_Element = IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>;
 
 template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
-using U_Remove_Element_t =IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>::Type;
+using U_Remove_Element_t =typename IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>::Type;
+
+template<same_as_template_value<S_Parameter_Value> T_Parameter_Value, int ...t_Remove_Indexs>
+using U_Remove_Element_v = typename IS_Parameter_Class_Change_Value<typename IS_Remove_Parameters<typename T_Parameter_Value::Parameter_Type, t_Remove_Indexs...>::Type>::Type;

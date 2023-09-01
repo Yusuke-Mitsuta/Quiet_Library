@@ -10,6 +10,9 @@ struct S_Parameter;
 template<auto ...t_Parameters>
 struct S_Parameter_Value;
 
+template<class T_Parameter>
+struct IS_Parameter_Class_Change_Value;
+
 template<auto t_Value>
 struct integral_constant;
 
