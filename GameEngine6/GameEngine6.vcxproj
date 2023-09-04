@@ -63,6 +63,7 @@
     <ClInclude Include="MethodData.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Parameter.h" />
+    <ClInclude Include="Parameter_Get.h" />
     <ClInclude Include="Parameter_Change.h" />
     <ClInclude Include="Parameter_Control.h" />
     <ClInclude Include="Parameter_Element.h" />

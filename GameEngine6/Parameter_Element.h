@@ -60,9 +60,7 @@ struct IS_Parameter_Element
 public:
 
 	using Type = S_Parameter_Element<_Index, T_Parameters...,std::nullopt_t>::Type;
-
 };
-
 
 template<size_t _Index, class ...T_Parameters>
 using U_Element_t = IS_Parameter_Element<_Index, T_Parameters...>::Type;

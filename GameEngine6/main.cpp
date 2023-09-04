@@ -81,34 +81,14 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	Args_6(a, b, c, d, e, f);
 	C_OUT(g);
 }
-struct H2:
-	public H
+template<class ...T>
+struct H2
 {
-	static void Args_H2() {
-		C_OUT("test");
-	}
+
+	using TPN_4 = S_Parameter<T...>;
+
+	using Q_Sort_1 = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
 };
-struct H3 :
-	public H2
-{
-
-};
-
-H2* h2 = new H2();
-H3* h3 = new H3();
-auto Ho()
-{
-
-
-
-
-	N_Function::Function_Single mt(h2, &H::Args_7, 7, 6, 5, 4, 3, 2);
-
-
-	N_Function::Function_Single mt2(mt, 3);
-	return mt2;
-}
-
 
 int main()
 {
@@ -127,49 +107,17 @@ int main()
 	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
 
 
-	using Q_Sort_1 = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
-	using Q_Sort_2 = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+	using Q_Sort_1 = IS_Quick_Sort<N_Sort, TPN_4>::Type;
+
+	using T_5 = S_Parameter_Value<0, 1, 3, 5, 7, 9>;
+	using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
+	using TTTTT = N < U_Element_vp<3, T_5>>;
+
+	using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<0, 1, 3, 5>>;
+	TYPE_ID(T_6);
 
 
 
-
-	//_1::Type_2::Type_3::Type_4::Type_7::Type_2::Type_3::Type_3::Type_5::Type_9;
-		//IS_Part_Sort<S_Parameter_Value<0,1,2>,0,2>::Type;
-
-
-
-
-		//Type_1::Type_2::Type_3::Type_3::Type_4::Type_6::Type_6::Type_7::Type_2::Type_3::Type_5::Type_9::Type_11::Type;
-	static constexpr int N = 5;//Q_Sort_1::N;
-
-		//IS_Quick_Sort_Standard<S_Parameter_Value<0, 3, 2, 1>, 0, 3>::Type;
-		//IS_Part_Sort<S_Parameter_Value<0,2,1>, 0, 2>::Type;
-
-		//::IS_Quick_Sort_Standard
-		//<S_Parameter_Value<0, 1, 2>, 0, 2>::
-
-		//IS_Part_Sort<S_Parameter_Value<0, 1, 2>, 0, 2>::Type;
-		
-		//IS_Quick_Sort_Standard<S_Parameter_Value<0, 1, 2>, 0, 2>::Type;
-
-
-	//using Q_Sort =typename IS_Quick_Sort<N_Sort, TPN_3>::IS_Quick_Sort_Standard<S_Parameter_Value<0,1,2,3>,0,3>::
-
-	TYPE_ID(Q_Sort_2);
-	TYPE_ID(Q_Sort_1);
-	//TYPE_ID(Q_Sort_1::T1);
-	//TYPE_ID(Q_Sort_1::T2);
-	//TYPE_ID(Q_Sort_1::TPN);
-	//TYPE_ID(Q_Sort_1::Insert);
-	//TYPE_ID(Q_Sort_1::T3::Side_Number);
-	//TYPE_ID(Q_Sort_1::T3::T1);
-	C_OUT(N);
-
-	N_Function::Function_Single ttt(&H2::Args_H2);
-
-	auto s = &H2::Args_H2;
-
-	s();
 
 	using T = S_Parameter<short,int, float, char>;
 	using T1 = U_Insert_Element_t<T, 1, T>;
@@ -186,7 +134,7 @@ int main()
 
 	using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
 
-	constexpr auto Tvvv = S_Parameter_Element_Variable<4, Tv2>::value;
+	//constexpr auto Tvvv = S_Parameter_Element_Variable<4, Tv2>::value;
 
 	using Tf = IS_Insert_Parameters<T, 1, float>::Type;
 
@@ -213,12 +161,6 @@ int main()
 	//using T = N_Function::IS_Function_Single_Helper<H*, decltype(&H::Args_3), int>::Judge;
 	//TYPE_ID(T);
 
-
-	auto mt2 = Ho();
-
-	//mt(1, 2, 3);
-	mt2();
-
 	//N_Function::S_MethodData<decltype(&H::Args_3),int>::
 	//mt2(2, 4);
 	//auto mt3= AUTO();
@@ -228,11 +170,6 @@ int main()
 	//Function::Single mt2(ab.mt);
 	//mt2();
 //	mt2();
-
-
-	C_OUT(sizeof(mt2));
-	//C_OUT(sizeof(ab));
-
 
 
 	//for (int i = 0; i < ma.Size; i++)

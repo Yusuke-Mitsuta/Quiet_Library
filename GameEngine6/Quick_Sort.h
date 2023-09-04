@@ -9,13 +9,17 @@
 //テンプレート
 //[T_Judge]::比較条件
 //[TP]::[S_Parameter]型の型リスト
+//[t_Reverse_Fg]::trueだと並び順を反転させる
 // 
 //補足
 //[T_Judge]はテンプレートを二つ取り、静的なメンバー変数として[static constexpr bool Judge]が存在する事
-template<template<class, class>class T_Judge, class TP>
+template<template<class, class>class T_Judge, class TP, bool t_Reverse_Fg = false>
 struct IS_Quick_Sort
 {
 private:
+
+	template<class T_1,class T_2>
+	static constexpr bool t_Judge = t_Reverse_Fg ^ T_Judge<T_1, T_2>::Judge;
 
 	//仕様
 	//[TP_Numbers]内の番号の、[t_Limit_Min]番目から[int t_Limit_Max]番目までの範囲で並び替える補助クラス
@@ -45,7 +49,7 @@ private:
 		template<same_as_template_value<S_Parameter_Value> TP_Numbers, int t_Limit_Min, int t_Limit_Max>
 		struct S_Part_Sort<TP_Numbers,t_Limit_Min,t_Limit_Max,1>
 		{
-			static constexpr bool Judge = T_Judge<Element<t_Limit_Max>, Element<t_Limit_Min>>::Judge;
+			static constexpr bool Judge = t_Judge<Element<t_Limit_Max>, Element<t_Limit_Min>>;
 
 			using Swap_1 = TP_Numbers;
 
@@ -60,7 +64,7 @@ private:
 		struct S_Part_Sort<TP_Numbers, t_Limit_Min, t_Limit_Max, 2>
 		{
 			template<int Index_1,int Index_2>
-			static constexpr bool Judge = T_Judge<Element<t_Limit_Min+Index_1>, Element<t_Limit_Min+Index_2>>::Judge;
+			static constexpr bool Judge = t_Judge<Element<t_Limit_Min + Index_1>, Element<t_Limit_Min + Index_2>>;
 
 			template<int t_Center_Number,
 				int t_Side_Number_1,
@@ -102,10 +106,8 @@ private:
 			using Part_Sort = S_Judge_Center<>::Type;
 			using Remove = U_Remove_Element_v<TP_Numbers, t_Limit_Min ,t_Limit_Min + 1, t_Limit_Min + 2>;
 
-			using Insert = U_Insert_Element_v<Remove, t_Limit_Min,
-				U_Element_vp<U_Element_vp<0, Part_Sort>+t_Limit_Min, TP_Numbers>,
-				U_Element_vp<U_Element_vp<1, Part_Sort>+t_Limit_Min, TP_Numbers>,
-				U_Element_vp<U_Element_vp<2, Part_Sort>+t_Limit_Min, TP_Numbers>>;
+			using Insert = U_Insert_Element_P_v<Remove, t_Limit_Min,
+				U_Get_Element_v<TP_Numbers, U_Element_vp<0, Part_Sort>+t_Limit_Min, U_Element_vp<1, Part_Sort>+t_Limit_Min, U_Element_vp<2, Part_Sort>+t_Limit_Min>>;
 
 			using Type = Insert;
 		};
@@ -163,7 +165,7 @@ private:
 		//範囲内の後方から探索する
 		//交換する候補の発見時は、発見済みの前方の値と入れ替えを実施し、再度前方から値を探索する
 		//未発見時は次の探索に移行する
-		template<int t_Flont, int t_Back = 0, bool t_Judge_Back = T_Judge<Element<Back_Number - t_Back>,T_Standard>::Judge, bool t_End_Fg = ((Flont_Number + t_Flont) >= Back_Number - t_Back)>
+		template<int t_Flont, int t_Back = 0, bool t_Judge_Back = t_Judge<Element<Back_Number - t_Back>,T_Standard>, bool t_End_Fg = ((Flont_Number + t_Flont) >= Back_Number - t_Back)>
 		struct S_Quick_Sort_Back
 		{
 			using Type = S_Quick_Sort_Back<t_Flont, t_Back + 1>::Type;
@@ -186,7 +188,7 @@ private:
 		//範囲内の前方から探索する
 		//交換する候補の発見時は、後方からの探索を実施する
 		//未発見時は次の探索に移行する
-		template<int t_Flont = 0, bool t_Judge_Flnot = (T_Judge<Element<Flont_Number + t_Flont>, T_Standard>::Judge), bool t_End_Fg = ((Flont_Number + t_Flont) >= Back_Number)>
+		template<int t_Flont = 0, bool t_Judge_Flnot = t_Judge<Element<Flont_Number + t_Flont>, T_Standard>, bool t_End_Fg = ((Flont_Number + t_Flont) >= Back_Number)>
 		struct S_Quick_Sort_Flont
 		{
 			using Type = S_Quick_Sort_Flont<t_Flont + 1>::Type;

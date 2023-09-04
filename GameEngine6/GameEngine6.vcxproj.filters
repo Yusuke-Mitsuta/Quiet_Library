@@ -243,6 +243,12 @@
     <ClInclude Include="Parameter_Insert.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClInclude>
+    <ClInclude Include="Parameter_Value_Index_Sequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Get.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

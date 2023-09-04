@@ -65,11 +65,46 @@ public:
 	using Type = S_Remove_Parameters<>::Type;
 };
 
+template<same_as_template_class<S_Parameter> T_Parameter, same_as_template_value<S_Parameter_Value> T_Remove_Index>
+struct S_Remove_Parameters_Helper;
+
+template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
+struct S_Remove_Parameters_Helper<T_Parameter,S_Parameter_Value<t_Remove_Indexs...>>
+{
+	using Type= typename IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>::Type;
+};
+
 template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
 using U_Remove_Element = IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>;
 
+//仕様
+//[S_Parameter]から[t_Remove_Indexs...]番目の要素を取り除く
+//
+//補足
+//[t_Remove_Indexs...]を[S_Parameter_Value]で受け取る場合は[U_Remove_Element_P_t]を利用する事
 template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
-using U_Remove_Element_t =typename IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>::Type;
+using U_Remove_Element_t = typename IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>::Type;
 
+//仕様
+//[S_Parameter]から[S_Parameter_Value< t_Remove_Indexs... >]番目の要素を取り除く
+//
+//補足
+//[t_Remove_Indexs...]を可変長引数で受け取る場合は[U_Remove_Element_t]を利用する事
+template<same_as_template_class<S_Parameter> T_Parameter, same_as_template_value<S_Parameter_Value> T_Remove_Index>
+using U_Remove_Element_P_t = typename S_Remove_Parameters_Helper<T_Parameter, T_Remove_Index>::Type;
+
+//仕様
+//[S_Parameter_Value]から[t_Remove_Indexs...]番目の要素を取り除く
+//
+//補足
+//[t_Remove_Indexs...]を[S_Parameter_Value]で受け取る場合は[U_Remove_Element_P_v]を利用する事
 template<same_as_template_value<S_Parameter_Value> T_Parameter_Value, int ...t_Remove_Indexs>
 using U_Remove_Element_v = typename IS_Parameter_Class_Change_Value<typename IS_Remove_Parameters<typename T_Parameter_Value::Parameter_Type, t_Remove_Indexs...>::Type>::Type;
+
+//仕様
+//[S_Parameter_Value]から[S_Parameter_Value< t_Remove_Indexs... >]番目の要素を取り除く
+//
+//補足
+//[t_Remove_Indexs...]を可変長引数で受け取る場合は[U_Remove_Element_P_v]を利用する事
+template<same_as_template_value<S_Parameter_Value> T_Parameter_Value, same_as_template_value<S_Parameter_Value> T_Remove_Index>
+using U_Remove_Element_P_v = typename IS_Parameter_Class_Change_Value<typename S_Remove_Parameters_Helper<typename T_Parameter_Value::Parameter_Type, T_Remove_Index>::Type>::Type;
