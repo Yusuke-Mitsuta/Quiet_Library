@@ -118,9 +118,33 @@ int main()
 	using TPN_1 = S_Parameter<N<1>>;
 	using TPN_2 = S_Parameter<N<5>, N<3>>;
 	using TPN_3 = S_Parameter<N<1>, N<3>, N<5>>;
-	using TPN_4 = S_Parameter<N<1>, N<3>, N<5>,N<7>>;
+	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>,N<7>>;
+	//using TPN_4 = S_Parameter<N<14>,N<18>,N<7>,N<9>>;
+	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>>;
+	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>, N<23>, N<15>>;
+	using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>,N<14>,N<18>, N<9>, N<7>, N<23>,N<15>>;
+	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>>;
+	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
 
-	using Q_Sort = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+
+	using Q_Sort_1 = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+	using Q_Sort_2 = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+
+
+
+
+	//_1::Type_2::Type_3::Type_4::Type_7::Type_2::Type_3::Type_3::Type_5::Type_9;
+		//IS_Part_Sort<S_Parameter_Value<0,1,2>,0,2>::Type;
+
+
+
+
+		//Type_1::Type_2::Type_3::Type_3::Type_4::Type_6::Type_6::Type_7::Type_2::Type_3::Type_5::Type_9::Type_11::Type;
+	static constexpr int N = 5;//Q_Sort_1::N;
+
+		//IS_Quick_Sort_Standard<S_Parameter_Value<0, 3, 2, 1>, 0, 3>::Type;
+		//IS_Part_Sort<S_Parameter_Value<0,2,1>, 0, 2>::Type;
+
 		//::IS_Quick_Sort_Standard
 		//<S_Parameter_Value<0, 1, 2>, 0, 2>::
 
@@ -131,8 +155,15 @@ int main()
 
 	//using Q_Sort =typename IS_Quick_Sort<N_Sort, TPN_3>::IS_Quick_Sort_Standard<S_Parameter_Value<0,1,2,3>,0,3>::
 
-	TYPE_ID(&H2::Args_H2);
-	TYPE_ID(&H2::Args_2);
+	TYPE_ID(Q_Sort_2);
+	TYPE_ID(Q_Sort_1);
+	//TYPE_ID(Q_Sort_1::T1);
+	//TYPE_ID(Q_Sort_1::T2);
+	//TYPE_ID(Q_Sort_1::TPN);
+	//TYPE_ID(Q_Sort_1::Insert);
+	//TYPE_ID(Q_Sort_1::T3::Side_Number);
+	//TYPE_ID(Q_Sort_1::T3::T1);
+	C_OUT(N);
 
 	N_Function::Function_Single ttt(&H2::Args_H2);
 

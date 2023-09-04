@@ -60,6 +60,14 @@ struct S_Parameter_Value
 	static constexpr size_t Size = Parameter_Type::Size;
 };
 
+template<>
+struct S_Parameter_Value<>
+{
+	using Parameter_Type = S_Parameter<>;
+
+	static constexpr size_t Size = 0;
+};
+
 template<class T_Parameter>
 struct IS_Parameter_Class_Change_Value;
 
