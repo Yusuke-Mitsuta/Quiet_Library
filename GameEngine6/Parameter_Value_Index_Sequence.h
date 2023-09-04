@@ -16,6 +16,6 @@ struct IS_Index_Sequence
 		using Type = S_Parameter_Value<_Index...>;
 	};
 
-	using Type = S_Index_Sequence<std::make_index_sequence<_Index>>;
+	using Type = typename S_Index_Sequence<std::make_index_sequence<_Index>>::Type;
 
 };

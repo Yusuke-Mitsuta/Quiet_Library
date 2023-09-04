@@ -110,22 +110,26 @@ auto Ho()
 }
 
 
-template<int n>
-struct N
-{
-	static constexpr int Num = n;
-};
-
-template<class T,class T2>
-struct N_Sort
-{
-	static constexpr bool Judge = (T::Num < T2::Num);
-};
-
 int main()
 {
-	
-	
+
+	N_Sort<N<3>, N<5>>::Judge;
+
+	using TPN_1 = S_Parameter<N<1>>;
+	using TPN_2 = S_Parameter<N<5>, N<3>>;
+	using TPN_3 = S_Parameter<N<1>, N<3>, N<5>>;
+	using TPN_4 = S_Parameter<N<1>, N<3>, N<5>,N<7>>;
+
+	using Q_Sort = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+		//::IS_Quick_Sort_Standard
+		//<S_Parameter_Value<0, 1, 2>, 0, 2>::
+
+		//IS_Part_Sort<S_Parameter_Value<0, 1, 2>, 0, 2>::Type;
+		
+		//IS_Quick_Sort_Standard<S_Parameter_Value<0, 1, 2>, 0, 2>::Type;
+
+
+	//using Q_Sort =typename IS_Quick_Sort<N_Sort, TPN_3>::IS_Quick_Sort_Standard<S_Parameter_Value<0,1,2,3>,0,3>::
 
 	TYPE_ID(&H2::Args_H2);
 	TYPE_ID(&H2::Args_2);
@@ -145,7 +149,7 @@ int main()
 	using Tvc= S_Parameter_Value<7, 5>;
 	using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
 	using Tv3 = Tv2::Parameter_Type;
-	
+	using Tv4 = U_Change_Element_v<0, 4, Tv2>;
 		//IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename Tv2::Parameter_Type,4, integral_constant<4>, integral_constant<4>, integral_constant<4>, integral_constant<4>>::Type>::Type;
 	
 

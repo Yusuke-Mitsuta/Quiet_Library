@@ -119,7 +119,7 @@ template <template<class...>class _Ty1, class ..._Ty1_Inner, template<class...>c
 struct template_class_concept<_Ty1<_Ty1_Inner...>,_Ty2>
 {
 	using T1 = _Ty1<_Ty1_Inner...>;
-	using T2 = _Ty1<_Ty1_Inner...>;
+	using T2 = _Ty2<_Ty1_Inner...>;
 
 	static constexpr bool same_as = same_as <T1, T2>;
 	static constexpr bool convertible_to = convertible_to <T1, T2>;
@@ -156,7 +156,7 @@ template <template<auto...>class _Ty1, auto ..._ty1_Inner, template<auto...>clas
 struct template_value_concept<_Ty1<_ty1_Inner...>, _Ty2>
 {
 	using T1 = _Ty1<_ty1_Inner...>;
-	using T2 = _Ty1<_ty1_Inner...>;
+	using T2 = _Ty2<_ty1_Inner...>;
 
 	static constexpr bool same_as = std::same_as <T1, T2>;
 	static constexpr bool convertible_to = std::convertible_to <T1, T2>;

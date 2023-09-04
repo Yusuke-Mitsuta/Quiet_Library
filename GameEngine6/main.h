@@ -67,4 +67,3 @@ public:
 	int a = 1;
 
 };
-

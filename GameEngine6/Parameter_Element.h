@@ -92,7 +92,7 @@ struct S_Parameter_Element_Variable<_Index,S_Parameter_Value<t_Parameter_Value..
 	template<>
 	struct S_OverFlow_Check<std::nullopt_t>
 	{
-		using Type = integral_constant<std::nullopt>;
+		using Type = integral_constant<0>;
 	};
 
 	static constexpr auto value = S_OverFlow_Check<Type>::Type::value;
