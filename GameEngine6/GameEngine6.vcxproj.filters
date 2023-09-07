@@ -252,17 +252,26 @@
     <ClInclude Include="Function_Data.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Data_Single.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Data_Core.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Parameter_Expand.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
     <ClInclude Include="Parameter_Merge.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Helper.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_convertible_to.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Expand.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Single_Data.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Method_Core.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

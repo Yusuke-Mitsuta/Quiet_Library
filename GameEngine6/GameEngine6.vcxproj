@@ -37,7 +37,7 @@
     <ClInclude Include="Function.h" />
     <ClInclude Include="Function_Core.h" />
     <ClInclude Include="Function_Data_Core.h" />
-    <ClInclude Include="Function_Data_Single.h" />
+    <ClInclude Include="Function_Single_Data.h" />
     <ClInclude Include="Function_Helper.h" />
     <ClInclude Include="Function_Multiple.h" />
     <ClInclude Include="Function_Multiple_Operator.h" />
@@ -63,11 +63,12 @@
     <ClInclude Include="Message_Receive.h" />
     <ClInclude Include="Message_Router.h" />
     <ClInclude Include="Function_Single.h" />
-    <ClInclude Include="Method.h" />
+    <ClInclude Include="Method_Core.h" />
     <ClInclude Include="MethodData.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Parameter.h" />
     <ClInclude Include="Parameter_convertible_to.h" />
+    <ClInclude Include="Expand.h" />
     <ClInclude Include="Parameter_Get.h" />
     <ClInclude Include="Parameter_Change.h" />
     <ClInclude Include="Parameter_Control.h" />
