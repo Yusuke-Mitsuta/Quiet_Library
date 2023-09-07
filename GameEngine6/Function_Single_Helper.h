@@ -1,23 +1,22 @@
 #pragma once
 
-#include"tuple_convertible_to.h"
+#include"Parameter_convertible_to.h"
 #include"SwapType.h"
 
 namespace N_Function
 {
-	template<class T_Method, class ...TP_Args>
-	struct S_MethodData;
+	template<class ...MT_Fn_Parts>
+	struct S_Function_Data;
 	
-	template<typename T_Mtehod,class ...TP_Args>
+	template<class ...MT_Fn_Parts>
 	struct IS_Function_Single_Helper
 	{
+		using Lapping_Meth = S_Function_Data<MT_Fn_Parts...>;
 
-		using Lapping_Meth = S_MethodData<T_Mtehod, TP_Args...>;
-
-		using Judge = U_Judge_t<T_Mtehod,
-			tuple_back_part_convertible_to<
+		using Judge = U_Judge_t<U_Element_t<0,MT_Fn_Parts...>,
+			parameter_back_part_convertible_to<
 			typename Lapping_Meth::BoundArgs,
-			typename Lapping_Meth::Args>>;
+			typename Lapping_Meth::RequestArgs>>;
 
 	};
 

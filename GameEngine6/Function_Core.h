@@ -4,11 +4,11 @@ namespace N_Function
 {
 	//仕様
 	//クラスメソッドとメソッドを同一方法で扱う為のクラス
-	template<class T_Method,class ...TP_Bind_Args>
-	struct S_Core;
+	template<class T_Method>
+	struct Function_Core;
 
-	template<class T_RType, class ...TP_Args, class ...TP_Bind_Args>
-	struct S_Core<T_RType(*)(TP_Args...),TP_Bind_Args...>
+	template<class T_RType, class ...TP_Args>
+	struct Function_Core<T_RType(*)(TP_Args...)>
 	{
 		T_RType(*method)(TP_Args...);
 
@@ -26,13 +26,13 @@ namespace N_Function
 		}
 	};
 
-	template<class T_CName, class T_RType, class ...TP_Args ,class... TP_Bind_Args>
-	struct S_Core<T_RType(T_CName::*)(TP_Args...),TP_Bind_Args...>
+	template<class T_CName, class T_RType, class ...TP_Args >
+	struct Function_Core<T_RType(T_CName::*)(TP_Args...)>
 	{
 		T_CName* p;
 		T_RType(T_CName::* method)(TP_Args...);
 
-		constexpr S_Core(T_CName* set_p, T_RType(T_CName::* set_Methed)(TP_Args...)) :
+		constexpr Function_Core(T_CName* set_p, T_RType(T_CName::* set_Methed)(TP_Args...)) :
 			p(set_p), method(set_Methed) {}
 
 		constexpr T_RType operator()(TP_Args... args)
@@ -40,27 +40,11 @@ namespace N_Function
 			return (p->*method)(args...);
 		}
 
-		constexpr S_Core* operator->()
+		constexpr Function_Core* operator->()
 		{
 			return this;
 		}
 	};
 
-	template<class ...TP_Function_Inner, class ...TP_Bind_Args>
-	struct S_Core<S_Core<TP_Function_Inner...>, TP_Bind_Args...>
-	{
-		constexpr S_Core(T_CName* set_p, T_RType(T_CName::* set_Methed)(TP_Args...)) :
-			p(set_p), method(set_Methed) {}
-
-		constexpr T_RType operator()(TP_Args... args)
-		{
-			return (p->*method)(args...);
-		}
-
-		constexpr S_Core* operator->()
-		{
-			return this;
-		}
-	};
 
 }

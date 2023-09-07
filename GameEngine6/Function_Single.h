@@ -9,6 +9,7 @@
 namespace N_Function
 {
 
+
 	//仕様
 	//関数オブジェクトの単体を表す
 	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>

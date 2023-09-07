@@ -150,29 +150,29 @@ int main()
 
 	//auto f = N_Function::Function_Single(h, &H::Args_3, 1);
 
-	static constexpr auto ff = N_Function::Function_Single_Static<&H::Args_3, 1, 3,3>();
+	//static constexpr auto ff = N_Function::Function_Single_Static<&H::Args_3, 1, 3,3>();
 
 
 
-	auto f3 = N_Function::Function_Multiple(&H::Static_Args_3, 3, h, & H::Args_3, 22, 2, 2);
+	//auto f3 = N_Function::Function_Multiple(&H::Static_Args_3, 3, h, & H::Args_3, 22, 2, 2);
 
 
 	//auto f5 = N_Function::Function_Single(h, &H::Args_3, 3);
 
 	
 
-	type_id(&H::Static_Args_3);
+	//type_id(&H::Static_Args_3);
 
-	auto f2 = N_Function::Function_Multiple(h
-		,&H::Args_5, 5, 4, 3, 2, 1
-		,&H::Args_5,5,4,3,2
-		,&H::Args_5,5,4,3
-		,&H::Args_5,5,4
-		,&H::Args_5,5
-		,&H::Args_5
-	);
+	//auto f2 = N_Function::Function_Multiple(h
+	//	,&H::Args_5, 5, 4, 3, 2, 1
+	//	,&H::Args_5,5,4,3,2
+	//	,&H::Args_5,5,4,3
+	//	,&H::Args_5,5,4
+	//	,&H::Args_5,5
+	//	,&H::Args_5
+	//);
 
-	f2.
+//	f2.
 	
 	//f2(6, 7, 8, 9, 0);
 	//f2(6, 7, 8, 9);
