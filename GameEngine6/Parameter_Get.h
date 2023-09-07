@@ -17,13 +17,13 @@ struct IS_Get_Parameters
 	template<class T_Parameters,class TP_Index>
 	struct S_Get_Parameters;
 
-	template<same_as_template_class<S_Parameter> T_Parameters, int... tP_Index>
+	template<same_as_template_class<S_Parameter> T_Parameters, size_t... tP_Index>
 	struct S_Get_Parameters<T_Parameters,S_Parameter_Value<tP_Index...>>
 	{
 		using Type = S_Parameter<U_Element_t<tP_Index, T_Parameters>...>;
 	};
 
-	template<same_as_template_value<S_Parameter_Value> T_Parameters_Value,int... tP_Index>
+	template<same_as_template_value<S_Parameter_Value> T_Parameters_Value,size_t... tP_Index>
 	struct S_Get_Parameters<T_Parameters_Value, S_Parameter_Value< tP_Index...>>
 	{
 		using Type = S_Parameter_Value<U_Element_vp<tP_Index, T_Parameters_Value>...>;

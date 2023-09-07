@@ -5,6 +5,10 @@
 
 //仕様
 //[S_Parameter]から[t_Remove_Indexs...]番目の要素を取り除く
+// 
+//テンプレート
+//T_Parameter::要素を取り除くパラメータ
+//t_Remove_Indexs...::取り除く要素の番号
 template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
 struct IS_Remove_Parameters
 {
@@ -68,6 +72,8 @@ public:
 template<same_as_template_class<S_Parameter> T_Parameter, same_as_template_value<S_Parameter_Value> T_Remove_Index>
 struct S_Remove_Parameters_Helper;
 
+//仕様
+//[S_Parameter_Value]から[t_Remove_Indexs...]を取り出し、[IS_Remove_Parameters]に送る
 template<same_as_template_class<S_Parameter> T_Parameter, int ...t_Remove_Indexs>
 struct S_Remove_Parameters_Helper<T_Parameter,S_Parameter_Value<t_Remove_Indexs...>>
 {
@@ -79,6 +85,10 @@ using U_Remove_Element = IS_Remove_Parameters<T_Parameter, t_Remove_Indexs...>;
 
 //仕様
 //[S_Parameter]から[t_Remove_Indexs...]番目の要素を取り除く
+// 
+//テンプレート
+//T_Parameter::要素を取り除くパラメータ
+//t_Remove_Indexs...::取り除く要素の番号
 //
 //補足
 //[t_Remove_Indexs...]を[S_Parameter_Value]で受け取る場合は[U_Remove_Element_P_t]を利用する事
@@ -88,6 +98,10 @@ using U_Remove_Element_t = typename IS_Remove_Parameters<T_Parameter, t_Remove_I
 //仕様
 //[S_Parameter]から[S_Parameter_Value< t_Remove_Indexs... >]番目の要素を取り除く
 //
+//テンプレート
+//T_Parameter::要素を取り除くパラメータ
+//T_Remove_Index::[S_Parameter_Value]にラッピングされた取り除く要素の番号
+// 
 //補足
 //[t_Remove_Indexs...]を可変長引数で受け取る場合は[U_Remove_Element_t]を利用する事
 template<same_as_template_class<S_Parameter> T_Parameter, same_as_template_value<S_Parameter_Value> T_Remove_Index>
@@ -95,7 +109,11 @@ using U_Remove_Element_P_t = typename S_Remove_Parameters_Helper<T_Parameter, T_
 
 //仕様
 //[S_Parameter_Value]から[t_Remove_Indexs...]番目の要素を取り除く
-//
+// 
+//テンプレート
+//T_Parameter_Value::要素を取り除くパラメータ
+//t_Remove_Indexs...::取り除く要素の番号
+// 
 //補足
 //[t_Remove_Indexs...]を[S_Parameter_Value]で受け取る場合は[U_Remove_Element_P_v]を利用する事
 template<same_as_template_value<S_Parameter_Value> T_Parameter_Value, int ...t_Remove_Indexs>
@@ -104,6 +122,10 @@ using U_Remove_Element_v = typename IS_Parameter_Class_Change_Value<typename IS_
 //仕様
 //[S_Parameter_Value]から[S_Parameter_Value< t_Remove_Indexs... >]番目の要素を取り除く
 //
+//テンプレート
+//T_Parameter_Value::要素を取り除くパラメータ
+//T_Remove_Index::[S_Parameter_Value]にラッピングされた取り除く要素の番号
+// 
 //補足
 //[t_Remove_Indexs...]を可変長引数で受け取る場合は[U_Remove_Element_P_v]を利用する事
 template<same_as_template_value<S_Parameter_Value> T_Parameter_Value, same_as_template_value<S_Parameter_Value> T_Remove_Index>

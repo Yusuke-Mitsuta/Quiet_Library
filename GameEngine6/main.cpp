@@ -17,6 +17,7 @@
 #include"Quick_Sort.h"
 #include"Parameter_Value.h"
 #include"Parameter_Change.h"
+#include"Parameter_Get.h"
 
 #include<tuple>
 #include<optional>
@@ -81,18 +82,105 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 	Args_6(a, b, c, d, e, f);
 	C_OUT(g);
 }
-template<class ...T>
-struct H2
+
+void H::Static_Args_1(int a)
+{
+	C_OUT(a);
+}
+
+void H::Static_Args_2(int a, int b)
+{
+	C_OUT(a);
+	C_OUT(b);
+}
+
+void H::Static_Args_3(int a, int b, int c)
+{
+	Static_Args_2(a, b);
+	C_OUT(c);
+}
+
+void H::Static_Args_4(int a, int b, int c, int d)
+{
+	Static_Args_3(a, b, c);
+	C_OUT(d);
+
+}
+
+void H::Static_Args_5(int a, int b, int c, int d, int e)
+{
+	Static_Args_4(a, b, c, d);
+	C_OUT(e);
+}
+
+void H::Static_Args_6(int a, int b, int c, int d, int e, int f)
+{
+	Static_Args_5(a, b, c, d, e);
+	C_OUT(f);
+}
+
+void H::Static_Args_7(int a, int b, int c, int d, int e, int f, int g)
+{
+	Static_Args_6(a, b, c, d, e, f);
+	C_OUT(g);
+}
+
+template<class T,class TT,class TTT>
+struct H3
 {
 
-	using TPN_4 = S_Parameter<T...>;
+};
 
-	using Q_Sort_1 = typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+struct H2
+{
 };
 
 int main()
 {
+	auto h2 = new H2;
 
+
+	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
+
+
+
+	//using Tfa = N_Function::IS_Function_Multiple_Operator<H*, decltype(&H::Args_3), int>::Type;
+
+	//auto b = Tfa(h, &H::Args_3, 2);
+
+	//auto f = N_Function::Function_Single(h, &H::Args_3, 1);
+
+
+	auto f3 = N_Function::Function_Multiple(&H::Static_Args_3, 3, h, & H::Args_3, 22, 2, 2);
+
+
+	//auto f5 = N_Function::Function_Single(h, &H::Args_3, 3);
+
+	
+
+	type_id(&H::Static_Args_3);
+
+	auto f2 = N_Function::Function_Multiple(h
+		,&H::Args_5, 5, 4, 3, 2, 1
+		,&H::Args_5,5,4,3,2
+		,&H::Args_5,5,4,3
+		,&H::Args_5,5,4
+		,&H::Args_5,5
+		,&H::Args_5
+	);
+
+	f2.
+	
+	//f2(6, 7, 8, 9, 0);
+	//f2(6, 7, 8, 9);
+	//f2(6, 7, 8);
+	//f2(6, 7);
+	//f2(6);
+	//f2();
+	//
+
+	//f2(2, 3);
+	//TYPE_ID(Tfa);
 	N_Sort<N<3>, N<5>>::Judge;
 
 	using TPN_1 = S_Parameter<N<1>>;
@@ -110,11 +198,12 @@ int main()
 	using Q_Sort_1 = IS_Quick_Sort<N_Sort, TPN_4>::Type;
 
 	using T_5 = S_Parameter_Value<0, 1, 3, 5, 7, 9>;
-	using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
+	//using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
 	using TTTTT = N < U_Element_vp<3, T_5>>;
 
-	using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<0, 1, 3, 5>>;
-	TYPE_ID(T_6);
+	using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<1, 3, 5>>;
+
+	//TYPE_ID(T_6);
 
 
 

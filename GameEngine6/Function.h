@@ -14,6 +14,11 @@ public:
 	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
 	struct Single;
 
+	template<class T_RType, class ...MT_Args, class ...TP_SetArgs>
+	Single(T_RType(*fn)(MT_Args...),TP_SetArgs... setArgs) ->
+		Single<typename N_Function::IS_Function_Single_Helper<T_RType(*)(MT_Args...), TP_SetArgs...>::Judge
+		, TP_SetArgs...>;
+
 	template<class MT_Pointer_Class, convertible_from<MT_Pointer_Class> T_CName, class T_RType, class ...MT_Args, class ...TP_SetArgs>
 	Single(MT_Pointer_Class* set_p, T_RType(T_CName::* fn)(MT_Args...), TP_SetArgs... setArgs) ->
 		Single<typename N_Function::IS_Function_Single_Helper<T_RType(T_CName::*)(MT_Args...), TP_SetArgs...>::Judge
@@ -42,9 +47,9 @@ public:
 	template<not_same_as<std::nullopt_t> T_FlontFn, class ...T_Fns>
 	struct Multiple;
 
-	template<class MT_FlontFn, class ...MT_Fns>
-	Multiple(MT_FlontFn setfn, MT_Fns... setFns) -> Multiple
-		<typename N_Function::IS_Function_Multiple_Helper<MT_FlontFn, MT_Fns...>::Judge, MT_Fns...>;
+	template<class MT_Flnot_Fn_Parts, class ...MT_Fn_Parts>
+	Multiple(MT_Flnot_Fn_Parts flnot_Fn_Parts, MT_Fn_Parts... fn_Parts) -> Multiple
+		<typename N_Function::IS_Function_Multiple_Helper<MT_Flnot_Fn_Parts, MT_Fn_Parts...>::Judge, MT_Fn_Parts...>;
 
 	template<auto ...t_Fns>
 		requires constructible_from<N_Function::Function_Multiple_Static<t_Fns...>>
@@ -83,6 +88,10 @@ template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
 struct Function::Single :
 	public N_Function::Function_Single<T_Method, TP_Args...>
 {
+	template<class T_RType, class ...MT_Args, class ...MT_SetArgs>
+	constexpr Single(T_RType(*fn)(MT_Args...), MT_SetArgs ...args) :
+		N_Function::IS_Function_Single_Operator<T_RType(*)(MT_Args...), MT_SetArgs...>::Type(
+			N_Function::Function_Core<T_RType(*)(MT_Args...)>(fn), args...) {}
 
 	template<class MT_Pointer_Class, convertible_from<MT_Pointer_Class> T_CName, class T_RType, class ...MT_Args, class ...MT_SetArgs>
 	constexpr Single(MT_Pointer_Class* set_p,T_RType(T_CName::* fn)(MT_Args...), MT_SetArgs ...args) :
@@ -102,9 +111,9 @@ template<not_same_as<std::nullopt_t> T_FlontFn, class ...T_Fns>
 struct Function::Multiple :
 	public N_Function::Function_Multiple<T_FlontFn,T_Fns...>
 {
-	template<class MT_FlontFn, class ...MT_Fns>
-	constexpr Multiple(MT_FlontFn flontFn, MT_Fns... fns) :
-		N_Function::Function_Multiple<MT_FlontFn, MT_Fns...>(flontFn, fns...) {}
+	template<class ...MT_Fn_Parts>
+	constexpr Multiple(MT_Fn_Parts... fn_Parts) :
+		N_Function::IS_Function_Multiple_Operator<MT_Fn_Parts...>::Type(fn_Parts...) {}
 };
 
 

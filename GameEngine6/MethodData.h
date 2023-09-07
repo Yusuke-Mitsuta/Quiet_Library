@@ -15,6 +15,14 @@ namespace N_Function
 		requires not_same_as<typename N_Function::IS_Function_Single_Helper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, std::nullopt_t>
 	class Function_Single_Static;
 
+	enum class E_Method_T
+	{
+		NONE,
+		Static_Method,
+		Class_Method,
+		Function
+	};
+
 	//仕様
 	//先頭の関数に対して、戻り値、クラス、引数の型を返す。
 	//関数以降の引数に対して、現在バインド済みの引数の型を返す
@@ -28,6 +36,8 @@ namespace N_Function
 		using CName = std::nullopt_t;
 		using RType = std::nullopt_t;
 		using Root = std::nullopt_t;
+
+		static constexpr E_Method_T Method_Type = E_Method_T::NONE;
 	};
 
 	template<class T_CName, class T_RType, class ...T_Args, class ...T_SetArgs >
@@ -64,6 +74,8 @@ namespace N_Function
 		//関数本体のデータかどうか
 		using Root = std::true_type;
 
+		static constexpr E_Method_T Method_Type = E_Method_T::Class_Method;
+
 	};
 
 	template< class T_RType, class ...T_Args, class ...T_SetArgs >
@@ -85,6 +97,8 @@ namespace N_Function
 		using Args = std::tuple<T_Args...>;
 
 		using Root = std::true_type;
+
+		static constexpr E_Method_T Method_Type = E_Method_T::Static_Method;
 
 	};
 
@@ -112,6 +126,8 @@ namespace N_Function
 		using RType = ParentFn::RType;
 		using Args = ParentFn::Args;
 		using Root = std::false_type;
+
+		static constexpr E_Method_T Method_Type = E_Method_T::Function;
 	};
 
 	template<template<class...>class T_Function_Single, class ...T_FunctionInner, class ...T_SetArgs >
