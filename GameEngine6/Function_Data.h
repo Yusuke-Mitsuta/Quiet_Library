@@ -12,10 +12,12 @@ namespace N_Function
 	template<not_same_as<std::nullopt_t> T_Flont_Function_Parts, class ...T_Function_Parts>
 	struct S_Function;
 
-	template<class ...MT_Fn_Parts>
-	struct S_Function_Data;
 
 	template<class ...MT_Fn_Parts>
+	struct IS_Function_Single_Helper;
+
+	template<class ...T_Fn_Parts>
+		requires not_same_as<typename IS_Function_Single_Helper<T_Fn_Parts...>::Judge,std::nullopt_t>
 	struct S_Function_Data
 	{
 
@@ -84,7 +86,6 @@ namespace N_Function
 	{
 		using Function = Function_Core<S_Method<TP_Method_Inner...>>;
 	};
-
 
 
 	template<class ...TP_Function_Inner, class ...T_Bind_Args>
