@@ -123,7 +123,7 @@ namespace N_Function
 
 			using Judge = U_Judge_t<T_FlontFn, t_Search_Number>;
 
-			using Fns = U_Judge_t<S_Parameter<TP_BoundFns...>, t_Search_Number>;
+			using Fns = U_Judge_t<S_Parameter<TP_BoundFns...>,t_Search_Number>;
 		};
 
 	public:

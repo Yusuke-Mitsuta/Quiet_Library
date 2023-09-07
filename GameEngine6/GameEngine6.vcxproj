@@ -36,6 +36,8 @@
     <ClInclude Include="DBG_NEW.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Function_Core.h" />
+    <ClInclude Include="Function_Data_Core.h" />
+    <ClInclude Include="Function_Data_Single.h" />
     <ClInclude Include="Function_Multiple.h" />
     <ClInclude Include="Function_Multiple_Operator.h" />
     <ClInclude Include="Function_Multiple_Static_Operator.h" />
@@ -63,11 +65,13 @@
     <ClInclude Include="MethodData.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Parameter.h" />
+    <ClInclude Include="Parameter_Expand.h" />
     <ClInclude Include="Parameter_Get.h" />
     <ClInclude Include="Parameter_Change.h" />
     <ClInclude Include="Parameter_Control.h" />
     <ClInclude Include="Parameter_Element.h" />
     <ClInclude Include="Parameter_Insert.h" />
+    <ClInclude Include="Parameter_Merge.h" />
     <ClInclude Include="Parameter_Value.h" />
     <ClInclude Include="Parameter_Value_Index_Sequence.h" />
     <ClInclude Include="Quick_Sort.h" />
@@ -75,6 +79,7 @@
     <ClInclude Include="Manager_Scene.h" />
     <ClInclude Include="Storge_Access.h" />
     <ClInclude Include="SwapType.h" />
+    <ClInclude Include="Function_Data.h" />
     <ClInclude Include="Tag.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimeControl.h" />
@@ -97,6 +102,7 @@
     <ClCompile Include="Core_Storge.cpp" />
     <ClCompile Include="Core_Type.h" />
     <ClCompile Include="Function_Multiple_Static.h" />
+    <ClCompile Include="Function_Operator.h" />
     <ClCompile Include="Function_Single_Static_Operator.h" />
     <ClCompile Include="Function_Single_Static.h" />
     <ClCompile Include="Game_Engine.cpp" />

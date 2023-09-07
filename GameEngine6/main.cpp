@@ -150,6 +150,9 @@ int main()
 
 	//auto f = N_Function::Function_Single(h, &H::Args_3, 1);
 
+	static constexpr auto ff = N_Function::Function_Single_Static<&H::Args_3, 1, 3,3>();
+
+
 
 	auto f3 = N_Function::Function_Multiple(&H::Static_Args_3, 3, h, & H::Args_3, 22, 2, 2);
 

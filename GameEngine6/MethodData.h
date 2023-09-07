@@ -78,7 +78,7 @@ namespace N_Function
 
 	};
 
-	template< class T_RType, class ...T_Args, class ...T_SetArgs >
+	template<class T_RType, class ...T_Args, class ...T_SetArgs >
 	struct S_MethodData<T_RType(*)(T_Args...), T_SetArgs...>
 	{
 

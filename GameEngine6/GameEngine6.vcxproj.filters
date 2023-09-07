@@ -249,6 +249,21 @@
     <ClInclude Include="Parameter_Get.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClInclude>
+    <ClInclude Include="Function_Data.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Data_Single.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Data_Core.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Expand.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter_Merge.h">
+      <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -337,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="Parameter_Remove.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="Function_Operator.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

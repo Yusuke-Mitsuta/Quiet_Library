@@ -36,16 +36,7 @@ struct IS_Parameter_Element
 		using Type = S_Parameter_Element<_Index - 1, T_Parameters...>::Type;
 	};
 
-	//仕様
-	//[S_Parameter]内に[S_Parameter]が存在する場合、展開する
-	template<size_t _Index,class ...T_Lapping_Parameter, class ...T_Parameters>
-	struct S_Parameter_Element<_Index, S_Parameter<T_Lapping_Parameter...>,T_Parameters...>
-	{
-		using Type =  S_Parameter_Element<_Index, T_Lapping_Parameter..., T_Parameters...>::Type;
-	};
-
 	template<class T_FlontParameter, class ...T_Parameters>
-		requires (!same_as_template_class<T_FlontParameter,S_Parameter>)
 	struct S_Parameter_Element<0,T_FlontParameter,T_Parameters...>
 	{
 		using Type = T_FlontParameter;

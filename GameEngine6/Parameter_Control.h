@@ -5,6 +5,7 @@
 #include"Parameter_Remove.h"
 #include"Parameter_Change.h"
 #include"Parameter_Get.h"
+#include"Parameter_Merge.h"
 
 template<int n>
 struct N
