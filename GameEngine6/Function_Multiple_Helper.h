@@ -83,7 +83,7 @@ namespace N_Function
 			struct S_Function_Single_Create<t_Method_Number, S_Parameter_Value<tP_ArgsNumbers...>, true>
 			{
 				using MethodData = N_Function::S_MethodData<Element_t<t_Method_Number>>;
-
+				
 				//d—l
 				//ˆø”‚ªŠÖ”‚É‘Î‚µ‚ÄA³‚µ‚¢‚©”»’è‚·‚é
 				//

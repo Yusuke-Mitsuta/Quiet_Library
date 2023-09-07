@@ -92,7 +92,8 @@ namespace N_Function
 			using Fn = S_Function_Operator<std::nullopt_t,
 				T_Default_Request_Args_Number<sizeof...(TP_Args)>>;
 
-			BindArgs bindArgs;
+			BindAr
+				gs bindArgs;
 		public:
 
 			template<class MT_Fn, class ...MT_Args>

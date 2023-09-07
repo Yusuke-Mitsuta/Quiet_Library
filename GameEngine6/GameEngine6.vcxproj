@@ -34,6 +34,7 @@
     <ClInclude Include="Core_Control_Tower.h" />
     <ClInclude Include="Core_Base.h" />
     <ClInclude Include="DBG_NEW.h" />
+    <ClInclude Include="Expand.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Function_Core.h" />
     <ClInclude Include="Function_Multiple.h" />

@@ -23,10 +23,6 @@ namespace N_Function
 
 		using N_Function::IS_Function_Multiple_Operator<T_FlontFn, T_Fns...>::Type::operator();
 
-		template<int function_Number>
-		using N_Function::IS_Function_Multiple_Operator<T_FlontFn, T_Fns...>::Type::Select<function_Number>();
-
-
 		//仕様
 		//複数の関数ポインター、及びそれに対する引数の値が正しいか、後方一致で判定する
 		//
