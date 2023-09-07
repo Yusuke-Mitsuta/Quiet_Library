@@ -17,7 +17,6 @@ namespace N_Function
 			parameter_back_part_convertible_to<
 			typename Lapping_Meth::BoundArgs,
 			typename Lapping_Meth::RequestArgs>>;
-
 	};
 
 };

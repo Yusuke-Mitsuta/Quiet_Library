@@ -26,7 +26,7 @@ namespace N_Function
 
 	template<class T_CName, class T_RType, class ...TP_Args, class ...TP_Bind_Args>
 	struct Function_Core<T_RType(T_CName::*)(TP_Args...),TP_Bind_Args...> :
-		public Method_Core<T_RType(T_CName*)(TP_Args...), TP_Bind_Args...>
+		public Method_Core<T_RType(T_CName::*)(TP_Args...), TP_Bind_Args...>
 	{
 		T_CName* p;
 

@@ -258,9 +258,6 @@
     <ClInclude Include="Parameter_Merge.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Helper.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Parameter_convertible_to.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -271,6 +268,9 @@
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Method_Core.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
   </ItemGroup>
