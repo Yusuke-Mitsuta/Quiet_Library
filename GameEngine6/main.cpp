@@ -202,11 +202,11 @@ int main()
 	using TPN_1 = S_Parameter<N<1>>;
 	using TPN_2 = S_Parameter<N<5>, N<3>>;
 	using TPN_3 = S_Parameter<N<1>, N<3>, N<5>>;
-	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>,N<7>>;
+	using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>>;
 	//using TPN_4 = S_Parameter<N<14>,N<18>,N<7>,N<9>>;
 	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>>;
 	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>, N<23>, N<15>>;
-	using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>,N<14>,N<18>, N<9>, N<7>, N<23>,N<15>>;
+	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>,N<14>,N<18>, N<9>, N<7>, N<23>,N<15>>;
 	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>>;
 	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
 
@@ -217,7 +217,7 @@ int main()
 	//using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
 	using TTTTT = N < U_Element_vp<3, T_5>>;
 
-	using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<1, 3, 5>>;
+	//using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<1, 3, 5>>;
 
 	//TYPE_ID(T_6);
 

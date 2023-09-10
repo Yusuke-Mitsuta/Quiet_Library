@@ -54,11 +54,11 @@ struct IS_Parameter_Element
 		using Type= S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
 	};
 
-	template<class ...T_Parameters>
-	struct S_Parameter_Expand<S_Parameter<T_Parameters...>>
-	{
-		using Type = S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
-	};
+	//template<class ...T_Parameters>
+	//struct S_Parameter_Expand<S_Parameter<T_Parameters...>>
+	//{
+	//	using Type = S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
+	//};
 
 public:
 
