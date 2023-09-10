@@ -64,9 +64,7 @@ namespace N_Function
 			template<int t_Pointer_Number, int t_Method_Number>
 			static constexpr bool p_Judge = is_pointer<Element_t<t_Pointer_Number>> &&
 				convertible_to<std::remove_pointer_t<Element_t<t_Pointer_Number>>, typename S_Function_Single_Data<Element_t<t_Method_Number>>::CName>&&
-				static_cast<bool>(S_Function_Single_Data<Element_t<t_Method_Number>>::Lelve)
-				
-				;
+				static_cast<bool>(S_Function_Single_Data<Element_t<t_Method_Number>>::Lelve);
 
 
 			//Žd—l
