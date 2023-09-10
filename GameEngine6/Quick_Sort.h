@@ -18,7 +18,7 @@ struct IS_Quick_Sort
 {
 private:
 
-	template<class T_1,class T_2>
+	template<class T_1, class T_2>
 	static constexpr bool t_Judge = t_Reverse_Fg ^ T_Judge<T_1, T_2>::Judge;
 
 	//仕様
@@ -38,7 +38,7 @@ private:
 		template<size_t _Index>
 		using Element = U_Element_t<U_Element_vp<_Index, TP_Numbers>, TP>;
 
-		template<class TP_Numbers=TP_Numbers, int t_Limit_Min = t_Limit_Min, int t_Limit_Max=t_Limit_Max, int t_Range = (t_Limit_Max - t_Limit_Min)>
+		template<class TP_Numbers = TP_Numbers, int t_Limit_Min = t_Limit_Min, int t_Limit_Max = t_Limit_Max, int t_Range = (t_Limit_Max - t_Limit_Min)>
 		struct S_Part_Sort
 		{
 			using Type = TP_Numbers;
@@ -47,7 +47,7 @@ private:
 		//仕様
 		//並び替える要素が2つの時
 		template<same_as_template_value<S_Parameter_Value> TP_Numbers, int t_Limit_Min, int t_Limit_Max>
-		struct S_Part_Sort<TP_Numbers,t_Limit_Min,t_Limit_Max,1>
+		struct S_Part_Sort<TP_Numbers, t_Limit_Min, t_Limit_Max, 1>
 		{
 			static constexpr bool Judge = t_Judge<Element<t_Limit_Max>, Element<t_Limit_Min>>;
 
@@ -63,7 +63,7 @@ private:
 		template<class TP_Numbers, int t_Limit_Min, int t_Limit_Max>
 		struct S_Part_Sort<TP_Numbers, t_Limit_Min, t_Limit_Max, 2>
 		{
-			template<int Index_1,int Index_2>
+			template<int Index_1, int Index_2>
 			static constexpr bool Judge = t_Judge<Element<t_Limit_Min + Index_1>, Element<t_Limit_Min + Index_2>>;
 
 			template<int t_Center_Number,
@@ -76,17 +76,17 @@ private:
 				using Type = S_Parameter_Value<Side_Number::_2, t_Center_Number, Side_Number::_1>;
 			};
 
-			template<	
+			template<
 				bool t_Center_0 = !(Judge<0, 1>^ Judge<2, 0>),
-				bool t_Center_1 = !(Judge<0, 1> ^ Judge<1, 2>),
-				bool t_Center_2 = !(Judge<1, 2> ^ Judge<2, 0>)>
+				bool t_Center_1 = !(Judge<0, 1>^ Judge<1, 2>),
+				bool t_Center_2 = !(Judge<1, 2>^ Judge<2, 0>)>
 			struct S_Judge_Center
 			{
 				using Type = S_Parameter_Value<0, 1, 2>;
 			};
 
 			template<>
-			struct S_Judge_Center<true,false,false>
+			struct S_Judge_Center<true, false, false>
 			{
 				using Type = S_Judge_Side<0, 1, 2>::Type;
 			};
@@ -104,7 +104,7 @@ private:
 			};
 
 			using Part_Sort = S_Judge_Center<>::Type;
-			using Remove = U_Remove_Element_v<TP_Numbers, t_Limit_Min ,t_Limit_Min + 1, t_Limit_Min + 2>;
+			using Remove = U_Remove_Element_v<TP_Numbers, t_Limit_Min, t_Limit_Min + 1, t_Limit_Min + 2>;
 
 			using Insert = U_Insert_Element_P_v<Remove, t_Limit_Min,
 				U_Get_Element_v<TP_Numbers, U_Element_vp<0, Part_Sort>+t_Limit_Min, U_Element_vp<1, Part_Sort>+t_Limit_Min, U_Element_vp<2, Part_Sort>+t_Limit_Min>>;
@@ -123,18 +123,18 @@ private:
 	//TP_Numbers::[TP]を参照する番号リスト
 	//t_Limit_Min::[TP_Numbers]の参照する起点の要素番号
 	//t_Limit_Max::[TP_Numbers]の参照する終点の要素番号
-	template<class TP_Numbers, int t_Limit_Min,int t_Limit_Max>
+	template<class TP_Numbers, int t_Limit_Min, int t_Limit_Max>
 	struct IS_Quick_Sort_Standard
 	{
 		static constexpr int Range = t_Limit_Max - t_Limit_Min;
 		static constexpr int Range_Half = static_cast<int>(Range * 0.5f);
 		static constexpr int Range_Quarter = static_cast<int>(Range_Half * 0.5f);
 
-		using TP_Standard_Search_Number = S_Parameter_Value<U_Element_vp<t_Limit_Min+ Range_Quarter, TP_Numbers>, U_Element_vp<t_Limit_Min + Range_Half, TP_Numbers>, U_Element_vp<t_Limit_Max- Range_Quarter, TP_Numbers>>;
+		using TP_Standard_Search_Number = S_Parameter_Value<U_Element_vp<t_Limit_Min + Range_Quarter, TP_Numbers>, U_Element_vp<t_Limit_Min + Range_Half, TP_Numbers>, U_Element_vp<t_Limit_Max - Range_Quarter, TP_Numbers>>;
 
 		using Standard_Search = IS_Part_Sort<TP_Standard_Search_Number, 0, 2>::Type;
 
-		using Type = U_Element_t<U_Element_vp<1,Standard_Search>,TP>;
+		using Type = U_Element_t<U_Element_vp<1, Standard_Search>, TP>;
 
 	};
 
@@ -152,7 +152,7 @@ private:
 	//t_Back::一度値を交換した後、続きから探索する為の補助番号
 	//T_Standard::交換の基準とする値
 	template<class TP_Numbers, int t_Limit_Min, int t_Limit_Max, int t_Flont = 0, int t_Back = 0,
-		class T_Standard = typename IS_Quick_Sort_Standard<TP_Numbers,t_Limit_Min,t_Limit_Max>::Type>
+		class T_Standard = typename IS_Quick_Sort_Standard<TP_Numbers, t_Limit_Min, t_Limit_Max>::Type>
 	struct S_Quick_Sort
 	{
 		template<size_t _Index>
@@ -165,7 +165,7 @@ private:
 		//範囲内の後方から探索する
 		//交換する候補の発見時は、発見済みの前方の値と入れ替えを実施し、再度前方から値を探索する
 		//未発見時は次の探索に移行する
-		template<int t_Flont, int t_Back = 0, bool t_Judge_Back = t_Judge<Element<Back_Number - t_Back>,T_Standard>, bool t_End_Fg = ((Flont_Number + t_Flont) >= Back_Number - t_Back)>
+		template<int t_Flont, int t_Back = 0, bool t_Judge_Back = t_Judge<Element<Back_Number - t_Back>, T_Standard>, bool t_End_Fg = ((Flont_Number + t_Flont) >= Back_Number - t_Back)>
 		struct S_Quick_Sort_Back
 		{
 			using Type = S_Quick_Sort_Back<t_Flont, t_Back + 1>::Type;
@@ -217,19 +217,19 @@ private:
 	struct IS_Next_Quick_Sort
 	{
 		template<class TP_Numbers, int t_Limit_Min, int t_Limit_Max, bool t_Quick_Sort_Fg = ((t_Limit_Max - t_Limit_Min) > 2)>
-		struct S_Next_Sort 
+			struct S_Next_Sort
 		{
 			using Type = S_Quick_Sort<TP_Numbers, t_Limit_Min, t_Limit_Max>::Type;
 		};
 
 		template<class TP_Numbers, int t_Limit_Min, int t_Limit_Max>
-		struct S_Next_Sort<TP_Numbers,t_Limit_Min,t_Limit_Max,false>
+		struct S_Next_Sort<TP_Numbers, t_Limit_Min, t_Limit_Max, false>
 		{
 			using Type = IS_Part_Sort<TP_Numbers, t_Limit_Min, t_Limit_Max>::Type;
 		};
 
 		using Flont_Sort = S_Next_Sort<TP_Numbers, t_Limit_Min, t_Center>::Type;
-		using Back_Sort = S_Next_Sort<Flont_Sort, t_Center,t_Limit_Max>::Type;
+		using Back_Sort = S_Next_Sort<Flont_Sort, t_Center, t_Limit_Max>::Type;
 
 		using Type = Back_Sort;
 
@@ -237,7 +237,7 @@ private:
 
 	template<class TP_Numbers>
 	struct S_Data_Sort;
-	
+
 	//仕様
 	//参照に使用していた、番号のリスト順にデータを入れ替える
 	template<int ...t_Numbers>
