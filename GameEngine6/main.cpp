@@ -146,10 +146,23 @@ int main()
 {
 	auto h2 = new H2;
 
-	using T = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
+	using Tu = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, int>::Type::Fns;
 
-	TYPE_ID(T);
 
+	static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
+
+
+	using Tn = typename N_Function::IS_Request_Args<S_Parameter<int, int, int>,
+		S_Parameter<int, int>>::Type;
+
+	C_OUT(Tuu);
+
+	using n = U_Element_t<0, Tu>;
+
+	TYPE_ID(n);
+	
+
+		//IS_Range_Parameters<S_Parameter<N<1>,N<2>,N<3>>, 0,2>::Type;
 
 	//using TT4 = N_Function::IS_Request_Args<S_Parameter<int,int,int>,S_Parameter<int>>::
 	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
@@ -210,7 +223,6 @@ int main()
 	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>>;
 	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
 
-
 	using Q_Sort_1 =typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
 
 	using T_5 = S_Parameter_Value<0, 1, 3, 5, 7, 9>;
@@ -224,7 +236,7 @@ int main()
 
 
 
-	//using T = S_Parameter<short,int, float, char>;
+	using T = S_Parameter<short,int, float, char>;
 	using T1 = U_Insert_Element_t<T, 1, T>;
 //	using T2 = S_Parameter<T,T,T>;
 	using Tva= S_Parameter_Value<0, 1>;

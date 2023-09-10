@@ -57,16 +57,17 @@ namespace N_Function
 		using Function = std::nullopt_t;
 		using RequestArgs = typename IS_Request_Args<S_Parameter<T_Args...>,
 			S_Parameter<T_Bind_Args...>>::Type;
+		using CName = T_CName;
 
-		static constexpr int Lelve = 0;
+		//static constexpr int Lelve = 0;
 
 	};
 
 
 	template<class T_Dedicated_Point, class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
 		requires not_is_nullopt<typename IS_Request_Args<S_Parameter<T_Args...>,
-		S_Parameter<T_Bind_Args...>>::Type> && 	
-		convertible_to<T_Dedicated_Point, T_CName>
+		S_Parameter<T_Bind_Args...>>::Type>
+			//&& 	convertible_to<T_Dedicated_Point, T_CName>
 	struct S_Function_Single_Data<T_Dedicated_Point*, T_RType(T_CName::*)(T_Args...), T_Bind_Args...> :
 		public S_Function_Single_Data<T_RType(T_CName::*)(T_Args...), T_Bind_Args...>
 	{

@@ -2,7 +2,7 @@
 
 #include"Parameter_Get.h"
 
-template<size_t _Index, size_t t_Start_Number>
+template<size_t _Index, int t_Start_Number>
 struct IS_Index_Sequence;
 
 //Žd—l
