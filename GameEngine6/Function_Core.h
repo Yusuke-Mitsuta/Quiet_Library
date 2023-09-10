@@ -13,15 +13,7 @@ namespace N_Function
 		constexpr Function_Core(T_Method set_Methed, TP_Bind_Args... set_Args) :
 			Method_Core<T_Method, TP_Bind_Args...>(set_Methed, set_Args...) {}
 
-		constexpr auto operator()()
-		{
-			return method();
-		}
 
-		constexpr Function_Core* operator->()
-		{
-			return this;
-		}
 	};
 
 	template<class T_CName, class T_RType, class ...TP_Args, class ...TP_Bind_Args>
@@ -31,18 +23,9 @@ namespace N_Function
 		T_CName* p;
 
 		constexpr Function_Core(T_CName* set_p, T_RType(T_CName::* set_Methed)(TP_Args...), TP_Bind_Args... set_Args) :
-			p(set_p),
-			Method_Core<T_RType(T_CName*)(TP_Args...), TP_Bind_Args...>(set_Methed,set_Args...){}
+			Method_Core<T_RType(T_CName::*)(TP_Args...), TP_Bind_Args...>(set_Methed,set_Args...), p(set_p) {}
 
-		constexpr T_RType operator()(TP_Args... args)
-		{
-			return (p->*method)(args...);
-		}
 
-		constexpr Function_Core* operator->()
-		{
-			return this;
-		}
 	};
 
 

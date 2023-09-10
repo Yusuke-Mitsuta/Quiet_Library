@@ -135,11 +135,23 @@ struct H2
 {
 };
 
+//template<class T>
+void Hogege(int t) {}
+
+#include"Function_Single_Data.h"
+#include"Function_Single_Data_Request_Args.h"
+#include"Function_Multiple_Helper.h"
+
 int main()
 {
 	auto h2 = new H2;
 
+	using T = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
 
+	TYPE_ID(T);
+
+
+	//using TT4 = N_Function::IS_Request_Args<S_Parameter<int,int,int>,S_Parameter<int>>::
 	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
 
 
@@ -156,6 +168,7 @@ int main()
 
 	//auto f3 = N_Function::Function_Multiple(&H::Static_Args_3, 3, h, & H::Args_3, 22, 2, 2);
 
+	//auto f3 = N_Function::Function_Single(&Hogege);
 
 	//auto f5 = N_Function::Function_Single(h, &H::Args_3, 3);
 
@@ -211,7 +224,7 @@ int main()
 
 
 
-	using T = S_Parameter<short,int, float, char>;
+	//using T = S_Parameter<short,int, float, char>;
 	using T1 = U_Insert_Element_t<T, 1, T>;
 //	using T2 = S_Parameter<T,T,T>;
 	using Tva= S_Parameter_Value<0, 1>;

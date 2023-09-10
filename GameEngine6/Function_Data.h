@@ -7,6 +7,8 @@
 namespace N_Function
 {
 
+	template<class T_Request_Args, class T_Bind_Args>
+	struct IS_Request_Args;
 
 	template<class ...MT_Fn_Parts>
 	struct IS_Function_Single_Helper;
@@ -39,9 +41,11 @@ namespace N_Function
 
 			using Method = Method_Core<T_RType(*)(T_Args...)>;
 			using Function = Function_Core<Method>;
-			using RequestArgs = S_Parameter<T_Args...>;
 			using BoundArgs = S_Parameter<T_Bind_Args...>;
 			using BindArgs = BoundArgs;
+
+			using RequestArgs = S_Parameter<T_Args...>;
+
 			using CName = std::nullopt_t;
 			using RType = T_RType;
 
@@ -50,6 +54,8 @@ namespace N_Function
 		};
 
 		template<class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
+			requires not_is_nullopt<typename IS_Request_Args<S_Parameter<T_Args...>
+		, S_Parameter<T_Bind_Args...>>::Type>
 		struct S_Function_Data<T_RType(T_CName::*)(T_Args...),T_Bind_Args...> :
 			public S_Function_Data<T_RType(*)(T_Args...), T_Bind_Args...>
 		{

@@ -1,6 +1,7 @@
 #pragma once
 
 #include<concepts>
+#include<optional>
 #include<tuple>
 
 template <bool t_Fg>
@@ -13,6 +14,12 @@ concept is_Concept = requires
 };
 
 using std::same_as;
+
+template <class _Ty1>
+concept is_nullopt = same_as<_Ty1, std::nullopt_t>;
+
+template <class _Ty1>
+concept not_is_nullopt = !is_nullopt<_Ty1>;
 
 template <class _Ty1, class _Ty2>
 struct same_as_S

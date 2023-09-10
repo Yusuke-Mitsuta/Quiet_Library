@@ -75,6 +75,7 @@
     <ClInclude Include="Parameter_Element.h" />
     <ClInclude Include="Parameter_Insert.h" />
     <ClInclude Include="Parameter_Merge.h" />
+    <ClInclude Include="Parameter_Range.h" />
     <ClInclude Include="Parameter_Value.h" />
     <ClInclude Include="Parameter_Value_Index_Sequence.h" />
     <ClInclude Include="Quick_Sort.h" />
@@ -105,7 +106,7 @@
     <ClCompile Include="Core_Storge.cpp" />
     <ClCompile Include="Core_Type.h" />
     <ClCompile Include="Function_Multiple_Static.h" />
-    <ClCompile Include="Function_Operator.h" />
+    <ClCompile Include="Function_Single_Data_Request_Args.h" />
     <ClCompile Include="Function_Single_Static_Operator.h" />
     <ClCompile Include="Function_Single_Static.h" />
     <ClCompile Include="Game_Engine.cpp" />

@@ -6,15 +6,6 @@
 namespace N_Function
 {
 
-	template<class T_Method, class ...T_Args>
-	struct S_MethodData;
-
-	template<class T_Method, class ...TP_Bind_Args>
-	struct Function_Core;
-
-	template<class T_Method, class ...TP_Bind_Args>
-	struct Method_Core;
-
 	template<class ...T_Fn_Parts>
 	struct S_Function_Single_Data;
 
@@ -46,7 +37,7 @@ namespace N_Function
 		//t_SearchNumber::現在の探査中の要素番号
 		//...TP_BoundFns::[Function_Single]でまとめた型
 		template<int t_Search_Number = 1, class TP_BoundFns = S_Parameter<>,
-			bool t_Pointer_Judge_Fg,
+			bool t_Pointer_Judge_Fg=true,
 			bool t_Loop_Fg = static_cast<bool>(t_Search_Number % (Parameter::Size + 1))>
 		struct S_CorrectType;
 
@@ -86,46 +77,39 @@ namespace N_Function
 			{
 				using MethodData = N_Function::S_Function_Single_Data<Element_t<t_Method_Number>>;
 
-				//仕様
-				//引数が関数に対して、正しいか判定する
-				//
-				//条件
-				//1:引数の型が後方一致する事
-				//2_1:[Element<t_Method_Number>]がメンバー関数ポインター、かつ[Element<t_Method_Number+1>]がメンバー関数ポインターを呼び出せるクラス
-				//2_2:共通のポインター[Element<Parameter::Size>]で[Element<t_Method_Number>]が呼び出せる事
-				//2_3:既に構築済みの関数オブジェクトの場合
-				//2_4:クラスに所属しないメソッドの場合
-				static constexpr bool judge_Args = tuple_back_part_convertible_to<typename IS_TupleUnzip<Element_t<tP_ArgsNumbers>..., typename MethodData::BoundArgs>::Type, typename MethodData::RequestArgs>;
-
 				static constexpr bool judge_Pointer=
 					p_Judge<t_Method_Number + 1, t_Method_Number> ||
 					p_Judge<Parameter::Size, t_Method_Number> ||
 					static_cast<bool>(MethodData::Lelve) ||
 					same_as<typename MethodData::CName, std::nullopt_t>;
 
-				static constexpr bool judge = judge_Args && (judge_Pointer || !t_Pointer_Judge_Fg);
-
 				//仕様
 				//先頭の共通のポインターを、先頭の要素が使用しない場合判定をスキップする為のフラグ
 				static constexpr bool first_Element_Not_Pointer = is_pointer<Element_t<t_Method_Number + 1>> && static_cast<bool>(MethodData::Lelve) && (t_Method_Number == Parameter::Size - 1);
 
-				template<bool t_Point_Set_Fg=judge_Pointer>
+				template<bool t_Point_Set_Fg = p_Judge<t_Method_Number + 1, t_Method_Number> ||
+					p_Judge<Parameter::Size, t_Method_Number>>
 				struct S_Judge_Return_Type
 				{
-					using Type = Function_Core<Element_t<t_Method_Number>, Element_t<tP_ArgsNumbers>...>;
+					using Pointer_Type = U_Swap_t1<Element_t<Parameter::Size>, Element_t<t_Method_Number + 1>, p_Judge<t_Method_Number + 1, t_Method_Number>>;
+					using Type = S_Function_Single_Data<Pointer_Type,Element_t<t_Method_Number>,Element_t<tP_ArgsNumbers>...>;
 				};
 
 				template<>
 				struct S_Judge_Return_Type<false>
 				{
-					using Type = Method_Core<Element_t<t_Method_Number>, Element_t<tP_ArgsNumbers>...>;
+					using Type = S_Function_Single_Data<Element_t<t_Method_Number>, Element_t<tP_ArgsNumbers>...>;
 				};
+
+
+				static constexpr bool judge = not_is_nullopt<typename S_Judge_Return_Type<>::Type> && (judge_Pointer || !t_Pointer_Judge_Fg);
 
 				//仕様
 				//引数を精査し、ラッピングする
 				using Type = S_CorrectType<(t_Method_Number + 1 +
 					(p_Judge<t_Method_Number + 1, t_Method_Number> || first_Element_Not_Pointer))* judge,
 					S_Parameter<typename S_Judge_Return_Type<>::Type, TP_BoundFns...>>::Type;
+
 			};
 
 			using Type = S_Function_Single_Create<>::Type;
@@ -145,7 +129,6 @@ namespace N_Function
 		};
 
 	public:
-
 
 		using Type = S_CorrectType<>::Type;
 

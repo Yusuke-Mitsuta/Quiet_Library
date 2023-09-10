@@ -1,19 +1,30 @@
 #pragma once
 
 #include<optional>
+#include"Concept.h"
 
 template<class ...T_Parameters>
 struct S_Parameter;
 
 template<class T_Zip>
-struct S_Expand
-{
-	using Not = std::nullopt_t;
-};
-
-template<class T_Zi_p>
 struct S_Zip
 {
-	using T= std::is_constructible<S_Expand<int>,int>;
-	using Not = std::nullopt_t;
+
+};
+template<>
+struct S_Zip<int>
+{
+	using Type = S_Parameter<int, int, float>;
+};
+
+template<class T_Zip>
+struct S_Expand
+{
+	using Type = typename S_Zip<T_Zip>::Type;
+};
+
+template<class T_Zip>
+concept is_expand = requires
+{
+	typename S_Zip<T_Zip>::Type;
 };
