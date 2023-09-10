@@ -1,4 +1,4 @@
-//#pragma once
+#pragma once
 //
 //#include"Function_Multiple_Helper.h"
 //#include"Function_Multiple_Static_Operator.h"

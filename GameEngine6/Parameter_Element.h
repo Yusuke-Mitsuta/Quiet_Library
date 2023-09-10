@@ -25,12 +25,12 @@ struct integral_constant;
 //
 //•â‘«
 //”ÍˆÍŠO‚Ìê‡[std::nullopt_t]‚ª•Ô‚é
-template<int _Index,class ...T_Parameters>
+template<size_t _Index,class ...T_Parameters>
 struct IS_Parameter_Element
 {
 	friend struct S_Parameter<T_Parameters...>;
 
-	template<int _Index, class T_FlontParameter, class ...T_Parameters>
+	template<size_t _Index, class T_FlontParameter, class ...T_Parameters>
 	struct S_Parameter_Element
 	{
 		using Type = S_Parameter_Element<_Index - 1, T_Parameters...>::Type;
@@ -42,7 +42,7 @@ struct IS_Parameter_Element
 		using Type = T_FlontParameter;
 	};
 
-	template<int _Index>
+	template<size_t _Index>
 	struct S_Parameter_Element<_Index,std::nullopt_t>
 	{
 		using Type = std::nullopt_t;
@@ -54,18 +54,18 @@ struct IS_Parameter_Element
 		using Type= S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
 	};
 
-	//template<class ...T_Parameters>
-	//struct S_Parameter_Expand<S_Parameter<T_Parameters...>>
-	//{
-	//	using Type = S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
-	//};
+	template<class ...T_Parameters>
+	struct S_Parameter_Expand<S_Parameter<T_Parameters...>>
+	{
+		using Type = S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
+	};
 
 public:
 
 	using Type = S_Parameter_Expand<T_Parameters...>::Type;
 };
 
-template<int _Index, class ...T_Parameters>
+template<size_t _Index, class ...T_Parameters>
 using U_Element_t = IS_Parameter_Element<_Index, T_Parameters...>::Type;
 
 //d—l

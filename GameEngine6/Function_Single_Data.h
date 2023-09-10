@@ -2,13 +2,16 @@
 
 #include"Function_Core.h"
 #include"Parameter.h"
+#include"Concept.h"
+
+#include"Function_Single_Data_Request_Args.h"
 
 namespace N_Function
 {
 
 
-	template<class T_Request_Args, class ...TP_Bind_Args>
-	struct IS_Request_Args;
+	//template<class T_Request_Args, class T_Bind_Args>
+	//struct IS_Request_Args;
 
 	template<class ...T_Fn_Parts>
 	struct S_Function_Single_Data
@@ -25,7 +28,8 @@ namespace N_Function
 	};
 
 	template<class T_RType, class ...T_Args, class ...T_Bind_Args>
-		requires not_is_nullopt<typename IS_Request_Args<S_Parameter<T_Args...>,
+		requires not_is_nullopt
+	<typename IS_Request_Args<S_Parameter<T_Args...>,
 	S_Parameter<T_Bind_Args...>>::Type>
 	struct S_Function_Single_Data<T_RType(*)(T_Args...), T_Bind_Args...>
 	{

@@ -1,5 +1,5 @@
-//#pragma once
-//
+#pragma once
+
 //#include <iostream>
 //
 //#include"SwapType.h"

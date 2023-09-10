@@ -211,7 +211,7 @@ int main()
 	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
 
 
-	using Q_Sort_1 = IS_Quick_Sort<N_Sort, TPN_4>::Type;
+	using Q_Sort_1 =typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
 
 	using T_5 = S_Parameter_Value<0, 1, 3, 5, 7, 9>;
 	//using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
@@ -219,7 +219,7 @@ int main()
 
 	//using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<1, 3, 5>>;
 
-	//TYPE_ID(T_6);
+	TYPE_ID(Q_Sort_1);
 
 
 

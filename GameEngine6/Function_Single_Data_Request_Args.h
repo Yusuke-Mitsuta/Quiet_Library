@@ -6,16 +6,11 @@
 
 namespace N_Function
 {
-	template<class T_Request_Args, class ...TP_Bind_Args>
+
+
+	template<class T_Request_Args,class T_Bind_Args>
 	struct IS_Request_Args
 	{
-		using Type = IS_Request_Args<T_Request_Args, S_Parameter<TP_Bind_Args...>>::Type;
-	};
-
-	template<class T_Request_Args,class ...TP_Bind_Args>
-	struct IS_Request_Args<T_Request_Args,S_Parameter<TP_Bind_Args...>>
-	{
-		using T_Bind_Args = S_Parameter<TP_Bind_Args...>;
 
 		template<
 			class TP_Request_Args = T_Request_Args,
@@ -24,7 +19,7 @@ namespace N_Function
 			int t_Bind_Args_Number = T_Bind_Args::Size - 1,
 			class T_Request_Args_Part = U_Element_t<t_Request_Args_Number, TP_Request_Args>,
 			class T_Bind_Args_Part = U_Element_t<t_Bind_Args_Number, TP_Bind_Args>,
-			bool t_Loop_Fg = t_Bind_Args_Number>
+			bool t_Loop_Fg = static_cast<bool>(t_Bind_Args_Number)>
 		struct S_Request_Args
 		{
 			using Type = std::nullopt_t;
@@ -106,6 +101,11 @@ namespace N_Function
 	struct IS_Request_Args<S_Parameter<>,T_Bind_Args>
 	{
 		using Type = std::nullopt_t;
+	};
+	template<>
+	struct IS_Request_Args<S_Parameter<>, S_Parameter<>>
+	{
+		using Type = S_Parameter<>;
 	};
 
 }
