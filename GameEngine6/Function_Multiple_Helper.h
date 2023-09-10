@@ -39,7 +39,7 @@ namespace N_Function
 		//t_SearchNumber::現在の探査中の要素番号
 		//...TP_BoundFns::[Function_Single]でまとめた型
 		template<int t_Search_Number = 1, class TP_BoundFns = S_Parameter<>,
-			bool t_Pointer_Judge_Fg=1,
+			bool t_Pointer_Judge_Fg=true,
 			bool t_Loop_Fg = static_cast<bool>(t_Search_Number % (Parameter::Size + 1))>
 		struct S_CorrectType;
 
@@ -138,10 +138,13 @@ namespace N_Function
 
 	public:
 
-		using Type = S_CorrectType<>::Type;
-		using Type0 = S_CorrectType<>;
+		//仕様
+		//全ての関数オブジェクトにおいて適切なクラスポインターがセットされているか判定する
+		using Pointer_Judge = S_CorrectType<>::Type;
 
-		//using Judge = Type::Judge;
+		//仕様
+		//判定の項目からクラスポインターがセットされているかを除外する
+		using Not_Pointer_Judge= S_CorrectType<1,S_Parameter<>,0>::Type;
 
 		//using Fns = Type::Fns;
 

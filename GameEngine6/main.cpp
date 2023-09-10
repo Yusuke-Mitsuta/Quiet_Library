@@ -146,7 +146,7 @@ int main()
 {
 	auto h2 = new H2;
 
-	using Tu = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, int>::Type::Fns;
+	using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
 
 
 	static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
