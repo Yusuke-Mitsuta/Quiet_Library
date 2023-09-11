@@ -39,8 +39,15 @@ namespace N_Function
 		{
 			using Bind_Args = typename T_Flont_Fn::BindArgs;
 
-			constexpr S_Function_Operator(T_Dedicated_P* dedicated_P, T_Method fn,T_Bind_Args ... bind_Args,auto... fns) :
+			template<bool t_First_Fn_Judge=(sizeof...(T_Fns)+1==TP_Fns::Size)>
+				requires (t_First_Fn_Judge)
+			constexpr S_Function_Operator(T_Dedicated_P* dedicated_P,T_Method fn,T_Bind_Args... bind_Args,auto... fns) :
 				method(fn_Parns...){}
+
+			template<bool t_First_Fn_Judge = (sizeof...(T_Fns) + 1 == TP_Fns::Size)>
+				requires (!t_First_Fn_Judge)
+			constexpr S_Function_Operator(T_Dedicated_P* dedicated_P, T_Method fn, T_Bind_Args... bind_Args, auto... fns) :
+				method(fn_Parns...) {}
 
 			template<class T_Default_P>
 			constexpr S_Function_Operator(T_Default_P* default_P,T_Dedicated_P* dedicated_P, T_Method fn, T_Bind_Args ... bind_Args, auto... fns) :
@@ -52,6 +59,10 @@ namespace N_Function
 		struct S_Function_Operator<S_Parameter<S_Function_Single_Data<T_Method, T_Bind_Args...>, T_Fns...>>
 		{
 			using Bind_Args = typename T_Flont_Fn::BindArgs;
+
+
+			constexpr S_Function_Operator(T_Method fn, T_Bind_Args ... bind_Args, auto... fns) :
+				method(fn_Parns...) {}
 
 			template<class T_Default_P>
 			constexpr S_Function_Operator(T_Default_P* default_P, T_Method fn, T_Bind_Args ... bind_Args, auto... fns) :
