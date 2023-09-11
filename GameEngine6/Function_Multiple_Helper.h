@@ -21,13 +21,13 @@ namespace N_Function
 	//T_Fn_Argsは関数ポインター、それに指定する引数、次の関数ポインター、となるようにする事
 	// //SetJudge::関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定する
 	//Fns::関数ポインターor[Function_Single]と、後ろに続く引数の型を[Function_Single]としてまとめ、その動作を[TP_Fns...]がなくなるまで繰り返す
-	template<class T_FlontFn, class ...TP_Fns>
+	template<class ...T_Fn_Parts>
 	struct IS_Function_Multiple_Helper
 	{
 	private:
 
 
-		using Parameter = S_Parameter<T_FlontFn, TP_Fns...>;
+		using Parameter = S_Parameter<T_Fn_Parts...>;
 
 		template<int _Index>
 		using Element_t = U_Element_t< (Parameter::Size * 2 - _Index) % Parameter::Size, Parameter>;
@@ -129,11 +129,7 @@ namespace N_Function
 		template<int t_Search_Number, bool t_Pointer_Judge_Fg, class ...TP_BoundFns>
 		struct S_CorrectType<t_Search_Number, S_Parameter<TP_BoundFns...>,t_Pointer_Judge_Fg,false>
 		{
-			using Type = S_CorrectType;
-
-			using Judge = U_Judge_t<T_FlontFn, t_Search_Number>;
-
-			using Fns = U_Judge_t<S_Parameter<TP_BoundFns...>, t_Search_Number>;
+			using Type = U_Judge_t<S_Parameter<TP_BoundFns...>, t_Search_Number>;
 		};
 
 	public:

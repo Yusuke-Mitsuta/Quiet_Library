@@ -37,6 +37,7 @@
     <ClInclude Include="Function.h" />
     <ClInclude Include="Function_Core.h" />
     <ClInclude Include="Function_Data_Core.h" />
+    <ClInclude Include="Function_Operator.h" />
     <ClInclude Include="Function_Single_Data.h" />
     <ClInclude Include="Function_Helper.h" />
     <ClInclude Include="Function_Multiple.h" />

@@ -11,6 +11,13 @@ namespace N_Function
 	template<class T_Request_Args,class T_Bind_Args>
 	struct IS_Request_Args
 	{
+	private:
+		template<class T_Result_Request_Args, class T_Result_Bind_Args>
+		struct S_Result
+		{
+			using Request_Args = T_Result_Request_Args;
+			using Bind_Args = T_Result_Bind_Args;
+		};
 
 		template<
 			class TP_Request_Args = T_Request_Args,
@@ -22,7 +29,7 @@ namespace N_Function
 			bool t_Loop_Fg = static_cast<bool>(t_Bind_Args_Number)>
 		struct S_Request_Args
 		{
-			using Type = std::nullopt_t;
+			using Type = S_Result< std::nullopt_t, std::nullopt_t>;
 		};
 
 
@@ -83,29 +90,38 @@ namespace N_Function
 		struct S_Request_Args<TP_Request_Args, TP_Bind_Args, t_Request_Args_Number, t_Bind_Args_Number,
 			T_Request_Args_Part, T_Bind_Args_Part, false>
 		{
-			using Type = U_Range_Element_t<TP_Request_Args, 0, t_Request_Args_Number>;
+			using Request_Args = U_Range_Element_t<TP_Request_Args, 0, t_Request_Args_Number>;
+
+			using Type= S_Result<Request_Args,TP_Bind_Args>;
 		};
 
-		using Type = S_Request_Args<>::Type;
+		template<class T_Request_Args=T_Request_Args, class T_Bind_Args=T_Bind_Args>
+		struct S_Args_Empty_Judge 
+		{
+			using Type = S_Request_Args<>::Type;
+		};
+
+		template<class T_Bind_Args>
+			requires (static_cast<bool>(T_Bind_Args::Size))
+		struct S_Args_Empty_Judge<S_Parameter<>,T_Bind_Args>
+		{
+			using Type = S_Result<std::nullopt_t, std::nullopt_t>;
+		};
+		template<class T_Request_Args>
+		struct S_Args_Empty_Judge<T_Request_Args, S_Parameter<>>
+		{
+			using Type = S_Result<T_Request_Args, S_Parameter<>>;
+		};
+
+		using Type = S_Args_Empty_Judge<>::Type;
+	public:
+
+		using Request_Args = Type::Request_Args;
+		using Bind_Args = Type::Bind_Args;
 
 	};
 
-	template<class T_Request_Args>
-	struct IS_Request_Args<T_Request_Args, S_Parameter<>>
-	{
-		using Type = T_Request_Args;
-	};
 
-	template<class T_Bind_Args>
-		requires (T_Bind_Args::Size)
-	struct IS_Request_Args<S_Parameter<>,T_Bind_Args>
-	{
-		using Type = std::nullopt_t;
-	};
-	template<>
-	struct IS_Request_Args<S_Parameter<>, S_Parameter<>>
-	{
-		using Type = S_Parameter<>;
-	};
+
 
 }

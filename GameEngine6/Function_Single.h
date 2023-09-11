@@ -1,13 +1,22 @@
 #pragma once
-//
-//#include"Function_Single_Helper.h"
-//#include"Function_Single_Operator.h"
-//#include"Concept.h"
-//#include"Function_Core.h"
-//#include"SwapType.h"
-//
-//namespace N_Function
-//{
+
+#include"Concept.h"
+
+namespace N_Function
+{
+
+	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
+	class Function_Single
+	{
+	public:
+
+
+
+	};
+
+
+}
+
 //
 //	//仕様
 //	//関数オブジェクトの単体を表す
