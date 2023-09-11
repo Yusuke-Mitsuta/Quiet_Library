@@ -273,6 +273,12 @@
     <ClInclude Include="Function_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
+    <ClInclude Include="Parameter_Range.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -362,8 +368,8 @@
     <ClCompile Include="Parameter_Remove.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClCompile>
-    <ClCompile Include="Function_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
+    <ClCompile Include="Function_Single_Data_Request_Args.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

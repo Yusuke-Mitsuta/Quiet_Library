@@ -1,10 +1,17 @@
 #pragma once
 
 template<class ...T_Parameters>
+struct S_Parameter;
+
+template<class ...T_Parameters>
 struct IS_Parameter_Merge
 {
-	template<class T_Result, class T_Flont_Parameter,class ...TP_Parameters>
-	struct S_Parameter_Merge
+
+	template<class T_Result,class ...TP_Parameters>
+	struct S_Parameter_Merge;
+
+	template<class T_Result>
+	struct S_Parameter_Merge<T_Result>
 	{
 		using Type = T_Result;
 	};
@@ -18,7 +25,7 @@ struct IS_Parameter_Merge
 	template<class ...TP_Result, class ...TP_Flont_Inner_Parameters, class ...TP_Parameters>
 	struct S_Parameter_Merge<S_Parameter<TP_Result...>, S_Parameter<TP_Flont_Inner_Parameters...>, TP_Parameters...>
 	{
-		using Type= S_Parameter_Merge<S_Parameter<TP_Result..., TP_Flont_Inner_Parameters...>, TP_Parameters...>::Type;
+		using Type = S_Parameter_Merge<S_Parameter<TP_Result..., TP_Flont_Inner_Parameters...>, TP_Parameters...>::Type;
 	};
 
 	using Type = S_Parameter_Merge<S_Parameter<>, T_Parameters...>::Type;
@@ -26,4 +33,4 @@ struct IS_Parameter_Merge
 };
 
 template<class ...T_Parameters>
-using U_Merge_Element_t = typename IS_Parameter_Merge<T_Parameters...>::Type;
+using U_Merge_Element_t =typename IS_Parameter_Merge<T_Parameters...>::Type;

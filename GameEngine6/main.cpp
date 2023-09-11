@@ -18,6 +18,7 @@
 #include"Parameter_Value.h"
 #include"Parameter_Change.h"
 #include"Parameter_Get.h"
+#include"Parameter_Merge.h"
 
 #include<tuple>
 #include<optional>
@@ -142,6 +143,19 @@ void Hogege(int t) {}
 #include"Function_Single_Data_Request_Args.h"
 #include"Function_Multiple_Helper.h"
 
+template<>
+struct S_Zip<int>
+{
+	using Type = S_Parameter<N<1>,N<2>,N<3>>;
+};
+
+template<>
+struct S_Zip<float>
+{
+	using Type = S_Parameter<int,S_Zip<int>>;
+};
+
+
 int main()
 {
 	auto h2 = new H2;
@@ -151,15 +165,29 @@ int main()
 
 	static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
 
+	using Tt = N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
 
-	using Tn = typename N_Function::IS_Request_Args<S_Parameter<int, int, int>,
-		S_Parameter<int, int>>::Type;
+	using TTt= N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<0,Tt, double>::Change;
 
-	C_OUT(Tuu);
 
-	using n = U_Element_t<0, Tu>;
 
-	TYPE_ID(n);
+
+	//using Tn = typename N_Function::IS_Request_Args<S_Parameter<int, int, int>,
+	//	S_Parameter<int, int>>::Type;
+
+
+	using Tnaa = typename IS_Parameter_Merge<S_Parameter<N<1>, N<2>, N<3>>, N<4>, N<6>,N<7>>::Type;
+
+
+
+
+	TYPE_ID(TTt);
+
+
+	//C_OUT();
+
+	//using n = U_Element_t<0, Tu>;
+
 	
 
 		//IS_Range_Parameters<S_Parameter<N<1>,N<2>,N<3>>, 0,2>::Type;

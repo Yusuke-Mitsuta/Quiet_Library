@@ -11,11 +11,6 @@ struct S_Zip
 {
 
 };
-template<>
-struct S_Zip<int>
-{
-	using Type = S_Parameter<int, int, float>;
-};
 
 template<class T_Zip>
 struct S_Expand
