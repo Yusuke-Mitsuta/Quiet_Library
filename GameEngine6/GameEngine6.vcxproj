@@ -82,6 +82,7 @@
     <ClInclude Include="Quick_Sort.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />
+    <ClInclude Include="Size_T.h" />
     <ClInclude Include="Storge_Access.h" />
     <ClInclude Include="SwapType.h" />
     <ClInclude Include="Function_Data.h" />
@@ -90,9 +91,19 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="Tuple.h" />
+    <ClInclude Include="Tuple_Class_Declare.h" />
+    <ClInclude Include="Tuple_Head.h" />
     <ClInclude Include="tuple_Helper.h" />
+    <ClInclude Include="Tuple_Control.h" />
+    <ClInclude Include="Tuple_Next.h" />
+    <ClInclude Include="Tuple_Prev.h" />
+    <ClInclude Include="Tuple_Remove.h" />
+    <ClInclude Include="Tuple_Tail.h" />
+    <ClInclude Include="Tuple_Type.h" />
     <ClInclude Include="Tuple_Unzip.h" />
     <ClInclude Include="tuple_convertible_to.h" />
+    <ClInclude Include="Tuple_Using.h" />
     <ClInclude Include="Type_Nameh.h" />
     <ClInclude Include="Using_Type.h" />
   </ItemGroup>
@@ -122,11 +133,15 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Parameter_Remove.h" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Tuple_Declare.h" />
+    <ClCompile Include="Tuple_Pointer.h" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimeControl.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Tuple_Agrs.cpp" />
+    <ClCompile Include="Tuple_Value.h" />
+    <ClCompile Include="Using_Type.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

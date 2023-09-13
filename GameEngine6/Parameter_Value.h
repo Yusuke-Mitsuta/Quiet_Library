@@ -2,17 +2,10 @@
 
 #include<type_traits>
 #include"Parameter_Value_Index_Sequence.h"
+#include"Tuple_Value.h"
 
 template<class ...T_Parameters>
 struct S_Parameter;
-
-template<auto t_Value>
-struct integral_constant
-{
-	using value_type = decltype(t_Value);
-	static constexpr auto value = t_Value;
-
-};
 
 //仕様
 //パラメータパック[t_Parameters...]をラッピングする

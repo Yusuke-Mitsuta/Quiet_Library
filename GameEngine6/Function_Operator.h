@@ -16,8 +16,6 @@ namespace N_Function
 		struct S_Function_Operator;
 
 
-
-
 		template<class T_Flont_Fn, class ...T_Fns>
 		struct S_Bind_Args_Expand;
 

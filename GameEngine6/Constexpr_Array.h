@@ -6,7 +6,6 @@
 #include"Using_Type.h"
 #include"Array_Capacity.h"
 
-
 namespace N_Constexpr::N_Array
 {
 

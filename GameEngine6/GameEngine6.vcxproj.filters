@@ -49,6 +49,12 @@
     <Filter Include="ヘッダー ファイル\Parameter">
       <UniqueIdentifier>{b9e8e00c-e0a7-40a6-abbe-cddb542c4ed1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\NewFilter1">
+      <UniqueIdentifier>{2d94c8b5-7bb0-46b5-9559-06023f9901aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\N_Tuple">
+      <UniqueIdentifier>{d1606bf9-2038-4b16-9846-1c3d4ad472c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -279,6 +285,39 @@
     <ClInclude Include="Function_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Control.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Type.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Size_T.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Remove.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Next.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Prev.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Head.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Tail.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Using.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Class_Declare.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -370,6 +409,18 @@
     </ClCompile>
     <ClCompile Include="Function_Single_Data_Request_Args.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Value.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Pointer.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="Using_Type.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Declare.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

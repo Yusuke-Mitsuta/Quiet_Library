@@ -142,6 +142,9 @@ void Hogege(int t) {}
 #include"Function_Single_Data.h"
 #include"Function_Single_Data_Request_Args.h"
 #include"Function_Multiple_Helper.h"
+#include"Tuple.h"
+#include"Tuple_Value.h"
+#include"Size_T.h"
 
 template<>
 struct S_Zip<int>
@@ -154,11 +157,52 @@ struct S_Zip<float>
 {
 	using Type = S_Parameter<int,S_Zip<int>>;
 };
-
+#include"Tuple.h"
 
 int main()
 {
-	auto h2 = new H2;
+	Tuple<integral_constant<0>, integral_constant<1>, integral_constant<2>> c;
+
+	using tup = typename N_Tuple::_t<int, float, double, char,int,float,double,short>::Next::Next::Next::Next;
+
+	
+	using T = typename N_Tuple::I_Pointer<6, tup>::Type;
+	
+	
+
+	using sT = typename N_Tuple::I_Pointer<5, T>::Type;
+
+	sT::Prev::Type;
+
+
+	using tua = typename N_Tuple::_v<0, 1, 2, 3, 4, 5, 6>::As_Tuple_t::Next::Next::Remove::Remove::Remove::Remove;
+
+	
+	
+
+
+
+
+
+
+
+
+	//Tuple b(3, 4, '8', 3.0f);
+
+	//Size_t ss = -3;
+	//constexpr Size_t sss = 7;
+	//constexpr int ssss = 6;
+	//int n = ss - 1;
+	constexpr unsigned long long so = 3;
+
+	//bool te = (ss == sizeof(so));// == 3);
+
+
+
+
+	//decltype(b)::
+
+	//auto h2 = new H2;
 
 	using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
 
@@ -264,30 +308,30 @@ int main()
 
 
 
-	using T = S_Parameter<short,int, float, char>;
-	using T1 = U_Insert_Element_t<T, 1, T>;
+	//using T = S_Parameter<short,int, float, char>;
+	//using T1 = U_Insert_Element_t<T, 1, T>;
 //	using T2 = S_Parameter<T,T,T>;
-	using Tva= S_Parameter_Value<0, 1>;
-	using Tvb= S_Parameter_Value<2, 3>;
+	//using Tva= S_Parameter_Value<0, 1>;
+	//using Tvb= S_Parameter_Value<2, 3>;
 
-	using Tvc= S_Parameter_Value<7, 5>;
-	using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
-	using Tv3 = Tv2::Parameter_Type;
-	using Tv4 = U_Change_Element_v<0, 4, Tv2>;
+	//using Tvc= S_Parameter_Value<7, 5>;
+	//using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
+	//using Tv3 = Tv2::Parameter_Type;
+	//using Tv4 = U_Change_Element_v<0, 4, Tv2>;
 		//IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename Tv2::Parameter_Type,4, integral_constant<4>, integral_constant<4>, integral_constant<4>, integral_constant<4>>::Type>::Type;
 	
 
-	using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
+//using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
 
 	//constexpr auto Tvvv = S_Parameter_Element_Variable<4, Tv2>::value;
 
-	using Tf = IS_Insert_Parameters<T, 1, float>::Type;
+	//using Tf = IS_Insert_Parameters<T, 1, float>::Type;
 
-	using Tr = IS_Remove_Parameters<T, 1,3>::Type;
-	using Tr = U_Remove_Element_t<T, 1, 3>;
+	//using Tr = IS_Remove_Parameters<T, 1,3>::Type;
+	//using Tr = U_Remove_Element_t<T, 1, 3>;
 	
 	//IS_Change_Parameters
-	using Tcr = IS_Change_Parameters<0, 3, T>::Type;
+	//using Tcr = IS_Change_Parameters<0, 3, T>::Type;
 
 	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
 
