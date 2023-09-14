@@ -159,26 +159,28 @@ struct S_Zip<float>
 };
 #include"Tuple.h"
 
+
 int main()
 {
-	Tuple<integral_constant<0>, integral_constant<1>, integral_constant<2>> c;
+	//Tuple<integral_constant<0>, integral_constant<1>, integral_constant<2>> c;
 
 	using tup = typename N_Tuple::_t<int, float, double, char,int,float,double,short>::Next::Next::Next::Next;
 
 	
-	using T = typename N_Tuple::I_Pointer<6, tup>::Type;
-	
-	
+	using T_ = typename N_Tuple::Pointer<2,tup>::Type;
 
-	using sT = typename N_Tuple::I_Pointer<5, T>::Type;
+	T_::Prev::Prev::Remove::Remove::Remove::Remove::Remove::Remove;
 
-	sT::Prev::Type;
+	static constexpr int n = 2Ui64;
+
+	//using tT = typename N_Tuple::I_Pointer<2, T_>::Type;
 
 
-	using tua = typename N_Tuple::_v<0, 1, 2, 3, 4, 5, 6>::As_Tuple_t::Next::Next::Remove::Remove::Remove::Remove;
+	//using sT = typename N_Tuple::I_Pointer<2, tup>::Type;
 
-	
-	
+	using tua = typename N_Tuple::_v<0, 3, 4, 7, 2.0f>;
+
+
 
 
 
@@ -189,13 +191,13 @@ int main()
 
 	//Tuple b(3, 4, '8', 3.0f);
 
-	//Size_t ss = -3;
-	//constexpr Size_t sss = 7;
-	//constexpr int ssss = 6;
+	Size_t ss = -3;
+	constexpr Size_t sss = 7;
+	constexpr int ssss = 6;
 	//int n = ss - 1;
 	constexpr unsigned long long so = 3;
 
-	//bool te = (ss == sizeof(so));// == 3);
+	bool te = (ss == sizeof(so));// == 3);
 
 
 
@@ -204,14 +206,14 @@ int main()
 
 	//auto h2 = new H2;
 
-	using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
+	//using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
 
 
-	static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
+	//static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
 
-	using Tt = N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
+	//using Tt = N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
 
-	using TTt= N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<0,Tt, double>::Change;
+	//using TTt= N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<0,Tt, double>::Change;
 
 
 
@@ -225,7 +227,7 @@ int main()
 
 
 
-	TYPE_ID(TTt);
+	//TYPE_ID(TTt);
 
 
 	//C_OUT();
@@ -308,7 +310,7 @@ int main()
 
 
 
-	//using T = S_Parameter<short,int, float, char>;
+	using T = S_Parameter<short,int, float, char>;
 	//using T1 = U_Insert_Element_t<T, 1, T>;
 //	using T2 = S_Parameter<T,T,T>;
 	//using Tva= S_Parameter_Value<0, 1>;

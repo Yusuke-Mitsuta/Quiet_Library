@@ -15,7 +15,6 @@ namespace N_Tuple
 		public _Control<_Head<>,T_Flont_Type,_Tail<_Types...>>
 	{
 
-
 	};
 
 	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
@@ -23,23 +22,27 @@ namespace N_Tuple
 		public _Control<_Head<T_Head_Types...>, T, _Tail<T_Tail_Types...>>
 	{
 
-
 	};
 
 	template<>
 	struct _t<_Head<>, _Tail<>> :
 		public _Control<_Head<>, _Tail<>>
 	{
-
 	};
 
 	template<>
 	struct _t<> :
 		public _Control<_Head<>, _Tail<>>
 	{
-
 	};
 
 }
 
+namespace std
+{
+	template<class ...T_Type>
+	struct tuple_size<N_Tuple::_t<T_Type...>> :
+		integral_constant<size_t, N_Tuple::S_Parameter<
+		N_Tuple::_t<T_Type...>>::Size> {};
+}
 

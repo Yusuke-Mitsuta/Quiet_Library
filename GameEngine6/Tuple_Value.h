@@ -14,14 +14,14 @@ struct integral_constant
 namespace N_Tuple
 {
 	template<class ..._Types>
-	struct _t;
+	struct _p;
 
 	template<auto ..._Value>
-	struct _v;
+	struct _v{};
 
 
 	template<auto ...t_Head_Value,auto _Value, auto...T_Tail_Value>
-	struct _t<_Head<integral_constant<t_Head_Value>...>, 
+	struct _p<_Head<integral_constant<t_Head_Value>...>, 
 		integral_constant<_Value>, 
 		_Tail<integral_constant<T_Tail_Value>...>> :
 		public _Control<_Head<integral_constant<t_Head_Value>...>, 
@@ -43,19 +43,20 @@ namespace N_Tuple
 
 	template<auto t_Flont_Value, auto ..._Value>
 	struct _v<t_Flont_Value,_Value...> :
-		public _t<_Head<>, integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>
+		public _p<_Head<>, integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>
 	{
 	public:
 
-		using As_Tuple_t = _t<_Head<>, integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>;
+		using As_Tuple_t = _p<_Head<>, integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>;
 
 	};
 
 	template<>
 	struct _v<> :
-		public _t<_Head<>, _Tail<>>
+		public _p<_Head<>, _Tail<>>
 	{
-		using As_Tuple_t = _t<_Head<>, _Tail<>>;
+		using As_Tuple_t = _p<_Head<>, _Tail<>>;
 	};
 
 }
+

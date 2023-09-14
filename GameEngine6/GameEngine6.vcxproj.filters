@@ -318,6 +318,12 @@
     <ClInclude Include="Tuple_Class_Declare.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple_Parameter.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Concept.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

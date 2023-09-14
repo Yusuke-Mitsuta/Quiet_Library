@@ -13,6 +13,40 @@ concept is_Concept = requires
 	T_Concept<int, int>::Concept;
 };
 
+//template<int N>
+//struct S_Number
+//{
+//	static constexpr int Number = N;
+//};
+//
+//template<class T>
+//concept is_Exist_Number = requires
+//{
+//	typename T::Number;
+//};
+//
+////仕様
+////[T_Number::Number]の値が[t_Lower_Limit]以上、かつ [t_Upper_Limit]であることを判定する
+////
+////テンプレート
+////T_Number::範囲内かを範囲するクラスでメンバーに[::Number]を持つ事
+////t_Lower_Limit::下限値
+////t_Upper_Limit::上限値
+//template<class T_Number,int t_Lower_Limit,int t_Upper_Limit>
+//concept C_Range = (is_Exist_Number<T_Number> && 
+//	T_Number::Number >= t_Lower_Limit && T_Number::Number <= t_Upper_Limit);
+
+
+//仕様
+//[T_Tuple]の要素に[t_Number]の要素が存在するか判定する
+//
+//テンプレート
+//T_Tuple::要素を持つクラスで[std::tuple_size_v<T_Tuple>]で呼び出せる事
+//t_Number::存在するか判定する要素の番号
+template<class T_Size,int t_Number>
+concept is_Element = (0<=t_Number && t_Number< std::tuple_size_v<T_Size>);
+
+
 using std::same_as;
 
 template <class _Ty1>
@@ -26,6 +60,7 @@ struct same_as_S
 {
 	static constexpr bool Concept = same_as<_Ty1, _Ty2>;
 };
+
 //
 //template <class _Ty1, class _Ty2,class ..._Ty>
 //struct same_as_or_S

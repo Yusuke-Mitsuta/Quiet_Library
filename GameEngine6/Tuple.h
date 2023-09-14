@@ -12,6 +12,7 @@
 #include"Tuple_Pointer.h"
 #include"Tuple_Remove.h"
 #include"Tuple_Value.h"
+#include"Tuple_Parameter.h"
 
 template<class ..._Types>
 struct Tuple :
@@ -25,9 +26,6 @@ public:
 	template<class ..._Types>
 	constexpr Tuple(_Types... types) :
 		std::tuple<_Types...>(types...) {}
-
-
-
 
 };
 
