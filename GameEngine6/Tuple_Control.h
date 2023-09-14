@@ -44,10 +44,10 @@ namespace N_Tuple
 		using Remove = typename _Remove<Change_Tuple>::Type;
 
 		//先頭の要素を選択する
-		using Flnot = typename Select<0, Change_Tuple>::Type;
+		using Flnot = typename Pointer<0, Change_Tuple>::Type;
 
 		//最後の要素を選択する
-		using Back = typename Select<Size-1, Change_Tuple>::Type;
+		using Back = typename Pointer<Size-1, Change_Tuple>::Type;
 
 		//選択している要素の型を返す
 		using Type = T;
