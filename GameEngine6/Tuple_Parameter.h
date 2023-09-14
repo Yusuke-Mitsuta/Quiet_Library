@@ -25,6 +25,8 @@ namespace N_Tuple
 
 		using This = Flnot;
 
+
+
 		static constexpr size_t Size_Head = 0;
 		static constexpr size_t Size_Tail = Size - 1;
 

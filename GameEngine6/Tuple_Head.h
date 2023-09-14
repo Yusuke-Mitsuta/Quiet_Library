@@ -15,6 +15,11 @@ namespace N_Tuple
 
 	};
 
+	template<auto ...t_Head_Value>
+	struct _Head_v
+	{
+
+	};
 
 }
 

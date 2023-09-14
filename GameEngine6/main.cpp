@@ -164,12 +164,13 @@ int main()
 {
 	//Tuple<integral_constant<0>, integral_constant<1>, integral_constant<2>> c;
 
-	using tup = typename N_Tuple::_t<int, float, double, char,int,float,double,short>::Next::Next::Next::Next;
+	using tup = typename Tuple_p<int, float, double, char, int, float, double, short>::Next::Prev::Remove::Back;
 
 	
-	using T_ = typename N_Tuple::Pointer<2,tup>::Type;
+	using T_ = typename N_Tuple::Pointer<5, tup>::Type::Type;
+	
 
-	T_::Prev::Prev::Remove::Remove::Remove::Remove::Remove::Remove;
+
 
 	static constexpr int n = 2Ui64;
 
@@ -180,9 +181,9 @@ int main()
 
 	using tua = typename N_Tuple::_v<0, 3, 4, 7, 2.0f>;
 
+	
 
-
-
+	
 
 
 

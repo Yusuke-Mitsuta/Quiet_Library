@@ -13,6 +13,12 @@ namespace N_Tuple
 
 	};
 
+	template<auto ...t_Tail_Value>
+	struct _Tail_v
+	{
+
+	};
+
 }
 
 namespace std

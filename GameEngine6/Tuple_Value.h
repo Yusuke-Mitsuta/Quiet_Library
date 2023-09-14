@@ -19,6 +19,16 @@ namespace N_Tuple
 	template<auto ..._Value>
 	struct _v{};
 
+	template<class T_Head,auto _Value,class T_Tail>
+	struct _p_v;
+
+	template<auto ...t_Head_Value, auto _Value, auto...T_Tail_Value>
+	struct _p_v<_Head_v<t_Head_Value...>,_Value,
+		_Tail_v<T_Tail_Value...>>
+	{
+
+	};
+
 
 	template<auto ...t_Head_Value,auto _Value, auto...T_Tail_Value>
 	struct _p<_Head<integral_constant<t_Head_Value>...>, 
@@ -39,6 +49,7 @@ namespace N_Tuple
 		static constexpr auto This_v = Control::This::value;
 
 		using As_Tuple_v = _v<t_Head_Value..., _Value, T_Tail_Value...>;
+
 	};
 
 	template<auto t_Flont_Value, auto ..._Value>
@@ -59,4 +70,5 @@ namespace N_Tuple
 	};
 
 }
+
 

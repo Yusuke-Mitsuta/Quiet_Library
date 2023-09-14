@@ -10,15 +10,15 @@ namespace N_Tuple
 	struct _Prev;
 
 	template<class T, class ...T_Tail_Types>
-	struct _Prev<_t<_Head<>, T, _Tail<T_Tail_Types...>>>
+	struct _Prev<_p<_Head<>, T, _Tail<T_Tail_Types...>>>
 	{
 		using Type = std::nullopt_t;
 	};
 
 	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
-	struct _Prev<_t<_Head<T_Head_Types...>, T, _Tail<T_Tail_Types...>>>
+	struct _Prev<_p<_Head<T_Head_Types...>, T, _Tail<T_Tail_Types...>>>
 	{
-		using Type = typename Pointer<sizeof...(T_Head_Types) - 1, _t<_Head< T_Head_Types...>, T, _Tail<T_Tail_Types...>>>::Type;
+		using Type = typename Pointer<sizeof...(T_Head_Types) - 1, _p<_Head< T_Head_Types...>, T, _Tail<T_Tail_Types...>>>::Type;
 	};
 
 }

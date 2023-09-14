@@ -324,6 +324,9 @@
     <ClInclude Include="Tuple_Concept.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
+    <ClInclude Include="To_Tuple_p_v.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -419,13 +422,16 @@
     <ClCompile Include="Tuple_Value.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
-    <ClCompile Include="Tuple_Pointer.h">
+    <ClCompile Include="Tuple_Select.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
     <ClCompile Include="Using_Type.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Declare.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Point.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
   </ItemGroup>

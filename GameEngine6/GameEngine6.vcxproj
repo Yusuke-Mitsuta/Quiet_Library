@@ -91,6 +91,7 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="To_Tuple_p_v.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="Tuple_Class_Declare.h" />
     <ClInclude Include="Tuple_Head.h" />
@@ -136,7 +137,8 @@
     <ClCompile Include="Parameter_Remove.h" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Tuple_Declare.h" />
-    <ClCompile Include="Tuple_Pointer.h" />
+    <ClCompile Include="Tuple_Point.h" />
+    <ClCompile Include="Tuple_Select.h" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimeControl.cpp" />
     <ClCompile Include="Timer.cpp" />
