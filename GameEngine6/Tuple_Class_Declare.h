@@ -17,7 +17,7 @@ namespace N_Tuple
 	struct Tuple_tp;
 
 	template<auto ..._Value>
-	struct _v;
+	struct Tuple_v;
 
 	template<class T_Head, auto _Value, class T_Tail>
 	struct Tuple_vp;

@@ -184,7 +184,7 @@ int main()
 
 	//using sT = typename N_Tuple::I_Pointer<2, tup>::Type;
 
-	using tua = typename N_Tuple::_v<0, 3, 4, 7, 2.0f>;
+	using tua = typename N_Tuple::Tuple_v<0, 3, 4, 7, 2.0f>;
 
 	
 

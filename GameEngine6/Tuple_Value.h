@@ -17,7 +17,10 @@ namespace N_Tuple
 	struct Tuple_tp;
 
 	template<auto ..._Value>
-	struct _v{};
+	struct Tuple_v
+	{
+
+	};
 
 	template<class T_Head,auto _Value,class T_Tail>
 	struct Tuple_vp;
@@ -35,7 +38,7 @@ namespace N_Tuple
 
 
 	template<auto t_Flont_Value, auto ..._Value>
-	struct _v<t_Flont_Value,_Value...> :
+	struct Tuple_v<t_Flont_Value,_Value...> :
 		public Tuple_tp<_Head<>,integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>
 	{
 	public:

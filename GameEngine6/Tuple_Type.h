@@ -7,15 +7,15 @@
 
 namespace N_Tuple
 {
+
+	template<class ..._Types>
+	struct Tuple_t
+	{
+
+	};
+
 	template<class ..._Types>
 	struct Tuple_tp;
-
-	//template<class T, class ...T_Tail_Types>
-	//struct Tuple_tp< T, _Tail<T_Tail_Types...>> :
-	//	public _Control_t<Tuple_tp<_Head<>, T, _Tail<T_Tail_Types...>>>
-	//{
-
-	//};
 
 	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
 	struct Tuple_tp<_Head<T_Head_Types...>, T, _Tail<T_Tail_Types...>> :
