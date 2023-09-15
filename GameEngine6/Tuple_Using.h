@@ -20,5 +20,9 @@ namespace N_Tuple
 	template<class T_Tuple>
 	using U_Prev = typename I_Prev<T_Tuple>::Type;
 
+	//w’è‚µ‚½”Ô†‚Ì—v‘f‚ğ‘I‘ğ‚·‚é
+	template<int t_Select_Point,class T_Tuple>
+	using U_Select = typename I_Select<t_Select_Point, T_Tuple>::Type;
+
 
 }

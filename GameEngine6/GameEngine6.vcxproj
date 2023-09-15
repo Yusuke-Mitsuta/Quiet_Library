@@ -95,6 +95,7 @@
     <ClInclude Include="To_Tuple_p_v.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="Tuple_Class_Declare.h" />
+    <ClInclude Include="Tuple_Element.h" />
     <ClInclude Include="Tuple_Head.h" />
     <ClInclude Include="tuple_Helper.h" />
     <ClInclude Include="Tuple_Control.h" />

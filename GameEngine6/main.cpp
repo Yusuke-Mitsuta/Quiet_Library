@@ -165,11 +165,13 @@ int main()
 	using num = N_Tuple::Tuple_vp< N_Tuple::_Head_v<1, 2>, 3, N_Tuple::_Tail_v<4, 5>>;
 	using NN = N_Tuple::I_Next<num>::Type::Next::Prev::Prev::Prev::Prev::Prev::Next;
 
+	static constexpr int na= N_Tuple::I_Element<2, NN>::value;
+	C_OUT(na);
 
+	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>::Prev::Prev::Prev::Prev::Prev::Prev::Prev::Flnot::Prev::Flnot;
+	using noa = typename N_Tuple::I_Element<4, tup>::Type;
+	TYPE_ID(noa);
 
-	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>::Prev::Prev::Prev::Prev::Prev::Prev::Prev::Flnot::Prev::Flnot::Flont_t;
-
-	TYPE_ID(tup);
 
 
 

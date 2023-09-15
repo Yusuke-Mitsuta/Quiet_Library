@@ -13,6 +13,8 @@ namespace N_Tuple
 	template<class ...T_Types>
 	struct S_Parameter;
 
+	struct Tuple_p;
+
 	template<class ..._Types>
 	struct Tuple_tp;
 
@@ -52,8 +54,14 @@ namespace N_Tuple
 	template<int t_Point, class T_Tuple_t>
 	struct I_Select;
 
+	template<int _Index, class T_Tuple>
+	struct I_Element;
+
 	template<class T_Tuple_t>
 	struct I_Remove;
+
+	template<class T>
+	struct Tuple_vp_To_tp;
 
 	template<class T>
 	struct Tuple_tp_To_vp;
