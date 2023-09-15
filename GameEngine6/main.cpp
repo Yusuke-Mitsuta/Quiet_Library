@@ -162,11 +162,18 @@ struct S_Zip<float>
 
 int main()
 {
-	//Tuple<integral_constant<0>, integral_constant<1>, integral_constant<2>> c;
+	using num = N_Tuple::Tuple_vp< N_Tuple::_Head_v<1, 2>, 3, N_Tuple::_Tail_v<4, 5>>;
+	using NN = N_Tuple::I_Next<num>::Type::Next::Prev::Prev::Prev::Prev::Prev::Next;
 
-	using tup = typename Tuple_p<int, float, double, char, int, float, double, short>;
 
-	using T_ = typename N_Tuple::Pointer<0, tup>::Type::Back::Flnot::Prev::Prev::Next;
+
+	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>::Prev::Prev::Prev::Prev::Prev::Prev::Prev::Flnot::Prev::Flnot::Flont_t;
+
+	TYPE_ID(tup);
+
+
+
+	//using T_ = typename N_Tuple::I_Select<8, tup>::Type::Type;
 
 
 

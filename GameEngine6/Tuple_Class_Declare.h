@@ -14,16 +14,22 @@ namespace N_Tuple
 	struct S_Parameter;
 
 	template<class ..._Types>
-	struct _p;
+	struct Tuple_tp;
 
 	template<auto ..._Value>
 	struct _v;
 
 	template<class T_Head, auto _Value, class T_Tail>
-	struct _p_v;
+	struct Tuple_vp;
 
-	template<class ..._Types>
+	template<class T_Tuple>
 	struct _Control;
+
+	template<class T_Tuple_t>
+	struct _Control_t;
+
+	template<class T_Tuple_v>
+	struct _Control_v;
 
 	template<class ...T_Head_Type>
 	struct _Head;
@@ -38,20 +44,24 @@ namespace N_Tuple
 	struct _Tail_v;
 
 	template<class T_Tuple_t>
-	struct _Next;
+	struct I_Next;
 
 	template<class T_Tuple_t>
-	struct _Prev;
+	struct I_Prev;
 
 	template<int t_Point, class T_Tuple_t>
-	struct Pointer;
+	struct I_Select;
 
 	template<class T_Tuple_t>
-	struct _Remove;
-
+	struct I_Remove;
 
 	template<class T>
-	struct To_Tuple_p_v;
+	struct Tuple_tp_To_vp;
+
+	template<class T>
+	struct Tuple_vp_To_tp;
+	template<class T_Tuple_t, template<class...>class T_Action>
+	struct S_Tuple_Action;
 
 	template<class ..._Types>
 	struct _Create_Tuple_Pointer;

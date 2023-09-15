@@ -30,7 +30,7 @@ constexpr Size_t Size_t::operator _sign (const T& size_2) const \
 
 struct Size_t
 {
-	friend class Size_t;
+	friend struct Size_t;
 
 	long long size;
 public:

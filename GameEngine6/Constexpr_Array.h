@@ -113,6 +113,7 @@ namespace N_Constexpr::N_Array
 		}
 		
 	};
+
 	//仕様
 	//次に[_1]を選択すると要素数を超えてしまうとき、[_1]を選択肢から外す
 	template<class T, Size_Type t_Size, short t_Two_index, Size_Type t_SelectNum>

@@ -440,5 +440,8 @@
     <ClCompile Include="Tuple_Point.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
+    <ClCompile Include="Tuple_Action.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

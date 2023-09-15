@@ -13,52 +13,26 @@ namespace N_Tuple
 	template<class ...T_Types>
 	struct S_Parameter
 	{
-	private:
-
-		using tuple = std::tuple<T_Types...>;
-
-	public:
+		using T = std::tuple<T_Types...>;
 		static constexpr size_t Size = sizeof...(T_Types);
-
-		using Flnot = std::tuple_element_t<0, tuple>;
-		using Back = std::tuple_element_t<Size - 1, tuple>;
-
-		using This = Flnot;
-
-		static constexpr size_t Size_Head = 0;
-		static constexpr size_t Size_Tail = Size - 1;
-
 	};
 
-	template<>
-	struct S_Parameter<> :
-		public S_Parameter<std::nullopt_t>
-	{
-		static constexpr size_t Size = 0;
-	};
-
-	template<template<class...>class T_Tuple_Outer, class ...T_Types>
-	struct S_Parameter<T_Tuple_Outer<T_Types...>> :
-		public S_Parameter<T_Types...> {};
-
-	template<template<class...>class T_Tuple_Outer>
-	struct S_Parameter<T_Tuple_Outer<_Head<>,_Tail<>>> :
-		public S_Parameter<> {};
-
-	template<template<class...>class T_Tuple_Outer,class ...T_Head_Types, class T, class ...T_Tail_Types>
-	struct S_Parameter<T_Tuple_Outer<_Head<T_Head_Types...>,T, _Tail<T_Tail_Types...>>>
-		:public S_Parameter<T_Head_Types..., T, T_Tail_Types...>
+	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
+	struct S_Parameter<Tuple_tp<_Head<T_Head_Types...>,T , _Tail<T_Tail_Types...>>>
 	{
 		static constexpr size_t Size_Head = sizeof...(T_Head_Types);
 		static constexpr size_t Size_Tail = sizeof...(T_Tail_Types);
+		static constexpr size_t Size = Size_Head + Size_Tail + not_is_nullopt<T>;
+		using Type = T;
+	};
 
-
-		using Head = _Head<T_Head_Types...>;
-
-		using Tail = _Tail<T_Tail_Types...>;
-
-		using This = T;
-
+	template<auto ...t_Head_Value, auto _Value, auto ...t_Tail_Value>
+	struct S_Parameter<Tuple_vp<_Head_v<t_Head_Value...>, _Value, _Tail_v<t_Tail_Value...>>>
+	{
+		static constexpr size_t Size_Head = sizeof...(t_Head_Value);
+		static constexpr size_t Size_Tail = sizeof...(t_Tail_Value);
+		static constexpr size_t Size = Size_Head + Size_Tail + not_is_nullopt<decltype(_Value)>;
+		static constexpr auto value = _Value;
 	};
 
 }

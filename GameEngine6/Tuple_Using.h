@@ -4,6 +4,21 @@
 
 namespace N_Tuple
 {
+	//先頭の要素を選択する
+	template<class T_Tuple>
+	using U_Flnot = typename I_Select<0, T_Tuple>::Type;
+
+	//最後の要素を選択する
+	template<class T_Tuple>
+	using U_Back = typename I_Select<S_Parameter<T_Tuple>::Size - 1, T_Tuple>::Type;
+
+	//次の要素を選択する
+	template<class T_Tuple>
+	using U_Next = typename I_Next<T_Tuple>::Type;
+
+	//前の要素を選択する
+	template<class T_Tuple>
+	using U_Prev = typename I_Prev<T_Tuple>::Type;
 
 
 }
