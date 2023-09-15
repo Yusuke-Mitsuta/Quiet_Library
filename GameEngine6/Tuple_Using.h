@@ -25,4 +25,14 @@ namespace N_Tuple
 	using U_Select = typename I_Select<t_Select_Point, T_Tuple>::Type;
 
 
+	//仕様
+	//[T_Tuple]の[_Index]番目の型を取得する
+	template<int _Index, class T_Tuple_t>
+	using U_Element_t = typename I_Element<_Index, T_Tuple_t>::Type;
+
+	//仕様
+	//[T_Tuple]の[_Index]番目の要素を取得する
+	template<int _Index, class T_Tuple_v>
+	using U_Element_v = I_Element<_Index, T_Tuple_v>::value;
+
 }

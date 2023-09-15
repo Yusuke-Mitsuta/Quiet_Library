@@ -173,8 +173,6 @@ int main()
 	TYPE_ID(noa);
 
 
-
-
 	//using T_ = typename N_Tuple::I_Select<8, tup>::Type::Type;
 
 
