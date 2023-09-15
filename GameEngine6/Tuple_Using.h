@@ -24,6 +24,9 @@ namespace N_Tuple
 	template<int t_Select_Point,class T_Tuple>
 	using U_Select = typename I_Select<t_Select_Point, T_Tuple>::Type;
 
+	//[T_Tuple_t]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
+	template<class T_Tuple>
+	using U_Reverse = typename I_Reverse<T_Tuple>::Type;
 
 	//d—l
 	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚ÌŒ^‚ğæ“¾‚·‚é

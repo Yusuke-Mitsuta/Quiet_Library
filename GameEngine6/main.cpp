@@ -167,13 +167,14 @@ int main()
 
 	using npr =typename N_Tuple::I_Reverse<NN>::Type;
 
+	using nyo= npr::Reverse;
 
 	static constexpr int na= N_Tuple::I_Element<2, NN>::value;
 	C_OUT(na);
 
-	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>::Prev::Prev::Prev::Prev::Prev::Prev::Prev::Flnot::Prev::Flnot;
+	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>::Prev::Reverse;
 	using noa = typename N_Tuple::I_Element<4, tup>::Type;
-	TYPE_ID(noa);
+	TYPE_ID(tup);
 
 
 

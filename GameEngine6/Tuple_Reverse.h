@@ -7,7 +7,7 @@ namespace N_Tuple
 
 	//d—l
 	//[T_Tuple_t]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
-	template<class T_Tuple_t>
+	template<class T_Tuple>
 	struct I_Reverse
 	{
 	private:
@@ -37,7 +37,7 @@ namespace N_Tuple
 			using Type = Tuple_tp<Tail_Reverse, T, Head_Reverse>;
 		};
 
-		using Action = S_Tuple_Action<T_Tuple_t, S_Reverse>;
+		using Action = S_Tuple_Action<T_Tuple, S_Reverse>;
 
 		friend struct Action;
 

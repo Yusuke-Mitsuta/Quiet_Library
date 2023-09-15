@@ -42,6 +42,9 @@ namespace N_Tuple
 		//ÅŒã‚Ì—v‘f‚ğ‘I‘ğ‚·‚é
 		using Back = U_Back<T_Tuple>;
 
+		//•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
+		using Reverse = U_Reverse<T_Tuple>;
+
 	};
 
 	template<class T_Tuple_t>
@@ -58,11 +61,8 @@ namespace N_Tuple
 		using Type = Select_Tuple_t<T_Tuple_t>;
 
 		using Next_t = Select_Tuple_t<U_Next<T_Tuple_t>>;
-
 		using Prev_t = Select_Tuple_t<U_Prev<T_Tuple_t>>;
-
 		using Flont_t = Select_Tuple_t<U_Flnot<T_Tuple_t>>;
-
 		using Back_t = Select_Tuple_t<U_Back<T_Tuple_t>>;
 
 	};
