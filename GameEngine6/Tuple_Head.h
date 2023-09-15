@@ -9,8 +9,7 @@ namespace N_Tuple
 	//仕様
 	//[Tuple_t]の選択位置より前を示す型
 	template<class ...T_Head_Type>
-	struct _Head :
-		public _Control<T_Head_Type...>
+	struct _Head
 	{
 
 	};

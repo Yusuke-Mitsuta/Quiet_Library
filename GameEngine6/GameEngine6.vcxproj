@@ -67,6 +67,7 @@
     <ClInclude Include="Method_Core.h" />
     <ClInclude Include="MethodData.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Outer_Change.h" />
     <ClInclude Include="Parameter.h" />
     <ClInclude Include="Parameter_convertible_to.h" />
     <ClInclude Include="Expand.h" />
@@ -98,6 +99,7 @@
     <ClInclude Include="tuple_Helper.h" />
     <ClInclude Include="Tuple_Control.h" />
     <ClInclude Include="Tuple_Concept.h" />
+    <ClInclude Include="Tuple_New.h" />
     <ClInclude Include="Tuple_Next.h" />
     <ClInclude Include="Tuple_Prev.h" />
     <ClInclude Include="Tuple_Remove.h" />

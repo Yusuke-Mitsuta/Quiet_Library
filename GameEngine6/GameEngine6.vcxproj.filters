@@ -49,11 +49,11 @@
     <Filter Include="ヘッダー ファイル\Parameter">
       <UniqueIdentifier>{b9e8e00c-e0a7-40a6-abbe-cddb542c4ed1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\NewFilter1">
-      <UniqueIdentifier>{2d94c8b5-7bb0-46b5-9559-06023f9901aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\N_Tuple">
       <UniqueIdentifier>{d1606bf9-2038-4b16-9846-1c3d4ad472c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple_New">
+      <UniqueIdentifier>{12123ce8-54db-44f0-b786-ba5d3f28a5d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +326,12 @@
     </ClInclude>
     <ClInclude Include="To_Tuple_p_v.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_New.h">
+      <Filter>ヘッダー ファイル\Tuple_New</Filter>
+    </ClInclude>
+    <ClInclude Include="Outer_Change.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,6 @@ namespace N_Tuple
 
 	};
 
-
 	template<auto ...t_Head_Value,auto _Value, auto...T_Tail_Value>
 	struct _p<_Head<integral_constant<t_Head_Value>...>, 
 		integral_constant<_Value>, 

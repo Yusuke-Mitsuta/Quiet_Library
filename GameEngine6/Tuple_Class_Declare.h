@@ -43,7 +43,7 @@ namespace N_Tuple
 	template<class T_Tuple_t>
 	struct _Prev;
 
-	template<int t_Point, is_Element<t_Point> T_Tuple_t>
+	template<int t_Point, class T_Tuple_t>
 	struct Pointer;
 
 	template<class T_Tuple_t>
@@ -52,5 +52,8 @@ namespace N_Tuple
 
 	template<class T>
 	struct To_Tuple_p_v;
+
+	template<class ..._Types>
+	struct _Create_Tuple_Pointer;
 
 }

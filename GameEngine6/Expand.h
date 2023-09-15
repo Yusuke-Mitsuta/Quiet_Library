@@ -25,9 +25,6 @@ struct S_Expand
 	using Expand = S_Zip<T_Zip>::Type;
 };
 
-
-
-
 template<class T_Zip>
 concept is_expand = requires
 {
