@@ -105,6 +105,7 @@
     <ClInclude Include="Tuple_Prev.h" />
     <ClInclude Include="Tuple_Remove.h" />
     <ClInclude Include="Tuple_Parameter.h" />
+    <ClInclude Include="Tuple_Reverse.h" />
     <ClInclude Include="Tuple_Tail.h" />
     <ClInclude Include="Tuple_Type.h" />
     <ClInclude Include="Tuple_Unzip.h" />

@@ -60,6 +60,9 @@ namespace N_Tuple
 	template<class T_Tuple_t>
 	struct I_Remove;
 
+	template<class T_Tuple_t>
+	struct I_Reverse;
+
 	template<class T>
 	struct Tuple_vp_To_tp;
 

@@ -336,6 +336,9 @@
     <ClInclude Include="Tuple_Element.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple_Reverse.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

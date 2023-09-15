@@ -21,7 +21,6 @@ namespace N_Tuple
 			using Type = typename I_Remove<Tuple_Prev>::Type;
 		};
 
-
 		template<class ...T_Head_Types, not_is_nullopt T, class T_Next_Type, class ...T_Tail_Types>
 		struct S_Remove<Tuple_tp<_Head<T_Head_Types...>, T, _Tail<T_Next_Type, T_Tail_Types...>>>
 		{
