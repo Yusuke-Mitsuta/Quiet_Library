@@ -14,7 +14,7 @@ namespace std
 
 	template<size_t _Index, class ...T_Head_Types, class ...T_Tail_Types>
 	struct std::tuple_element<_Index,
-		N_Tuple::Tuple_tp<N_Tuple::_Head<T_Head_Types...>,
+		N_Tuple::Tuple_tp<N_Tuple::_Head<T_Head_Types...>,std::nullopt_t,
 		N_Tuple::_Tail<T_Tail_Types...>>>
 	{
 		using type = std::tuple_element_t<_Index, std::tuple<T_Head_Types..., T_Tail_Types...>>;
@@ -23,7 +23,13 @@ namespace std
 	template<size_t _Index, class T_Head_v, auto value, class T_Tail_v>
 	struct std::tuple_element<_Index, N_Tuple::Tuple_vp<T_Head_v, value, T_Tail_v>>
 	{
-		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_vp_To_tp<N_Tuple::Tuple_vp<T_Head_v, value, T_Tail_v>>::Type>;
+		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_v_To_t<N_Tuple::Tuple_vp<T_Head_v, value, T_Tail_v>>::Type>;
+	};
+
+	template<size_t _Index,auto ...value>
+	struct std::tuple_element<_Index, N_Tuple::Tuple_v<value...>>
+	{
+		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_v_To_t< N_Tuple::Tuple_v<value...>>::Type>;
 	};
 
 }
@@ -51,4 +57,17 @@ namespace N_Tuple
 		static constexpr auto value = std::tuple_element_t<_Index, T_Tuple>::value;
 	};
 	
+
+	//Žd—l
+	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚Ì—v‘f‚ðŽæ“¾‚·‚é
+	template<size_t _Index, auto ...value>
+	struct I_Element<_Index, Tuple_v<value...>>
+	{
+	private:
+		using T_Tuple = Tuple_v<value...>;
+
+	public:
+		static constexpr auto value = std::tuple_element_t<_Index, T_Tuple>::value;
+	};
+
 }

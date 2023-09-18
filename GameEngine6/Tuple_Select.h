@@ -62,8 +62,8 @@ namespace N_Tuple
 		template<int t_Point, size_t t_Tuple_Size, class ...T_Head_Types , class ...T_Tail_Types>
 		struct Select_Range_Judge<t_Point, t_Tuple_Size, Tuple_tp<_Head<T_Head_Types...>,std::nullopt_t, _Tail<T_Tail_Types...>>,false>
 		{
-			using Type = Pointer_Core_t<
-				typename _Create_Tuple_Pointer< T_Head_Types..., T_Tail_Types...>::Type>;
+			using Type = Pointer_Core_t<typename I_Create_Pointer<Tuple_t< T_Head_Types..., T_Tail_Types...>>::Type>;
+				
 		};
 
 		template<int t_Point, size_t t_Tuple_Size, class ...T_Head_Types, class T, class ...T_Tail_Types>
@@ -84,7 +84,7 @@ namespace N_Tuple
 			using Type = typename Select_Range_Judge<t_Point, S_Parameter<T_Tuple_t>::Size, T_Tuple_t>::Type;
 		};
 
-		using Action= S_Tuple_Action<T_Tuple_t, S_Action>;
+		using Action= S_Tuple_Action<S_Action, T_Tuple_t>;
 
 		friend struct Action;
 

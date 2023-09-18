@@ -163,19 +163,35 @@ struct S_Zip<float>
 int main()
 {
 	using num = N_Tuple::Tuple_vp< N_Tuple::_Head_v<1, 2>, 3, N_Tuple::_Tail_v<4, 5>>;
+
+	using numu = N_Tuple::Tuple_vp< N_Tuple::_Head_v<6, 7>, 8, N_Tuple::_Tail_v<9, 10>>;
+
 	using NN = N_Tuple::I_Next<num>::Type::Next::Prev::Prev::Prev::Prev::Prev::Next::Prev;
 
 	using npr =typename N_Tuple::I_Reverse<NN>::Type;
 
-	using nyo= npr::Reverse;
+	using nyo = typename N_Tuple::I_Merge<num, numu>::Type;
 
 	static constexpr int na= N_Tuple::I_Element<2, NN>::value;
 	C_OUT(na);
 
-	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>::Prev::Reverse;
-	using noa = typename N_Tuple::I_Element<4, tup>::Type;
-	TYPE_ID(tup);
+	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>;
 
+	using Tyee = N_Tuple::Tuple_t<int, float, double, char, float, double, short>;
+
+	using Neta = N_Tuple::I_Swap<nyo, 1,1>::Type;
+
+
+
+
+
+
+
+
+
+	using noa = typename N_Tuple::I_Element<4, tup>::Type;
+	TYPE_ID(nyo);
+	TYPE_ID(Neta); 
 
 
 

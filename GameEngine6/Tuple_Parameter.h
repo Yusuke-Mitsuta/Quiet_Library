@@ -17,6 +17,18 @@ namespace N_Tuple
 		static constexpr size_t Size = sizeof...(T_Types);
 	};
 
+	template<template<class...>class T_Outer, class ...T_Types>
+	struct S_Parameter<T_Outer<T_Types...>>
+	{
+		static constexpr size_t Size = sizeof...(T_Types);
+	};
+
+	template<template<auto...>class T_Outer,auto ...t_Value>
+	struct S_Parameter<T_Outer<t_Value...>>
+	{
+		static constexpr size_t Size = sizeof...(t_Value);
+	};
+
 	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
 	struct S_Parameter<Tuple_tp<_Head<T_Head_Types...>,T , _Tail<T_Tail_Types...>>>
 	{

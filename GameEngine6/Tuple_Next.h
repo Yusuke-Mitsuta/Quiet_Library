@@ -3,8 +3,8 @@
 #include"Tuple_Declare.h"
 
 namespace N_Tuple
-
-{	//仕様
+{	
+	//仕様
 	//[Tuple_t]の選択位置をひとつ進める
 	template<class T_Tuple_t>
 	struct I_Next
@@ -38,7 +38,7 @@ namespace N_Tuple
 		};
 
 
-		using Action = S_Tuple_Action<T_Tuple_t,S_Next>;
+		using Action = S_Tuple_Action<S_Next, T_Tuple_t>;
 
 		friend struct Action;
 

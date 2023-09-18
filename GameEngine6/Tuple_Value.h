@@ -33,10 +33,6 @@ namespace N_Tuple
 	{
 	};
 
-
-
-
-
 	template<auto t_Flont_Value, auto ..._Value>
 	struct Tuple_v<t_Flont_Value,_Value...> :
 		public Tuple_tp<_Head<>,integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>
@@ -49,4 +45,21 @@ namespace N_Tuple
 
 }
 
+namespace std
+{
+	template<class T_Head,auto t_Value,class T_Tail>
+	struct tuple_size<N_Tuple::Tuple_vp<T_Head,t_Value,T_Tail>> :
+		integral_constant<size_t, N_Tuple::S_Parameter< N_Tuple::Tuple_vp<T_Head, t_Value, T_Tail>>::Size>
+	{
+		static constexpr size_t value =
+			N_Tuple::S_Parameter< N_Tuple::Tuple_vp<T_Head, t_Value, T_Tail>>::Size;
+	};
+
+	template<auto ...t_Value>
+	struct tuple_size<N_Tuple::Tuple_v<t_Value...>> :
+		integral_constant<size_t,sizeof...(t_Value)>
+	{
+		static constexpr size_t value = sizeof...(t_Value);
+	};
+}
 

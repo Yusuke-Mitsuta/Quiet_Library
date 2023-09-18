@@ -324,7 +324,7 @@
     <ClInclude Include="Tuple_Concept.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="To_Tuple_p_v.h">
+    <ClInclude Include="Tuple_t_To_v.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_New.h">
@@ -337,6 +337,27 @@
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Reverse.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Insert.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Remove_Pointer.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Merge.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Change.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Swap.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_v_To_t.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Create_Pointer.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,7 +13,9 @@ namespace N_Tuple
 	template<class ...T_Types>
 	struct S_Parameter;
 
-	struct Tuple_p;
+
+	template<class ...T_Types>
+	struct Tuple_t;
 
 	template<class ..._Types>
 	struct Tuple_tp;
@@ -23,6 +25,12 @@ namespace N_Tuple
 
 	template<class T_Head, auto _Value, class T_Tail>
 	struct Tuple_vp;
+
+	template<class T_Tuple_p>
+	struct I_Remove_Pointer;
+
+	template<class T_Tuple_p>
+	struct I_Create_Pointer;
 
 	template<class T_Tuple>
 	struct _Control;
@@ -63,15 +71,26 @@ namespace N_Tuple
 	template<class T_Tuple_t>
 	struct I_Reverse;
 
-	template<class T>
-	struct Tuple_vp_To_tp;
+	template<class T_Base_Tuple, class T_Insert_Tuple>
+	struct I_Insert;
+
+	template<class T_Base_Tuple, class T_Merge_Tuple>
+	struct I_Merge;
+
+	template<class T_Tuple_p, class T_Change>
+	struct I_Change;
+
+	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2>
+		requires is_Element<T_Tuple,t_Swap_Num_1>&& is_Element<T_Tuple, t_Swap_Num_2>
+	struct I_Swap;
 
 	template<class T>
-	struct Tuple_tp_To_vp;
+	struct Tuple_v_To_t;
 
 	template<class T>
-	struct Tuple_vp_To_tp;
-	template<class T_Tuple_t, template<class...>class T_Action>
+	struct Tuple_t_To_v;
+
+	template<template<class...>class T_Action,class ...T_Types>
 	struct S_Tuple_Action;
 
 	template<class ..._Types>

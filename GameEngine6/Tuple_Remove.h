@@ -33,7 +33,7 @@ namespace N_Tuple
 			using Type = Tuple_tp<_Head<T_Head_Types...>, std::nullopt_t, _Tail<T_Tail_Types...>>;
 		};
 
-		using Action = S_Tuple_Action<T_Tuple_t, S_Remove>;
+		using Action = S_Tuple_Action<S_Remove, T_Tuple_t>;
 
 		friend struct Action;
 

@@ -44,7 +44,7 @@ concept is_Concept = requires
 //T_Tuple::要素を持つクラスで[std::tuple_size_v<T_Tuple>]で呼び出せる事
 //t_Number::存在するか判定する要素の番号
 template<class T_Size,int t_Number>
-concept is_Element = (0<=t_Number && t_Number< std::tuple_size_v<T_Size>);
+concept is_Element = (0<=t_Number && t_Number<std::tuple_size_v<T_Size>);
 
 
 using std::same_as;

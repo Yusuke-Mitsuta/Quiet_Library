@@ -16,7 +16,15 @@
 #include"Tuple_Action.h"
 #include"Tuple_Element.h"
 #include"Tuple_Reverse.h"
-#include"To_Tuple_p_v.h"
+#include"Tuple_t_To_v.h"
+#include"Tuple_v_To_t.h"
+#include"Tuple_Insert.h"
+#include"Tuple_Element.h"
+#include"Tuple_Remove_Pointer.h"
+#include"Tuple_Merge.h"
+#include"Tuple_Change.h"
+#include"Tuple_Swap.h"
+#include"Tuple_Create_Pointer.h"
 
 
 template<class ..._Types>

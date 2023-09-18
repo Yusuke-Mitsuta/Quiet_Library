@@ -36,6 +36,6 @@ namespace N_Tuple
 	//Žd—l
 	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚Ì—v‘f‚ðŽæ“¾‚·‚é
 	template<int _Index, class T_Tuple_v>
-	using U_Element_v = I_Element<_Index, T_Tuple_v>::value;
+	static constexpr auto U_Element_v = I_Element<_Index, T_Tuple_v>::value;
 
 }
