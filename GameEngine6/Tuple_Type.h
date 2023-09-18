@@ -24,26 +24,6 @@ namespace N_Tuple
 
 	};
 
-	template<class ..._Types>
-	struct _Create_Tuple_Pointer;
-
-	template<class ..._Types>
-	struct _Create_Tuple_Pointer<Tuple_tp<_Types...>>
-	{
-		using Type = Tuple_tp<_Types...>;
-	};
-
-	template<>
-	struct _Create_Tuple_Pointer<>
-	{
-		using Type = Tuple_tp<_Head<>, _Tail<>>;
-	};
-
-	template<class T_Flont_Type,class ..._Types>
-	struct _Create_Tuple_Pointer<T_Flont_Type, _Types...>
-	{
-		using Type = Tuple_tp<_Head<>, T_Flont_Type, _Tail<_Types...>>;
-	};
 
 }
 

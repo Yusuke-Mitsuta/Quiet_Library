@@ -62,7 +62,7 @@ namespace N_Tuple
 	template<int t_Point, class T_Tuple_t>
 	struct I_Select;
 
-	template<int _Index, class T_Tuple>
+	template<size_t _Index, class T_Tuple>
 	struct I_Element;
 
 	template<class T_Tuple_t>

@@ -38,7 +38,7 @@ namespace N_Tuple
 {
 	//仕様
 	//[T_Tuple]の[_Index]番目の型を取得する
-	template<int _Index, class T_Tuple>
+	template<size_t _Index, class T_Tuple>
 	struct I_Element
 	{
 		using Type = std::tuple_element_t<_Index, T_Tuple>;
@@ -57,7 +57,7 @@ namespace N_Tuple
 		static constexpr auto value = std::tuple_element_t<_Index, T_Tuple>::value;
 	};
 	
-
+	
 	//仕様
 	//[T_Tuple]の[_Index]番目の要素を取得する
 	template<size_t _Index, auto ...value>

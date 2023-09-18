@@ -3,6 +3,8 @@
 #include"SwapType.h"
 #include"Parameter.h"
 
+#include"Tuple.h"
+
 //édól
 //[S_Parameter]ì‡ÇÃå^ÇÅA[T_Judge< class,class >::Judge]Ç…ÇÊÇ¡Çƒï¿Ç—ë÷Ç¶ÇÈ
 //
@@ -227,7 +229,7 @@ private:
 		{
 			using Type = IS_Part_Sort<TP_Numbers, t_Limit_Min, t_Limit_Max>::Type;
 		};
-
+		
 		using Flont_Sort = S_Next_Sort<TP_Numbers, t_Limit_Min, t_Center>::Type;
 		using Back_Sort = S_Next_Sort<Flont_Sort, t_Center,t_Limit_Max>::Type;
 
@@ -243,7 +245,8 @@ private:
 	template<int ...t_Numbers>
 	struct S_Data_Sort<S_Parameter_Value<t_Numbers...>>
 	{
-		using Type = S_Parameter<U_Element_t<t_Numbers, TP>...>;
+		using Type = S_Parameter<
+			U_Element_t<t_Numbers, TP>...>;
 	};
 
 	using Number_Sort = S_Quick_Sort<typename IS_Index_Sequence<TP::Size>::Type, 0, TP::Size - 1>::Type;
