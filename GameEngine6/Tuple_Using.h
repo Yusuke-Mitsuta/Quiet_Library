@@ -33,10 +33,6 @@ namespace N_Tuple
 	template<int _Index, class T_Tuple_t>
 	using U_Element_t = typename I_Element<_Index, T_Tuple_t>::Type;
 
-
-	template< class T_Tuple_t, int _Index>
-	using U_Element_tau = typename I_Element<_Index, T_Tuple_t>::Type;
-
 	//Žd—l
 	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚Ì—v‘f‚ðŽæ“¾‚·‚é
 	template<int _Index, class T_Tuple_v>
