@@ -63,8 +63,7 @@ namespace N_Tuple
 		{
 			using Remove_p = typename I_Remove_Pointer<T_Tuple>::Type;
 			using Select_Range = typename S_Tuple_Action<S_Action, Remove_p>::Type;
-			using Creat_p = typename I_Create_Pointer<Select_Range>::Type;
-			using Type = Creat_p;
+			using Type = Select_Range;
 		};
 
 		template<auto ...t_Value>

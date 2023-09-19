@@ -13,6 +13,8 @@ namespace N_Tuple
 	template<class ...T_Types>
 	struct S_Parameter;
 
+	struct Tuple_p;
+
 
 	template<class ...T_Types>
 	struct Tuple_t;
@@ -62,7 +64,7 @@ namespace N_Tuple
 	template<int t_Point, class T_Tuple_t>
 	struct I_Select;
 
-	template<size_t _Index, class T_Tuple>
+	template<size_t _Index, class ...T_Types>
 	struct I_Element;
 
 	template<class T_Tuple_t>
@@ -87,6 +89,9 @@ namespace N_Tuple
 	template<class T_Tuple, size_t t_Point_1, size_t t_Point_2>
 		requires is_Element<T_Tuple, t_Point_1>&& is_Element<T_Tuple, t_Point_2>
 	struct I_Range;
+
+	template<class T_Tuple, class T_Extract_Number>
+	struct I_Extract;
 
 	template<class T>
 	struct Tuple_v_To_t;

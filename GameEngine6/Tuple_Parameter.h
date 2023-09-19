@@ -15,6 +15,7 @@ namespace N_Tuple
 	{
 		using T = std::tuple<T_Types...>;
 		static constexpr size_t Size = sizeof...(T_Types);
+
 	};
 
 	template<template<class...>class T_Outer, class ...T_Types>
@@ -25,6 +26,18 @@ namespace N_Tuple
 
 	template<template<auto...>class T_Outer,auto ...t_Value>
 	struct S_Parameter<T_Outer<t_Value...>>
+	{
+		static constexpr size_t Size = sizeof...(t_Value);
+	};
+
+	template<class ...T_Types>
+	struct S_Parameter<Tuple_t<T_Types...>>
+	{
+		static constexpr size_t Size = sizeof...(T_Types);
+	};
+
+	template<auto ...t_Value>
+	struct S_Parameter<Tuple_v<t_Value...>>
 	{
 		static constexpr size_t Size = sizeof...(t_Value);
 	};
@@ -46,5 +59,7 @@ namespace N_Tuple
 		static constexpr size_t Size = Size_Head + Size_Tail + not_is_nullopt<decltype(_Value)>;
 		static constexpr auto value = _Value;
 	};
+
+
 
 }

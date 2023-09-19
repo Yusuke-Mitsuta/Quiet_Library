@@ -179,11 +179,9 @@ int main()
 
 	using Tyee = N_Tuple::Tuple_t<int, float, double, char, float, double, short>;
 
-	using Neta = N_Tuple::I_Range<tup, 4>::Type;
+	using Neta = N_Tuple::I_Extract<tup, N_Tuple::Tuple_v<4>>::Type;
 
-
-
-
+	TYPE_ID(Neta)
 
 
 

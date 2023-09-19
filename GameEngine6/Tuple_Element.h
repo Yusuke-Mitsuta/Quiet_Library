@@ -1,6 +1,7 @@
 #pragma once
 
 #include"Tuple_Declare.h"
+#include<tuple>
 
 namespace std
 {
@@ -46,11 +47,31 @@ namespace N_Tuple
 {
 	//仕様
 	//[T_Tuple]の[_Index]番目の型を取得する
-	template<size_t _Index, class T_Tuple>
+	template<size_t _Index, class ...T_Types>
 	struct I_Element
 	{
-		using Type = std::tuple_element_t<_Index, T_Tuple>;
+		template<class ...T_Types>
+		struct S_Element
+		{
+			using Type= std::tuple_element_t<_Index, std::tuple<T_Types...>>;
+		};
+
+		template<class ...T_Types>
+		struct S_Element<Tuple_t<T_Types...>>
+		{
+			using Type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
+		};
+
+		template<class T_Head,class T,class T_Tail>
+		struct S_Element<Tuple_tp<T_Head,T,T_Tail>>
+		{
+			using Type = std::tuple_element_t<_Index, Tuple_tp<T_Head, T, T_Tail>>;
+		};
+
+		using Type =typename S_Element<T_Types...>::Type;
 	};
+
+
 
 	//仕様
 	//[T_Tuple]の[_Index]番目の要素を取得する

@@ -23,6 +23,7 @@
 #include"Tuple_Change.h"
 #include"Tuple_Swap.h"
 #include"Tuple_Range.h"
+#include"Tuple_Extract.h"
 
 #include"Tuple_Remove_Pointer.h"
 #include"Tuple_Create_Pointer.h"
