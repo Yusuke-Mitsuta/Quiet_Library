@@ -179,7 +179,8 @@ int main()
 
 	using Tyee = N_Tuple::Tuple_t<int, float, double, char, float, double, short>;
 
-	using Neta = N_Tuple::I_Swap<nyo, 1,1>::Type;
+	using Neta = N_Tuple::I_Range<tup, 4>::Type;
+
 
 
 

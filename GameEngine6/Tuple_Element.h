@@ -20,6 +20,14 @@ namespace std
 		using type = std::tuple_element_t<_Index, std::tuple<T_Head_Types..., T_Tail_Types...>>;
 	};
 
+
+	template<size_t _Index,class ...T_Types>
+	struct std::tuple_element<_Index,
+		N_Tuple::Tuple_t<T_Types...>>
+	{
+		using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
+	};
+
 	template<size_t _Index, class T_Head_v, auto value, class T_Tail_v>
 	struct std::tuple_element<_Index, N_Tuple::Tuple_vp<T_Head_v, value, T_Tail_v>>
 	{
