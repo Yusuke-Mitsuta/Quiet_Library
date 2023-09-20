@@ -366,6 +366,9 @@
     <ClInclude Include="Tuple_Extract.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
+    <ClInclude Include="If_Type.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

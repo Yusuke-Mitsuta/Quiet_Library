@@ -10,7 +10,7 @@ namespace N_Tuple
 
 	//ÅŒã‚Ì—v‘f‚ğ‘I‘ğ‚·‚é
 	template<class T_Tuple>
-	using U_Back = typename I_Select<S_Parameter<T_Tuple>::Size - 1, T_Tuple>::Type;
+	using U_Back = typename I_Select<static_cast<int>(S_Parameter<T_Tuple>::Size) - 1, T_Tuple>::Type;
 
 	//Ÿ‚Ì—v‘f‚ğ‘I‘ğ‚·‚é
 	template<class T_Tuple>
@@ -24,7 +24,7 @@ namespace N_Tuple
 	template<int t_Select_Point,class T_Tuple>
 	using U_Select = typename I_Select<t_Select_Point, T_Tuple>::Type;
 
-	//[T_Tuple_t]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
+	//[Type]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
 	template<class T_Tuple>
 	using U_Reverse = typename I_Reverse<T_Tuple>::Type;
 

@@ -1,7 +1,10 @@
 #pragma once
 
+#include"Tuple_Declare.h"
+
 #include"Tuple_Control.h"
-#include"Tuple_Type.h"
+#include"Tuple_Head.h"
+#include"Tuple_Tail.h"
 
 template<auto t_Value>
 struct integral_constant
@@ -13,33 +16,28 @@ struct integral_constant
 
 namespace N_Tuple
 {
-	template<class ..._Types>
-	struct Tuple_tp;
+
+	template<same_as_template_value<Head_v> T_Head,auto _Value, same_as_template_value<Tail_v> T_Tail>
+	struct Tuple_vp :
+		Control_vp<T_Head, _Value, T_Tail>
+	{
+
+	};
 
 	template<auto ..._Value>
-	struct Tuple_v
-	{
-
-	};
-
-	template<class T_Head,auto _Value,class T_Tail>
-	struct Tuple_vp;
-
-	template<auto ...t_Head_Value, auto _Value, auto...T_Tail_Value>
-	struct Tuple_vp<_Head_v<t_Head_Value...>,_Value,
-		_Tail_v<T_Tail_Value...>> :
-		public _Control_v<Tuple_vp<_Head_v<t_Head_Value...>, _Value,
-		_Tail_v<T_Tail_Value...>>>
-	{
-	};
+	struct Tuple_v;
 
 	template<auto t_Flont_Value, auto ..._Value>
 	struct Tuple_v<t_Flont_Value,_Value...> :
-		public Tuple_tp<_Head<>,integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>
+		Control_vp<Head_v<>,t_Flont_Value, Tail_v<_Value...>>
 	{
-	public:
 
-		using As_Tuple_t = Tuple_tp<_Head<>, integral_constant<t_Flont_Value>, _Tail<integral_constant<_Value>...>>;
+	};
+
+	template<>
+	struct Tuple_v<> :
+		Control_vp<Head_v<>, std::nullopt, Tail_v<>>
+	{
 
 	};
 

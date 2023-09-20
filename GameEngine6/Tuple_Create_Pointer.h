@@ -12,13 +12,13 @@ namespace N_Tuple
 		template<class T_Tuple>
 		struct S_Create_Pointer
 		{
-			using Type = Tuple_tp<_Head<>, std::nullopt_t, _Tail<>>;
+			using Type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>;
 		};
 
 		template<class T_Flont_Type,class ...T_Types>
 		struct S_Create_Pointer<Tuple_t<T_Flont_Type,T_Types...>>
 		{
-			using Type= Tuple_tp<_Head<>,T_Flont_Type, _Tail<T_Types...>>;
+			using Type= Tuple_tp<Head_t<>,T_Flont_Type, Tail_t<T_Types...>>;
 		};
 
 

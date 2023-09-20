@@ -162,9 +162,11 @@ struct S_Zip<float>
 
 int main()
 {
-	using num = N_Tuple::Tuple_vp< N_Tuple::_Head_v<1, 2>, 3, N_Tuple::_Tail_v<4, 5>>;
 
-	using numu = N_Tuple::Tuple_vp< N_Tuple::_Head_v<6, 7>, 8, N_Tuple::_Tail_v<9, 10>>;
+
+	using num = N_Tuple::Tuple_vp< N_Tuple::Head_v<1, 2>, 3, N_Tuple::Tail_v<4, 5>>;
+
+	using numu = N_Tuple::Tuple_vp< N_Tuple::Head_v<6, 7>, 8, N_Tuple::Tail_v<9, 10>>;
 
 	using NN = N_Tuple::I_Next<num>::Type::Next::Prev::Prev::Prev::Prev::Prev::Next::Prev;
 
@@ -175,13 +177,17 @@ int main()
 	static constexpr int na= N_Tuple::I_Element<2, NN>::value;
 	C_OUT(na);
 
-	using tup = N_Tuple::Tuple_tp<N_Tuple::_Head<int, float, double, char>, int, N_Tuple::_Tail< float, double, short>>;
+	using tup = N_Tuple::Tuple_tp<N_Tuple::Head_t<int, float, double, char>, int, N_Tuple::Tail_t< float, double, short>>::Flnot::Prev;
 
-	using Tyee = N_Tuple::Tuple_t<int, float, double, char, float, double, short>;
+		using nate= N_Tuple::Tuple_t<int>::Next;
+		using Tyee = N_Tuple::I_Select<-1, nate>::Type;
+
+	using a = N_Tuple::Tuple_tp<N_Tuple::Head_t<>, std::nullopt_t, N_Tuple::Tail_t<>>;
+
 
 	using Neta = N_Tuple::I_Extract<tup, N_Tuple::Tuple_v<4>>::Type;
 
-	TYPE_ID(Neta)
+	TYPE_ID(Tyee)
 
 
 

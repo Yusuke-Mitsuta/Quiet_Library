@@ -7,16 +7,16 @@ namespace std
 {
 	template<size_t _Index, class ...T_Head_Types, class T, class ...T_Tail_Types>
 	struct std::tuple_element<_Index,
-		N_Tuple::Tuple_tp<N_Tuple::_Head<T_Head_Types...>,
-		T, N_Tuple::_Tail<T_Tail_Types...>>>
+		N_Tuple::Tuple_tp<N_Tuple::Head_t<T_Head_Types...>,
+		T, N_Tuple::Tail_t<T_Tail_Types...>>>
 	{
 		using type = std::tuple_element_t<_Index, std::tuple<T_Head_Types..., T, T_Tail_Types...>>;
 	};
 
 	template<size_t _Index, class ...T_Head_Types, class ...T_Tail_Types>
 	struct std::tuple_element<_Index,
-		N_Tuple::Tuple_tp<N_Tuple::_Head<T_Head_Types...>,std::nullopt_t,
-		N_Tuple::_Tail<T_Tail_Types...>>>
+		N_Tuple::Tuple_tp<N_Tuple::Head_t<T_Head_Types...>,std::nullopt_t,
+		N_Tuple::Tail_t<T_Tail_Types...>>>
 	{
 		using type = std::tuple_element_t<_Index, std::tuple<T_Head_Types..., T_Tail_Types...>>;
 	};
@@ -70,7 +70,6 @@ namespace N_Tuple
 
 		using Type =typename S_Element<T_Types...>::Type;
 	};
-
 
 
 	//Žd—l

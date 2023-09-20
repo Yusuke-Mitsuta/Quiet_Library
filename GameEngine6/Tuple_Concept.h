@@ -2,10 +2,29 @@
 
 #include"Concept.h"
 
+//#include"Tuple_Value.h"
+
 namespace N_Tuple
 {
 	template<class ...T_Types>
 	struct S_Parameter;
+
+	template<class ...T_Head_Type>
+	struct Head_t;
+
+	template<auto ...t_Head_Value>
+	struct Head_v;
+
+	template<class ...T_Tail_Types>
+	struct Tail_t;
+
+	template<auto ...t_Tail_Value>
+	struct Tail_v;
+
+	template<same_as_template_value<Head_v> T_Head, auto _Value, same_as_template_value<Tail_v> T_Tail>
+	struct Tuple_vp;
+
+
 
 	template<class T_Tuple, int t_Number>
 	concept is_Element_Head = is_Element<typename S_Parameter<T_Tuple>::Head, t_Number>;
@@ -13,9 +32,31 @@ namespace N_Tuple
 	template<class T_Tuple, int t_Number>
 	concept is_Element_Tail = is_Element<typename S_Parameter<T_Tuple>::Tial, t_Number>;
 
+	template<class T>
+	struct is_Tuple_vp :
+		std::false_type {};
 
-	//template<class T>
-	//concept N= std::integral<T> || 
+	template<same_as_template_value<Head_v> T_Head_v, auto value, same_as_template_value<Tail_v> T_Tail_v>
+	struct is_Tuple_vp<Tuple_vp<T_Head_v,value,T_Tail_v>> :
+		std::true_type {};
 
+	template<class T>
+	concept is_Tuple_vp = is_Tuple_vp<T>::value;
+
+
+	template<class T_Head_p>
+	concept is_Tuple_p = true;
+
+	//template<class T_Head_t>
+	//concept is_Head_t = same_as_template_type<T_Head_t, Head_t>;
+
+	//template<class T_Head_v>
+	//concept is_Head_v = same_as_template_value<T_Head_v, Head_v>;
+
+	//template<class T_Tail_t>
+	//concept is_Tail_t = same_as_template_type<T_Tail_t,Tail_t>;
+
+	//template<class T_Tail_v>
+	//concept is_Tail_v = same_as_template_value<T_Tail_v, Tail_v>;
 
 }

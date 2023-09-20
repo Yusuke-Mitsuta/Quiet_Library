@@ -13,7 +13,7 @@ namespace N_Tuple
 	{
 		using Extract_Number =typename Tuple_t_To_v<typename I_Remove_Pointer<T_Extract_Number>::Type>::Type;
 
-		template<class T_Extract_Number=T_Extract_Number>
+		template<class T_Extract_Number = T_Extract_Number>
 		struct S_Extract;
 
 		template<auto ..._Index>
@@ -23,7 +23,6 @@ namespace N_Tuple
 		};
 
 		using Type =typename S_Extract<>::Type;
-
 	};
-
+	
 }

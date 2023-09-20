@@ -43,7 +43,7 @@ namespace N_Tuple
 	};
 
 	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
-	struct S_Parameter<Tuple_tp<_Head<T_Head_Types...>,T , _Tail<T_Tail_Types...>>>
+	struct S_Parameter<Tuple_tp<Head_t<T_Head_Types...>,T , Tail_t<T_Tail_Types...>>>
 	{
 		static constexpr size_t Size_Head = sizeof...(T_Head_Types);
 		static constexpr size_t Size_Tail = sizeof...(T_Tail_Types);
@@ -52,7 +52,7 @@ namespace N_Tuple
 	};
 
 	template<auto ...t_Head_Value, auto _Value, auto ...t_Tail_Value>
-	struct S_Parameter<Tuple_vp<_Head_v<t_Head_Value...>, _Value, _Tail_v<t_Tail_Value...>>>
+	struct S_Parameter<Tuple_vp<Head_v<t_Head_Value...>, _Value, Tail_v<t_Tail_Value...>>>
 	{
 		static constexpr size_t Size_Head = sizeof...(t_Head_Value);
 		static constexpr size_t Size_Tail = sizeof...(t_Tail_Value);

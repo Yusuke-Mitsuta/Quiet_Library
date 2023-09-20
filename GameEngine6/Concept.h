@@ -60,6 +60,54 @@ struct same_as_S
 	static constexpr bool Concept = same_as<_Ty1, _Ty2>;
 };
 
+template<class _Ty1,template<class...>class _Ty2>
+struct is_same_as_template_type :
+	std::bool_constant<false>{};
+
+template<template<class...>class _Ty1, class ..._Ty1_Types, template<class...>class _Ty2>
+struct is_same_as_template_type<_Ty1<_Ty1_Types...>, _Ty2> :
+	std::bool_constant< std::same_as< _Ty1<_Ty1_Types...>, _Ty2<_Ty1_Types...>>>{};
+
+
+template<class _Ty1, template<class...>class _Ty2>
+concept same_as_template_type = is_same_as_template_type<_Ty1, _Ty2>::value;
+
+template<class _Ty1, template<auto...>class _Ty2>
+struct is_same_as_template_value :
+	std::bool_constant<false>{};
+
+template<template<auto...>class _Ty1,auto ..._Ty1_value, template<auto...>class _Ty2>
+struct is_same_as_template_value<_Ty1<_Ty1_value...>, _Ty2> :
+	std::bool_constant<std::same_as<_Ty1<_Ty1_value...>, _Ty2<_Ty1_value...>>>{};
+
+
+
+template<class _Ty1, template<auto...>class _Ty2>
+concept same_as_template_value = is_same_as_template_value<_Ty1, _Ty2>::value;
+
+
+template <class _To,template<class...>class _From_Template>
+struct is_copy_template_type :
+	std::bool_constant<false> {};
+
+template<class ...T_template_Types, template<class...>class _To_Template, template<class...>class _From_Template>
+	requires (std::is_class_v<_From_Template<T_template_Types...>>)
+struct is_copy_template_type<_To_Template<T_template_Types...>, _From_Template> :
+	std::bool_constant<true> {};
+
+
+template <class _To, template<auto...>class _From_Template>
+struct is_copy_template_value :
+	std::bool_constant<false> {};
+
+template<auto ...T_template_Types, template<auto...>class _To_Template, template<auto...>class _From_Template>
+	requires (std::is_class_v<_From_Template<T_template_Types...>>)
+struct is_copy_template_value<_To_Template<T_template_Types...>, _From_Template> :
+	std::bool_constant<true> {};
+
+
+
+
 //
 //template <class _Ty1, class _Ty2,class ..._Ty>
 //struct same_as_or_S
@@ -206,8 +254,8 @@ struct template_value_concept<_Ty1<_ty1_Inner...>, _Ty2>
 
 //仕様
 //非系テンプレートを持つクラスのアウタークラスを[same_as]で判定する
-template <class _Ty1, template<auto...> class _Ty2>
-concept same_as_template_value = (template_value_concept<_Ty1, _Ty2>::same_as);
+//template <class _Ty1, template<auto...> class _Ty2>
+//concept same_as_template_value = (template_value_concept<_Ty1, _Ty2>::same_as);
 
 //仕様
 //非系テンプレートを持つクラスのアウタークラスを[convertible_to]で判定する

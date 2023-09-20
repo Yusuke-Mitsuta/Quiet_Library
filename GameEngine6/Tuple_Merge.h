@@ -18,18 +18,18 @@ namespace N_Tuple
 		struct S_Merge;
 
 		template<class T_Base_Head, class T_Base, class ...T_Base_Tail_Types,class ...T_Merge_Types>
-		struct S_Merge<Tuple_tp<T_Base_Head, T_Base, _Tail<T_Base_Tail_Types...>>,
+		struct S_Merge<Tuple_tp<T_Base_Head, T_Base, Tail_t<T_Base_Tail_Types...>>,
 			Tuple_t<T_Merge_Types...>>
 		{
 			using Type = Tuple_tp<T_Base_Head, T_Base,
-				_Tail< T_Base_Tail_Types..., T_Merge_Types...>>;
+				Tail_t< T_Base_Tail_Types..., T_Merge_Types...>>;
 		};
 
 		template<class T_Base_Head,class T_Merge_Flont_Type, class ...T_Merge_Types>
-		struct S_Merge<Tuple_tp<T_Base_Head, std::nullopt_t, _Tail<>>,
+		struct S_Merge<Tuple_tp<T_Base_Head, std::nullopt_t, Tail_t<>>,
 			Tuple_t<T_Merge_Flont_Type,T_Merge_Types...>>
 		{
-			using Type = Tuple_tp<T_Base_Head,T_Merge_Flont_Type,_Tail<T_Merge_Types...>>;
+			using Type = Tuple_tp<T_Base_Head,T_Merge_Flont_Type,Tail_t<T_Merge_Types...>>;
 		};
 
 		using Action = S_Tuple_Action<S_Merge, T_Base_Tuple>;

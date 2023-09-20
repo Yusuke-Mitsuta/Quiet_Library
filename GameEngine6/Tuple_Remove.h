@@ -11,26 +11,36 @@ namespace N_Tuple
 		template<class T_Tuple_t>
 		struct S_Remove;
 
-		template<class ...T_Head_Types, not_is_nullopt T>
-		struct S_Remove<Tuple_tp<_Head<T_Head_Types...>, T, _Tail<>>>
+		template<not_is_nullopt T>
+		struct S_Remove<Tuple_tp<Head_t<>, T, Tail_t<>>>
 		{
 		private:
-			using Tuple_Prev = typename I_Prev<Tuple_tp<_Head<T_Head_Types...>, T, _Tail<>>>::Type;
+
+		public:
+			using Type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>;
+		};
+
+
+		template<class ...T_Head_Types, not_is_nullopt T>
+		struct S_Remove<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<>>>
+		{
+		private:
+			using Tuple_Prev = typename I_Prev<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<>>>::Type;
 
 		public:
 			using Type = typename I_Remove<Tuple_Prev>::Type;
 		};
 
 		template<class ...T_Head_Types, not_is_nullopt T, class T_Next_Type, class ...T_Tail_Types>
-		struct S_Remove<Tuple_tp<_Head<T_Head_Types...>, T, _Tail<T_Next_Type, T_Tail_Types...>>>
+		struct S_Remove<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<T_Next_Type, T_Tail_Types...>>>
 		{
-			using Type = Tuple_tp<_Head<T_Head_Types...>, T_Next_Type, _Tail<T_Tail_Types...>>;
+			using Type = Tuple_tp<Head_t<T_Head_Types...>, T_Next_Type, Tail_t<T_Tail_Types...>>;
 		};
 
 		template<class ...T_Head_Types, class ...T_Tail_Types>
-		struct S_Remove<Tuple_tp<_Head<T_Head_Types...>, std::nullopt_t, _Tail<T_Tail_Types...>>>
+		struct S_Remove<Tuple_tp<Head_t<T_Head_Types...>, std::nullopt_t, Tail_t<T_Tail_Types...>>>
 		{
-			using Type = Tuple_tp<_Head<T_Head_Types...>, std::nullopt_t, _Tail<T_Tail_Types...>>;
+			using Type = Tuple_tp<Head_t<T_Head_Types...>, std::nullopt_t, Tail_t<T_Tail_Types...>>;
 		};
 
 		using Action = S_Tuple_Action<S_Remove, T_Tuple_t>;

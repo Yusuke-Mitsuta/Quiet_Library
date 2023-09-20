@@ -46,6 +46,7 @@
     <ClInclude Include="Function_Multiple_Helper.h" />
     <ClInclude Include="Function_Args.h" />
     <ClInclude Include="Function_Single_Operator.h" />
+    <ClInclude Include="If_Type.h" />
     <ClInclude Include="Link.h" />
     <ClInclude Include="Manager_Component.h" />
     <ClInclude Include="Manager_Object.h" />

@@ -6,7 +6,7 @@ namespace N_Tuple
 {
 
 	//d—l
-	//[T_Tuple_t]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
+	//[Type]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
 	template<class T_Tuple>
 	struct I_Reverse
 	{
@@ -25,11 +25,11 @@ namespace N_Tuple
 		};
 
 		template<class ...T_Head_Types, class T, class ...T_Tail_Types,class T_Result>
-		struct S_Reverse<Tuple_tp<_Head<T_Head_Types...>, T, _Tail<T_Tail_Types...>>, T_Result>
+		struct S_Reverse<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<T_Tail_Types...>>, T_Result>
 		{
-			using Head_Reverse =typename S_Reverse<Tuple_t<T_Head_Types...>,_Tail<>>::Type;
+			using Head_Reverse =typename S_Reverse<Tuple_t<T_Head_Types...>,Tail_t<>>::Type;
 
-			using Tail_Reverse = typename S_Reverse<Tuple_t<T_Tail_Types...>,_Head<>>::Type;
+			using Tail_Reverse = typename S_Reverse<Tuple_t<T_Tail_Types...>,Head_t<>>::Type;
 
 			using Type = Tuple_tp<Tail_Reverse, T, Head_Reverse>;
 		};

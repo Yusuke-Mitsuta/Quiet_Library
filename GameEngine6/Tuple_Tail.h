@@ -4,17 +4,14 @@
 
 namespace N_Tuple
 {
-	//仕様
-	//[Tuple_t]の選択位置より後ろを示す型
 	template<class ...T_Tail_Types>
-	struct _Tail :
-		public _Control<T_Tail_Types...>
+	struct Tail_t
 	{
 
 	};
 
 	template<auto ...t_Tail_Value>
-	struct _Tail_v
+	struct Tail_v
 	{
 
 	};
@@ -24,14 +21,14 @@ namespace N_Tuple
 namespace std
 {
 	template<class ...T_Tail_Types>
-	struct tuple_size<N_Tuple::_Tail<T_Tail_Types...>> :
+	struct tuple_size<N_Tuple::Tail_t<T_Tail_Types...>> :
 		integral_constant<size_t, sizeof...(T_Tail_Types)> 
 	{
 		static constexpr size_t value = sizeof...(T_Tail_Types);
 	};
 
 	template<auto ...t_Tail_Value>
-	struct tuple_size<N_Tuple::_Tail_v<t_Tail_Value...>> :
+	struct tuple_size<N_Tuple::Tail_v<t_Tail_Value...>> :
 		integral_constant<size_t, sizeof...(t_Tail_Value)>
 	{
 		static constexpr size_t value = sizeof...(t_Tail_Value);

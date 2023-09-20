@@ -30,7 +30,7 @@ namespace N_Tuple
 	struct S_Tuple_Action<T_Action,Tuple_vp<T_Head_v,
 		value, T_Tail_v>>
 	{
-		using Change_tp = typename Tuple_v_To_t< Tuple_vp<T_Head_v, value, T_Tail_v>>::Type;
+		using Change_tp = typename Tuple_v_To_t<Tuple_vp<T_Head_v, value, T_Tail_v>>::Type;
 		using Action = typename T_Action<Change_tp>::Type;
 		using Change_vp = typename Tuple_t_To_v<Action>::Type;
 		using Type = Change_vp;

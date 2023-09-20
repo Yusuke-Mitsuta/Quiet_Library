@@ -5,24 +5,32 @@
 #include"Tuple_Head.h"
 #include"Tuple_Tail.h"
 
+#include<optional>
+
 namespace N_Tuple
 {
 
+	template<same_as_template_type<Head_t> T_Head,class T, same_as_template_type<Tail_t> T_Tail>
+	struct Tuple_tp :
+		Control_tp<T_Head,T,T_Tail>{};
+
 	template<class ..._Types>
-	struct Tuple_t
+	struct Tuple_t;
+
+	template<class T_Flont_Type,class ...T_Types>
+	struct Tuple_t<T_Flont_Type,T_Types...> :
+		Control_tp<Head_t<>,T_Flont_Type,Tail_t<T_Types...>>
 	{
 
 	};
 
-	template<class ..._Types>
-	struct Tuple_tp;
-
-	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
-	struct Tuple_tp<_Head<T_Head_Types...>, T, _Tail<T_Tail_Types...>> :
-		public _Control_t<Tuple_tp<_Head<T_Head_Types...>, T, _Tail<T_Tail_Types...>>>
+	template<>
+	struct Tuple_t<> : 
+		Control_tp<Head_t<>, std::nullopt_t, Tail_t<>>
 	{
 
 	};
+
 
 
 }

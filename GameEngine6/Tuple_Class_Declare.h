@@ -15,17 +15,28 @@ namespace N_Tuple
 
 	struct Tuple_p;
 
+	template<class ...T_Head_Type>
+	struct Head_t;
+
+	template<auto ...t_Head_Value>
+	struct Head_v;
+
+	template<class ...T_Tail_Types>
+	struct Tail_t;
+
+	template<auto ...t_Tail_Value>
+	struct Tail_v;
 
 	template<class ...T_Types>
 	struct Tuple_t;
 
-	template<class ..._Types>
+	template<same_as_template_type<Head_t> T_Head, class T, same_as_template_type<Tail_t> T_Tail>
 	struct Tuple_tp;
 
 	template<auto ..._Value>
 	struct Tuple_v;
 
-	template<class T_Head, auto _Value, class T_Tail>
+	template<same_as_template_value<Head_v> T_Head,auto _value, same_as_template_value<Tail_v> T_Tail>
 	struct Tuple_vp;
 
 	template<class T_Tuple_p>
@@ -35,25 +46,13 @@ namespace N_Tuple
 	struct I_Create_Pointer;
 
 	template<class T_Tuple>
-	struct _Control;
+	struct _Control_p;
 
-	template<class T_Tuple_t>
-	struct _Control_t;
+	template<same_as_template_type<Head_t> T_Head, class T, same_as_template_type<Tail_t> T_Tail>
+	struct Control_tp;
 
-	template<class T_Tuple_v>
-	struct _Control_v;
-
-	template<class ...T_Head_Type>
-	struct _Head;
-
-	template<auto ...t_Head_Value>
-	struct _Head_v;
-
-	template<class ...T_Tail_Types>
-	struct _Tail;
-
-	template<auto ...t_Tail_Value>
-	struct _Tail_v;
+	template<same_as_template_value<Head_v> T_Head, auto _Value, same_as_template_value<Tail_v> T_Tail>
+	struct Control_vp;
 
 	template<class T_Tuple_t>
 	struct I_Next;
