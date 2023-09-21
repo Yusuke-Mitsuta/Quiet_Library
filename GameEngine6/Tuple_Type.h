@@ -7,9 +7,18 @@
 
 #include<optional>
 
+template<template<class...>class _Ty1, class ..._Ty1_Types>
+struct is_same_as_template_type<_Ty1<_Ty1_Types...>, N_Tuple::Tuple_tp> :
+	std::false_type {};
+
+template<template<class...>class _Ty1, class ..._Ty1_Types>
+	requires (sizeof...(_Ty1_Types)==3)
+struct is_same_as_template_type<_Ty1<_Ty1_Types...>,N_Tuple::Tuple_tp> :
+	std::bool_constant< std::same_as<_Ty1<_Ty1_Types...>, N_Tuple::Tuple_tp<_Ty1_Types...>>> {};
+
+
 namespace N_Tuple
 {
-
 	template<same_as_template_type<Head_t> T_Head,class T, same_as_template_type<Tail_t> T_Tail>
 	struct Tuple_tp :
 		Control_tp<T_Head,T,T_Tail>{};

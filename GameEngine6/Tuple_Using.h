@@ -38,4 +38,12 @@ namespace N_Tuple
 	template<int _Index, class T_Tuple_v>
 	static constexpr auto U_Element_v = I_Element<_Index, T_Tuple_v>::value;
 
+	template<class T_Tuple_not_p>
+	using U_Create_p = typename I_Create_Pointer<T_Tuple_not_p>::Type;
+
+	template<class T_Tuple_p>
+	using U_Remove_p = typename I_Remove_Pointer<T_Tuple_p>::Type;
+
+
+
 }

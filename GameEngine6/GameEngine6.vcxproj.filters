@@ -369,6 +369,9 @@
     <ClInclude Include="If_Type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple_ID.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

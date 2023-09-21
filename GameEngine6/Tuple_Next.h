@@ -37,14 +37,9 @@ namespace N_Tuple
 			using Type = Tuple_tp<Head_t<>, T_Next_Type, Tail_t< T_Tail_Types...>>;
 		};
 
-
-		using Action = S_Tuple_Action<S_Next, T_Tuple_t>;
-
-		friend struct Action;
-
 	public:
 
-		using Type = typename Action::Type;
+		using Type = typename S_Action_Tuple_tp<S_Next, T_Tuple_t>::type;
 
 	};
 

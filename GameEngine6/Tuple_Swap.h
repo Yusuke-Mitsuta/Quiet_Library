@@ -77,32 +77,28 @@ namespace N_Tuple
 		template<class T_Tuple>
 		struct S_Action
 		{
-			static constexpr size_t Select_Point = S_Parameter<T_Tuple>::Size_Head;
-			using Remove_p = typename I_Remove_Pointer<T_Tuple>::Type;
-			using Swap =typename S_Tuple_Action<S_Action, Remove_p>::Type;
-			using Creat_p = typename I_Create_Pointer<Swap>::Type;
-			using Select = U_Select<Select_Point, Creat_p>;
-			using Type = Select;
+			using Type = S_Swap<T_Tuple>::Type;
 		};
 
-		template<auto ...t_Value>
-		struct S_Action<Tuple_v<t_Value...>>
-		{
-			using Type= typename S_Tuple_Action<S_Action, Tuple_v<t_Value...>>::Type;
-		};
+		//template<auto ...t_Value>
+		//struct S_Action<Tuple_v<t_Value...>>
+		//{
+		//	using Type= typename I_Tuple_Action<S_Action, Tuple_v<t_Value...>>::Type;
+		//};
 
-		template<class ...T_Types>
-		struct S_Action<Tuple_t<T_Types...>>
-		{
-			using Type = typename S_Swap<Tuple_t<T_Types...>>::Type;
-		};
+		//template<class ...T_Types>
+		//struct S_Action<Tuple_t<T_Types...>>
+		//{
+		//	using Type = typename S_Swap<Tuple_t<T_Types...>>::Type;
+		//};
 
-		using Action = S_Tuple_Action<S_Action, T_Tuple>;
-		friend struct Action;
+		//using Action = I_Tuple_Action<S_Action, T_Tuple>;
+		//friend struct Action;
 
 	public:
 
-		using Type = typename S_Action<T_Tuple>::Type;
+		using Type =typename S_Action_Tuple_t<S_Action, T_Tuple>::type;
+			//S_Action<T_Tuple>::Type;
 
 	};
 

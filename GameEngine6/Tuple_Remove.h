@@ -20,7 +20,6 @@ namespace N_Tuple
 			using Type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>;
 		};
 
-
 		template<class ...T_Head_Types, not_is_nullopt T>
 		struct S_Remove<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<>>>
 		{
@@ -43,13 +42,9 @@ namespace N_Tuple
 			using Type = Tuple_tp<Head_t<T_Head_Types...>, std::nullopt_t, Tail_t<T_Tail_Types...>>;
 		};
 
-		using Action = S_Tuple_Action<S_Remove, T_Tuple_t>;
-
-		friend struct Action;
-
 	public:
 		
-		using Type = typename Action::Type;
+		using Type = typename S_Action_Tuple_tp<S_Remove, T_Tuple_t>::type;
 
 	};
 

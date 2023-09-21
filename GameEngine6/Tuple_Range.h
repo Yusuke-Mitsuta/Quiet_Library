@@ -61,29 +61,13 @@ namespace N_Tuple
 		template<class T_Tuple>
 		struct S_Action
 		{
-			using Remove_p = typename I_Remove_Pointer<T_Tuple>::Type;
-			using Select_Range = typename S_Tuple_Action<S_Action, Remove_p>::Type;
-			using Type = Select_Range;
+			using Type = S_Range<T_Tuple>::Type;
 		};
 
-		template<auto ...t_Value>
-		struct S_Action<Tuple_v<t_Value...>>
-		{
-			using Type = typename S_Tuple_Action<S_Action, Tuple_v<t_Value...>>::Type;
-		};
-
-		template<class ...T_Types>
-		struct S_Action<Tuple_t<T_Types...>>
-		{
-			using Type = typename S_Range<Tuple_t<T_Types...>>::Type;
-		};
-
-		using Action = S_Tuple_Action<S_Action, T_Tuple>;
-		friend struct Action;
 
 	public:
 
-		using Type = typename S_Action<T_Tuple>::Type;
+		using Type = typename S_Action_Tuple_t<S_Action, T_Tuple>::Return_not_p;
 
 	};
 

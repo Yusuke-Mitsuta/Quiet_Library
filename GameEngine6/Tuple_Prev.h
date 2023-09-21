@@ -31,13 +31,9 @@ namespace N_Tuple
 			using Type = typename I_Select<static_cast<int>(sizeof...(T_Head_Types)) - 1, Tuple_tp<Head_t< T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>::Type;
 		};
 
-		using Action = S_Tuple_Action<S_Prev, T_Tuple_t>;
-
-		friend struct Action;
-
 	public:
 
-		using Type = typename Action::Type;
+		using Type = typename S_Action_Tuple_tp<S_Prev, T_Tuple_t>::type;
 
 	};
 

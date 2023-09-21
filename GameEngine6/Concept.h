@@ -65,6 +65,7 @@ struct is_same_as_template_type :
 	std::bool_constant<false>{};
 
 template<template<class...>class _Ty1, class ..._Ty1_Types, template<class...>class _Ty2>
+	requires (std::is_class_v<_Ty1<_Ty1_Types...>>)
 struct is_same_as_template_type<_Ty1<_Ty1_Types...>, _Ty2> :
 	std::bool_constant< std::same_as< _Ty1<_Ty1_Types...>, _Ty2<_Ty1_Types...>>>{};
 

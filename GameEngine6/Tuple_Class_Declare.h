@@ -98,10 +98,22 @@ namespace N_Tuple
 	template<class T>
 	struct Tuple_t_To_v;
 
-	template<template<class...>class T_Action,class ...T_Types>
-	struct S_Tuple_Action;
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	struct S_Action_Tuple;
 
-	template<class ..._Types>
-	struct _Create_Tuple_Pointer;
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	struct S_Action_Return_Tuple;
+
+	template<template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	using S_Action_Tuple_tp = S_Action_Return_Tuple<true, true, T_Action, T_Tuple, T_Types...>;
+
+	template<template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	using S_Action_Tuple_t = S_Action_Return_Tuple<false, true, T_Action, T_Tuple, T_Types...>;
+
+	template<template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	using S_Action_Tuple_vp = S_Action_Return_Tuple<true, false, T_Action, T_Tuple, T_Types...>;
+
+	template<template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	using S_Action_Tuple_v = S_Action_Return_Tuple<false, false, T_Action, T_Tuple, T_Types...>;
 
 }

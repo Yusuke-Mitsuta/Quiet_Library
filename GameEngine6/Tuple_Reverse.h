@@ -34,14 +34,9 @@ namespace N_Tuple
 			using Type = Tuple_tp<Tail_Reverse, T, Head_Reverse>;
 		};
 
-		using Action = S_Tuple_Action<S_Reverse, T_Tuple>;
-
-		friend struct Action;
-
 	public:
 
-		using Type = typename Action::Type;
-
+		using Type = typename S_Action_Tuple_tp<S_Reverse, T_Tuple>::type;
 	};
 
 }

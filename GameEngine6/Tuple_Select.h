@@ -84,27 +84,12 @@ namespace N_Tuple
 			using Type = typename Select_Range_Judge<t_Point, S_Parameter<T_Tuple_t>::Size, T_Tuple_t>::Type;
 		};
 
-		template<>
-		struct S_Action<Tuple_tp<Head_t<>,std::nullopt_t,Tail_t<>>>
-		{
-			using Type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>;
-
-		};
-
-		using Action= S_Tuple_Action<S_Action, T_Tuple_t>;
-
-		friend struct Action;
-
 	public:
 
-		using Type = typename Action::Type;
+		using Type = typename S_Action_Tuple_tp<S_Action, T_Tuple_t>::type;
+
 
 	};
-
-	//仕様
-	//[Type]の選択位置を[t_Point]に移動させる
-	template<int t_Point, is_Element<t_Point> T_Tuple_t>
-	using U_Select_t = I_Select<t_Point, T_Tuple_t>::Type;
 
 
 }

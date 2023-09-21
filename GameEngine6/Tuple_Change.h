@@ -21,13 +21,9 @@ namespace N_Tuple
 			using Type = Tuple_tp<T_Head, T_Change, T_Tail>;
 		};
 
-		using Action = S_Tuple_Action<S_Change, T_Tuple_p>;
-
-		friend struct Action;
-
 	public:
 
-		using Type = typename Action::Type;
+		using Type = typename S_Action_Tuple_tp<S_Change, T_Tuple_p>::type;
 
 	};
 

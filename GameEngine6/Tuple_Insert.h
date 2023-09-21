@@ -42,13 +42,9 @@ namespace N_Tuple
 			using Type = Tuple_tp<T_Base_Head, SelectPoint, Tail>;
 		};
 
-		using Action = S_Tuple_Action<S_Insert, T_Base_Tuple>;
-
-		friend struct Action;
-
 	public:
 
-		using Type = typename Action::Type;
+		using Type = typename S_Action_Tuple_tp<S_Insert, T_Base_Tuple>::type;
 
 
 	};
