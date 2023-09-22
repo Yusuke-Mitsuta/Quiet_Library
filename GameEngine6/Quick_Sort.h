@@ -38,7 +38,7 @@ private:
 	struct IS_Part_Sort
 	{
 		template<size_t _Index>
-		using Element = U_Element_t<U_Element_vp<_Index, TP_Numbers>, TP>;
+		using Element = N_Tuple::U_Element_t<N_Tuple::U_Element_v<_Index, TP_Numbers>,TP>;
 
 		template<class TP_Numbers=TP_Numbers, int t_Limit_Min = t_Limit_Min, int t_Limit_Max=t_Limit_Max, int t_Range = (t_Limit_Max - t_Limit_Min)>
 		struct S_Part_Sort
@@ -55,7 +55,8 @@ private:
 
 			using Swap_1 = TP_Numbers;
 
-			using Swap_2 = U_Change_Element_v<t_Limit_Min, t_Limit_Max, TP_Numbers>;
+			using Swap_2 = N_Tuple::U_Swap<TP_Numbers, t_Limit_Min, t_Limit_Max>;
+				//U_Change_Element_v<t_Limit_Min, t_Limit_Max, TP_Numbers>;
 
 			using Type = U_Swap_t1<Swap_1, Swap_2, Judge>;
 
@@ -75,7 +76,7 @@ private:
 			{
 				using Side_Number = U_Swap_v<t_Side_Number_1, t_Side_Number_2,
 					Judge<t_Side_Number_1, t_Side_Number_2>>;
-				using Type = S_Parameter_Value<Side_Number::_2, t_Center_Number, Side_Number::_1>;
+				using Type = N_Tuple::Tuple_v<Side_Number::_2, t_Center_Number, Side_Number::_1>;
 			};
 
 			template<	
@@ -84,7 +85,7 @@ private:
 				bool t_Center_2 = !(Judge<1, 2> ^ Judge<2, 0>)>
 			struct S_Judge_Center
 			{
-				using Type = S_Parameter_Value<0, 1, 2>;
+				using Type = N_Tuple::Tuple_v<0, 1, 2>;
 			};
 
 			template<>
@@ -106,7 +107,8 @@ private:
 			};
 
 			using Part_Sort = S_Judge_Center<>::Type;
-			using Remove = U_Remove_Element_v<TP_Numbers, t_Limit_Min ,t_Limit_Min + 1, t_Limit_Min + 2>;
+			using Remove = 
+				U_Remove_Element_v<TP_Numbers, t_Limit_Min ,t_Limit_Min + 1, t_Limit_Min + 2>;
 
 			using Insert = U_Insert_Element_P_v<Remove, t_Limit_Min,
 				U_Get_Element_v<TP_Numbers, U_Element_vp<0, Part_Sort>+t_Limit_Min, U_Element_vp<1, Part_Sort>+t_Limit_Min, U_Element_vp<2, Part_Sort>+t_Limit_Min>>;

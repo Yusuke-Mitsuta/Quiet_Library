@@ -15,25 +15,25 @@ namespace N_Tuple
 		template<class T_Tuple_t>
 		struct S_Prev
 		{
-			using Type = T_Tuple_t;
+			using type = T_Tuple_t;
 		};
 
 		template<class ...T_Tail_Types>
 		struct S_Prev<Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<T_Tail_Types...>>>
 		{
-			using Type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<T_Tail_Types...>>;
+			using type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<T_Tail_Types...>>;
 		};
 
 		template<class ...T_Head_Types, class T, class ...T_Tail_Types>
 			requires (sizeof...(T_Head_Types) != 0 || not_is_nullopt<T>)
 		struct S_Prev<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>
 		{
-			using Type = typename I_Select<static_cast<int>(sizeof...(T_Head_Types)) - 1, Tuple_tp<Head_t< T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>::Type;
+			using type = U_Select<static_cast<int>(sizeof...(T_Head_Types)) - 1, Tuple_tp<Head_t< T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>;
 		};
 
 	public:
 
-		using Type = typename S_Action_Tuple_tp<S_Prev, T_Tuple_t>::type;
+		using type = S_Action_Tuple_tp<S_Prev, T_Tuple_t>::type;
 
 	};
 

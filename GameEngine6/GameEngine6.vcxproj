@@ -97,6 +97,7 @@
     <ClInclude Include="Tuple_Extract.h" />
     <ClInclude Include="Tuple_ID.h" />
     <ClInclude Include="Tuple_Range.h" />
+    <ClInclude Include="Tuple_Test.h" />
     <ClInclude Include="Tuple_t_To_v.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="Tuple_Change.h" />
@@ -108,7 +109,6 @@
     <ClInclude Include="Tuple_Concept.h" />
     <ClInclude Include="Tuple_Insert.h" />
     <ClInclude Include="Tuple_Merge.h" />
-    <ClInclude Include="Tuple_New.h" />
     <ClInclude Include="Tuple_Next.h" />
     <ClInclude Include="Tuple_Prev.h" />
     <ClInclude Include="Tuple_Remove.h" />
@@ -160,6 +160,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Tuple_Agrs.cpp" />
+    <ClCompile Include="Tuple_Test.cpp" />
     <ClCompile Include="Tuple_Value.h" />
     <ClCompile Include="Using_Type.cpp" />
   </ItemGroup>

@@ -3,7 +3,6 @@
 #include<type_traits>
 #include"SwapType.h"
 
-
 template<class ...T_Parameters>
 struct S_Parameter;
 

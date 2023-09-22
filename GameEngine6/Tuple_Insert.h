@@ -12,19 +12,19 @@ namespace N_Tuple
 	{
 	private:
 
-		using Insert_Tuple = typename Tuple_v_To_t<typename I_Remove_Pointer<T_Insert_Tuple>::Type>::Type;
+		using Insert_Tuple = U_Tuple_v_To_t<U_Remove_p<T_Insert_Tuple>>;
 
 		template<class T_Base_Tuple, class T_Insert_Tuple = Insert_Tuple>
 		struct S_Insert
 		{
-			using Type = T_Base_Tuple;
+			using type = T_Base_Tuple;
 		};
 
 		template<class T_Base_Head,class T_Base,class ...T_Base_Tail_Types,class T_Insert_Flont_Type,class ...T_Insert_Types>
 		struct S_Insert<Tuple_tp<T_Base_Head,T_Base,Tail_t<T_Base_Tail_Types...>>,
 			Tuple_t<T_Insert_Flont_Type,T_Insert_Types...>>
 		{
-			using Type = Tuple_tp<T_Base_Head, T_Insert_Flont_Type,
+			using type = Tuple_tp<T_Base_Head, T_Insert_Flont_Type,
 				Tail_t<T_Insert_Types..., T_Base, T_Base_Tail_Types...>>;
 		};
 
@@ -39,12 +39,12 @@ namespace N_Tuple
 
 			using SelectPoint = U_Swap_t1<std::nullopt_t, T_Insert_Flont_Type,is_tail_Empty>;
 
-			using Type = Tuple_tp<T_Base_Head, SelectPoint, Tail>;
+			using type = Tuple_tp<T_Base_Head, SelectPoint, Tail>;
 		};
 
 	public:
 
-		using Type = typename S_Action_Tuple_tp<S_Insert, T_Base_Tuple>::type;
+		using type = S_Action_Tuple_tp<S_Insert, T_Base_Tuple>::type;
 
 
 	};

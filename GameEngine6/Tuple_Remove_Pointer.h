@@ -42,7 +42,7 @@ namespace N_Tuple
 
 	public:
 
-		using Type = S_Remove_Pointer<T_Tuple_p>::type;
+		using type = S_Remove_Pointer<T_Tuple_p>::type;
 
 	};
 

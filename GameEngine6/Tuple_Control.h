@@ -30,7 +30,7 @@ namespace N_Tuple
 		using Prev = U_Prev<T_Tuple>;
 
 		//選択している要素を削除する
-		using Remove = typename I_Remove<T_Tuple>::Type;
+		using Remove = U_Remove<T_Tuple>;
 
 		//先頭の要素を選択する
 		using Flnot = U_Flnot<T_Tuple>;
@@ -48,18 +48,18 @@ namespace N_Tuple
 		_Control_p<Tuple_tp<T_Head, T, T_Tail>>
 	{
 	private:
-		using T_Tuple_t = Tuple_tp<T_Head, T, T_Tail>;
-		using Control = _Control_p<T_Tuple_t>;
+		using T_Tuple_p = Tuple_tp<T_Head, T, T_Tail>;
+		using Control = _Control_p<T_Tuple_p>;
 		template<class T_Select_Tuple_t>
 		using Select_Tuple_t = typename S_Parameter<T_Select_Tuple_t>::Type;
 	public:
 		//選択している要素の型を返す
-		using Type = Select_Tuple_t<T_Tuple_t>;
+		using type = Select_Tuple_t<T_Tuple_p>;
 
-		using Next_t = Select_Tuple_t<U_Next<T_Tuple_t>>;
-		using Prev_t = Select_Tuple_t<U_Prev<T_Tuple_t>>;
-		using Flont_t = Select_Tuple_t<U_Flnot<T_Tuple_t>>;
-		using Back_t = Select_Tuple_t<U_Back<T_Tuple_t>>;
+		using Next_t = Select_Tuple_t<U_Next<T_Tuple_p>>;
+		using Prev_t = Select_Tuple_t<U_Prev<T_Tuple_p>>;
+		using Flont_t = Select_Tuple_t<U_Flnot<T_Tuple_p>>;
+		using Back_t = Select_Tuple_t<U_Back<T_Tuple_p>>;
 
 	};
 
@@ -123,11 +123,11 @@ namespace N_Tuple
 	struct Control_tp<Head_t<>, std::nullopt_t, Tail_t<>>
 		:_Control_p<Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>>
 	{
-		using Type = std::nullopt_t;
-		using Next_t = Type;
-		using Prev_t = Type;
-		using Flont_t = Type;
-		using Back_t = Type;
+		using type = std::nullopt_t;
+		using Next_t = type;
+		using Prev_t = type;
+		using Flont_t = type;
+		using Back_t = type;
 	};
 
 	template<>

@@ -28,7 +28,7 @@ namespace N_Tuple
 			requires (min == max)
 		struct S_Swap< Tuple_t<T_Types...>, t_Count, T_Head, T_1, T_Center>
 		{
-			using Type = Tuple_t<T_Types...>;
+			using type = Tuple_t<T_Types...>;
 		};
 
 		//仕様
@@ -38,7 +38,7 @@ namespace N_Tuple
 		struct S_Swap<Tuple_t<T_Next_Type, T_Types...>,t_Count,Tuple_t<T_Head_Types...>, T_1
 			, T_Center>
 		{
-			using Type= S_Swap<Tuple_t<T_Types...>,t_Count + 1, Tuple_t<T_Head_Types..., T_Next_Type>, T_1, T_Center>::Type;
+			using type= S_Swap<Tuple_t<T_Types...>,t_Count + 1, Tuple_t<T_Head_Types..., T_Next_Type>, T_1, T_Center>::type;
 		};
 
 		//仕様
@@ -49,7 +49,7 @@ namespace N_Tuple
 			t_Count, Tuple_t<T_Head_Types...>, T_1
 			, T_Center>
 		{
-			using Type = S_Swap<Tuple_t<T_Types...>,t_Count + 1, Tuple_t<T_Head_Types...>, T_Next_Type, T_Center>::Type;
+			using type = S_Swap<Tuple_t<T_Types...>,t_Count + 1, Tuple_t<T_Head_Types...>, T_Next_Type, T_Center>::type;
 		};
 
 		//仕様
@@ -60,7 +60,7 @@ namespace N_Tuple
 			t_Count,Tuple_t<T_Head_Types...>,
 			T_1,Tuple_t<T_Center_Types...>>
 		{
-			using Type = S_Swap<Tuple_t<T_Types...>,t_Count + 1, Tuple_t<T_Head_Types...>, T_1, Tuple_t<T_Center_Types..., T_Next_Type>>::Type;
+			using type = S_Swap<Tuple_t<T_Types...>,t_Count + 1, Tuple_t<T_Head_Types...>, T_1, Tuple_t<T_Center_Types..., T_Next_Type>>::type;
 		};
 
 		//仕様
@@ -77,28 +77,12 @@ namespace N_Tuple
 		template<class T_Tuple>
 		struct S_Action
 		{
-			using Type = S_Swap<T_Tuple>::Type;
+			using type = S_Swap<T_Tuple>::type;
 		};
-
-		//template<auto ...t_Value>
-		//struct S_Action<Tuple_v<t_Value...>>
-		//{
-		//	using Type= typename I_Tuple_Action<S_Action, Tuple_v<t_Value...>>::Type;
-		//};
-
-		//template<class ...T_Types>
-		//struct S_Action<Tuple_t<T_Types...>>
-		//{
-		//	using Type = typename S_Swap<Tuple_t<T_Types...>>::Type;
-		//};
-
-		//using Action = I_Tuple_Action<S_Action, T_Tuple>;
-		//friend struct Action;
 
 	public:
 
-		using Type =typename S_Action_Tuple_t<S_Action, T_Tuple>::type;
-			//S_Action<T_Tuple>::Type;
+		using type =S_Action_Tuple_t<S_Action, T_Tuple>::type;
 
 	};
 

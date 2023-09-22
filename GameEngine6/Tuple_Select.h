@@ -24,26 +24,26 @@ namespace N_Tuple
 		template<int t_Point, class T_Tuple_t>
 		struct Select_Core
 		{
-			using Type = T_Tuple_t;
+			using type = T_Tuple_t;
 		};
 
 		template<int t_Point, class ...T_Head_Types, class T, class ...T_Tail_Types>
 			requires(t_Point > 0)
 		struct Select_Core<t_Point, Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>
 		{
-			using Type = Select_Core<t_Point - 1, typename I_Next<Tuple_tp<Head_t< T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>::Type>::Type;
+			using type = Select_Core<t_Point - 1,U_Next<Tuple_tp<Head_t< T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>>::type;
 		};
 
 		template<int t_Point, class T_Head_Flont_Type, class ...T_Head_Types, class T, class ...T_Tail_Types>
 			requires(t_Point < 0)
 		struct Select_Core<t_Point, Tuple_tp<Head_t<T_Head_Flont_Type, T_Head_Types...>, T, Tail_t<T_Tail_Types...>>>
 		{
-			using Type = Select_Core<t_Point + sizeof...(T_Head_Types) + 1, Tuple_tp<Head_t<>, T_Head_Flont_Type, Tail_t<T_Head_Types..., T, T_Tail_Types...>>>::Type;
+			using type = Select_Core<t_Point + sizeof...(T_Head_Types) + 1, Tuple_tp<Head_t<>, T_Head_Flont_Type, Tail_t<T_Head_Types..., T, T_Tail_Types...>>>::type;
 		};
 
 
 		template<class T_Tuple_t>
-		using Pointer_Core_t = typename Select_Core<t_Point - static_cast<int>(S_Parameter<T_Tuple_t>::Size_Head), T_Tuple_t>::Type;
+		using Pointer_Core_t = typename Select_Core<t_Point - static_cast<int>(S_Parameter<T_Tuple_t>::Size_Head), T_Tuple_t>::type;
 
 
 		//Žd—l
@@ -56,13 +56,13 @@ namespace N_Tuple
 		template<int t_Point, size_t t_Tuple_Size, class T_Tuple_t ,bool t_Out_Range = (t_Point < 0) || (t_Point >= t_Tuple_Size)>
 		struct Select_Range_Judge
 		{
-			using Type = Pointer_Core_t<T_Tuple_t>;
+			using type = Pointer_Core_t<T_Tuple_t>;
 		};
 
 		template<int t_Point, size_t t_Tuple_Size, class ...T_Head_Types , class ...T_Tail_Types>
 		struct Select_Range_Judge<t_Point, t_Tuple_Size, Tuple_tp<Head_t<T_Head_Types...>,std::nullopt_t, Tail_t<T_Tail_Types...>>,false>
 		{
-			using Type = Pointer_Core_t<typename I_Create_Pointer<Tuple_t< T_Head_Types..., T_Tail_Types...>>::Type>;
+			using type = Pointer_Core_t<U_Create_p<Tuple_t< T_Head_Types..., T_Tail_Types...>>>;
 				
 		};
 
@@ -74,19 +74,19 @@ namespace N_Tuple
 			using Swap_Head = U_Swap_t1<Head_t<>,Swap_Null, (t_Point > 0) >;
 			using Swap_Tail = U_Swap_t1< U_Change_Outer<Tail_t, Swap_Null>, Tail_t<>, (t_Point > 0)>;
 
-			using Type = Tuple_tp<Swap_Head, std::nullopt_t, Swap_Tail>;
+			using type = Tuple_tp<Swap_Head, std::nullopt_t, Swap_Tail>;
 
 		};
 
 		template<class T_Tuple_t>
 		struct S_Action
 		{
-			using Type = typename Select_Range_Judge<t_Point, S_Parameter<T_Tuple_t>::Size, T_Tuple_t>::Type;
+			using type = typename Select_Range_Judge<t_Point, S_Parameter<T_Tuple_t>::Size, T_Tuple_t>::type;
 		};
 
 	public:
 
-		using Type = typename S_Action_Tuple_tp<S_Action, T_Tuple_t>::type;
+		using type = S_Action_Tuple_tp<S_Action, T_Tuple_t>::type;
 
 
 	};

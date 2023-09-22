@@ -32,13 +32,13 @@ namespace std
 	template<size_t _Index, class T_Head_v, auto value, class T_Tail_v>
 	struct std::tuple_element<_Index, N_Tuple::Tuple_vp<T_Head_v, value, T_Tail_v>>
 	{
-		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_v_To_t<N_Tuple::Tuple_vp<T_Head_v, value, T_Tail_v>>::Type>;
+		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_v_To_t<N_Tuple::Tuple_vp<T_Head_v, value, T_Tail_v>>::type>;
 	};
 
 	template<size_t _Index,auto ...value>
 	struct std::tuple_element<_Index, N_Tuple::Tuple_v<value...>>
 	{
-		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_v_To_t< N_Tuple::Tuple_v<value...>>::Type>;
+		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_v_To_t< N_Tuple::Tuple_v<value...>>::type>;
 	};
 
 }
@@ -53,22 +53,22 @@ namespace N_Tuple
 		template<class ...T_Types>
 		struct S_Element
 		{
-			using Type= std::tuple_element_t<_Index, std::tuple<T_Types...>>;
+			using type= std::tuple_element_t<_Index, std::tuple<T_Types...>>;
 		};
 
 		template<class ...T_Types>
 		struct S_Element<Tuple_t<T_Types...>>
 		{
-			using Type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
+			using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
 		};
 
 		template<class T_Head,class T,class T_Tail>
 		struct S_Element<Tuple_tp<T_Head,T,T_Tail>>
 		{
-			using Type = std::tuple_element_t<_Index, Tuple_tp<T_Head, T, T_Tail>>;
+			using type = std::tuple_element_t<_Index, Tuple_tp<T_Head, T, T_Tail>>;
 		};
 
-		using Type =typename S_Element<T_Types...>::Type;
+		using type =typename S_Element<T_Types...>::type;
 	};
 
 

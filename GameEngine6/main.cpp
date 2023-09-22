@@ -164,19 +164,20 @@ int main()
 {
 
 
-	using num = N_Tuple::Tuple_vp< N_Tuple::Head_v<1, 2>, 3, N_Tuple::Tail_v<4, 5>>;
+
+	using num = N_Tuple::Tuple_vp<N_Tuple::Head_v<1, 2>, 3, N_Tuple::Tail_v<4, 5>>;
 
 	using numu = N_Tuple::Tuple_vp< N_Tuple::Head_v<6, 7>, 8, N_Tuple::Tail_v<9, 10>>;
 
 	using numu3 = N_Tuple::Tuple_v< 11, 12, 13, 14, 15>;
 	using numu1 = N_Tuple::Tuple_t<int,float,double,char,short>;
 
-	using NN = N_Tuple::I_Next<num>::Type::Next::Prev::Prev::Prev::Prev::Prev::Next::Prev;
+	using NN = N_Tuple::I_Next<num>::type;
 
-	using npr =typename N_Tuple::I_Reverse<NN>::Type;
+	using npr =typename N_Tuple::I_Reverse<NN>::type;
 
 
-	using nyo = typename N_Tuple::I_Range<numu3,0>::Type;
+	using nyo = typename N_Tuple::I_Range<numu3,0>::type;
 
 
 
@@ -187,12 +188,12 @@ int main()
 	using tup = N_Tuple::Tuple_tp<N_Tuple::Head_t<int, float, double, char>, int, N_Tuple::Tail_t< float, double, short>>::Flnot::Prev;
 
 		using nate= N_Tuple::Tuple_t<int>::Next;
-		using Tyee = N_Tuple::I_Select<1, NN>::Type;
+		using Tyee = N_Tuple::I_Select<1, NN>::type;
 
 	using a = N_Tuple::Tuple_tp<N_Tuple::Head_t<>, std::nullopt_t, N_Tuple::Tail_t<>>;
 
 
-	using Neta = N_Tuple::I_Extract<tup, N_Tuple::Tuple_v<4>>::Type;
+	using Neta = N_Tuple::I_Extract<tup, N_Tuple::Tuple_v<4>>::type;
 
 	TYPE_ID(Tyee)
 
@@ -201,7 +202,7 @@ int main()
 
 
 
-	using noa = typename N_Tuple::I_Element<4, tup>::Type;
+	using noa = typename N_Tuple::I_Element<4, tup>::type;
 	TYPE_ID(nyo);
 	TYPE_ID(Neta); 
 

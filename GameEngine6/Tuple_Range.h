@@ -28,7 +28,7 @@ namespace N_Tuple
 			requires (min == max)
 		struct S_Range< Tuple_t<T_Types...>, t_Count,Tuple_t<>>
 		{
-			using Type = Tuple_t<U_Element_t<min, Tuple_t<T_Types...>>>;
+			using type = Tuple_t<U_Element_t<min, Tuple_t<T_Types...>>>;
 		};
 
 		//仕様
@@ -37,7 +37,7 @@ namespace N_Tuple
 			requires (min > t_Count) && (min != max)
 		struct S_Range<Tuple_t<T_Next_Type, T_Types...>, t_Count , Tuple_t<>>
 		{
-			using Type =typename S_Range<Tuple_t<T_Types...>, t_Count + 1>::Type;
+			using type =typename S_Range<Tuple_t<T_Types...>, t_Count + 1>::type;
 		};
 
 		//仕様
@@ -47,7 +47,7 @@ namespace N_Tuple
 		struct S_Range<Tuple_t<T_Next_Type, T_Types...>, t_Count
 			, Tuple_t<T_Center_Types...>>
 		{
-			using Type = typename S_Range<Tuple_t<T_Types...>, t_Count + 1, Tuple_t<T_Center_Types..., T_Next_Type>>::Type;
+			using type = typename S_Range<Tuple_t<T_Types...>, t_Count + 1, Tuple_t<T_Center_Types..., T_Next_Type>>::type;
 		};
 
 		template< class ...T_Types, int t_Count, class ...T_Center_Types>
@@ -55,19 +55,19 @@ namespace N_Tuple
 		struct S_Range<Tuple_t<T_Types...>, t_Count
 			, Tuple_t<T_Center_Types...>>
 		{
-			using Type = Tuple_t<T_Center_Types...>;
+			using type = Tuple_t<T_Center_Types...>;
 		};
 
 		template<class T_Tuple>
 		struct S_Action
 		{
-			using Type = S_Range<T_Tuple>::Type;
+			using type = S_Range<T_Tuple>::type;
 		};
 
 
 	public:
 
-		using Type = typename S_Action_Tuple_t<S_Action, T_Tuple>::Return_not_p;
+		using type =S_Action_Tuple_t<S_Action, T_Tuple>::Return_not_p;
 
 	};
 

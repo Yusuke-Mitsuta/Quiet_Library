@@ -43,7 +43,7 @@ namespace N_Tuple
 
 	public:
 
-		using Type = S_Create_Pointer<T_Tuple_p>::type;
+		using type = S_Create_Pointer<T_Tuple_p>::type;
 
 	};
 
