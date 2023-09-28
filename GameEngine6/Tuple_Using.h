@@ -35,8 +35,8 @@ namespace N_Tuple
 
 	//仕様
 	//[T_Base_Tuple]の選択中の箇所に[T_Insert_Tuple]の要素を追加する
-	template<class T_Base_Tuple, class T_Insert_Tuple>
-	using U_Insert = typename I_Insert<T_Base_Tuple, T_Insert_Tuple>::type;
+	template<class T_Base_Tuple, class T_Insert_Tuple,size_t t_Insert_Point = S_Parameter<T_Base_Tuple>::Size_Head>
+	using U_Insert = typename I_Insert<T_Base_Tuple, T_Insert_Tuple, t_Insert_Point>::type;
 
 	//仕様
 	//[T_Base_Tuple]の後ろに[T_Merge_Tuple]の要素を追加する
@@ -52,8 +52,8 @@ namespace N_Tuple
 
 	//仕様
 	//選択位置の値を削除する
-	template<class T_Tuple_p>
-	using U_Remove = typename I_Remove<T_Tuple_p>::type;
+	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::Size_Head>
+	using U_Remove = typename I_Remove<T_Tuple_p, t_Remove_Point>::type;
 
 	template<class T_Tuple_v>
 	using U_Tuple_t_To_v = typename Tuple_t_To_v<T_Tuple_v>::type;
@@ -88,5 +88,13 @@ namespace N_Tuple
 	using U_Remove_p = typename I_Remove_Pointer<T_Tuple_p>::type;
 
 
+	template<class T_Tuple_v,auto number>
+	using U_Calculate_plus =typename I_Tuple_Calculate<T_Tuple_v, "+", number>::type;
 
+
+	//仕様
+	//[T_Tuple]から[Tuple_v< ... >]の順番で型を順番に抽出
+	template<class T_Tuple, class T_Extract_Number>
+	using U_Extract =typename I_Extract<T_Tuple, T_Extract_Number>::type;
 }
+

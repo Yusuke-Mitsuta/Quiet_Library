@@ -1,6 +1,7 @@
 #pragma once
 
 #include"Tuple.h"
+#include"Tuple_Action.h"
 
-static void Tuple_Test();
+void Tuple_Test();
 

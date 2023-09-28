@@ -158,12 +158,11 @@ struct S_Zip<float>
 	using Type = S_Parameter<int,S_Zip<int>>;
 };
 #include"Tuple.h"
-
+#include"Tuple_Test.h"
 
 int main()
 {
-
-
+	Tuple_Test();
 
 	using num = N_Tuple::Tuple_vp<N_Tuple::Head_v<1, 2>, 3, N_Tuple::Tail_v<4, 5>>;
 
@@ -172,8 +171,8 @@ int main()
 	using numu3 = N_Tuple::Tuple_v< 11, 12, 13, 14, 15>;
 	using numu1 = N_Tuple::Tuple_t<int,float,double,char,short>;
 
-	using NN = N_Tuple::I_Next<num>::type;
-
+	using NN = N_Tuple::I_Tuple_Calculate<numu3, "+", 5>::type;
+	TYPE_ID(NN)
 	using npr =typename N_Tuple::I_Reverse<NN>::type;
 
 
@@ -195,11 +194,7 @@ int main()
 
 	using Neta = N_Tuple::I_Extract<tup, N_Tuple::Tuple_v<4>>::type;
 
-	TYPE_ID(Tyee)
-
-
-
-
+	TYPE_ID(Tyee);
 
 
 	using noa = typename N_Tuple::I_Element<4, tup>::type;
@@ -210,206 +205,206 @@ int main()
 
 	//using T_ = typename N_Tuple::I_Select<8, tup>::Type::Type;
 
-
-
-	static constexpr int n = 2Ui64;
-
-	//using tT = typename N_Tuple::I_Pointer<2, T_>::Type;
-
-
-	//using sT = typename N_Tuple::I_Pointer<2, tup>::Type;
-
-	using tua = typename N_Tuple::Tuple_v<0, 3, 4, 7, 2.0f>;
-
-	
-
-	
-
-
-
-
-
-
-	//Tuple b(3, 4, '8', 3.0f);
-
-	Size_t ss = -3;
-	constexpr Size_t sss = 7;
-	constexpr int ssss = 6;
-	//int n = ss - 1;
-	constexpr unsigned long long so = 3;
-
-	bool te = (ss == sizeof(so));// == 3);
-
-
-
-
-	//decltype(b)::
-
-	//auto h2 = new H2;
-
-	//using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
-
-
-	//static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
-
-	//using Tt = N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
-
-	//using TTt= N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<0,Tt, double>::Change;
-
-
-
-
-	//using Tn = typename N_Function::IS_Request_Args<S_Parameter<int, int, int>,
-	//	S_Parameter<int, int>>::Type;
-
-
-	using Tnaa = typename IS_Parameter_Merge<S_Parameter<N<1>, N<2>, N<3>>, N<4>, N<6>,N<7>>::Type;
-
-
-
-
-	//TYPE_ID(TTt);
-
-
-	//C_OUT();
-
-	//using n = U_Element_t<0, Tu>;
-
-	
-
-		//IS_Range_Parameters<S_Parameter<N<1>,N<2>,N<3>>, 0,2>::Type;
-
-	//using TT4 = N_Function::IS_Request_Args<S_Parameter<int,int,int>,S_Parameter<int>>::
-	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
-
-
-
-	//using Tfa = N_Function::IS_Function_Multiple_Operator<H*, decltype(&H::Args_3), int>::Type;
-
-	//auto b = Tfa(h, &H::Args_3, 2);
-
-	//auto f = N_Function::Function_Single(h, &H::Args_3, 1);
-
-	//static constexpr auto ff = N_Function::Function_Single_Static<&H::Args_3, 1, 3,3>();
-
-
-
-	//auto f3 = N_Function::Function_Multiple(&H::Static_Args_3, 3, h, & H::Args_3, 22, 2, 2);
-
-	//auto f3 = N_Function::Function_Single(&Hogege);
-
-	//auto f5 = N_Function::Function_Single(h, &H::Args_3, 3);
-
-	
-
-	//type_id(&H::Static_Args_3);
-
-	//auto f2 = N_Function::Function_Multiple(h
-	//	,&H::Args_5, 5, 4, 3, 2, 1
-	//	,&H::Args_5,5,4,3,2
-	//	,&H::Args_5,5,4,3
-	//	,&H::Args_5,5,4
-	//	,&H::Args_5,5
-	//	,&H::Args_5
-	//);
-
-//	f2.
-	
-	//f2(6, 7, 8, 9, 0);
-	//f2(6, 7, 8, 9);
-	//f2(6, 7, 8);
-	//f2(6, 7);
-	//f2(6);
-	//f2();
-	//
-
-	//f2(2, 3);
-	//TYPE_ID(Tfa);
-	N_Sort<N<3>, N<5>>::Judge;
-
-	using TPN_1 = S_Parameter<N<1>>;
-	using TPN_2 = S_Parameter<N<5>, N<3>>;
-	using TPN_3 = S_Parameter<N<1>, N<3>, N<5>>;
-	using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>>;
-	//using TPN_4 = S_Parameter<N<14>,N<18>,N<7>,N<9>>;
-	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>>;
-	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>, N<23>, N<15>>;
-	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>,N<14>,N<18>, N<9>, N<7>, N<23>,N<15>>;
-	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>>;
-	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
-
-	using Q_Sort_1 =typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
-
-	using T_5 = S_Parameter_Value<0, 1, 3, 5, 7, 9>;
-	//using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
-	using TTTTT = N < U_Element_vp<3, T_5>>;
-
-	//using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<1, 3, 5>>;
-
-	TYPE_ID(Q_Sort_1);
-
-
-
-
-	using T = S_Parameter<short,int, float, char>;
-	//using T1 = U_Insert_Element_t<T, 1, T>;
-//	using T2 = S_Parameter<T,T,T>;
-	//using Tva= S_Parameter_Value<0, 1>;
-	//using Tvb= S_Parameter_Value<2, 3>;
-
-	//using Tvc= S_Parameter_Value<7, 5>;
-	//using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
-	//using Tv3 = Tv2::Parameter_Type;
-	//using Tv4 = U_Change_Element_v<0, 4, Tv2>;
-		//IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename Tv2::Parameter_Type,4, integral_constant<4>, integral_constant<4>, integral_constant<4>, integral_constant<4>>::Type>::Type;
-	
-
-//using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
-
-	//constexpr auto Tvvv = S_Parameter_Element_Variable<4, Tv2>::value;
-
-	//using Tf = IS_Insert_Parameters<T, 1, float>::Type;
-
-	//using Tr = IS_Remove_Parameters<T, 1,3>::Type;
-	//using Tr = U_Remove_Element_t<T, 1, 3>;
-	
-	//IS_Change_Parameters
-	//using Tcr = IS_Change_Parameters<0, 3, T>::Type;
-
-	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
-
-	//TYPE_ID(Sort);
-
-
-	//using t = U_Element_t<2, int, int, char, int, int, char>;
-
-	//IS_Parameter_Element<1,int, float, char>::Next::Next::
-
-	//Function::Single mt(&H::Args_5, 1,3,54,2);
-
-	//TYPE ab;
-
-	//N_Function::Function_Single mt2(h,&H::Args_3);
-	//using T = N_Function::IS_Function_Single_Helper<H*, decltype(&H::Args_3), int>::Judge;
-	//TYPE_ID(T);
-
-	//N_Function::S_MethodData<decltype(&H::Args_3),int>::
-	//mt2(2, 4);
-	//auto mt3= AUTO();
-
-	//mt3();
-
-	//Function::Single mt2(ab.mt);
-	//mt2();
-//	mt2();
-
-
-	//for (int i = 0; i < ma.Size; i++)
-	//{
-	//	C_OUT(ma[i]);
-	//}
-	
-	
+//
+//
+//	static constexpr int n = 2Ui64;
+//
+//	//using tT = typename N_Tuple::I_Pointer<2, T_>::Type;
+//
+//
+//	//using sT = typename N_Tuple::I_Pointer<2, tup>::Type;
+//
+//	using tua = typename N_Tuple::Tuple_v<0, 3, 4, 7, 2.0f>;
+//
+//	
+//
+//	
+//
+//
+//
+//
+//
+//
+//	//Tuple b(3, 4, '8', 3.0f);
+//
+//	Size_t ss = -3;
+//	constexpr Size_t sss = 7;
+//	constexpr int ssss = 6;
+//	//int n = ss - 1;
+//	constexpr unsigned long long so = 3;
+//
+//	bool te = (ss == sizeof(so));// == 3);
+//
+//
+//
+//
+//	//decltype(b)::
+//
+//	//auto h2 = new H2;
+//
+//	//using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
+//
+//
+//	//static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
+//
+//	//using Tt = N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
+//
+//	//using TTt= N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<0,Tt, double>::Change;
+//
+//
+//
+//
+//	//using Tn = typename N_Function::IS_Request_Args<S_Parameter<int, int, int>,
+//	//	S_Parameter<int, int>>::Type;
+//
+//
+//	using Tnaa = typename IS_Parameter_Merge<S_Parameter<N<1>, N<2>, N<3>>, N<4>, N<6>,N<7>>::Type;
+//
+//
+//
+//
+//	//TYPE_ID(TTt);
+//
+//
+//	//C_OUT();
+//
+//	//using n = U_Element_t<0, Tu>;
+//
+//	
+//
+//		//IS_Range_Parameters<S_Parameter<N<1>,N<2>,N<3>>, 0,2>::Type;
+//
+//	//using TT4 = N_Function::IS_Request_Args<S_Parameter<int,int,int>,S_Parameter<int>>::
+//	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
+//
+//
+//
+//	//using Tfa = N_Function::IS_Function_Multiple_Operator<H*, decltype(&H::Args_3), int>::Type;
+//
+//	//auto b = Tfa(h, &H::Args_3, 2);
+//
+//	//auto f = N_Function::Function_Single(h, &H::Args_3, 1);
+//
+//	//static constexpr auto ff = N_Function::Function_Single_Static<&H::Args_3, 1, 3,3>();
+//
+//
+//
+//	//auto f3 = N_Function::Function_Multiple(&H::Static_Args_3, 3, h, & H::Args_3, 22, 2, 2);
+//
+//	//auto f3 = N_Function::Function_Single(&Hogege);
+//
+//	//auto f5 = N_Function::Function_Single(h, &H::Args_3, 3);
+//
+//	
+//
+//	//type_id(&H::Static_Args_3);
+//
+//	//auto f2 = N_Function::Function_Multiple(h
+//	//	,&H::Args_5, 5, 4, 3, 2, 1
+//	//	,&H::Args_5,5,4,3,2
+//	//	,&H::Args_5,5,4,3
+//	//	,&H::Args_5,5,4
+//	//	,&H::Args_5,5
+//	//	,&H::Args_5
+//	//);
+//
+////	f2.
+//	
+//	//f2(6, 7, 8, 9, 0);
+//	//f2(6, 7, 8, 9);
+//	//f2(6, 7, 8);
+//	//f2(6, 7);
+//	//f2(6);
+//	//f2();
+//	//
+//
+//	//f2(2, 3);
+//	//TYPE_ID(Tfa);
+//	N_Sort<N<3>, N<5>>::Judge;
+//
+//	using TPN_1 = S_Parameter<N<1>>;
+//	using TPN_2 = S_Parameter<N<5>, N<3>>;
+//	using TPN_3 = S_Parameter<N<1>, N<3>, N<5>>;
+//	using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>>;
+//	//using TPN_4 = S_Parameter<N<14>,N<18>,N<7>,N<9>>;
+//	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>>;
+//	//using TPN_4 = S_Parameter<N<14>,N<18>, N<9>, N<7>, N<23>, N<15>>;
+//	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>,N<14>,N<18>, N<9>, N<7>, N<23>,N<15>>;
+//	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>>;
+//	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
+//
+//	using Q_Sort_1 =typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+//
+//	using T_5 = S_Parameter_Value<0, 1, 3, 5, 7, 9>;
+//	//using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
+//	using TTTTT = N < U_Element_vp<3, T_5>>;
+//
+//	//using TTTT = U_Get_Element_P_t<Q_Sort_1, S_Parameter_Value<1, 3, 5>>;
+//
+//	TYPE_ID(Q_Sort_1);
+//
+//
+//
+//
+//	using T = S_Parameter<short,int, float, char>;
+//	//using T1 = U_Insert_Element_t<T, 1, T>;
+////	using T2 = S_Parameter<T,T,T>;
+//	//using Tva= S_Parameter_Value<0, 1>;
+//	//using Tvb= S_Parameter_Value<2, 3>;
+//
+//	//using Tvc= S_Parameter_Value<7, 5>;
+//	//using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
+//	//using Tv3 = Tv2::Parameter_Type;
+//	//using Tv4 = U_Change_Element_v<0, 4, Tv2>;
+//		//IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename Tv2::Parameter_Type,4, integral_constant<4>, integral_constant<4>, integral_constant<4>, integral_constant<4>>::Type>::Type;
+//	
+//
+////using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
+//
+//	//constexpr auto Tvvv = S_Parameter_Element_Variable<4, Tv2>::value;
+//
+//	//using Tf = IS_Insert_Parameters<T, 1, float>::Type;
+//
+//	//using Tr = IS_Remove_Parameters<T, 1,3>::Type;
+//	//using Tr = U_Remove_Element_t<T, 1, 3>;
+//	
+//	//IS_Change_Parameters
+//	//using Tcr = IS_Change_Parameters<0, 3, T>::Type;
+//
+//	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
+//
+//	//TYPE_ID(Sort);
+//
+//
+//	//using t = U_Element_t<2, int, int, char, int, int, char>;
+//
+//	//IS_Parameter_Element<1,int, float, char>::Next::Next::
+//
+//	//Function::Single mt(&H::Args_5, 1,3,54,2);
+//
+//	//TYPE ab;
+//
+//	//N_Function::Function_Single mt2(h,&H::Args_3);
+//	//using T = N_Function::IS_Function_Single_Helper<H*, decltype(&H::Args_3), int>::Judge;
+//	//TYPE_ID(T);
+//
+//	//N_Function::S_MethodData<decltype(&H::Args_3),int>::
+//	//mt2(2, 4);
+//	//auto mt3= AUTO();
+//
+//	//mt3();
+//
+//	//Function::Single mt2(ab.mt);
+//	//mt2();
+////	mt2();
+//
+//
+//	//for (int i = 0; i < ma.Size; i++)
+//	//{
+//	//	C_OUT(ma[i]);
+//	//}
+//	
+//	
 
 
 
@@ -454,3 +449,4 @@ int main()
 	return 0;
 
 }
+

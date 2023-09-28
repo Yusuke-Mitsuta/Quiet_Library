@@ -6,7 +6,7 @@ namespace N_Tuple
 {
 	//仕様
 	//選択位置の値を削除する
-	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::Size_Head>
+	template<class T_Tuple_p, size_t t_Remove_Point>
 	struct I_Remove
 	{
 	private:
@@ -44,16 +44,16 @@ namespace N_Tuple
 			using type = Tuple_tp<T_Head, std::nullopt_t, T_Tail>;
 		};
 
-		//template<same_as_template_type<Head_t> T_Head,class T, same_as_template_type<Tail_t> T_Tail>
-		//	requires (t_Remove_Point != S_Parameter<T_Tuple_p>::Size_Head)
-		//struct S_Remove<Tuple_tp<T_Head, T,T_Tail>>
-		//{
-		//private:
-		//	using Tuple_Prev = U_Prev<Tuple_tp<T_Head, T, Tail_t<>>>;
+		template<same_as_template_type<Head_t> T_Head,class T, same_as_template_type<Tail_t> T_Tail>
+			requires (t_Remove_Point != S_Parameter<T_Tuple_p>::Size_Head)
+		struct S_Remove<Tuple_tp<T_Head, T,T_Tail>>
+		{
+		private:
+			using Tuple_Remove = typename S_Remove<U_Select<t_Remove_Point, Tuple_tp<T_Head, T, T_Tail>>>::type;
 
-		//public:
-		//	using type = S_Remove<Tuple_Prev>::type;
-		//};
+		public:
+			using type = U_Select<(t_Remove_Point<S_Parameter<T_Tuple_p>::Size_Head) ? S_Parameter<T_Tuple_p>::Size_Head - 1 : S_Parameter<T_Tuple_p>::Size_Head, Tuple_Remove>;
+		};
 
 	public:
 		

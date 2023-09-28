@@ -63,7 +63,7 @@ namespace N_Tuple
 	concept is_Tuple_v = same_as_Tuple_vp<T_Tuple_v> || same_as_template_value<T_Tuple_v, Tuple_v>;
 
 	template<class T_Tuple_t>
-	concept is_Tuple_t = same_as_template_type<T_Tuple_t,Tuple_t> || same_as_template_type<T_Tuple_t, Tuple_t>;
+	concept is_Tuple_t = same_as_template_type<T_Tuple_t,Tuple_tp> || same_as_template_type<T_Tuple_t, Tuple_t>;
 
 	
 

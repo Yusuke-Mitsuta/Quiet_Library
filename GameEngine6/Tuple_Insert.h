@@ -7,7 +7,7 @@ namespace N_Tuple
 {
 	//仕様
 	//[T_Base_Tuple]の選択中の箇所に[T_Insert_Tuple]の要素を追加する
-	template<class T_Base_Tuple, class T_Insert_Tuple>
+	template<class T_Base_Tuple, class T_Insert_Tuple, size_t t_Insert_Point>
 	struct I_Insert
 	{
 	private:
@@ -44,7 +44,7 @@ namespace N_Tuple
 
 	public:
 
-		using type = S_Action_Tuple_tp<S_Insert, T_Base_Tuple>::type;
+		using type = S_Action_Tuple_tp<S_Insert, T_Base_Tuple, t_Insert_Point>::type;
 
 
 	};

@@ -23,6 +23,9 @@ namespace N_Tuple
 	//•â‘«
 	//[t_Action_break == true],[T_Tuple=Tuple_vp],—v‹‚·‚éŒ^[Tuple_t]‚Ì‹A‚Á‚Ä‚­‚éTuple‚ÌŒ^‚Í[Tuple_v]‚É‚È‚é
 	//
+	//Œ^‚Ì•Ï‰»‚Í[2‚Âi‚Ş or 1‚Â–ß‚é]‚Ì‚Ç‚¿‚ç‚©‚Å•Ï‰»‚ğ‚³‚¹‚é
+	//[tp ¨ t ¨ v ¨ vp ¨ tp]
+	//
 	//’ˆÓ
 	//[T_Action]‚Ì—v‹‚·‚éŒ^‚É”ñŒnƒeƒ“ƒvƒŒ[ƒg‚ÍŠÜ‚Ü‚È‚¢–
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple, class ...T_Types>
@@ -32,76 +35,90 @@ namespace N_Tuple
 	};
 
 	template<bool t_Action_Type_Tuple_p, template<class...>class T_Action, is_Tuple_t T_Tuple_t, bool t_Action_break, class ...T_Types>
+		requires (is_Tuple_not_p<T_Tuple_t> || t_Action_Type_Tuple_p)
 	struct S_Action_Tuple<t_Action_Type_Tuple_p, false, t_Action_break, T_Action, T_Tuple_t, T_Types...>
 	{
-		using type = U_Tuple_v_To_t<typename S_Action_Tuple<t_Action_Type_Tuple_p, false, t_Action_break, T_Action,
-			U_Tuple_t_To_v<T_Tuple_t>, T_Types...>::type>;
+		using type = U_Tuple_v_To_t<typename S_Action_Tuple<t_Action_Type_Tuple_p, false, t_Action_break,
+			T_Action, U_Tuple_t_To_v<T_Tuple_t>, T_Types...>::type>;
 	};
 
 	template<bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, is_Tuple_p T_Tuple_p, class ...T_Types >
+		requires (is_Tuple_t<T_Tuple_p> || (!t_Action_Type_Tuple_t))
 	struct S_Action_Tuple<false, t_Action_Type_Tuple_t, t_Action_break, T_Action, T_Tuple_p, T_Types...>
 	{
+	private:
 		using action_return = typename S_Action_Tuple<false, t_Action_Type_Tuple_t, t_Action_break, T_Action, U_Remove_p<T_Tuple_p>, T_Types...>::type;
 
 		using create_p = U_if_t1<U_Select<S_Parameter<T_Tuple_p>::Size_Head, action_return>, U_Create_p<action_return>,
 			(S_Parameter<T_Tuple_p>::Size == S_Parameter<action_return>::Size)>;
-
+	public:
 		using type = U_if_t1<action_return, create_p, t_Action_break>;
 	};
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_break, template<class...>class T_Action, is_Tuple_v T_Tuple_v, class ...T_Types >
+	template<bool t_Action_Type_Tuple_p, bool t_Action_break, template<class...>class T_Action, is_Tuple_v T_Tuple_v, class ...T_Types>
+		requires (is_Tuple_p<T_Tuple_v> || (!t_Action_Type_Tuple_p))
 	struct S_Action_Tuple<t_Action_Type_Tuple_p, true, t_Action_break, T_Action, T_Tuple_v, T_Types... >
 	{
 		using type = U_Tuple_t_To_v<typename S_Action_Tuple<t_Action_Type_Tuple_p, true, t_Action_break, T_Action, U_Tuple_v_To_t<T_Tuple_v>, T_Types...>::type>;
 	};
 
-	template< bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, is_Tuple_not_p T_Tuple_not_p, class ...T_Types >
+	template< bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, is_Tuple_not_p T_Tuple_not_p, class ...T_Types>
+		requires (is_Tuple_v<T_Tuple_not_p> || t_Action_Type_Tuple_t)
 	struct S_Action_Tuple<true, t_Action_Type_Tuple_t, t_Action_break, T_Action, T_Tuple_not_p, T_Types... >
 	{
-		using type = U_Remove_p<typename S_Action_Tuple<true, t_Action_Type_Tuple_t, t_Action_break, T_Action, U_Create_p<T_Tuple_not_p>, T_Types...>::type>;
+	private:
+		using action_return = typename S_Action_Tuple<true, t_Action_Type_Tuple_t, t_Action_break, T_Action, U_Create_p<T_Tuple_not_p>, T_Types...>::type;
+
+		using remove_p = U_Remove_p<action_return>;
+	public:
+		using type = U_if_t1< action_return, remove_p, t_Action_break>;
 	};
 
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,int Select_Point,template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Tuple, size_t t_Start_Point>
 	struct S_Action_Tuple_Helper
 	{
 	private:
 
-		template<class T_Tuple,class T_bool=std::bool_constant<S_Parameter<T_Tuple>::Size_Head != Select_Point>>
-		struct S_Action_Tuple_Select_Point
+		template<class T_Tuple,class T_Start_Point_Judge=std::bool_constant<(t_Start_Point != S_Parameter<T_Tuple>::Size_Head)>>
+		struct I_Tuple_Start_Point_Set
 		{
-			using type = U_Select<S_Parameter<T_Tuple>::Size_Head,typename T_Action<U_Select<Select_Point, T_Tuple>, T_Types...>::type>;
+			using return_type = T_Action<U_Select<t_Start_Point, T_Tuple>>::type;
+
+			template<bool t_not_size_change_Judge =(S_Parameter<return_type>::Size == S_Parameter<T_Tuple>::Size)>
+			struct S_Tuple_Start_Point_Set
+			{
+				using type= U_Select<S_Parameter<T_Tuple>::Size_Head,return_type>::type;
+			};
+
+			template<>
+			struct S_Tuple_Start_Point_Set<false>
+			{
+				using type = return_type;
+			};
+
+			using type =typename S_Tuple_Start_Point_Set<>::type;
+
 		};
 
 		template<class T_Tuple>
-		struct S_Action_Tuple_Select_Point<T_Tuple,std::false_type>
+		struct I_Tuple_Start_Point_Set<T_Tuple, std::false_type>
 		{
-			using type =T_Action<T_Tuple, T_Types...>::type;
+			using type = T_Action<T_Tuple>::type;
 		};
 
-		template<bool t_Action_break,template<class...>class T_Action_Fg>
-		using Return_Tuple = S_Action_Tuple<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^
-			is_Tuple_not_p<T_Tuple>), T_Action, T_Tuple, T_Types...>;
-
-		template<bool t_Action_break, int Select_Point = t_Action_Type_Tuple_p ? Select_Point : -1>
-		struct S_Return_Tuple 
-		{
-			using type = Return_Tuple<t_Action_break,S_Action_Tuple_Select_Point>::type;
-		};
-			
 		template<bool t_Action_break>
-		struct S_Return_Tuple<t_Action_break,-1>
-		{
-			using type = Return_Tuple<t_Action_break,T_Action>::type;
-		};
+		using Return_Tuple = 
+			S_Action_Tuple<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Tuple>),I_Tuple_Start_Point_Set, T_Tuple>;
 
 	public:
-		using Return_not_p = S_Return_Tuple<true>::type;
 
-		using Return_p = S_Return_Tuple<false>::type;
+		using Return_not_p = Return_Tuple<true>::type;
 
-		using type = S_Return_Tuple<is_Tuple_not_p<T_Tuple>>::type;
-		
+		using Return_p = Return_Tuple<false>::type;
+
+		using type = Return_Tuple<is_Tuple_not_p<T_Tuple>>::type;
+
 	};
 
 

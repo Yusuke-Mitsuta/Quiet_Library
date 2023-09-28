@@ -4,6 +4,8 @@
 
 #include"Tuple_Concept.h"
 
+#include"Constexpr_String.h"
+
 template<auto t_Value>
 struct integral_constant;
 
@@ -66,13 +68,13 @@ namespace N_Tuple
 	template<size_t _Index, class ...T_Types>
 	struct I_Element;
 
-	template<class T_Tuple_t>
+	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::Size_Head>
 	struct I_Remove;
 
 	template<class T_Tuple_t>
 	struct I_Reverse;
 
-	template<class T_Base_Tuple, class T_Insert_Tuple>
+	template<class T_Base_Tuple, class T_Insert_Tuple, size_t t_Insert_Point = S_Parameter<T_Base_Tuple>::Size_Head>
 	struct I_Insert;
 
 	template<class T_Base_Tuple, class T_Merge_Tuple>
@@ -101,20 +103,25 @@ namespace N_Tuple
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple, class ...T_Types>
 	struct S_Action_Tuple;
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, int Select_Point, template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::Size_Head>
 	struct S_Action_Tuple_Helper;
 
 
-	template<template<class...>class T_Action, class T_Tuple, int t_Action_Tuple_Select_Point = -1>
-	using S_Action_Tuple_tp = S_Action_Tuple_Helper<true, true,t_Action_Tuple_Select_Point, T_Action, T_Tuple>;
+	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
+	using S_Action_Tuple_tp = S_Action_Tuple_Helper<true, true, T_Action, T_Tuple>;
 
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Action_Tuple_t = S_Action_Tuple_Helper<false, true, -1, T_Action, T_Tuple>;
+	using S_Action_Tuple_t = S_Action_Tuple_Helper<false, true, T_Action, T_Tuple>;
 
-	template<template<class...>class T_Action, class T_Tuple, int t_Action_Tuple_Select_Point = -1>
-	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, t_Action_Tuple_Select_Point, T_Action, T_Tuple>;
+	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
+	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, T_Action, T_Tuple>;
 
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Action_Tuple_v = S_Action_Tuple_Helper<false, false, -1, T_Action, T_Tuple>;
+	using S_Action_Tuple_v = S_Action_Tuple_Helper<false, false, T_Action, T_Tuple>;
+
+	template<class T_Tuple_v,N_Constexpr::String t_operator, auto number>
+	struct I_Tuple_Calculate;
+
+
 
 }

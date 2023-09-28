@@ -8,7 +8,7 @@ namespace N_Tuple
 
 	//Žd—l
 	//[T_Tuple]‚Ì[t_Swap_Num_1]”Ô–Ú‚Æ[t_Swap_Num_2]”Ô–Ú‚Ì—v‘f‚ð“ü‚ê‘Ö‚¦‚é
-	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2= S_Parameter<T_Tuple>::Size_Head>
+	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2>
 		requires is_Element<T_Tuple, t_Swap_Num_1>&& is_Element<T_Tuple, t_Swap_Num_2>
 	struct I_Swap
 	{

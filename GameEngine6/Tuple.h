@@ -28,6 +28,7 @@
 #include"Tuple_Remove_Pointer.h"
 #include"Tuple_Create_Pointer.h"
 
+#include"Tuple_v_Calculate.h"
 
 template<class ..._Types>
 struct Tuple :
