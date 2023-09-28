@@ -17,7 +17,10 @@ struct is_same_as_template_type<_Ty1<_Ty1_Types...>,tuple_tp> :
 
 template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
 struct tuple_tp :
-	N_Tuple::Control_tp<T_Head, T, T_Tail> {};
+	N_Tuple::Control_tp<T_Head, T, T_Tail> 
+{
+	using remove_p = N_Tuple::U_Remove_p<tuple_tp< T_Head, T, T_Tail>>;
+}; 
 
 template<class ..._Types>
 struct tuple_t :

@@ -16,7 +16,7 @@ template<same_as_template_value<tuple_v> T_Head, auto _value, same_as_template_v
 struct tuple_vp :
 	N_Tuple::Control_vp<T_Head, _value, T_Tail>
 {
-
+	using remove_p = N_Tuple::U_Remove_p<tuple_vp< T_Head, _value, T_Tail>>;
 };
 
 template<auto ..._Value>
