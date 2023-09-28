@@ -16,27 +16,27 @@ namespace N_Tuple
 		};
 
 		template<class ...T_Head_Types,class T,class ...T_Tail_Types>
-		struct S_Remove_Pointer<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t< T_Tail_Types...>>>
+		struct S_Remove_Pointer<tuple_tp<tuple_t<T_Head_Types...>, T, tuple_t< T_Tail_Types...>>>
 		{
-			using type = Tuple_t<T_Head_Types..., T, T_Tail_Types...>;
+			using type = tuple_t<T_Head_Types..., T, T_Tail_Types...>;
 		};
 
 		template<class ...T_Head_Types,class ...T_Tail_Types>
-		struct S_Remove_Pointer<Tuple_tp<Head_t<T_Head_Types...>,std::nullopt_t, Tail_t< T_Tail_Types...>>>
+		struct S_Remove_Pointer<tuple_tp<tuple_t<T_Head_Types...>,std::nullopt_t, tuple_t< T_Tail_Types...>>>
 		{
-			using type = Tuple_t<T_Head_Types..., T_Tail_Types...>;
+			using type = tuple_t<T_Head_Types..., T_Tail_Types...>;
 		};
 
 		template<auto ...t_head_value,auto t_value ,auto ...t_tail_value>
-		struct S_Remove_Pointer<Tuple_vp<Head_v<t_head_value...>,t_value, Tail_v< t_tail_value...>>>
+		struct S_Remove_Pointer<tuple_vp<tuple_v<t_head_value...>,t_value, tuple_v< t_tail_value...>>>
 		{
-			using type = Tuple_v<t_head_value..., t_value, t_tail_value...>;
+			using type = tuple_v<t_head_value..., t_value, t_tail_value...>;
 		};
 
 		template<auto ...t_head_value, auto ...t_tail_value>
-		struct S_Remove_Pointer<Tuple_vp<Head_v<t_head_value...>, std::nullopt, Tail_v< t_tail_value...>>>
+		struct S_Remove_Pointer<tuple_vp<tuple_v<t_head_value...>, std::nullopt, tuple_v< t_tail_value...>>>
 		{
-			using type = Tuple_v<t_head_value...,t_tail_value...>;
+			using type = tuple_v<t_head_value...,t_tail_value...>;
 		};
 
 

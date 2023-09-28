@@ -5,8 +5,6 @@
 #include"Tuple_Declare.h"
 #include"Tuple_Class_Declare.h"
 #include"Tuple_Type.h"
-#include"Tuple_Head.h"
-#include"Tuple_Tail.h"
 #include"Tuple_Next.h"
 #include"Tuple_Prev.h"
 #include"Tuple_Select.h"

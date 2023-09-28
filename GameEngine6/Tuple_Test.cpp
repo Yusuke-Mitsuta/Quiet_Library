@@ -7,11 +7,11 @@
 
 using namespace N_Tuple;
 
-using Tuple_v5 = Tuple_v<0, 1, 2, 3, 4>;
+using Tuple_v5 = tuple_v<0, 1, 2, 3, 4>;
 
 using Tuple_vp5 = U_Create_p<Tuple_v5>;
 
-using Tuple_t5 = Tuple_t<char, short, int, float, double>;
+using Tuple_t5 = tuple_t<char, short, int, float, double>;
 
 using Tuple_tp5 = U_Create_p<Tuple_t5>;
 
@@ -95,18 +95,6 @@ void Tuple_Test()
 
 	using range = N_Tuple::U_Range<Tuple_tp5, 2, 4>;
 
-	IS_Quick_Sort<N_Sort, N_Tuple::Tuple_t<
-
-		N<5>,
-		//N<9>,
-		N<3>
-		//N<7>,
-		//N<4>,
-		//N<2>
-	
-	>
-
-		>::Type;
 
 
 	TYPE_ID(range);

@@ -12,26 +12,26 @@ namespace N_Tuple
 	{
 	private:
 
-		template<class T_Reverse,class T_Result= Tuple_t<>>
+		template<class T_Reverse,class T_Result= tuple_t<>>
 		struct S_Reverse
 		{
 			using type = T_Result;
 		};
 
 		template<class T_Flont_Type,class ...T_Types,template<class...>class T_Outer, class ...T_Result_Types>
-		struct S_Reverse<Tuple_t<T_Flont_Type,T_Types...>,T_Outer<T_Result_Types...>>
+		struct S_Reverse<tuple_t<T_Flont_Type,T_Types...>,T_Outer<T_Result_Types...>>
 		{
-			using type = S_Reverse<Tuple_t<T_Types...>, T_Outer<T_Flont_Type, T_Result_Types...>>::type;
+			using type = S_Reverse<tuple_t<T_Types...>, T_Outer<T_Flont_Type, T_Result_Types...>>::type;
 		};
 
 		template<class ...T_Head_Types, class T, class ...T_Tail_Types,class T_Result>
-		struct S_Reverse<Tuple_tp<Head_t<T_Head_Types...>, T, Tail_t<T_Tail_Types...>>, T_Result>
+		struct S_Reverse<tuple_tp<tuple_t<T_Head_Types...>, T, tuple_t<T_Tail_Types...>>, T_Result>
 		{
-			using Head_Reverse =typename S_Reverse<Tuple_t<T_Head_Types...>,Tail_t<>>::type;
+			using Head_Reverse =typename S_Reverse<tuple_t<T_Head_Types...>>::type;
 
-			using Tail_Reverse = typename S_Reverse<Tuple_t<T_Tail_Types...>,Head_t<>>::type;
+			using Tail_Reverse = typename S_Reverse<tuple_t<T_Tail_Types...>>::type;
 
-			using type = Tuple_tp<Tail_Reverse, T, Head_Reverse>;
+			using type = tuple_tp<Tail_Reverse, T, Head_Reverse>;
 		};
 
 	public:

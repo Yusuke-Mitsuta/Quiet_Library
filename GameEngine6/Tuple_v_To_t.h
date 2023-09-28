@@ -13,27 +13,27 @@ namespace N_Tuple
 
 	template<auto ...t_Head_Value, auto _Value, auto...t_Tail_Value>
 		requires not_is_nullopt<decltype(_Value)>
-	struct Tuple_v_To_t<Tuple_vp<Head_v<t_Head_Value...>,
-		_Value, Tail_v<t_Tail_Value...>>>
+	struct Tuple_v_To_t<tuple_vp<tuple_v<t_Head_Value...>,
+		_Value, tuple_v<t_Tail_Value...>>>
 	{
-		using type = Tuple_tp<Head_t<integral_constant<t_Head_Value>...>,
+		using type = tuple_tp<tuple_t<integral_constant<t_Head_Value>...>,
 			integral_constant<_Value>,
-			Tail_t<integral_constant<t_Tail_Value>...>>;
+			tuple_t<integral_constant<t_Tail_Value>...>>;
 	};
 
 	template<auto ...t_Head_Value, auto _Value, auto...t_Tail_Value>
 		requires is_nullopt<decltype(_Value)>
-	struct Tuple_v_To_t<Tuple_vp<Head_v<t_Head_Value...>,
-		_Value, Tail_v<t_Tail_Value...>>>
+	struct Tuple_v_To_t<tuple_vp<tuple_v<t_Head_Value...>,
+		_Value, tuple_v<t_Tail_Value...>>>
 	{
-		using type = Tuple_tp<Head_t<integral_constant<t_Head_Value>...>,
+		using type = tuple_tp<tuple_t<integral_constant<t_Head_Value>...>,
 			std::nullopt_t,
-			Tail_t<integral_constant<t_Tail_Value>...>>;
+			tuple_t<integral_constant<t_Tail_Value>...>>;
 	};
 
 	template<auto ..._Value>
-	struct Tuple_v_To_t<Tuple_v<_Value...>>
+	struct Tuple_v_To_t<tuple_v<_Value...>>
 	{
-		using type = Tuple_t<integral_constant<_Value>...>;
+		using type = tuple_t<integral_constant<_Value>...>;
 	};
 }

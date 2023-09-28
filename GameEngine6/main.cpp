@@ -159,48 +159,16 @@ struct S_Zip<float>
 };
 #include"Tuple.h"
 #include"Tuple_Test.h"
+#include"Function_Operator.h"
 
 int main()
 {
 	Tuple_Test();
 
-	using num = N_Tuple::Tuple_vp<N_Tuple::Head_v<1, 2>, 3, N_Tuple::Tail_v<4, 5>>;
 
-	using numu = N_Tuple::Tuple_vp< N_Tuple::Head_v<6, 7>, 8, N_Tuple::Tail_v<9, 10>>;
+	using Fn = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_2), int, int, decltype(&H::Args_2), int>::Not_Pointer_Judge;
 
-	using numu3 = N_Tuple::Tuple_v< 11, 12, 13, 14, 15>;
-	using numu1 = N_Tuple::Tuple_t<int,float,double,char,short>;
-
-	using NN = N_Tuple::I_Tuple_Calculate<numu3, "+", 5>::type;
-	TYPE_ID(NN)
-	using npr =typename N_Tuple::I_Reverse<NN>::type;
-
-
-	using nyo = typename N_Tuple::I_Range<numu3,0>::type;
-
-
-
-
-	static constexpr int na= N_Tuple::I_Element<2, NN>::value;
-	C_OUT(na);
-
-	using tup = N_Tuple::Tuple_tp<N_Tuple::Head_t<int, float, double, char>, int, N_Tuple::Tail_t< float, double, short>>::Flnot::Prev;
-
-		using nate= N_Tuple::Tuple_t<int>::Next;
-		using Tyee = N_Tuple::I_Select<1, NN>::type;
-
-	using a = N_Tuple::Tuple_tp<N_Tuple::Head_t<>, std::nullopt_t, N_Tuple::Tail_t<>>;
-
-
-	using Neta = N_Tuple::I_Extract<tup, N_Tuple::Tuple_v<4>>::type;
-
-	TYPE_ID(Tyee);
-
-
-	using noa = typename N_Tuple::I_Element<4, tup>::type;
-	TYPE_ID(nyo);
-	TYPE_ID(Neta); 
-
+	TYPE_ID(Fn);
 
 
 	//using T_ = typename N_Tuple::I_Select<8, tup>::Type::Type;
@@ -214,7 +182,7 @@ int main()
 //
 //	//using sT = typename N_Tuple::I_Pointer<2, tup>::Type;
 //
-//	using tua = typename N_Tuple::Tuple_v<0, 3, 4, 7, 2.0f>;
+//	using tua = typename N_Tuple::tuple_v<0, 3, 4, 7, 2.0f>;
 //
 //	
 //

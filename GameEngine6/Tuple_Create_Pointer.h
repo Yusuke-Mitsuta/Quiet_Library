@@ -17,27 +17,27 @@ namespace N_Tuple
 		};
 
 		template<class T_Flont_Type,class ...T_Types>
-		struct S_Create_Pointer<Tuple_t<T_Flont_Type,T_Types...>>
+		struct S_Create_Pointer<tuple_t<T_Flont_Type,T_Types...>>
 		{
-			using type= Tuple_tp<Head_t<>,T_Flont_Type, Tail_t<T_Types...>>;
+			using type= tuple_tp<tuple_t<>,T_Flont_Type, tuple_t<T_Types...>>;
 		};
 
 		template<>
-		struct S_Create_Pointer<Tuple_t<>>
+		struct S_Create_Pointer<tuple_t<>>
 		{
-			using type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>;
+			using type = tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>;
 		};
 
 		template<auto t_Flont_value, auto ...t_value>
-		struct S_Create_Pointer<Tuple_v<t_Flont_value,t_value...>>
+		struct S_Create_Pointer<tuple_v<t_Flont_value,t_value...>>
 		{
-			using type = Tuple_vp<Head_v<>,t_Flont_value, Tail_v<t_value...>>;
+			using type = tuple_vp<tuple_v<>,t_Flont_value, tuple_v<t_value...>>;
 		};
 
 		template<>
-		struct S_Create_Pointer<Tuple_v<>>
+		struct S_Create_Pointer<tuple_v<>>
 		{
-			using type = Tuple_vp<Head_v<>,std::nullopt, Tail_v<>>;
+			using type = tuple_vp<tuple_v<>,std::nullopt, tuple_v<>>;
 		};
 
 

@@ -20,12 +20,26 @@ namespace N_Tuple
 		};
 
 		template<class T_Head,not_is_nullopt T,class T_Tail>
-		struct S_Change<Tuple_tp<T_Head,T,T_Tail>>
+		struct S_Change<tuple_tp<T_Head,T,T_Tail>>
 		{
-			using type = Tuple_tp<T_Head, T_Change, T_Tail>;
+			using type = tuple_tp<T_Head, T_Change, T_Tail>;
+		};
+
+		template<class T_Base_Tuple, class T_Change_Tuple = U_Tuple_v_To_t<U_Remove_p<T_Change>>>
+		struct S_Change_Tuple_Expand
+		{
+			using type = T_Base_Tuple;
+		};
+
+		template<class T_Base_Head,not_is_nullopt T, class ...T_Tail_Types, class T_Change_Flont_Type, class ...T_Change_Types>
+		struct S_Change_Tuple_Expand<tuple_tp<T_Base_Head, T, tuple_t<T_Tail_Types...>>, tuple_t<T_Change_Flont_Type, T_Change_Types...>>
+		{
+			using type = tuple_tp<T_Base_Head, T_Change_Flont_Type,tuple_t<T_Change_Types..., T_Tail_Types...>>;
 		};
 
 	public:
+
+		using tuple_expand = S_Action_Tuple_tp<S_Change_Tuple_Expand, T_Tuple_p, t_Change_Point>::type;
 
 		using type = S_Action_Tuple_tp<S_Change, T_Tuple_p,t_Change_Point>::type;
 

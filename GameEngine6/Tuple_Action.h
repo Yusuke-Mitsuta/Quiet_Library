@@ -13,15 +13,15 @@ namespace N_Tuple
 	//実行後の型をT_Tupleの型の条件に戻す
 	//
 	//テンプレート
-	//[t_Action_Type_Tuple_p]::[T_Action]を実行する時に要求するTupleがポイントを所持[Tuple_tp,Tuple_vp]であるか？
-	//[t_Action_Type_Tuple_t]::[T_Action]を実行する時に要求するTupleが型を管理[Tuple_t,Tuple_tp]であるか？
+	//[t_Action_Type_Tuple_p]::[T_Action]を実行する時に要求するTupleがポイントを所持[tuple_tp,tuple_vp]であるか？
+	//[t_Action_Type_Tuple_t]::[T_Action]を実行する時に要求するTupleが型を管理[tuple_t,tuple_tp]であるか？
 	//[t_Action_break]::[T_Action]を実行後、ポイント所持の状態を維持するか？
 	//[T_Action]::[T_Action< ... >::type]で実行する型
 	//[T_Tuple]::条件に応じて変更するTuple
 	//[T_Types...]::[T_Action]で実行時、変更後のTupleの後ろに続ける型
 	//
 	//補足
-	//[t_Action_break == true],[T_Tuple=Tuple_vp],要求する型[Tuple_t]の時帰ってくるTupleの型は[Tuple_v]になる
+	//[t_Action_break == true],[T_Tuple=tuple_vp],要求する型[tuple_t]の時帰ってくるTupleの型は[tuple_v]になる
 	//
 	//型の変化は[2つ進む or 1つ戻る]のどちらかで変化をさせる
 	//[tp → t → v → vp → tp]

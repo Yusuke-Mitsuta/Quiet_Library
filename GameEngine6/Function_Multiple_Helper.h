@@ -27,10 +27,10 @@ namespace N_Function
 	private:
 
 
-		using Parameter = S_Parameter<T_Fn_Parts...>;
+		using Parameter = tuple_t<T_Fn_Parts...>;
 
 		template<int _Index>
-		using Element_t = U_Element_t< (Parameter::Size * 2 - _Index) % Parameter::Size, Parameter>;
+		using Element_t = N_Tuple::U_Element_t<(Parameter::Size * 2 - _Index) % Parameter::Size, Parameter>;
 
 		//仕様
 		//関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定し、互換性があれば[Function_Single]にまとめる
@@ -38,13 +38,13 @@ namespace N_Function
 		//テンプレート
 		//t_SearchNumber::現在の探査中の要素番号
 		//...TP_BoundFns::[Function_Single]でまとめた型
-		template<int t_Search_Number = 1, class TP_BoundFns = S_Parameter<>,
+		template<int t_Search_Number = 1, class TP_BoundFns = tuple_t<>,
 			bool t_Pointer_Judge_Fg=true,
 			bool t_Loop_Fg = static_cast<bool>(t_Search_Number % (Parameter::Size + 1))>
 		struct S_CorrectType;
 
 		template<int t_Search_Number, bool t_Pointer_Judge_Fg, class ...TP_BoundFns>
-		struct S_CorrectType<t_Search_Number, S_Parameter<TP_BoundFns...>, t_Pointer_Judge_Fg, true>
+		struct S_CorrectType<t_Search_Number, tuple_t<TP_BoundFns...>, t_Pointer_Judge_Fg, true>
 		{
 
 			//仕様
@@ -62,21 +62,21 @@ namespace N_Function
 
 			//仕様
 			//関数ポインターに対して引数をセットする
-			template<int t_TP_Number = t_Search_Number, class TP_ArgsNumbers = S_Parameter_Value<>, bool t_Create_Fg =
+			template<int t_TP_Number = t_Search_Number, class TP_ArgsNumbers = tuple_v<>, bool t_Create_Fg =
 				not_same_as<typename S_Function_Single_Data<Element_t<t_TP_Number>>::Method, std::nullopt_t>>
 				struct S_Function_Single_Create;
 
 			template<int t_TP_Number, int ...tP_ArgsNumbers>
-			struct S_Function_Single_Create<t_TP_Number, S_Parameter_Value<tP_ArgsNumbers...>, false>
+			struct S_Function_Single_Create<t_TP_Number, tuple_v<tP_ArgsNumbers...>, false>
 			{
 				//仕様
 				//関数ポインターに対して引数をセットする
-				using Type = S_Function_Single_Create<t_TP_Number + 1, S_Parameter_Value<t_TP_Number, tP_ArgsNumbers...>>::Type;
-				using Type2 = S_Function_Single_Create<t_TP_Number + 1, S_Parameter_Value<t_TP_Number, tP_ArgsNumbers...>>;
+				using Type = S_Function_Single_Create<t_TP_Number + 1, tuple_v<t_TP_Number, tP_ArgsNumbers...>>::Type;
+				using Type2 = S_Function_Single_Create<t_TP_Number + 1, tuple_v<t_TP_Number, tP_ArgsNumbers...>>;
 			};
 
 			template<int t_Method_Number, int ...tP_ArgsNumbers>
-			struct S_Function_Single_Create<t_Method_Number, S_Parameter_Value<tP_ArgsNumbers...>, true>
+			struct S_Function_Single_Create<t_Method_Number, tuple_v<tP_ArgsNumbers...>, true>
 			{
 				using MethodData = N_Function::S_Function_Single_Data<Element_t<t_Method_Number>>;
 
@@ -106,16 +106,14 @@ namespace N_Function
 				using Return = typename S_Judge_Return_Type<p_Judge<t_Method_Number + 1, t_Method_Number> ||
 					p_Judge<Parameter::Size, t_Method_Number>>::Type;
 
-				static constexpr bool judge = not_is_nullopt<typename Return::Method> && (judge_Pointer || !t_Pointer_Judge_Fg);
+				static constexpr bool judge = not_is_nullopt<typename Return::Method> && (judge_Pointer || 
+					!t_Pointer_Judge_Fg);
 
 				//仕様
 				//引数を精査し、ラッピングする
 				using Type = S_CorrectType<(t_Method_Number + 1 +
 					(p_Judge<t_Method_Number + 1, t_Method_Number> || first_Element_Not_Pointer))* judge,
-					S_Parameter<Return, TP_BoundFns...>>::Type;
-				using Type3 = S_CorrectType<(t_Method_Number + 1 +
-					(p_Judge<t_Method_Number + 1, t_Method_Number> || first_Element_Not_Pointer))* judge,
-					S_Parameter<Return, TP_BoundFns...>>;
+					tuple_t<Return, TP_BoundFns...>, t_Pointer_Judge_Fg>::Type;
 
 			};
 
@@ -127,9 +125,10 @@ namespace N_Function
 		//仕様
 		//Functionに対してセットした引数の全てが成功した場合はその結果が、失敗すれば[std::nullopt_t]が返る
 		template<int t_Search_Number, bool t_Pointer_Judge_Fg, class ...TP_BoundFns>
-		struct S_CorrectType<t_Search_Number, S_Parameter<TP_BoundFns...>,t_Pointer_Judge_Fg,false>
+		struct S_CorrectType<t_Search_Number, tuple_t<TP_BoundFns...>,t_Pointer_Judge_Fg,false>
 		{
-			using Type = U_Judge_t<S_Parameter<TP_BoundFns...>, t_Search_Number>;
+			using Type =
+				U_Judge_t<tuple_t<TP_BoundFns...>, t_Search_Number>;
 		};
 
 	public:
@@ -140,7 +139,7 @@ namespace N_Function
 
 		//仕様
 		//判定の項目からクラスポインターがセットされているかを除外する
-		using Not_Pointer_Judge= S_CorrectType<1,S_Parameter<>,0>::Type;
+		using Not_Pointer_Judge= S_CorrectType<1,tuple_t<>,0>::Type;
 
 		//using Fns = Type::Fns;
 

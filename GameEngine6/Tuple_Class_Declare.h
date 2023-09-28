@@ -9,6 +9,18 @@
 template<auto t_Value>
 struct integral_constant;
 
+template<class ...T_Types>
+struct tuple_t;
+
+template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
+struct tuple_tp;
+
+template<auto ..._Value>
+struct tuple_v;
+
+template<same_as_template_value<tuple_v> T_Head, auto _value, same_as_template_value<tuple_v> T_Tail>
+struct tuple_vp;
+
 namespace N_Tuple
 {
 
@@ -16,30 +28,6 @@ namespace N_Tuple
 	struct S_Parameter;
 
 	struct Tuple_p;
-
-	template<class ...T_Head_Type>
-	struct Head_t;
-
-	template<auto ...t_Head_Value>
-	struct Head_v;
-
-	template<class ...T_Tail_Types>
-	struct Tail_t;
-
-	template<auto ...t_Tail_Value>
-	struct Tail_v;
-
-	template<class ...T_Types>
-	struct Tuple_t;
-
-	template<same_as_template_type<Head_t> T_Head, class T, same_as_template_type<Tail_t> T_Tail>
-	struct Tuple_tp;
-
-	template<auto ..._Value>
-	struct Tuple_v;
-
-	template<same_as_template_value<Head_v> T_Head,auto _value, same_as_template_value<Tail_v> T_Tail>
-	struct Tuple_vp;
 
 	template<class T_Tuple_p>
 	struct I_Remove_Pointer;
@@ -50,10 +38,10 @@ namespace N_Tuple
 	template<class T_Tuple>
 	struct _Control_p;
 
-	template<same_as_template_type<Head_t> T_Head, class T, same_as_template_type<Tail_t> T_Tail>
+	template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
 	struct Control_tp;
 
-	template<same_as_template_value<Head_v> T_Head, auto _Value, same_as_template_value<Tail_v> T_Tail>
+	template<same_as_template_value<tuple_v> T_Head, auto _Value, same_as_template_value<tuple_v> T_Tail>
 	struct Control_vp;
 
 	template<class T_Tuple_t>
@@ -77,7 +65,7 @@ namespace N_Tuple
 	template<class T_Base_Tuple, class T_Insert_Tuple, size_t t_Insert_Point = S_Parameter<T_Base_Tuple>::Size_Head>
 	struct I_Insert;
 
-	template<class T_Base_Tuple, class T_Merge_Tuple>
+	template<class T_Base_Tuple, class T_Merge>
 	struct I_Merge;
 
 	template<class T_Tuple_p, class T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::Size_Head>

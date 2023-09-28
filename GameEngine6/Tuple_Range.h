@@ -20,43 +20,43 @@ namespace N_Tuple
 		static constexpr int min = Swap_v::_1;
 		static constexpr int max = Swap_v::_2;
 
-		template<class T_Base, int t_Count = 0, class T_Center = Tuple_t<>>
+		template<class T_Base, int t_Count = 0, class T_Center = tuple_t<>>
 		struct S_Range;
 
 		//仕様
 		//[t_Swap_Num_1]番目と[t_Swap_Num_2]番目が同じ値を指すとき
 		template<class ...T_Types, int t_Count>
 			requires (min == max)
-		struct S_Range< Tuple_t<T_Types...>, t_Count,Tuple_t<>>
+		struct S_Range< tuple_t<T_Types...>, t_Count,tuple_t<>>
 		{
-			using type = Tuple_t<U_Element_t<min, Tuple_t<T_Types...>>>;
+			using type = tuple_t<U_Element_t<min, tuple_t<T_Types...>>>;
 		};
 
 		//仕様
 		//[mix]の値になるまでカウントを進める
 		template<class T_Next_Type, class ...T_Types, int t_Count>
 			requires (min > t_Count) && (min != max)
-		struct S_Range<Tuple_t<T_Next_Type, T_Types...>, t_Count , Tuple_t<>>
+		struct S_Range<tuple_t<T_Next_Type, T_Types...>, t_Count , tuple_t<>>
 		{
-			using type =typename S_Range<Tuple_t<T_Types...>, t_Count + 1>::type;
+			using type =typename S_Range<tuple_t<T_Types...>, t_Count + 1>::type;
 		};
 
 		//仕様
 		//[mix]~[max]の場合値を抜き出す
 		template< class T_Next_Type, class ...T_Types, int t_Count,  class ...T_Center_Types>
 			requires (min <= t_Count) && (max >= t_Count) && (min != max)
-		struct S_Range<Tuple_t<T_Next_Type, T_Types...>, t_Count
-			, Tuple_t<T_Center_Types...>>
+		struct S_Range<tuple_t<T_Next_Type, T_Types...>, t_Count
+			, tuple_t<T_Center_Types...>>
 		{
-			using type = typename S_Range<Tuple_t<T_Types...>, t_Count + 1, Tuple_t<T_Center_Types..., T_Next_Type>>::type;
+			using type = typename S_Range<tuple_t<T_Types...>, t_Count + 1, tuple_t<T_Center_Types..., T_Next_Type>>::type;
 		};
 
 		template< class ...T_Types, int t_Count, class ...T_Center_Types>
 			requires (max <= t_Count) && (min != max)
-		struct S_Range<Tuple_t<T_Types...>, t_Count
-			, Tuple_t<T_Center_Types...>>
+		struct S_Range<tuple_t<T_Types...>, t_Count
+			, tuple_t<T_Center_Types...>>
 		{
-			using type = Tuple_t<T_Center_Types...>;
+			using type = tuple_t<T_Center_Types...>;
 		};
 
 		template<class T_Tuple>

@@ -24,31 +24,31 @@ namespace N_Tuple
 		static constexpr size_t Size = S_Parameter<T_Tuple>::Size;
 		
 		//次の要素を選択する
-		using Next = U_Next<T_Tuple>;
+		using next = U_Next<T_Tuple>;
 
 		//前の要素を選択する
-		using Prev = U_Prev<T_Tuple>;
+		using prev = U_Prev<T_Tuple>;
 
 		//選択している要素を削除する
-		using Remove = U_Remove<T_Tuple>;
+		using remove = U_Remove<T_Tuple>;
 
 		//先頭の要素を選択する
-		using Flnot = U_Flnot<T_Tuple>;
+		using flnot = U_Flnot<T_Tuple>;
 
 		//最後の要素を選択する
-		using Back = U_Back<T_Tuple>;
+		using back = U_Back<T_Tuple>;
 
 		//並び順を反転させる
-		using Reverse = U_Reverse<T_Tuple>;
+		using reverse = U_Reverse<T_Tuple>;
 
 	};
 
-	template<same_as_template_type<Head_t> T_Head, class T, same_as_template_type<Tail_t> T_Tail>
+	template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
 	struct Control_tp :
-		_Control_p<Tuple_tp<T_Head, T, T_Tail>>
+		_Control_p<tuple_tp<T_Head, T, T_Tail>>
 	{
 	private:
-		using T_Tuple_p = Tuple_tp<T_Head, T, T_Tail>;
+		using T_Tuple_p = tuple_tp<T_Head, T, T_Tail>;
 		using Control = _Control_p<T_Tuple_p>;
 		template<class T_Select_Tuple_t>
 		using Select_Tuple_t = typename S_Parameter<T_Select_Tuple_t>::Type;
@@ -56,19 +56,19 @@ namespace N_Tuple
 		//選択している要素の型を返す
 		using type = Select_Tuple_t<T_Tuple_p>;
 
-		using Next_t = Select_Tuple_t<U_Next<T_Tuple_p>>;
-		using Prev_t = Select_Tuple_t<U_Prev<T_Tuple_p>>;
-		using Flont_t = Select_Tuple_t<U_Flnot<T_Tuple_p>>;
-		using Back_t = Select_Tuple_t<U_Back<T_Tuple_p>>;
+		using next_t = Select_Tuple_t<U_Next<T_Tuple_p>>;
+		using prev_t = Select_Tuple_t<U_Prev<T_Tuple_p>>;
+		using flont_t = Select_Tuple_t<U_Flnot<T_Tuple_p>>;
+		using back_t = Select_Tuple_t<U_Back<T_Tuple_p>>;
 
 	};
 
-	template<same_as_template_value<Head_v> T_Head, auto _Value, same_as_template_value<Tail_v> T_Tail>
+	template<same_as_template_value<tuple_v> T_Head, auto _Value, same_as_template_value<tuple_v> T_Tail>
 	struct Control_vp :
-		_Control_p<Tuple_vp<T_Head, _Value, T_Tail>>
+		_Control_p<tuple_vp<T_Head, _Value, T_Tail>>
 	{
 	private:
-		using T_Tuple_v = Tuple_vp<T_Head, _Value, T_Tail>;
+		using T_Tuple_v = tuple_vp<T_Head, _Value, T_Tail>;
 		using Control = _Control_p<T_Tuple_v>;
 
 		template<class T_Select_Tuple_v>
@@ -77,69 +77,69 @@ namespace N_Tuple
 		//選択している要素を返す
 		static constexpr auto value = Select_Tuple_v<T_Tuple_v>;
 
-		static constexpr auto Next_v = Select_Tuple_v<U_Next<T_Tuple_v>>;
-		static constexpr auto Prev_v = Select_Tuple_v<U_Prev<T_Tuple_v>>;
-		static constexpr auto Flont_v = Select_Tuple_v<U_Flnot<T_Tuple_v>>;
-		static constexpr auto Back_v = Select_Tuple_v<U_Back<T_Tuple_v>>;
+		static constexpr auto next_v = Select_Tuple_v<U_Next<T_Tuple_v>>;
+		static constexpr auto prev_v = Select_Tuple_v<U_Prev<T_Tuple_v>>;
+		static constexpr auto flont_v = Select_Tuple_v<U_Flnot<T_Tuple_v>>;
+		static constexpr auto back_v = Select_Tuple_v<U_Back<T_Tuple_v>>;
 
 	};
 
 
 	template<>
-	struct _Control_p<Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>>
+	struct _Control_p<tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>>
 	{
 	private:
-		using r_type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>;
+		using r_type = tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>;
 	public:
 		static constexpr size_t Size_Head = 0;
 		static constexpr size_t Size_Tail = 0;
 		static constexpr size_t Size = 0;
-		using Next = r_type;
-		using Prev = r_type;
-		using Remove = r_type;
-		using Flnot = r_type;
-		using Back = r_type;
-		using Reverse = r_type;
+		using next = r_type;
+		using prev = r_type;
+		using remove = r_type;
+		using flnot = r_type;
+		using back = r_type;
+		using reverse = r_type;
 	};
 
 	template<>
-	struct _Control_p<Tuple_vp<Head_v<>, std::nullopt, Tail_v<>>>
+	struct _Control_p<tuple_vp<tuple_v<>, std::nullopt, tuple_v<>>>
 	{
 	private:
-		using r_type = Tuple_vp<Head_v<>, std::nullopt, Tail_v<>>;
+		using r_type = tuple_vp<tuple_v<>, std::nullopt, tuple_v<>>;
 	public:
 		static constexpr size_t Size_Head = 0;
 		static constexpr size_t Size_Tail = 0;
 		static constexpr size_t Size = 0;
-		using Next = r_type;
-		using Prev = r_type;
-		using Remove = r_type;
-		using Flnot = r_type;
-		using Back = r_type;
-		using Reverse = r_type;
+		using next = r_type;
+		using prev = r_type;
+		using remove = r_type;
+		using flnot = r_type;
+		using back = r_type;
+		using reverse = r_type;
 	};
 
 	template<>
-	struct Control_tp<Head_t<>, std::nullopt_t, Tail_t<>>
-		:_Control_p<Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>>
+	struct Control_tp<tuple_t<>, std::nullopt_t, tuple_t<>>
+		:_Control_p<tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>>
 	{
 		using type = std::nullopt_t;
-		using Next_t = type;
-		using Prev_t = type;
-		using Flont_t = type;
-		using Back_t = type;
+		using next_t = type;
+		using prev_t = type;
+		using flont_t = type;
+		using back_t = type;
 	};
 
 	template<>
-	struct Control_vp<Head_v<>,std::nullopt,Tail_v<>> :
-		_Control_p<Tuple_vp<Head_v<>, std::nullopt, Tail_v<>>>
+	struct Control_vp<tuple_v<>,std::nullopt,tuple_v<>> :
+		_Control_p<tuple_vp<tuple_v<>, std::nullopt, tuple_v<>>>
 	{
 		static constexpr auto value = std::nullopt;
 
-		static constexpr auto Next_v =value;
-		static constexpr auto Prev_v =value;
-		static constexpr auto Flont_v = value;
-		static constexpr auto Back_v = value;
+		static constexpr auto next_v =value;
+		static constexpr auto prev_v =value;
+		static constexpr auto flont_v = value;
+		static constexpr auto back_v = value;
 
 	};
 

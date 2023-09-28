@@ -13,29 +13,32 @@ concept is_Concept = requires
 	T_Concept<int, int>::Concept;
 };
 
-//template<int N>
-//struct S_Number
-//{
-//	static constexpr int Number = N;
-//};
-//
-//template<class T>
-//concept is_Exist_Number = requires
-//{
-//	typename T::Number;
-//};
-//
-////仕様
-////[T_Number::Number]の値が[t_Lower_Limit]以上、かつ [t_Upper_Limit]であることを判定する
-////
-////テンプレート
-////T_Number::範囲内かを範囲するクラスでメンバーに[::Number]を持つ事
-////t_Lower_Limit::下限値
-////t_Upper_Limit::上限値
-//template<class T_Number,int t_Lower_Limit,int t_Upper_Limit>
-//concept C_Range = (is_Exist_Number<T_Number> && 
-//	T_Number::Number >= t_Lower_Limit && T_Number::Number <= t_Upper_Limit);
+template<template<class, class>class is_concept, class _Ty1,class ..._Ty>
+struct is_or :
+	std::false_type {};
 
+template<template<class,class>class is_concept,class _Ty1, class _Ty2,class ..._Ty>
+	requires (is_concept<_Ty1,_Ty2>::value)
+struct is_or<is_concept,_Ty1,_Ty2,_Ty...>:
+	std::true_type {};
+
+template<template<class, class>class is_concept, class _Ty1, class _Ty2, class ..._Ty>
+struct is_or<is_concept, _Ty1, _Ty2, _Ty...> :
+	is_or<is_concept, _Ty1, _Ty...> {};
+
+
+template<template<class, class>class is_concept, class _Ty1,class ..._Ty>
+struct is_and :
+	std::true_type {};
+
+template<template<class, class>class is_concept, class _Ty1, class _Ty2, class ..._Ty>
+	requires(!is_concept<_Ty1, _Ty2>::value)
+struct is_and<is_concept, _Ty1, _Ty2, _Ty...> :
+	std::false_type {};
+
+template<template<class, class>class is_concept, class _Ty1, class _Ty2, class ..._Ty>
+struct is_and<is_concept, _Ty1, _Ty2, _Ty...> :
+	is_or<is_concept, _Ty1, _Ty...> {};
 
 //仕様
 //[T_Tuple]の要素に[t_Number]の要素が存在するか判定する
@@ -47,6 +50,34 @@ template<class T_Size,int t_Number>
 concept is_Element = (0<=t_Number && t_Number<std::tuple_size_v<T_Size>);
 
 using std::same_as;
+
+template <class _Ty1, class _Ty2>
+struct not_is_same :
+	std::bool_constant<!same_as<_Ty1, _Ty2>> {};
+
+
+template <class _Ty1,class ..._Ty>
+concept same_as_or = is_or<std::is_same, _Ty1, _Ty...>::value;
+
+template <class _Ty1, class ..._Ty>
+concept same_as_and = is_and<std::is_same, _Ty1, _Ty...>::value;
+
+template <class _Ty1, class _Ty2>
+concept not_same_as = not_is_same<_Ty1, _Ty2>::value;
+
+template <class _Ty1, class ..._Ty>
+concept not_same_as_or = is_or<not_is_same, _Ty1, _Ty...>::value;
+
+template <class _Ty1, class ..._Ty>
+concept not_same_as_and = is_and<not_is_same, _Ty1, _Ty...>::value;
+
+
+template <class _Ty1, class _Ty2>
+struct not_same_as_S
+{
+	static constexpr bool Concept = !same_as<_Ty1, _Ty2>;
+};
+
 
 template <class _Ty1>
 concept is_nullopt = same_as<_Ty1, std::nullopt_t>;
@@ -82,86 +113,66 @@ struct is_same_as_template_value<_Ty1<_Ty1_value...>, _Ty2> :
 	std::bool_constant<std::same_as<_Ty1<_Ty1_value...>, _Ty2<_Ty1_value...>>>{};
 
 
-
 template<class _Ty1, template<auto...>class _Ty2>
 concept same_as_template_value = is_same_as_template_value<_Ty1, _Ty2>::value;
 
 
-template <class _To,template<class...>class _From_Template>
-struct is_copy_template_type :
-	std::bool_constant<false> {};
-
-template<class ...T_template_Types, template<class...>class _To_Template, template<class...>class _From_Template>
-	requires (std::is_class_v<_From_Template<T_template_Types...>>)
-struct is_copy_template_type<_To_Template<T_template_Types...>, _From_Template> :
-	std::bool_constant<true> {};
 
 
-template <class _To, template<auto...>class _From_Template>
-struct is_copy_template_value :
-	std::bool_constant<false> {};
-
-template<auto ...T_template_Types, template<auto...>class _To_Template, template<auto...>class _From_Template>
-	requires (std::is_class_v<_From_Template<T_template_Types...>>)
-struct is_copy_template_value<_To_Template<T_template_Types...>, _From_Template> :
-	std::bool_constant<true> {};
-
-
-
-
-//
-//template <class _Ty1, class _Ty2,class ..._Ty>
-//struct same_as_or_S
-//{
-//	static constexpr bool Judge = same_as<_Ty1, _Ty2>;
-//
-//	using Swap_1 = same_as_or_S<_Ty1, _Ty...>;
-//
-//	struct Result
-//	{
-//		using Type = same_as_or_S;
-//	};
-//
-//	using Swap_2 = Result;
-//
-//	using Type = U_Swap_t1<Swap_1, Swap_2, Judge>::Type;
-//
-//	static constexpr bool Concept = Type::Judge;
-//
-//};
-//
-//template <class _Ty1, class _Ty2>
-//struct same_as_or_S<_Ty1,_Ty2>
-//{
-//	static constexpr bool Judge = same_as<_Ty1, _Ty2>;
-//
-//	using Type = same_as_S;
-//
-//	static constexpr bool Concept = Judge;
-//
-//};
-//
-//template <class _Ty1, class _Ty2, class ..._Ty>
-//concept same_as_or = same_as_or_S<_Ty1, _Ty2, _Ty...>::Concept;
-
-
-template <class _Ty1,class _Ty2>
-concept not_same_as = !(same_as<_Ty1, _Ty2>);
-
-template <class _Ty1, class _Ty2>
-struct not_same_as_S
-{
-	static constexpr bool Concept = !same_as<_Ty1, _Ty2>;
-};
 
 using std::convertible_to;
 
+template <class _From, class _To>
+struct not_is_convertible :
+	std::bool_constant<!convertible_to<_From, _To>> {};
+
+template <class _From, class ..._To>
+concept convertible_to_or = is_or<std::is_convertible,_From, _To...>::value;
+
+template <class _From, class ..._To>
+concept convertible_to_and = is_and<std::is_convertible, _From, _To...>::value;
+
+template <class _From, class _To>
+concept not_convertible_to = not_is_convertible<_From, _To>::value;
+
+template <class _From, class ..._To>
+concept not_convertible_to_or = is_or<not_is_convertible, _From, _To...>::value;
+
+template <class _From, class ..._To>
+concept not_convertible_to_and = is_and<not_is_convertible, _From, _To...>::value;
+
+
+
+template <class _To, class _From>
+struct is_convertible_from :
+	std::bool_constant<convertible_to<_From, _To>> {};
+
+template <class _To, class _From>
+struct not_is_convertible_from :
+	std::bool_constant<!convertible_to<_From, _To>> {};
 
 template <class _To,class _From>
-concept convertible_from = convertible_to<_From, _To>;
+concept convertible_from = is_convertible_from<_To, _From>::value;
 
-template <class _To,class _From>
-concept not_convertible_from = !convertible_to<_From, _To>;
+template <class _To, class ..._From>
+concept convertible_from_or = is_or<is_convertible_from, _To, _From...>::value;
+
+template <class _To, class ..._From>
+concept convertible_from_and = is_and<is_convertible_from, _To, _From...>::value;
+
+template <class _To, class _From>
+concept not_convertible_from = not_is_convertible_from<_To, _From>::value;
+
+template <class _To, class ..._From>
+concept not_convertible_from_or = is_or<not_is_convertible_from, _To, _From...>::value;
+
+template <class _To, class ..._From>
+concept not_convertible_from_and = is_and<not_is_convertible_from, _To, _From...>::value;
+
+
+
+
+
 
 template <class _From, class _To>
 struct convertible_to_S
@@ -169,8 +180,6 @@ struct convertible_to_S
 	static constexpr bool Concept = convertible_to<_From, _To>;
 };
 
-template <class _From, class T_To>
-concept not_convertible_to = !(convertible_to<_From,T_To>);
 
 template <class _From, class _To>
 struct not_convertible_to_S
@@ -199,6 +208,9 @@ concept not_is_reference = !std::is_reference_v<T>;
 
 template <class T>
 concept is_member_function_pointer = std::is_member_function_pointer_v<T>;
+
+
+
 
 template <class _Ty1, template<class...>class _Ty2>
 struct template_class_concept;

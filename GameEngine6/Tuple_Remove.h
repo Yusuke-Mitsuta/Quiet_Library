@@ -14,42 +14,42 @@ namespace N_Tuple
 		struct S_Remove;
 
 		template<not_is_nullopt T>
-		struct S_Remove<Tuple_tp<Head_t<>, T, Tail_t<>>>
+		struct S_Remove<tuple_tp<tuple_t<>, T, tuple_t<>>>
 		{
 		private:
 
 		public:
-			using type = Tuple_tp<Head_t<>, std::nullopt_t, Tail_t<>>;
+			using type = tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>;
 		};
 
-		template<same_as_template_type<Head_t> T_Head, not_is_nullopt T>
-		struct S_Remove<Tuple_tp<T_Head, T, Tail_t<>>>
+		template<same_as_template_type<tuple_t> T_Head, not_is_nullopt T>
+		struct S_Remove<tuple_tp<T_Head, T, tuple_t<>>>
 		{
 		private:
-			using Tuple_Prev = U_Prev<Tuple_tp<T_Head, T, Tail_t<>>>;
+			using Tuple_Prev = U_Prev<tuple_tp<T_Head, T, tuple_t<>>>;
 
 		public:
 			using type = S_Remove<Tuple_Prev>::type;
 		};
 
-		template<same_as_template_type<Head_t> T_Head, not_is_nullopt T, class T_Next_Type, class ...T_Tail_Types>
-		struct S_Remove<Tuple_tp<T_Head, T, Tail_t<T_Next_Type, T_Tail_Types...>>>
+		template<same_as_template_type<tuple_t> T_Head, not_is_nullopt T, class T_Next_Type, class ...T_Tail_Types>
+		struct S_Remove<tuple_tp<T_Head, T, tuple_t<T_Next_Type, T_Tail_Types...>>>
 		{
-			using type = Tuple_tp<T_Head, T_Next_Type, Tail_t<T_Tail_Types...>>;
+			using type = tuple_tp<T_Head, T_Next_Type, tuple_t<T_Tail_Types...>>;
 		};
 
-		template<same_as_template_type<Head_t> T_Head, same_as_template_type<Tail_t> T_Tail>
-		struct S_Remove<Tuple_tp<T_Head, std::nullopt_t, T_Tail>>
+		template<same_as_template_type<tuple_t> T_Head, same_as_template_type<tuple_t> T_Tail>
+		struct S_Remove<tuple_tp<T_Head, std::nullopt_t, T_Tail>>
 		{
-			using type = Tuple_tp<T_Head, std::nullopt_t, T_Tail>;
+			using type = tuple_tp<T_Head, std::nullopt_t, T_Tail>;
 		};
 
-		template<same_as_template_type<Head_t> T_Head,class T, same_as_template_type<Tail_t> T_Tail>
+		template<same_as_template_type<tuple_t> T_Head,class T, same_as_template_type<tuple_t> T_Tail>
 			requires (t_Remove_Point != S_Parameter<T_Tuple_p>::Size_Head)
-		struct S_Remove<Tuple_tp<T_Head, T,T_Tail>>
+		struct S_Remove<tuple_tp<T_Head, T,T_Tail>>
 		{
 		private:
-			using Tuple_Remove = typename S_Remove<U_Select<t_Remove_Point, Tuple_tp<T_Head, T, T_Tail>>>::type;
+			using Tuple_Remove = typename S_Remove<U_Select<t_Remove_Point, tuple_tp<T_Head, T, T_Tail>>>::type;
 
 		public:
 			using type = U_Select<(t_Remove_Point<S_Parameter<T_Tuple_p>::Size_Head) ? S_Parameter<T_Tuple_p>::Size_Head - 1 : S_Parameter<T_Tuple_p>::Size_Head, Tuple_Remove>;

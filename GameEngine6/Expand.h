@@ -16,17 +16,17 @@ struct S_Parameter;
 template<class T_Zip>
 struct S_Zip
 {
-
 };
+
 
 template<class T_Zip>
 struct S_Expand
 {
-	using Expand = S_Zip<T_Zip>::Type;
+	using type = S_Zip<T_Zip>::type;
 };
 
 template<class T_Zip>
 concept is_expand = requires
 {
-	typename S_Zip<T_Zip>::Type;
+	typename S_Zip<T_Zip>::type;
 };

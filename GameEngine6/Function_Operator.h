@@ -5,6 +5,7 @@
 
 namespace N_Function
 {
+	/*
 	template<class ...T_Fn_Parts>
 	struct S_Function_Single_Data;
 
@@ -76,7 +77,7 @@ namespace N_Function
 		};
 
 
-	};
+	};*/
 
 
 }
