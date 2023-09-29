@@ -45,7 +45,8 @@ namespace N_Function
 		//T_Request_Args::要求する引数の並びを反転させた型
 		//T_Bind_Args::指定する引数の並びを反転させた型
 		//t_End_fg::T_Bind_Argsを最後まで精査したかのフラグ
-		template<class T_Request_Args = T_Request_Args::reverse, class T_Bind_Args = T_Bind_Args::reverse::flont, bool t_End_fg = not_is_nullopt<T_Bind_Args::type>>
+		template<class T_Request_Args = typename T_Request_Args::reverse::front, class T_Bind_Args = typename T_Bind_Args::reverse::front,
+			bool t_End_fg = is_nullopt<typename T_Bind_Args::type>>
 		struct S_Request_Args
 		{
 			using type = std::nullopt_t;
@@ -181,16 +182,16 @@ namespace N_Function
 		//[T_Request_Args::type]が[T_Bind_Args::type]から変換可能な時、
 		//[T_Request_Args],[T_Bind_Args]を１つ進める
 		template<class T_Request_Args, class T_Bind_Args>
-			requires convertible_to<T_Bind_Args::type,T_Request_Args::type>
+			requires convertible_to<typename T_Bind_Args::type,typename T_Request_Args::type>
 		struct S_Request_Args<T_Request_Args, T_Bind_Args, false>
 		{
-			using type = S_Request_Args<typename T_Request_Args::next,typename T_Bind_Args::next>::type;
+			using type =S_Request_Args<typename T_Request_Args::next,typename T_Bind_Args::next>::type;
 		};
 
 		//仕様
 		//[T_Request_Args::type]が[T_Bind_Args::type]から変換不可能な時、[S_Expand]により展開し再度、型の精査を行う
 		template<class T_Request_Args, class T_Bind_Args>
-			requires not_convertible_to<T_Bind_Args::type, T_Request_Args::type>
+			requires not_convertible_to<typename T_Bind_Args::type,typename T_Request_Args::type>
 		struct S_Request_Args<T_Request_Args, T_Bind_Args, false>
 		{
 			using type = S_Expand_Args<T_Request_Args, T_Bind_Args>::type;	
@@ -224,8 +225,10 @@ namespace N_Function
 		};
 
 	public:
-
+		//t_End_fg::T_Bind_Argsを最後まで精査したかのフラグ
 		using Request_Args = S_null_chack<typename S_Request_Args<>::type>::Request_Args;
+		using type = S_Request_Args<> ;
+
 
 		using Bind_Args = S_null_chack<typename S_Request_Args<>::type>::Bind_Args;
 

@@ -166,7 +166,10 @@ int main()
 	Tuple_Test();
 
 
-	using Fn = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_2), int, int, decltype(&H::Args_2), int>::Not_Pointer_Judge;
+	using Fn = N_Function::IS_Request_Args<tuple_t<int, float, char>, tuple_t<int, float, char>>::
+		//IS_Function_Multiple_Helper<decltype(&H::Args_2), int, int, decltype(&H::Args_2), int>::Not_Pointer_Judge;
+
+
 
 	TYPE_ID(Fn);
 

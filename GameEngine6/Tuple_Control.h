@@ -33,7 +33,7 @@ namespace N_Tuple
 		using remove = U_Remove<T_Tuple>;
 
 		//先頭の要素を選択する
-		using flnot = U_Flnot<T_Tuple>;
+		using front = U_Front<T_Tuple>;
 
 		//最後の要素を選択する
 		using back = U_Back<T_Tuple>;
@@ -58,7 +58,7 @@ namespace N_Tuple
 
 		using next_t = Select_Tuple_t<U_Next<T_Tuple_p>>;
 		using prev_t = Select_Tuple_t<U_Prev<T_Tuple_p>>;
-		using flont_t = Select_Tuple_t<U_Flnot<T_Tuple_p>>;
+		using flont_t = Select_Tuple_t<U_Front<T_Tuple_p>>;
 		using back_t = Select_Tuple_t<U_Back<T_Tuple_p>>;
 
 	};
@@ -79,7 +79,7 @@ namespace N_Tuple
 
 		static constexpr auto next_v = Select_Tuple_v<U_Next<T_Tuple_v>>;
 		static constexpr auto prev_v = Select_Tuple_v<U_Prev<T_Tuple_v>>;
-		static constexpr auto flont_v = Select_Tuple_v<U_Flnot<T_Tuple_v>>;
+		static constexpr auto flont_v = Select_Tuple_v<U_Front<T_Tuple_v>>;
 		static constexpr auto back_v = Select_Tuple_v<U_Back<T_Tuple_v>>;
 
 	};
@@ -97,7 +97,7 @@ namespace N_Tuple
 		using next = r_type;
 		using prev = r_type;
 		using remove = r_type;
-		using flnot = r_type;
+		using front = r_type;
 		using back = r_type;
 		using reverse = r_type;
 	};
@@ -114,7 +114,7 @@ namespace N_Tuple
 		using next = r_type;
 		using prev = r_type;
 		using remove = r_type;
-		using flnot = r_type;
+		using front = r_type;
 		using back = r_type;
 		using reverse = r_type;
 	};
