@@ -13,7 +13,7 @@ struct tuple_element_overflow
 template<int _Index, class _Tuple>
 struct tuple_element_overflow<_Index, _Tuple, true>
 {
-	using type = std::nullopt_t;
+	using type = invalid_t;
 };
 template<int _Index, class _Tuple>
 using tuple_element_t_overflow = tuple_element_overflow<_Index, _Tuple>::type;

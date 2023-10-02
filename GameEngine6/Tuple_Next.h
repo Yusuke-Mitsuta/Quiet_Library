@@ -25,14 +25,14 @@ namespace N_Tuple
 			using type = tuple_tp<tuple_t<T_Head_Types..., T>, T_Next_Type, tuple_t<T_Tail_Types...>>;
 		};
 
-		template<class ...T_Head_Types, not_is_nullopt T>
+		template<class ...T_Head_Types, not_is_invalid T>
 		struct S_Next<tuple_tp<tuple_t<T_Head_Types...>, T, tuple_t<>>>
 		{
-			using type = tuple_tp<tuple_t<T_Head_Types..., T>, std::nullopt_t, tuple_t<>>;
+			using type = tuple_tp<tuple_t<T_Head_Types..., T>, invalid_t, tuple_t<>>;
 		};
 
 		template< class T_Next_Type, class ...T_Tail_Types>
-		struct S_Next<tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<T_Next_Type, T_Tail_Types...>>>
+		struct S_Next<tuple_tp<tuple_t<>, invalid_t, tuple_t<T_Next_Type, T_Tail_Types...>>>
 		{
 			using type = tuple_tp<tuple_t<>, T_Next_Type, tuple_t< T_Tail_Types...>>;
 		};

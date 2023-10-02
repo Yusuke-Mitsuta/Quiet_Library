@@ -21,10 +21,10 @@ namespace N_Tuple
 
 	template<auto ...t_Head_Value, auto...t_Tail_Value>
 	struct Tuple_t_To_v<tuple_tp<tuple_t<integral_constant<t_Head_Value>...>,
-		std::nullopt_t,
+		invalid_t,
 		tuple_t<integral_constant<t_Tail_Value>...>>>
 	{
-		using type = tuple_vp<tuple_v<t_Head_Value...>,std::nullopt, tuple_v<t_Tail_Value...>>;
+		using type = tuple_vp<tuple_v<t_Head_Value...>,invalid, tuple_v<t_Tail_Value...>>;
 	};
 
 	template<auto..._Value>

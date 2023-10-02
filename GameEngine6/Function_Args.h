@@ -27,11 +27,11 @@ namespace N_Function
 
 }
 
-template<auto t_Fn=std::nullopt, class T_Parent = std::nullopt_t>
+template<auto t_Fn=invalid, class T_Parent = invalid_t>
 class Functiona;
 
 template<class T_Parent>
-class Functiona<std::nullopt,T_Parent>
+class Functiona<invalid,T_Parent>
 {
 public:
 	template<class ...TP_Args>

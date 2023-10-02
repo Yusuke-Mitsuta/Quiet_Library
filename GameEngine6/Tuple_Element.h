@@ -15,7 +15,7 @@ namespace std
 
 	template<size_t _Index, class ...T_Head_Types, class ...T_Tail_Types>
 	struct std::tuple_element<_Index,
-		tuple_tp<tuple_t<T_Head_Types...>,std::nullopt_t,
+		tuple_tp<tuple_t<T_Head_Types...>,invalid_t,
 		tuple_t<T_Tail_Types...>>>
 	{
 		using type = std::tuple_element_t<_Index, std::tuple<T_Head_Types..., T_Tail_Types...>>;

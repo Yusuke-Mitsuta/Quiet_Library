@@ -22,7 +22,7 @@ namespace N_Tuple
 		};
 
 		template<class ...T_Head_Types,class ...T_Tail_Types>
-		struct S_Remove_Pointer<tuple_tp<tuple_t<T_Head_Types...>,std::nullopt_t, tuple_t< T_Tail_Types...>>>
+		struct S_Remove_Pointer<tuple_tp<tuple_t<T_Head_Types...>,invalid_t, tuple_t< T_Tail_Types...>>>
 		{
 			using type = tuple_t<T_Head_Types..., T_Tail_Types...>;
 		};
@@ -34,7 +34,7 @@ namespace N_Tuple
 		};
 
 		template<auto ...t_head_value, auto ...t_tail_value>
-		struct S_Remove_Pointer<tuple_vp<tuple_v<t_head_value...>, std::nullopt, tuple_v< t_tail_value...>>>
+		struct S_Remove_Pointer<tuple_vp<tuple_v<t_head_value...>, invalid, tuple_v< t_tail_value...>>>
 		{
 			using type = tuple_v<t_head_value...,t_tail_value...>;
 		};

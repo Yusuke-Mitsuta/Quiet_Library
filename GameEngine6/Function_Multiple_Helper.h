@@ -63,7 +63,7 @@ namespace N_Function
 			//仕様
 			//関数ポインターに対して引数をセットする
 			template<int t_TP_Number = t_Search_Number, class TP_ArgsNumbers = tuple_v<>, bool t_Create_Fg =
-				not_same_as<typename S_Function_Single_Data<Element_t<t_TP_Number>>::Method, std::nullopt_t>>
+				not_same_as<typename S_Function_Single_Data<Element_t<t_TP_Number>>::Method, invalid_t>>
 				struct S_Function_Single_Create;
 
 			template<int t_TP_Number, int ...tP_ArgsNumbers>
@@ -84,7 +84,7 @@ namespace N_Function
 					p_Judge<t_Method_Number + 1, t_Method_Number> ||
 					p_Judge<Parameter::Size, t_Method_Number> ||
 					static_cast<bool>(MethodData::Lelve) ||
-					same_as<typename MethodData::CName, std::nullopt_t>;
+					same_as<typename MethodData::CName, invalid_t>;
 
 				//仕様
 				//先頭の共通のポインターを、先頭の要素が使用しない場合判定をスキップする為のフラグ
@@ -106,7 +106,7 @@ namespace N_Function
 				using Return = typename S_Judge_Return_Type<p_Judge<t_Method_Number + 1, t_Method_Number> ||
 					p_Judge<Parameter::Size, t_Method_Number>>::Type;
 
-				static constexpr bool judge = not_is_nullopt<typename Return::Method> && (judge_Pointer || 
+				static constexpr bool judge = not_is_invalid<typename Return::Method> && (judge_Pointer || 
 					!t_Pointer_Judge_Fg);
 
 				//仕様
@@ -123,7 +123,7 @@ namespace N_Function
 		};
 
 		//仕様
-		//Functionに対してセットした引数の全てが成功した場合はその結果が、失敗すれば[std::nullopt_t]が返る
+		//Functionに対してセットした引数の全てが成功した場合はその結果が、失敗すれば[invalid_t]が返る
 		template<int t_Search_Number, bool t_Pointer_Judge_Fg, class ...TP_BoundFns>
 		struct S_CorrectType<t_Search_Number, tuple_t<TP_BoundFns...>,t_Pointer_Judge_Fg,false>
 		{

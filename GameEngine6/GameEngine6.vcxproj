@@ -25,6 +25,7 @@
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
+    <ClInclude Include="Invalid.h" />
     <ClInclude Include="Template_Calculate.h" />
     <ClInclude Include="ClassFunction.h" />
     <ClInclude Include="Component.h" />

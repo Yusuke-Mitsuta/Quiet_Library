@@ -19,7 +19,7 @@ namespace N_Tuple
 		static constexpr int min = Swap_v::_1;
 		static constexpr int max= Swap_v::_2;
 
-		template<class T_Base, int t_Count = 0, class T_Head = tuple_t<>, class T_1 = std::nullopt_t, class T_Center = tuple_t<>>
+		template<class T_Base, int t_Count = 0, class T_Head = tuple_t<>, class T_1 = invalid_t, class T_Center = tuple_t<>>
 		struct S_Swap;
 
 		//Žd—l

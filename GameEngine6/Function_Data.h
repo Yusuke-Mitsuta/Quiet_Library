@@ -26,7 +26,7 @@ namespace N_Function
 		};
 
 		template<class ...T_Fn_Parts>
-			requires not_is_nullopt
+			requires not_is_invalid
 				<typename S_Function_Single_Data<T_Fn_Parts...>::Method>
 		struct S_Function_Data<0,T_Fn_Parts...>
 		{

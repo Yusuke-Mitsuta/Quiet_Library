@@ -1,7 +1,7 @@
 #pragma once
 
 #include<concepts>
-#include<optional>
+#include"Invalid.h"
 #include<tuple>
 
 template <bool t_Fg>
@@ -80,10 +80,10 @@ struct not_same_as_S
 
 
 template <class _Ty1>
-concept is_nullopt = same_as<_Ty1, std::nullopt_t>;
+concept is_invalid = same_as<_Ty1, invalid_t>;
 
 template <class _Ty1>
-concept not_is_nullopt = !is_nullopt<_Ty1>;
+concept not_is_invalid = !is_invalid<_Ty1>;
 
 template <class _Ty1, class _Ty2>
 struct same_as_S

@@ -172,7 +172,7 @@ namespace N_Constexpr
 
 
 		template<Size_Type t_Number, class U, class ...V>
-		constexpr void Set(std::nullopt_t nullopt, V ...v) {}
+		constexpr void Set(invalid_t nullopt, V ...v) {}
 
 	public:
 		//Žd—l
@@ -277,7 +277,7 @@ namespace N_Constexpr
 	}
 	inline constexpr Array<T, t_Size>::Array(U u, V ...v)
 	{
-		Set<0, U, V...>(u, v..., std::nullopt);
+		Set<0, U, V...>(u, v..., invalid);
 	}
 
 }

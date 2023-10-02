@@ -86,10 +86,10 @@ namespace N_Tuple
 
 
 	template<>
-	struct _Control_p<tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>>
+	struct _Control_p<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
 	{
 	private:
-		using r_type = tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>;
+		using r_type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
 	public:
 		static constexpr size_t Size_Head = 0;
 		static constexpr size_t Size_Tail = 0;
@@ -103,10 +103,10 @@ namespace N_Tuple
 	};
 
 	template<>
-	struct _Control_p<tuple_vp<tuple_v<>, std::nullopt, tuple_v<>>>
+	struct _Control_p<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
 	{
 	private:
-		using r_type = tuple_vp<tuple_v<>, std::nullopt, tuple_v<>>;
+		using r_type = tuple_vp<tuple_v<>, invalid, tuple_v<>>;
 	public:
 		static constexpr size_t Size_Head = 0;
 		static constexpr size_t Size_Tail = 0;
@@ -120,10 +120,10 @@ namespace N_Tuple
 	};
 
 	template<>
-	struct Control_tp<tuple_t<>, std::nullopt_t, tuple_t<>>
-		:_Control_p<tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>>
+	struct Control_tp<tuple_t<>, invalid_t, tuple_t<>>
+		:_Control_p<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
 	{
-		using type = std::nullopt_t;
+		using type = invalid_t;
 		using next_t = type;
 		using prev_t = type;
 		using front_t = type;
@@ -131,10 +131,10 @@ namespace N_Tuple
 	};
 
 	template<>
-	struct Control_vp<tuple_v<>,std::nullopt,tuple_v<>> :
-		_Control_p<tuple_vp<tuple_v<>, std::nullopt, tuple_v<>>>
+	struct Control_vp<tuple_v<>,invalid,tuple_v<>> :
+		_Control_p<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
 	{
-		static constexpr auto value = std::nullopt;
+		static constexpr auto value = invalid;
 
 		static constexpr auto next_v =value;
 		static constexpr auto prev_v =value;

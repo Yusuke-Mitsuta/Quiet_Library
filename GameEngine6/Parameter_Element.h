@@ -23,7 +23,7 @@ struct integral_constant;
 //T_Parameters...::型のパラメータパック
 //
 //補足
-//範囲外の場合[std::nullopt_t]が返る
+//範囲外の場合[invalid_t]が返る
 template<size_t _Index,class ...T_Parameters>
 struct IS_Parameter_Element
 {
@@ -42,21 +42,21 @@ struct IS_Parameter_Element
 	};
 
 	template<size_t _Index>
-	struct S_Parameter_Element<_Index,std::nullopt_t>
+	struct S_Parameter_Element<_Index,invalid_t>
 	{
-		using Type = std::nullopt_t;
+		using Type = invalid_t;
 	};
 	
 	template<class ...T_Parameters>
 	struct S_Parameter_Expand
 	{
-		using Type= S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
+		using Type= S_Parameter_Element<_Index, T_Parameters..., invalid_t>::Type;
 	};
 
 	template<class ...T_Parameters>
 	struct S_Parameter_Expand<S_Parameter<T_Parameters...>>
 	{
-		using Type = S_Parameter_Element<_Index, T_Parameters..., std::nullopt_t>::Type;
+		using Type = S_Parameter_Element<_Index, T_Parameters..., invalid_t>::Type;
 	};
 
 public:
@@ -74,7 +74,7 @@ using U_Element_t = IS_Parameter_Element<_Index, T_Parameters...>::Type;
 //_Index::パラメータパックから取り出す型の番号
 //t_Parameters...::変数のパラメータパック
 //補足
-//範囲外の場合[std::nullopt]が返る
+//範囲外の場合[invalid]が返る
 template<size_t _Index, same_as_template_value<S_Parameter_Value> T_Parameter_Value>
 struct S_Parameter_Element_Variable;
 
@@ -90,7 +90,7 @@ struct S_Parameter_Element_Variable<_Index,S_Parameter_Value<t_Parameter_Value..
 	};
 
 	template<>
-	struct S_OverFlow_Check<std::nullopt_t>
+	struct S_OverFlow_Check<invalid_t>
 	{
 		using Type = integral_constant<0>;
 	};

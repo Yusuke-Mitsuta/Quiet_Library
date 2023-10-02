@@ -10,7 +10,7 @@
 //T_Parameters...::型のパラメータパック
 //
 //補足
-//範囲外の場合[std::nullopt_t]が返る
+//範囲外の場合[invalid_t]が返る
 template<class T_Parameters, class TP_Index>
 struct IS_Get_Parameters
 {

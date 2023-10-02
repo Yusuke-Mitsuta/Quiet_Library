@@ -13,16 +13,16 @@ namespace N_Tuple
 		template<class T_Tuple_p>
 		struct S_Remove;
 
-		template<not_is_nullopt T>
+		template<not_is_invalid T>
 		struct S_Remove<tuple_tp<tuple_t<>, T, tuple_t<>>>
 		{
 		private:
 
 		public:
-			using type = tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>;
+			using type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
 		};
 
-		template<same_as_template_type<tuple_t> T_Head, not_is_nullopt T>
+		template<same_as_template_type<tuple_t> T_Head, not_is_invalid T>
 		struct S_Remove<tuple_tp<T_Head, T, tuple_t<>>>
 		{
 		private:
@@ -32,16 +32,16 @@ namespace N_Tuple
 			using type = S_Remove<Tuple_Prev>::type;
 		};
 
-		template<same_as_template_type<tuple_t> T_Head, not_is_nullopt T, class T_Next_Type, class ...T_Tail_Types>
+		template<same_as_template_type<tuple_t> T_Head, not_is_invalid T, class T_Next_Type, class ...T_Tail_Types>
 		struct S_Remove<tuple_tp<T_Head, T, tuple_t<T_Next_Type, T_Tail_Types...>>>
 		{
 			using type = tuple_tp<T_Head, T_Next_Type, tuple_t<T_Tail_Types...>>;
 		};
 
 		template<same_as_template_type<tuple_t> T_Head, same_as_template_type<tuple_t> T_Tail>
-		struct S_Remove<tuple_tp<T_Head, std::nullopt_t, T_Tail>>
+		struct S_Remove<tuple_tp<T_Head, invalid_t, T_Tail>>
 		{
-			using type = tuple_tp<T_Head, std::nullopt_t, T_Tail>;
+			using type = tuple_tp<T_Head, invalid_t, T_Tail>;
 		};
 
 		template<same_as_template_type<tuple_t> T_Head,class T, same_as_template_type<tuple_t> T_Tail>

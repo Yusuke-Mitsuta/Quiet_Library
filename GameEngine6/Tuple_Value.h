@@ -21,7 +21,7 @@ struct tuple_vp :
 
 template<auto ..._Value>
 struct tuple_v :
-	N_Tuple::Control_vp<tuple_v<>, std::nullopt, tuple_v<>>
+	N_Tuple::Control_vp<tuple_v<>, invalid, tuple_v<>>
 {
 
 };

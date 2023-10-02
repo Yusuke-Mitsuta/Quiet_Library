@@ -23,8 +23,8 @@ namespace N_Function
 
 
 		//仕様
-		//[T == std::nullopt_t]なら[T_Next_Type::type]
-		//[T != std::nullopt_t]なら[T]を返す
+		//[T == invalid_t]なら[T_Next_Type::type]
+		//[T != invalid_t]なら[T]を返す
 		template<class T,class T_Next_Type>
 		struct S_Next
 		{
@@ -32,27 +32,9 @@ namespace N_Function
 		};
 
 		template<class T_Next_Type>
-		struct S_Next<std::nullopt_t,T_Next_Type>
+		struct S_Next<invalid_t,T_Next_Type>
 		{
 			using type = T_Next_Type::type;
-		};
-
-		template<class T_Tupel>
-		struct I_Tuple_in_Tuple_type
-		{
-			template<class T_Tupel>
-			struct S_Tuple_in_Tuple_type
-			{
-				using type = typename T_Tupel::type;
-			};
-
-			template<>
-			struct S_Tuple_in_Tuple_type<std::nullopt_t>
-			{
-				using type = std::nullopt_t;
-			};
-		
-			using type = S_Tuple_in_Tuple_type<typename T_Tupel::type>::type;
 		};
 
 		//仕様
@@ -64,10 +46,10 @@ namespace N_Function
 		//T_Bind_Args::指定する引数の並びを反転させた型
 		//t_End_fg::T_Bind_Argsを最後まで精査したかのフラグ
 		template<class T_Request_Args =typename T_Request_Args::reverse, class T_Bind_Args =typename T_Bind_Args::reverse::front,
-			bool t_End_fg = is_nullopt<typename T_Bind_Args::type>>
+			bool t_End_fg = is_invalid<typename T_Bind_Args::type>>
 		struct S_Args_Chack
 		{
-			using type = std::nullopt_t;
+			using type = invalid_t;
 		};
 
 		//仕様
@@ -84,9 +66,9 @@ namespace N_Function
 		//判定し、一致しなければ、[T_Args_List]の選択位置を進めて再度判定する、
 		// 一致すれば[S_Args_Chack]を実行し、成功すれば結果を、
 		// 失敗すれば[T_Args_List]の選択位置を進めて再度判定する
-		//その結果、[T_Args_List]が全ての[T_Args]と一致しなければ、[std::nullopt_t]を返す
+		//その結果、[T_Args_List]が全ての[T_Args]と一致しなければ、[invalid_t]を返す
 		template<template<class,class>class check_concept,class T_Args,class T_Args_List,
-			bool t_Next_Fg= check_concept<typename T_Args::type,typename I_Tuple_in_Tuple_type<T_Args_List>::type>::value>
+			bool t_Next_Fg= check_concept<typename T_Args::type,typename T_Args_List::type::type>::value>
 		struct S_Expand_Args_Check
 		{
 			using type = S_Expand_Args_Check<check_concept, T_Args,typename T_Args_List::next>::type;
@@ -118,11 +100,11 @@ namespace N_Function
 		};
 
 		//仕様
-		//[T_Args_List]の最後まで精査し一つも正しくなければ、[ std::nullopt_t]とする
+		//[T_Args_List]の最後まで精査し一つも正しくなければ、[ invalid_t]とする
 		template<template<class, class>class check_concept, class T_Args, class T_Head>
-		struct S_Expand_Args_Check<check_concept,T_Args, tuple_tp<T_Head,std::nullopt_t,tuple_t<>>>
+		struct S_Expand_Args_Check<check_concept,T_Args, tuple_tp<T_Head,invalid_t,tuple_t<>>>
 		{
-			using type = std::nullopt_t;
+			using type = invalid_t;
 		};
 
 		//仕様
@@ -133,7 +115,7 @@ namespace N_Function
 		template<class T_Request_Args, class T_Bind_Args, class T_Request_Args_List = tuple_t<T_Request_Args>, class T_Bind_Args_List = tuple_t<T_Bind_Args>, bool t_Loop_fg =(!is_expand<typename T_Request_Args::type>)|| (!is_expand<typename T_Bind_Args::type>)>
 		struct S_Expand_Args
 		{
-			using type = std::nullopt_t;
+			using type = invalid_t;
 		};
 
 
@@ -163,7 +145,7 @@ namespace N_Function
 			using Expand_Bind_Args = typename S_Expand_Change<T_Bind_Args>::type;
 			using Expand_Bind_Args1 = typename S_Expand_Change<T_Bind_Args>;
 
-			//using type = std::nullopt_t;
+			//using type = invalid_t;
 
 
 			using type1 = typename S_Expand_Args_Check<
@@ -247,10 +229,10 @@ namespace N_Function
 		};
 
 		template<>
-		struct S_null_chack<std::nullopt_t>
+		struct S_null_chack<invalid_t>
 		{
-			using request_args = std::nullopt_t;
-			using bind_args = std::nullopt_t;
+			using request_args = invalid_t;
+			using bind_args = invalid_t;
 		};
 
 	public:

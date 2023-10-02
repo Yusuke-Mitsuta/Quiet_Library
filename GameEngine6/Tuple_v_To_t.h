@@ -12,7 +12,7 @@ namespace N_Tuple
 	};
 
 	template<auto ...t_Head_Value, auto _Value, auto...t_Tail_Value>
-		requires not_is_nullopt<decltype(_Value)>
+		requires not_is_invalid<decltype(_Value)>
 	struct Tuple_v_To_t<tuple_vp<tuple_v<t_Head_Value...>,
 		_Value, tuple_v<t_Tail_Value...>>>
 	{
@@ -22,12 +22,12 @@ namespace N_Tuple
 	};
 
 	template<auto ...t_Head_Value, auto _Value, auto...t_Tail_Value>
-		requires is_nullopt<decltype(_Value)>
+		requires is_invalid<decltype(_Value)>
 	struct Tuple_v_To_t<tuple_vp<tuple_v<t_Head_Value...>,
 		_Value, tuple_v<t_Tail_Value...>>>
 	{
 		using type = tuple_tp<tuple_t<integral_constant<t_Head_Value>...>,
-			std::nullopt_t,
+			invalid_t,
 			tuple_t<integral_constant<t_Tail_Value>...>>;
 	};
 

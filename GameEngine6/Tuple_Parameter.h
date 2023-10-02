@@ -39,7 +39,7 @@ namespace N_Tuple
 	{
 		static constexpr size_t Size_Head = sizeof...(T_Head_Types);
 		static constexpr size_t Size_Tail = sizeof...(T_Tail_Types);
-		static constexpr size_t Size = Size_Head + Size_Tail + not_is_nullopt<T>;
+		static constexpr size_t Size = Size_Head + Size_Tail + not_is_invalid<T>;
 		using Type = T;
 	};
 
@@ -48,7 +48,7 @@ namespace N_Tuple
 	{
 		static constexpr size_t Size_Head = sizeof...(t_Head_Value);
 		static constexpr size_t Size_Tail = sizeof...(t_Tail_Value);
-		static constexpr size_t Size = Size_Head + Size_Tail + not_is_nullopt<decltype(_Value)>;
+		static constexpr size_t Size = Size_Head + Size_Tail + not_is_invalid<decltype(_Value)>;
 		static constexpr auto value = _Value;
 	};
 

@@ -26,7 +26,7 @@ namespace N_Function
 
 
 		template<>
-		struct S_Function_Helper<std::nullopt_t>
+		struct S_Function_Helper<invalid_t>
 		{
 			using Pointer_Judge = IS_Function_Multiple_Helper<T_Fn_Parts...>::Pointer_Judge;
 			using Not_Pointer_Judge = IS_Function_Multiple_Helper<T_Fn_Parts...>::Not_Pointer_Judge;

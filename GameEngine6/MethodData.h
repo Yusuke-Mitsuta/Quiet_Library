@@ -8,11 +8,11 @@
 //namespace N_Function
 //{
 //
-//	template<not_same_as<std::nullopt_t> T_Parent, class ...TP_Args>
+//	template<not_same_as<invalid_t> T_Parent, class ...TP_Args>
 //	class Function_Single;
 //
 //	template<auto t_Fn, auto ...t_Args>
-//		requires not_same_as<typename N_Function::IS_Function_Single_Helper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, std::nullopt_t>
+//		requires not_same_as<typename N_Function::IS_Function_Single_Helper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, invalid_t>
 //	class Function_Single_Static;
 //
 //	enum class E_Method_T
@@ -29,13 +29,13 @@
 //	template<class T_Parent,class ...T_Args>
 //	struct S_MethodData 
 //	{
-//		using Fn = std::nullopt_t;
-//		using Method = std::nullopt_t;
-//		using BindArgs = std::nullopt_t;
-//		using BoundArgs = std::nullopt_t;
-//		using CName = std::nullopt_t;
-//		using RType = std::nullopt_t;
-//		using Root = std::nullopt_t;
+//		using Fn = invalid_t;
+//		using Method = invalid_t;
+//		using BindArgs = invalid_t;
+//		using BoundArgs = invalid_t;
+//		using CName = invalid_t;
+//		using RType = invalid_t;
+//		using Root = invalid_t;
 //
 //		static constexpr E_Method_T Method_Type = E_Method_T::NONE;
 //	};
@@ -90,7 +90,7 @@
 //
 //		using BoundArgs = BindArgs;
 //
-//		using CName = std::nullopt_t;
+//		using CName = invalid_t;
 //
 //		using RType = T_RType;
 //

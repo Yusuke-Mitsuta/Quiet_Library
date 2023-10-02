@@ -209,7 +209,7 @@ int main()
 //	//using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
 //
 //
-//	//static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
+//	//static constexpr bool Tuu = not_is_invalid<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
 //
 //	//using Tt = N_Function::I_Function_Args_Chack<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
 //

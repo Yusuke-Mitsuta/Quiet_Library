@@ -46,7 +46,7 @@
 //		//template
 //		//...t_Request_Args_Number::operator()()の引数で要求する型の[size_t]パラメータパック
 //		template<size_t... t_Request_Args_Number>
-//		struct S_Function_Operator<std::nullopt_t,
+//		struct S_Function_Operator<invalid_t,
 //			std::index_sequence<t_Request_Args_Number...>>
 //		{
 //		private:
@@ -84,12 +84,12 @@
 //		template<size_t ...t_Args_BindNumber,size_t... t_Request_Args_Number>
 //		struct S_Function_Operator<std::index_sequence<t_Args_BindNumber...>,
 //			std::index_sequence<t_Request_Args_Number...>>:
-//			public S_Function_Operator<std::nullopt_t,
+//			public S_Function_Operator<invalid_t,
 //			T_Default_Request_Args_Number<sizeof...(TP_Args)>>
 //		{
 //		private:
 //
-//			using Fn = S_Function_Operator<std::nullopt_t,
+//			using Fn = S_Function_Operator<invalid_t,
 //				T_Default_Request_Args_Number<sizeof...(TP_Args)>>;
 //
 //			BindArgs bindArgs;

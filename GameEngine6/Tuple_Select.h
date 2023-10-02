@@ -49,10 +49,10 @@ namespace N_Tuple
 		//仕様
 		//目的ポイント[t_Point]が
 		//	[0 <= t_Point <= t_Tuple_Size] かつ、
-		//	[Type::Type]が[std::nullopt_t]で無ければ探索に移行
-		//		であれば[std::nullopt_t]を除いて探索に移行
+		//	[Type::Type]が[invalid_t]で無ければ探索に移行
+		//		であれば[invalid_t]を除いて探索に移行
 		// 
-		//	[0 <= t_Point <= t_Tuple_Size] で無ければ、[std::nullopt_t]による範囲外処理
+		//	[0 <= t_Point <= t_Tuple_Size] で無ければ、[invalid_t]による範囲外処理
 		template<int t_Point, size_t t_Tuple_Size, class T_Tuple_t ,bool t_Out_Range = (t_Point < 0) || (t_Point >= t_Tuple_Size)>
 		struct Select_Range_Judge
 		{
@@ -60,7 +60,7 @@ namespace N_Tuple
 		};
 
 		template<int t_Point, size_t t_Tuple_Size, class ...T_Head_Types , class ...T_Tail_Types>
-		struct Select_Range_Judge<t_Point, t_Tuple_Size, tuple_tp<tuple_t<T_Head_Types...>,std::nullopt_t, tuple_t<T_Tail_Types...>>,false>
+		struct Select_Range_Judge<t_Point, t_Tuple_Size, tuple_tp<tuple_t<T_Head_Types...>,invalid_t, tuple_t<T_Tail_Types...>>,false>
 		{
 			using type = Pointer_Core_t<U_Create_p<tuple_t< T_Head_Types..., T_Tail_Types...>>>;
 				
@@ -69,12 +69,12 @@ namespace N_Tuple
 		template<int t_Point, size_t t_Tuple_Size, class ...T_Head_Types, class T, class ...T_Tail_Types>
 		struct Select_Range_Judge<t_Point,t_Tuple_Size, tuple_tp<tuple_t<T_Head_Types...>, T, tuple_t<T_Tail_Types...>>,true>
 		{
-			using Swap_Null = U_Swap_t1<tuple_t<T_Head_Types..., T_Tail_Types...>, tuple_t<T_Head_Types..., T, T_Tail_Types...>, not_is_nullopt<T>>;
+			using Swap_Null = U_Swap_t1<tuple_t<T_Head_Types..., T_Tail_Types...>, tuple_t<T_Head_Types..., T, T_Tail_Types...>, not_is_invalid<T>>;
 
 			using Swap_Head = U_Swap_t1<tuple_t<>,Swap_Null, (t_Point > 0) >;
 			using Swap_Tail = U_Swap_t1< U_Change_Outer<tuple_t, Swap_Null>, tuple_t<>, (t_Point > 0)>;
 
-			using type = tuple_tp<Swap_Head, std::nullopt_t, Swap_Tail>;
+			using type = tuple_tp<Swap_Head, invalid_t, Swap_Tail>;
 
 		};
 

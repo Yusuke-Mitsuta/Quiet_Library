@@ -70,7 +70,7 @@ struct IS_TupleUnzip
 	};
 
 	template<int t_Number,class ...T_Tuple>
-	struct S_TupleUnzip<t_Number, std::nullopt_t, T_Tuple...>
+	struct S_TupleUnzip<t_Number, invalid_t, T_Tuple...>
 	{
 		//仕様
 		//[...T_Tuple]内の全てのTupleを分解し、1つのTupleに格納した型
@@ -83,7 +83,7 @@ struct IS_TupleUnzip
 public:
 	//仕様
 	//[...T_Tuple]内の全てのTupleを分解し、1つのTupleに格納した型
-	using Type = S_TupleUnzip<0,T_Tuple..., std::nullopt_t>::Type;
+	using Type = S_TupleUnzip<0,T_Tuple..., invalid_t>::Type;
 
 	//仕様
 	//分解し、格納したTupleの変数を取得する
@@ -100,7 +100,7 @@ private:
 	constexpr auto TupleUnzip(std::index_sequence<N...>, T_Tuple&... set_Tuple)
 	{
 		typename S_EnvelopOptional<Type>::Type optionalTuple;
-		S_TupleUnzip<0, T_Tuple..., std::nullopt_t>::TupleUnzip(optionalTuple, set_Tuple...);
+		S_TupleUnzip<0, T_Tuple..., invalid_t>::TupleUnzip(optionalTuple, set_Tuple...);
 		Type tuple(std::get<N>(optionalTuple).value()...);
 		return tuple;
 	}

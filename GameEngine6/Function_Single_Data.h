@@ -29,12 +29,12 @@ namespace N_Function
 		template<class ...T_Fn_Parts>
 		struct S_Function_Data
 		{
-			using function = std::nullopt_t;
-			using method = std::nullopt_t;
-			using request_args = std::nullopt_t;
-			using bind_args = std::nullopt_t;
-			using c_name = std::nullopt_t;
-			using r_type = std::nullopt_t;
+			using function = invalid_t;
+			using method = invalid_t;
+			using request_args = invalid_t;
+			using bind_args = invalid_t;
+			using c_name = invalid_t;
+			using r_type = invalid_t;
 		};
 
 
@@ -84,7 +84,7 @@ namespace N_Function
 		template<class T_Parent, class ...T_Bind_Args>
 		struct S_Method
 		{
-			using function = std::nullopt_t;
+			using function = invalid_t;
 			using method = Method_Core<T_Parent, T_Bind_Args...>;
 		};
 
@@ -129,7 +129,7 @@ namespace N_Function
 		struct S_Function<T_Dedicated_Point*, T_Fn, T_Bind_Args...> :
 			S_Method<T_Fn, T_Bind_Args...>
 		{
-			using function = U_if_t1<Function_Core< T_Fn, T_Bind_Args...>,std::nullopt_t, convertible_to<T_Dedicated_Point, typename S_Function_Data<T_Fn>::c_name>>;
+			using function = U_if_t1<Function_Core< T_Fn, T_Bind_Args...>,invalid_t, convertible_to<T_Dedicated_Point, typename S_Function_Data<T_Fn>::c_name>>;
 		};
 
 		//Žd—l
@@ -161,7 +161,7 @@ namespace N_Function
 			S_Function<T_RType(*)(T_Args...), T_Bind_Args...>,
 			S_Args<typename tuple_t<T_Args...>::back,T_Bind_Args...>
 		{
-			using c_name = std::nullopt_t;
+			using c_name = invalid_t;
 			using r_type = T_RType;
 
 			static constexpr int lelve = 0;
@@ -230,10 +230,10 @@ namespace N_Function
 		};
 
 		template<class T_Parent>
-		struct S_is_Valid_Method_Data<T_Parent, std::nullopt_t>
+		struct S_is_Valid_Method_Data<T_Parent, invalid_t>
 		{
-			using function = std::nullopt_t;
-			using method = std::nullopt_t;
+			using function = invalid_t;
+			using method = invalid_t;
 		};
 
 
@@ -255,14 +255,14 @@ namespace N_Function
 	template<class ...T_Fn_Parts>
 	struct S_Function_Single_Data
 	{
-		using Function = std::nullopt_t;
-		using Method = std::nullopt_t;
-		using Request_Args = std::nullopt_t;
-		using Bind_Args = std::nullopt_t;
-		using Bind_Args_Expand = std::nullopt_t;
-		using Bound_Args = std::nullopt_t;
-		using CName = std::nullopt_t;
-		using RType = std::nullopt_t;
+		using Function = invalid_t;
+		using Method = invalid_t;
+		using Request_Args = invalid_t;
+		using Bind_Args = invalid_t;
+		using Bind_Args_Expand = invalid_t;
+		using Bound_Args = invalid_t;
+		using CName = invalid_t;
+		using RType = invalid_t;
 
 		static constexpr int Lelve = -1;
 	};
@@ -272,7 +272,7 @@ namespace N_Function
 
 
 	template<class T_RType, class ...T_Args, class ...T_Bind_Args>
-		requires not_is_nullopt
+		requires not_is_invalid
 	<typename I_Function_Args_Chack<tuple_t<T_Args...>,
 	tuple_t<T_Bind_Args...>>::Request_Args>
 	struct S_Function_Single_Data<T_RType(*)(T_Args...), T_Bind_Args...>
@@ -292,7 +292,7 @@ namespace N_Function
 
 		using BoundArgs = BindArgs;
 
-		using CName = std::nullopt_t;
+		using CName = invalid_t;
 		using RType = T_RType;
 
 		static constexpr int Lelve = 0;
@@ -300,20 +300,20 @@ namespace N_Function
 	};
 
 	template<class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
-		requires not_is_nullopt<typename I_Function_Args_Chack<tuple_t<T_Args...>,
+		requires not_is_invalid<typename I_Function_Args_Chack<tuple_t<T_Args...>,
 	tuple_t<T_Bind_Args...>>::Request_Args>
 	struct S_Function_Single_Data<T_RType(T_CName::*)(T_Args...), T_Bind_Args...> :
 		public S_Function_Single_Data<T_RType(*)(T_Args...), T_Bind_Args...>
 	{
 		using Method = Method_Core<T_RType(T_CName::*)(T_Args...)>;
-		using Function = std::nullopt_t;
+		using Function = invalid_t;
 		using CName = T_CName;
 
 	};
 
 
 	template<class T_Dedicated_Point, class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
-		requires not_is_nullopt<typename I_Function_Args_Chack<tuple_t<T_Args...>,
+		requires not_is_invalid<typename I_Function_Args_Chack<tuple_t<T_Args...>,
 		tuple_t<T_Bind_Args...>>::Request_Args>
 			&& convertible_to<T_Dedicated_Point, T_CName>
 	struct S_Function_Single_Data<T_Dedicated_Point*, T_RType(T_CName::*)(T_Args...), T_Bind_Args...> :
@@ -326,7 +326,7 @@ namespace N_Function
 
 
 	template<class ...TP_Method_Inner, class ...T_Bind_Args>
-		requires not_is_nullopt<typename I_Function_Args_Chack<typename S_Function_Single_Data<TP_Method_Inner...>::RequestArgs,
+		requires not_is_invalid<typename I_Function_Args_Chack<typename S_Function_Single_Data<TP_Method_Inner...>::RequestArgs,
 			tuple_t<T_Bind_Args...>>::Request_Args>
 	struct S_Function_Single_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
 		public S_Function_Single_Data<TP_Method_Inner...>
@@ -347,7 +347,7 @@ namespace N_Function
 	};
 
 	template<class T_Dedicated_Point, class ...TP_Method_Inner, class ...T_Bind_Args>
-		requires not_is_nullopt<typename S_Function_Single_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...>::RequestArgs> &&
+		requires not_is_invalid<typename S_Function_Single_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...>::RequestArgs> &&
 	convertible_to<T_Dedicated_Point,typename  S_Function_Single_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...>::CName>
 	struct S_Function_Single_Data<T_Dedicated_Point*, Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
 		public S_Function_Single_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...>
@@ -357,7 +357,7 @@ namespace N_Function
 	};
 
 	template<class ...TP_Function_Inner, class ...T_Bind_Args>
-		requires not_is_nullopt<typename I_Function_Args_Chack<
+		requires not_is_invalid<typename I_Function_Args_Chack<
 			typename S_Function_Single_Data<Function_Core<TP_Function_Inner...>>::RequestArgs,
 			tuple_t<T_Bind_Args...>>::Request_Args>
 	struct S_Function_Single_Data<Function_Core<TP_Function_Inner...>, T_Bind_Args...> :

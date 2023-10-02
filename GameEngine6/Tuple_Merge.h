@@ -25,7 +25,7 @@ namespace N_Tuple
 		};
 
 		template<class T_Base_Head,class T_Merge_Flont_Type, class ...T_Merge_Types>
-		struct S_Merge_Tuple_Expand<tuple_tp<T_Base_Head, std::nullopt_t, tuple_t<>>,
+		struct S_Merge_Tuple_Expand<tuple_tp<T_Base_Head, invalid_t, tuple_t<>>,
 			tuple_t<T_Merge_Flont_Type,T_Merge_Types...>>
 		{
 			using type = tuple_tp<T_Base_Head,T_Merge_Flont_Type,tuple_t<T_Merge_Types...>>;
@@ -38,8 +38,8 @@ namespace N_Tuple
 		struct S_Merge<tuple_tp<T_Base_Head, T, tuple_t<T_Tail_Types...>>>
 		{
 			using type = tuple_tp<T_Base_Head, 
-				U_if_t1<T,T_Merge,not_is_nullopt<T> + sizeof...(T_Tail_Types)>,
-				U_if_t1<tuple_t<T_Tail_Types...,T_Merge>, tuple_t<>, not_is_nullopt<T> +sizeof...(T_Tail_Types)>>;
+				U_if_t1<T,T_Merge,not_is_invalid<T> + sizeof...(T_Tail_Types)>,
+				U_if_t1<tuple_t<T_Tail_Types...,T_Merge>, tuple_t<>, not_is_invalid<T> +sizeof...(T_Tail_Types)>>;
 		};
 
 	public:

@@ -25,7 +25,7 @@ namespace N_Tuple
 		template<>
 		struct S_Create_Pointer<tuple_t<>>
 		{
-			using type = tuple_tp<tuple_t<>, std::nullopt_t, tuple_t<>>;
+			using type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
 		};
 
 		template<auto t_Flont_value, auto ...t_value>
@@ -37,7 +37,7 @@ namespace N_Tuple
 		template<>
 		struct S_Create_Pointer<tuple_v<>>
 		{
-			using type = tuple_vp<tuple_v<>,std::nullopt, tuple_v<>>;
+			using type = tuple_vp<tuple_v<>,invalid, tuple_v<>>;
 		};
 
 
