@@ -6,12 +6,12 @@ namespace N_Function
 {
 	//仕様
 	//クラスメソッドとメソッドを同一方法で扱う為のクラス
-	template<class T_Method,class ...TP_Bind_Args>
+	template<class T_Parent,class ...TP_Bind_Args>
 	struct Function_Core :
-		public Method_Core<T_Method, TP_Bind_Args...>
+		public Method_Core<T_Parent, TP_Bind_Args...>
 	{
-		constexpr Function_Core(T_Method set_Methed, TP_Bind_Args... set_Args) :
-			Method_Core<T_Method, TP_Bind_Args...>(set_Methed, set_Args...) {}
+		constexpr Function_Core(T_Parent set_Methed, TP_Bind_Args... set_Args) :
+			Method_Core<T_Parent, TP_Bind_Args...>(set_Methed, set_Args...) {}
 
 
 	};

@@ -7,7 +7,7 @@
 //namespace N_Function
 //{
 //
-//	template<class T_Method, class ...T_Args>
+//	template<class T_Parent, class ...T_Args>
 //	struct S_MethodData;
 //
 //	//Žd—l

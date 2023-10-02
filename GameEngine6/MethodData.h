@@ -8,7 +8,7 @@
 //namespace N_Function
 //{
 //
-//	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
+//	template<not_same_as<std::nullopt_t> T_Parent, class ...TP_Args>
 //	class Function_Single;
 //
 //	template<auto t_Fn, auto ...t_Args>
@@ -26,7 +26,7 @@
 //	//仕様
 //	//先頭の関数に対して、戻り値、クラス、引数の型を返す。
 //	//関数以降の引数に対して、現在バインド済みの引数の型を返す
-//	template<class T_Method,class ...T_Args>
+//	template<class T_Parent,class ...T_Args>
 //	struct S_MethodData 
 //	{
 //		using Fn = std::nullopt_t;

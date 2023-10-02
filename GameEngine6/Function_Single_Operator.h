@@ -7,24 +7,24 @@
 //
 //namespace N_Function 
 //{
-//	template<class T_Method, class ...TP_Args>
+//	template<class T_Parent, class ...TP_Args>
 //	struct S_MethodData;
 //
 //	//d—l
 //	//[Function_Single]‚ÌOperator•”•ª‚ÌÀ‘•
 //	//
 //	//template
-//	//T_Method::ŠÖ”‚ÌŒ^
+//	//T_Parent::ŠÖ”‚ÌŒ^
 //	//...TP_Args::Bind‚·‚éˆø”‚ÌŒ^ƒŠƒXƒg
 //	//
 //	//•â‘«
 //	//IS_FunctionOperator‚ÌÀ‘Ì‰»‚Í‹Ö~‚Æ‚·‚é
 //	//IS_Function_Single_Operator::Type‚ğÀ‘Ì‰»‚·‚é–
-//	template <class T_Method, class ...TP_Args>
+//	template <class T_Parent, class ...TP_Args>
 //	struct IS_Function_Single_Operator
 //	{
 //	private:
-//		using MethodData = N_Function::S_MethodData<T_Method, TP_Args...>;
+//		using MethodData = N_Function::S_MethodData<T_Parent, TP_Args...>;
 //
 //		using BoundArgs = MethodData::BoundArgs;
 //		using BindArgs = MethodData::BindArgs;

@@ -140,22 +140,17 @@ struct H2
 void Hogege(int t) {}
 
 #include"Function_Single_Data.h"
-#include"Function_Single_Data_Request_Args.h"
+#include"Function_Args_Chack.h"
 #include"Function_Multiple_Helper.h"
 #include"Tuple.h"
 #include"Tuple_Value.h"
 #include"Size_T.h"
 
-template<>
-struct S_Zip<int>
-{
-	using Type = S_Parameter<N<1>,N<2>,N<3>>;
-};
 
 template<>
-struct S_Zip<float>
+struct S_Zip<H>
 {
-	using Type = S_Parameter<int,S_Zip<int>>;
+	using type = tuple_t<int,int>;
 };
 #include"Tuple.h"
 #include"Tuple_Test.h"
@@ -166,7 +161,8 @@ int main()
 	Tuple_Test();
 
 
-	using Fn = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_2), int, int, decltype(&H::Args_2), int>::Not_Pointer_Judge;
+	using Fn = //N_Function::I_Function_Args_Chack<tuple_t<int, int>::back, tuple_t<H>>::request_args;
+		N_Function::I_Function_Single_Data<H*, N_Function::Method_Core<decltype(&H::Args_2)>,H>::request_args;
 
 	TYPE_ID(Fn);
 
@@ -215,14 +211,14 @@ int main()
 //
 //	//static constexpr bool Tuu = not_is_nullopt<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
 //
-//	//using Tt = N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
+//	//using Tt = N_Function::I_Function_Args_Chack<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
 //
-//	//using TTt= N_Function::IS_Request_Args<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<0,Tt, double>::Change;
-//
-//
+//	//using TTt= N_Function::I_Function_Args_Chack<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<0,Tt, double>::Change;
 //
 //
-//	//using Tn = typename N_Function::IS_Request_Args<S_Parameter<int, int, int>,
+//
+//
+//	//using Tn = typename N_Function::I_Function_Args_Chack<S_Parameter<int, int, int>,
 //	//	S_Parameter<int, int>>::Type;
 //
 //
@@ -242,7 +238,7 @@ int main()
 //
 //		//IS_Range_Parameters<S_Parameter<N<1>,N<2>,N<3>>, 0,2>::Type;
 //
-//	//using TT4 = N_Function::IS_Request_Args<S_Parameter<int,int,int>,S_Parameter<int>>::
+//	//using TT4 = N_Function::I_Function_Args_Chack<S_Parameter<int,int,int>,S_Parameter<int>>::
 //	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
 //
 //

@@ -5,7 +5,7 @@
 namespace N_Function
 {
 
-	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
+	template<not_same_as<std::nullopt_t> T_Parent, class ...TP_Args>
 	class Function_Single
 	{
 	public:
@@ -20,15 +20,15 @@ namespace N_Function
 //
 //	//仕様
 //	//関数オブジェクトの単体を表す
-//	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
+//	template<not_same_as<std::nullopt_t> T_Parent, class ...TP_Args>
 //	class Function_Single :
-//		public N_Function::IS_Function_Single_Operator<T_Method, TP_Args...>::Type
+//		public N_Function::IS_Function_Single_Operator<T_Parent, TP_Args...>::Type
 //	{
 //	protected:
 //
-//		using MethodData = N_Function::S_MethodData<T_Method, TP_Args...>;
+//		using MethodData = N_Function::S_MethodData<T_Parent, TP_Args...>;
 //
-//		using FunctionOperator = N_Function::IS_Function_Single_Operator<T_Method, TP_Args...>::Type;
+//		using FunctionOperator = N_Function::IS_Function_Single_Operator<T_Parent, TP_Args...>::Type;
 //
 //	public:
 //

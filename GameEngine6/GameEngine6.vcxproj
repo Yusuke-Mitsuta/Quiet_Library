@@ -136,7 +136,7 @@
     <ClCompile Include="Core_Storge.cpp" />
     <ClCompile Include="Core_Type.h" />
     <ClCompile Include="Function_Multiple_Static.h" />
-    <ClCompile Include="Function_Single_Data_Request_Args.h" />
+    <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Single_Static_Operator.h" />
     <ClCompile Include="Function_Single_Static.h" />
     <ClCompile Include="Game_Engine.cpp" />

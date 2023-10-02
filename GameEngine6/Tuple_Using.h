@@ -6,7 +6,7 @@ namespace N_Tuple
 {
 	//先頭の要素を選択する
 	template<class T_Tuple>
-	using U_Flnot = typename I_Select<0, T_Tuple>::type;
+	using U_Front = typename I_Select<0, T_Tuple>::type;
 
 	//最後の要素を選択する
 	template<class T_Tuple>
