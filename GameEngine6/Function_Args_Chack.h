@@ -254,10 +254,6 @@ namespace N_Function
 		};
 
 	public:
-		//t_End_fg::T_Bind_Args‚ğÅŒã‚Ü‚Å¸¸‚µ‚½‚©‚Ìƒtƒ‰ƒO
-		using Request_Args = S_null_chack<typename S_Request_Args<>::type>::Request_Args;
-		using type = S_Request_Args<> ;
-
 		using type = typename S_Args_Chack<>;
 
 		using request_args = S_null_chack<typename S_Args_Chack<>::type>::request_args;
