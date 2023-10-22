@@ -18,20 +18,24 @@ namespace N_Tuple
 
 	};
 
-	template<template<class...>class T_Outer, class ...T_Types>
-	struct S_Parameter<T_Outer<T_Types...>>
+	template<class ...T_Types>
+	struct S_Parameter<tuple_t<T_Types...>>
 	{
 		static constexpr size_t Size_Head = 0;
 		static constexpr size_t Size_Tail = 0;
 		static constexpr size_t Size = sizeof...(T_Types);
+
+		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_T;
 	};
 
-	template<template<auto...>class T_Outer,auto ...t_Value>
-	struct S_Parameter<T_Outer<t_Value...>>
+	template<auto ...t_Value>
+	struct S_Parameter<tuple_v<t_Value...>>
 	{
 		static constexpr size_t Size_Head = 0;
 		static constexpr size_t Size_Tail = 0;
 		static constexpr size_t Size = sizeof...(t_Value);
+
+		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_V;
 	};
 
 	template<class ...T_Head_Types, class T, class ...T_Tail_Types>
@@ -40,7 +44,10 @@ namespace N_Tuple
 		static constexpr size_t Size_Head = sizeof...(T_Head_Types);
 		static constexpr size_t Size_Tail = sizeof...(T_Tail_Types);
 		static constexpr size_t Size = Size_Head + Size_Tail + not_is_invalid<T>;
+
 		using Type = T;
+
+		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_TP;
 	};
 
 	template<auto ...t_Head_Value, auto _Value, auto ...t_Tail_Value>
@@ -50,6 +57,8 @@ namespace N_Tuple
 		static constexpr size_t Size_Tail = sizeof...(t_Tail_Value);
 		static constexpr size_t Size = Size_Head + Size_Tail + not_is_invalid<decltype(_Value)>;
 		static constexpr auto value = _Value;
+
+		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_VP;
 	};
 
 

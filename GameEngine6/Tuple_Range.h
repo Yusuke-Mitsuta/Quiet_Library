@@ -63,8 +63,7 @@ namespace N_Tuple
 		struct S_Action
 		{
 			using type = 
-				T_Tuple;
-				//S_Range<T_Tuple>::type;
+				S_Range<T_Tuple>::type;
 		};
 
 	public:

@@ -14,13 +14,13 @@ struct integral_constant;
 template<class ...T_Types>
 struct tuple_t;
 
-template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
+template<N_Tuple::same_as_tuple_t T_Head, class T, N_Tuple::same_as_tuple_t T_Tail>
 struct tuple_tp;
 
 template<auto ..._Value>
 struct tuple_v;
 
-template<same_as_template_value<tuple_v> T_Head, auto _value, same_as_template_value<tuple_v> T_Tail>
+template<N_Tuple::same_as_tuple_v T_Head, auto _value, N_Tuple::same_as_tuple_v T_Tail>
 struct tuple_vp;
 
 namespace N_Tuple
@@ -98,13 +98,13 @@ namespace N_Tuple
 
 
 	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
-	using S_Action_Tuple_tp = S_Action_Tuple_Helper<true, true, T_Action, T_Tuple>;
+	using S_Action_Tuple_tp = S_Action_Tuple_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
 
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Action_Tuple_t = S_Action_Tuple_Helper<false, true, T_Action, T_Tuple>;
 
 	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
-	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, T_Action, T_Tuple>;
+	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
 
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Action_Tuple_v = S_Action_Tuple_Helper<false, false, T_Action, T_Tuple>;

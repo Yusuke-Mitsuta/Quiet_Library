@@ -202,10 +202,11 @@ int main()
 		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>
 		//>::type;
 
-		//typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
+		typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
 
-		N_Tuple::S_Action_Tuple_t<TEST,
-		tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
+
+		//N_Tuple::S_Action_Tuple_t<TEST,
+		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
 	TYPE_ID(Test_T);
 
 		

@@ -12,7 +12,7 @@ struct integral_constant
 
 };
 
-template<same_as_template_value<tuple_v> T_Head, auto _value, same_as_template_value<tuple_v> T_Tail>
+template<N_Tuple::same_as_tuple_v T_Head, auto _value, N_Tuple::same_as_tuple_v T_Tail>
 struct tuple_vp :
 	N_Tuple::Control_vp<T_Head, _value, T_Tail>
 {
