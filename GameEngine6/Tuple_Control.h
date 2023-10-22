@@ -15,13 +15,13 @@ namespace N_Tuple
 	{
 
 		//選択中の要素より前にある要素数
-		static constexpr size_t Size_Head = S_Parameter<T_Tuple>::Size_Head;
+		static constexpr size_t head_size = S_Parameter<T_Tuple>::Size_Head;
 
 		//選択中の要素より後ろにある要素数
-		static constexpr size_t Size_Tail = S_Parameter<T_Tuple>::Size_Tail;
+		static constexpr size_t tail_size = S_Parameter<T_Tuple>::Size_Tail;
 
 		//要素数
-		static constexpr size_t Size = S_Parameter<T_Tuple>::Size;
+		static constexpr size_t size = S_Parameter<T_Tuple>::Size;
 		
 		//次の要素を選択する
 		using next = U_Next<T_Tuple>;
@@ -91,9 +91,11 @@ namespace N_Tuple
 	private:
 		using r_type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
 	public:
-		static constexpr size_t Size_Head = 0;
-		static constexpr size_t Size_Tail = 0;
-		static constexpr size_t Size = 0;
+
+		static constexpr size_t head_size = 0;
+		static constexpr size_t tail_size = 0;
+		static constexpr size_t size = 0;
+
 		using next = r_type;
 		using prev = r_type;
 		using remove = r_type;
@@ -108,9 +110,9 @@ namespace N_Tuple
 	private:
 		using r_type = tuple_vp<tuple_v<>, invalid, tuple_v<>>;
 	public:
-		static constexpr size_t Size_Head = 0;
-		static constexpr size_t Size_Tail = 0;
-		static constexpr size_t Size = 0;
+		static constexpr size_t head_size = 0;
+		static constexpr size_t tail_size = 0;
+		static constexpr size_t size = 0;
 		using next = r_type;
 		using prev = r_type;
 		using remove = r_type;

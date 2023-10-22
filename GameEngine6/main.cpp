@@ -156,16 +156,69 @@ struct S_Zip<H>
 #include"Tuple_Test.h"
 #include"Function_Operator.h"
 
+template<class t>
+class TEST
+{
+	using type = t;
+
+};
+
+
 int main()
 {
-	Tuple_Test();
+	//Tuple_Test();
 
 
-	using Fn = //N_Function::I_Function_Args_Chack<tuple_t<int, int>::back, tuple_t<H>>::request_args;
-		N_Function::I_Function_Single_Data<H*, N_Function::Method_Core<decltype(&H::Args_2)>,H>::request_args;
+	//using Fn = //N_Function::I_Function_Args_Chack<tuple_t<int, int>::back, tuple_t<H>>::request_args;
+		//N_Function::I_Function_Single_Data<H*, N_Function::Method_Core<decltype(&H::Args_2)>,H>::request_args;
 
-	TYPE_ID(Fn);
+		//typename N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_5), int, int, int
+		//, decltype(&H::Args_7), int, int>::type1;// ::type2::type3::type4::T1;// ::type3::type4;
 
+	//using Fn1= typename  Fn::type2::type3::type4::T1;
+	//using Fn0 = Fn::T1;
+
+	//using uu= typename
+	//N_Function::IS_Function_Multiple_Helper<>::S_Method_Bound<Fn>::type2::type3::type4;
+		//S_Method_Search<tuple_t<H*, decltype(&H::Args_2), int, int>::reverse::front>::type;
+
+		//N_Tuple::U_Range< tuple_t<short, int, double>, 1>;
+		//tuple_tp<tuple_t<>,short, tuple_t<int, double>>, 1>;
+
+
+		//method_range_t<N_Tuple::U_Select<0, tuple_t<int, decltype(&H::Args_2)>>>;
+
+	//using Fn0T = Fn::T;
+	//using Fn1T =typename Fn::type2::type3::type4::T;
+
+	//using Fn0chack_tuple = typename
+		//N_Tuple::U_Range<Fn0T, Fn0::head_size>::reverse;
+
+	//using Fn1chack_tuple = typename N_Tuple::U_Range<Fn1T, Fn1::head_size>::reverse;
+
+	using Test_T =
+
+		//N_Tuple::I_Remove_Pointer<
+		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>
+		//>::type;
+
+		//typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
+
+		N_Tuple::S_Action_Tuple_t<TEST,
+		tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
+	TYPE_ID(Test_T);
+
+		
+
+	//C_OUT(Fn0::head_size);
+	//C_OUT(Fn0::size);
+	//C_OUT(Fn1::head_size);
+	//C_OUT(Fn1::size);
+	//TYPE_ID(Fn0);
+	//TYPE_ID(Fn1);
+	//TYPE_ID(Fn0T);
+	//TYPE_ID(Fn1T);
+	
 
 	//using T_ = typename N_Tuple::I_Select<8, tup>::Type::Type;
 

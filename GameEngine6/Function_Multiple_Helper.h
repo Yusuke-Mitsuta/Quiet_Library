@@ -1,15 +1,13 @@
 #pragma once
 
-#include"Parameter.h"
+#include"Tuple.h"
 #include"SwapType.h"
+#include"Select_Type.h"
 #include"Function_Single_Data.h"
 
 
 namespace N_Function
 {
-
-	template<class ...T_Fn_Parts>
-	struct S_Function_Single_Data;
 
 	//仕様
 	//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
@@ -26,120 +24,100 @@ namespace N_Function
 	{
 	private:
 
+	public:
+		//using commond_point = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
 
-		using Parameter = tuple_t<T_Fn_Parts...>;
 
-		template<int _Index>
-		using Element_t = N_Tuple::U_Element_t<(Parameter::Size * 2 - _Index) % Parameter::Size, Parameter>;
-
-		//仕様
-		//関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定し、互換性があれば[Function_Single]にまとめる
-		//
-		//テンプレート
-		//t_SearchNumber::現在の探査中の要素番号
-		//...TP_BoundFns::[Function_Single]でまとめた型
-		template<int t_Search_Number = 1, class TP_BoundFns = tuple_t<>,
-			bool t_Pointer_Judge_Fg=true,
-			bool t_Loop_Fg = static_cast<bool>(t_Search_Number % (Parameter::Size + 1))>
-		struct S_CorrectType;
-
-		template<int t_Search_Number, bool t_Pointer_Judge_Fg, class ...TP_BoundFns>
-		struct S_CorrectType<t_Search_Number, tuple_t<TP_BoundFns...>, t_Pointer_Judge_Fg, true>
+		template<class T_Tuple, class T_method = typename I_Function_Single_Data<typename T_Tuple::type>::method>
+		struct S_Method_Search
 		{
+			using type = T_Tuple;
+		};
 
-			//仕様
-			//[Element<t_Pointer_Number>]が[Element<t_Method_Number>]と互換性があるか判定する
-			//
-			//条件
-			//1:[Element<t_Pointer_Number>]がポインターである
-			//2:[Element<t_Method_Number>]がメンバー関数ポインターである
-			//3:[Element<t_Pointer_Number>]で[Element<t_Method_Number>]が呼び出せる事
-			template<int t_Pointer_Number, int t_Method_Number>
-			static constexpr bool p_Judge = is_pointer<Element_t<t_Pointer_Number>>
-				&& convertible_to<std::remove_pointer_t<Element_t<t_Pointer_Number>>, typename S_Function_Single_Data<Element_t<t_Method_Number>>::CName>
-				&& (!static_cast<bool>(S_Function_Single_Data<Element_t<t_Method_Number>>::Lelve));
+		template<class T_Tuple>
+		struct S_Method_Search<T_Tuple, invalid_t>
+		{
+			using type = S_Method_Search<typename T_Tuple::next>::type;
+		};
+
+		template<class T_Tuple>
+			requires is_invalid<typename T_Tuple::type>
+		struct S_Method_Search<T_Tuple, invalid_t>
+		{
+			using type = typename T_Tuple::back;
+		};
 
 
-			//仕様
-			//関数ポインターに対して引数をセットする
-			template<int t_TP_Number = t_Search_Number, class TP_ArgsNumbers = tuple_v<>, bool t_Create_Fg =
-				not_same_as<typename S_Function_Single_Data<Element_t<t_TP_Number>>::Method, invalid_t>>
-				struct S_Function_Single_Create;
 
-			template<int t_TP_Number, int ...tP_ArgsNumbers>
-			struct S_Function_Single_Create<t_TP_Number, tuple_v<tP_ArgsNumbers...>, false>
+		template<class T_Tuple, class T_Tuple_Method_Bound = tuple_t<>>
+		struct S_Method_Bound
+		{
+			template<class T_Method_Point>
+			struct S_Method_Chack
 			{
-				//仕様
-				//関数ポインターに対して引数をセットする
-				using Type = S_Function_Single_Create<t_TP_Number + 1, tuple_v<t_TP_Number, tP_ArgsNumbers...>>::Type;
-				using Type2 = S_Function_Single_Create<t_TP_Number + 1, tuple_v<t_TP_Number, tP_ArgsNumbers...>>;
+				using chack_tuple = typename
+					N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size>::reverse;
+
+				using type = I_Function_Single_Data<chack_tuple>::method;
 			};
 
-			template<int t_Method_Number, int ...tP_ArgsNumbers>
-			struct S_Function_Single_Create<t_Method_Number, tuple_v<tP_ArgsNumbers...>, true>
+			template<class T_Args_Start_Point = T_Tuple>
+			struct S_Args_Start_Point
 			{
-				using MethodData = N_Function::S_Function_Single_Data<Element_t<t_Method_Number>>;
 
-				static constexpr bool judge_Pointer=
-					p_Judge<t_Method_Number + 1, t_Method_Number> ||
-					p_Judge<Parameter::Size, t_Method_Number> ||
-					static_cast<bool>(MethodData::Lelve) ||
-					same_as<typename MethodData::CName, invalid_t>;
 
-				//仕様
-				//先頭の共通のポインターを、先頭の要素が使用しない場合判定をスキップする為のフラグ
-				static constexpr bool first_Element_Not_Pointer = is_pointer<Element_t<t_Method_Number + 1>> && static_cast<bool>(MethodData::Lelve) && (t_Method_Number == Parameter::Size - 1);
-
-				template<bool t_Point_Set_Fg>
-				struct S_Judge_Return_Type
+				template<class T_Method_Point = typename S_Method_Search<T_Args_Start_Point>::type,
+					class T_Args_Chack =typename S_Method_Chack<T_Method_Point>::type>
+				struct S_Method_Args_Chack
 				{
-					using Pointer_Type = U_Swap_t1<Element_t<Parameter::Size>, Element_t<t_Method_Number + 1>, p_Judge<t_Method_Number + 1, t_Method_Number>>;
-					using Type = S_Function_Single_Data<Pointer_Type,Element_t<t_Method_Number>,Element_t<tP_ArgsNumbers>...>;
+					using type4 =// T_Tuple;
+						//typename T_Method_Point::next;
+						S_Method_Bound<typename T_Method_Point::next,
+						N_Tuple::U_Insert<T_Tuple_Method_Bound, typename S_Method_Chack<T_Method_Point>::chack_tuple>>;
 				};
-
-				template<>
-				struct S_Judge_Return_Type<false>
-				{
-					using Type = S_Function_Single_Data<Element_t<t_Method_Number>, Element_t<tP_ArgsNumbers>...>;
-				};
-
-				using Return = typename S_Judge_Return_Type<p_Judge<t_Method_Number + 1, t_Method_Number> ||
-					p_Judge<Parameter::Size, t_Method_Number>>::Type;
-
-				static constexpr bool judge = not_is_invalid<typename Return::Method> && (judge_Pointer || 
-					!t_Pointer_Judge_Fg);
-
-				//仕様
-				//引数を精査し、ラッピングする
-				using Type = S_CorrectType<(t_Method_Number + 1 +
-					(p_Judge<t_Method_Number + 1, t_Method_Number> || first_Element_Not_Pointer))* judge,
-					tuple_t<Return, TP_BoundFns...>, t_Pointer_Judge_Fg>::Type;
+				
+				using T = T_Tuple;
+				using type3 = S_Method_Args_Chack<>;
 
 			};
+			using T = T_Tuple;
+			using T1 = typename S_Method_Search<T_Tuple>::type;
 
-			using Type = S_Function_Single_Create<>::Type;
-			using Type1 = S_Function_Single_Create<>;
+			using type2 = S_Args_Start_Point<>;
 
 		};
 
-		//仕様
-		//Functionに対してセットした引数の全てが成功した場合はその結果が、失敗すれば[invalid_t]が返る
-		template<int t_Search_Number, bool t_Pointer_Judge_Fg, class ...TP_BoundFns>
-		struct S_CorrectType<t_Search_Number, tuple_t<TP_BoundFns...>,t_Pointer_Judge_Fg,false>
+		template<class T_Head,class T_Tail,class T_Tuple_Method_Bound>
+		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Tuple_Method_Bound>
 		{
-			using Type =
-				U_Judge_t<tuple_t<TP_BoundFns...>, t_Search_Number>;
+			using type2 = T_Tuple_Method_Bound;
+
+
 		};
+
+
+		
+
 
 	public:
 
+		using type1 = S_Method_Bound<
+			typename tuple_t<T_Fn_Parts...>::reverse::front>;
+
+		
+
 		//仕様
 		//全ての関数オブジェクトにおいて適切なクラスポインターがセットされているか判定する
-		using Pointer_Judge = S_CorrectType<>::Type;
+		//using Pointer_Judge = S_CorrectType<>::type;
+
+
+		//using type1_1 = S_CorrectType<>;
+
+		//using type1 = S_CorrectType<0>;
 
 		//仕様
 		//判定の項目からクラスポインターがセットされているかを除外する
-		using Not_Pointer_Judge= S_CorrectType<1,tuple_t<>,0>::Type;
+		//using Not_Pointer_Judge = S_CorrectType<0>::type;
 
 		//using Fns = Type::Fns;
 

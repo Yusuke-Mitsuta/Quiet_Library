@@ -54,7 +54,7 @@ namespace N_Tuple
 		template< class ...T_Types, int t_Count, class ...T_Center_Types>
 			requires (max <= t_Count) && (min != max)
 		struct S_Range<tuple_t<T_Types...>, t_Count
-			, tuple_t<T_Center_Types...>>
+			,tuple_t<T_Center_Types...>>
 		{
 			using type = tuple_t<T_Center_Types...>;
 		};
@@ -62,13 +62,16 @@ namespace N_Tuple
 		template<class T_Tuple>
 		struct S_Action
 		{
-			using type = S_Range<T_Tuple>::type;
+			using type = 
+				T_Tuple;
+				//S_Range<T_Tuple>::type;
 		};
 
 	public:
 
 		using type = S_Action_Tuple_t<S_Action, T_Tuple>::Return_not_p;
-
+		//using type = //T_Tuple;
+			//S_Action_Tuple_t<S_Action, T_Tuple>::type;
 	};
 
 }

@@ -20,8 +20,8 @@ namespace N_Function
 		template<class T_Fn>
 		struct S_Function_Helper
 		{
-			using Pointer_Judge = S_Parameter<Single_Judge>;
-			using Not_Pointer_Judge = S_Parameter<Single_Judge>;
+			using Pointer_Judge = tuple_t<Single_Judge>;
+			using Not_Pointer_Judge = tuple_t<Single_Judge>;
 		};
 
 
@@ -33,10 +33,10 @@ namespace N_Function
 		};
 
 		using Pointer_Judge = S_Function_Helper<typename
-			Single_Judge::Function>::Pointer_Judge;
+			Single_Judge::function>::Pointer_Judge;
 
 		using Not_Pointer_Judge = S_Function_Helper<typename
-			Single_Judge::Method>::Not_Pointer_Judge;
+			Single_Judge::method>::Not_Pointer_Judge;
 
 	};
 

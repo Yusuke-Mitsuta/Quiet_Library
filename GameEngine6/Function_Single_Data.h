@@ -22,8 +22,6 @@ namespace N_Function
 	{
 	private:
 
-
-
 		//仕様
 		//関数オブジェクトの型に対して、続く引数の型が有効か判定が無効の場合
 		template<class ...T_Fn_Parts>
@@ -35,8 +33,21 @@ namespace N_Function
 			using bind_args = invalid_t;
 			using c_name = invalid_t;
 			using r_type = invalid_t;
+
+			static constexpr int lelve = -1;
 		};
 
+		//仕様
+		//tuple_tでまとめられている場合、展開する
+		template<class ...T_Fn_Parts>
+		struct S_Function_Data<tuple_t<T_Fn_Parts...>> :
+			S_Function_Data<T_Fn_Parts...>
+		{};
+
+		template<class ...T_Head,class T,class ...T_Tail>
+		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>,T,tuple_t<T_Tail...>>> :
+			U_if_t1< S_Function_Data<T_Head...,T,T_Tail...>, S_Function_Data<T_Head..., T_Tail...>,not_is_invalid<T>>
+		{};
 
 		template<class ...TP_Method_Inner>
 		struct S_Parent;

@@ -4,6 +4,8 @@
 
 #include"Tuple_Concept.h"
 
+#include"Tuple_ID.h"
+
 #include"Constexpr_String.h"
 
 template<auto t_Value>
@@ -88,7 +90,7 @@ namespace N_Tuple
 	template<class T>
 	struct Tuple_t_To_v;
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple, class ...T_Types>
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple>
 	struct S_Action_Tuple;
 
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::Size_Head>
@@ -109,7 +111,5 @@ namespace N_Tuple
 
 	template<class T_Tuple_v,N_Constexpr::String t_operator, auto number>
 	struct I_Tuple_Calculate;
-
-
 
 }

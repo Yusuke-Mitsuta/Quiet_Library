@@ -1,7 +1,5 @@
 #pragma once
 
-#include"Tuple_Declare.h"
-
 namespace N_Tuple
 {
 
@@ -16,15 +14,26 @@ namespace N_Tuple
 		TUPLE_P,
 		TUPLE_NOT_P,
 	};
-
-	template<class T_Tuple>
-	struct I_Tuple_ID 
+	
+	struct ID
 	{
-		template<class T_Tuple>
-		struct I_Tuple_ID
+	private:
+		template<E_Tuple_ID id>
+		struct tuple {};
 
-		
+	public:
+
+		using tuple_tp = tuple<E_Tuple_ID::TUPLE_TP>;
+
+		using tuple_t = tuple<E_Tuple_ID::TUPLE_T>;
+
+		using tuple_vp = tuple<E_Tuple_ID::TUPLE_VP>;
+
+		using tuple_v = tuple<E_Tuple_ID::TUPLE_V>;
+
 	};
+
+
 
 
 }

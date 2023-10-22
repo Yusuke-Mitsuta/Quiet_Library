@@ -15,7 +15,7 @@ namespace N_Function
 		using Lapping_Fn = S_Function_Single_Data<MT_Fn_Parts...>;
 
 		using Judge = U_Judge_t<U_Element_t<0,MT_Fn_Parts...>,
-			not_is_invalid<typename Lapping_Fn::RequestArgs>>;
+			not_is_invalid<typename Lapping_Fn::function>>;
 		
 		using Type = Judge;
 

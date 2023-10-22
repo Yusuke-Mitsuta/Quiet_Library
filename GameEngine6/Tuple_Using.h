@@ -4,6 +4,8 @@
 
 namespace N_Tuple
 {
+
+
 	//æ“ª‚Ì—v‘f‚ğ‘I‘ğ‚·‚é
 	template<class T_Tuple>
 	using U_Front = typename I_Select<0, T_Tuple>::type;
