@@ -46,8 +46,11 @@ namespace N_Function
 
 		template<class ...T_Head,class T,class ...T_Tail>
 		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>,T,tuple_t<T_Tail...>>> :
-			U_if_t1< S_Function_Data<T_Head...,T,T_Tail...>, S_Function_Data<T_Head..., T_Tail...>,not_is_invalid<T>>
-		{};
+			S_Function_Data<T_Head...,T,T_Tail...> {};
+
+		template<class ...T_Head, class ...T_Tail>
+		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>,invalid_t, tuple_t<T_Tail...>>> :
+			S_Function_Data<T_Head..., T_Tail...> {};
 
 		template<class ...TP_Method_Inner>
 		struct S_Parent;
@@ -137,6 +140,7 @@ namespace N_Function
 		//[T_Fn]::関数オブジェクトの型
 		//[T_Bind_Args...]::指定する引数の型
 		template<class T_Dedicated_Point,class T_Fn, class ...T_Bind_Args>
+			requires (std::is_class_v<T_Dedicated_Point>)
 		struct S_Function<T_Dedicated_Point*, T_Fn, T_Bind_Args...> :
 			S_Method<T_Fn, T_Bind_Args...>
 		{
@@ -199,7 +203,7 @@ namespace N_Function
 		{
 			using c_name = T_CName;
 			using r_type = T_RType;
-
+			
 			static constexpr int lelve = 0;
 		};
 
@@ -249,6 +253,7 @@ namespace N_Function
 
 
 	public:
+
 		using type = S_Function_Data<T_Fn_Parts...>;
 
 		using function = typename S_is_Valid_Method_Data<type>::function;

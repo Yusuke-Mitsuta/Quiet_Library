@@ -134,7 +134,7 @@ namespace N_Tuple
 			template<bool t_not_size_change_Judge = (S_Parameter<T_Tuple>::Size_Head < S_Parameter<return_type>::Size) > 
 			struct S_Tuple_Start_Point_Set
 			{
-				using type = U_Select<S_Parameter<T_Tuple>::Size_Head, return_type>::type;
+				using type = U_Select<S_Parameter<T_Tuple>::Size_Head, return_type>;
 			};
 
 			template<>

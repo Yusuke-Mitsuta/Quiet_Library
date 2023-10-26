@@ -178,9 +178,24 @@ int main()
 	//using Fn1= typename  Fn::type2::type3::type4::T1;
 	//using Fn0 = Fn::T1;
 
-	//using uu= typename
-	//N_Function::IS_Function_Multiple_Helper<>::S_Method_Bound<Fn>::type2::type3::type4;
-		//S_Method_Search<tuple_t<H*, decltype(&H::Args_2), int, int>::reverse::front>::type;
+
+	using Te = tuple_tp<tuple_t<int, float, double>,char,tuple_t<>>;
+	using ins = N_Tuple::U_Insert<Te, int, 0>;
+	using ins_1 = N_Tuple::I_Insert<Te, int, 0>::type;
+	using FF = //typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::type::function;
+
+		typename
+		N_Function::IS_Function_Multiple_Helper<
+		decltype(&H::Static_Args_2),
+		decltype(&H::Static_Args_2), int
+		//H*, decltype(&H::Args_4), int, int,
+		//H*, decltype(&H::Args_3), int,
+		//decltype(&H::Static_Args_2), int,
+		//H*, decltype(&H::Args_3), int,int,int
+
+
+
+		>::type;
 
 		//N_Tuple::U_Range< tuple_t<short, int, double>, 1>;
 		//tuple_tp<tuple_t<>,short, tuple_t<int, double>>, 1>;
@@ -196,20 +211,38 @@ int main()
 
 	//using Fn1chack_tuple = typename N_Tuple::U_Range<Fn1T, Fn1::head_size>::reverse;
 
-	using Test_T =
+	//using Test_T =
 
 		//N_Tuple::I_Remove_Pointer<
 		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>
 		//>::type;
 
-		typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
+		//typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
 
 
 		//N_Tuple::S_Action_Tuple_t<TEST,
 		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
-	TYPE_ID(Test_T);
 
-		
+	TYPE_ID(FF);
+	//TYPE_ID(decltype(H::Static_Args_2));
+	//TYPE_ID(decltype(H::Args_2));
+	
+	//std::is_member_function_pointer_v
+
+	//C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Static_Args_2)>>);
+	//C_OUT(std::is_class_v< std::remove_pointer_t<decltype(&H::Args_2)>>);
+	//C_OUT(std::is_class_v<H*>);
+
+	//TYPE_ID(FF::type);
+	//TYPE_ID(FF::next_t);
+	//TYPE_ID(FF::next::next_t);
+	//TYPE_ID(FF::next::next::next_t);
+
+	//TYPE_ID(FF::type_1);
+	//TYPE_ID(FF::type_2);
+	//TYPE_ID(FF::type_3);
+	//using ins_3 = N_Tuple::U_Insert<FF::type_2, FF::type_3, 0>;
+	//TYPE_ID(ins_1);
 
 	//C_OUT(Fn0::head_size);
 	//C_OUT(Fn0::size);

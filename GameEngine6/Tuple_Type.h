@@ -11,7 +11,7 @@ template<N_Tuple::same_as_tuple_t T_Head, class T, N_Tuple::same_as_tuple_t T_Ta
 struct tuple_tp :
 	N_Tuple::Control_tp<T_Head, T, T_Tail>
 {
-	//using remove_p = N_Tuple::U_Remove_p<tuple_tp<T_Head, T, T_Tail>>;
+	using remove_p = N_Tuple::U_Remove_p<tuple_tp<T_Head, T, T_Tail>>;
 }; 
 
 template<class ..._Types>
@@ -43,4 +43,8 @@ namespace std
 		static constexpr size_t value = sizeof...(T_Type);
 	};
 }
+
+
+
+
 

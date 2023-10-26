@@ -13,7 +13,10 @@ namespace N_Tuple
 	private:
 
 		template<class T_Base_Tuple>
-		struct S_Insert;
+		struct S_Insert
+		{
+			using type = T_Base_Tuple;
+		};
 
 		template<class T_Base_Head,class T,class ...T_Tail_Types>
 		struct S_Insert<tuple_tp<T_Base_Head, T,tuple_t<T_Tail_Types...>>>
@@ -23,7 +26,10 @@ namespace N_Tuple
 		};
 
 		template<class T_Base_Tuple,class T_Insert_Tuple= U_Tuple_v_To_t<U_Remove_p<T_Insert>>>
-		struct S_Insert_Tuple_Expand;
+		struct S_Insert_Tuple_Expand
+		{
+			using type = T_Base_Tuple;
+		};
 
 		template<class T_Base_Head, class T, class ...T_Tail_Types,class T_Insert_Flont_Type, class ...T_Insert_Types>
 		struct S_Insert_Tuple_Expand<tuple_tp<T_Base_Head, T, tuple_t<T_Tail_Types...>>,tuple_t<T_Insert_Flont_Type,T_Insert_Types...>>

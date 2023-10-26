@@ -236,6 +236,7 @@ namespace N_Function
 		};
 
 	public:
+
 		using type = typename S_Args_Chack<>;
 
 		using request_args = S_null_chack<typename S_Args_Chack<>::type>::request_args;

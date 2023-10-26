@@ -145,5 +145,4 @@ namespace N_Tuple
 
 	};
 
-
 }

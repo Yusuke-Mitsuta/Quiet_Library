@@ -25,7 +25,8 @@ namespace N_Function
 	private:
 
 	public:
-		//using commond_point = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
+
+		using commond_point = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
 
 
 		template<class T_Tuple, class T_method = typename I_Function_Single_Data<typename T_Tuple::type>::method>
@@ -44,65 +45,97 @@ namespace N_Function
 			requires is_invalid<typename T_Tuple::type>
 		struct S_Method_Search<T_Tuple, invalid_t>
 		{
-			using type = typename T_Tuple::back;
+			using type = T_Tuple;
 		};
-
 
 
 		template<class T_Tuple, class T_Tuple_Method_Bound = tuple_t<>>
 		struct S_Method_Bound
 		{
+
 			template<class T_Method_Point>
-			struct S_Method_Chack
-			{
-				using chack_tuple = typename
-					N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size>::reverse;
+			using chack_tuple = typename
+				N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size-(T_Method_Point::head_size== T_Method_Point::size)>::reverse;
 
-				using type = I_Function_Single_Data<chack_tuple>::method;
-			};
 
-			template<class T_Args_Start_Point = T_Tuple>
-			struct S_Args_Start_Point
+			template<class T_Method_Point = typename S_Method_Search<T_Tuple>::type>
+			struct S_Method_Point
 			{
 
+				template<class T_Tuple,class T_Method_Group>
+				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,typename T_Method_Group::remove_p>>::type;
 
-				template<class T_Method_Point = typename S_Method_Search<T_Args_Start_Point>::type,
-					class T_Args_Chack =typename S_Method_Chack<T_Method_Point>::type>
-				struct S_Method_Args_Chack
+				//仕様
+				//関数及び、引数の型に対して、適切にポインターをセットする
+				// 
+				// テンプレート
+				//[T_Function_Check]:取得した関数、及び引数が、既に使用出来る状態
+				//[T_Dedicated_Point_Check]:取得した関数、及び引数が、関数の次に設定されているポインターで使用出来る状態
+				//[T_Commond_Point_Check]:取得した関数、及び引数が、共通で設定されたポインターで使用出来る状態
+				template<class T_Function_Check = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::function,
+						 class T_Dedicated_Point_Check = typename I_Function_Single_Data<chack_tuple<typename T_Method_Point::next>>::function,
+						 class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>,commond_point,0>>::function>
+				struct S_Function_Check
 				{
-					using type4 =// T_Tuple;
-						//typename T_Method_Point::next;
-						S_Method_Bound<typename T_Method_Point::next,
-						N_Tuple::U_Insert<T_Tuple_Method_Bound, typename S_Method_Chack<T_Method_Point>::chack_tuple>>;
+					using type = Method_Bound<T_Method_Point, chack_tuple<T_Method_Point>>;
 				};
-				
-				using T = T_Tuple;
-				using type3 = S_Method_Args_Chack<>;
+
+				//仕様
+				//取得した関数、及び引数が、関数の次に設定されているポインターで使用出来る状態
+				template<class T_Dedicated_Point_Check, class T_Commond_Point_Check>
+				struct S_Function_Check<invalid_t, T_Dedicated_Point_Check, T_Commond_Point_Check>
+				{
+					using type = Method_Bound<typename T_Method_Point::next, chack_tuple<typename T_Method_Point::next>>;
+				};
+
+				//仕様
+				//取得した関数、及び引数が、共通で設定されたポインターで使用出来る状態
+				template<class T_Commond_Point_Check>
+				struct S_Function_Check<invalid_t, invalid_t, T_Commond_Point_Check>
+				{
+					using type = Method_Bound<T_Method_Point, N_Tuple::U_Insert<chack_tuple<T_Method_Point>, commond_point, 0>>;
+
+				};
+
+				//仕様
+				//関数に対して、引数の方が不一致な場合、次の関数を探索する
+				template<>
+				struct S_Function_Check<invalid_t, invalid_t, invalid_t>
+				{
+
+					using type = S_Method_Point<typename S_Method_Search<typename T_Method_Point::next>::type>::type;
+				};
+
+				using type = S_Function_Check<>::type;
 
 			};
-			using T = T_Tuple;
-			using T1 = typename S_Method_Search<T_Tuple>::type;
 
-			using type2 = S_Args_Start_Point<>;
+			//仕様
+			//関数に対して、引数の方が不一致であり、全ての探索が終わった場合
+			template<class T_Head>
+			struct S_Method_Point<tuple_tp<T_Head,invalid_t,tuple_t<>>>
+			{
+				using type = invalid_t;
+			};
+
+			using type = S_Method_Point<>::type;
 
 		};
 
+		//仕様
+		//全ての型の探査が正常に終了した場合、結果を出力する
 		template<class T_Head,class T_Tail,class T_Tuple_Method_Bound>
 		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Tuple_Method_Bound>
 		{
-			using type2 = T_Tuple_Method_Bound;
-
+			using type = T_Tuple_Method_Bound;
 
 		};
 
-
-		
-
-
 	public:
 
-		using type1 = S_Method_Bound<
-			typename tuple_t<T_Fn_Parts...>::reverse::front>;
+		using type = S_Method_Bound<
+			typename tuple_t<T_Fn_Parts...>::reverse::front>::type;
 
 		
 
