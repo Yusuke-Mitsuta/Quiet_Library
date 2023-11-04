@@ -55,6 +55,9 @@
     <Filter Include="ヘッダー ファイル\Tuple_New">
       <UniqueIdentifier>{12123ce8-54db-44f0-b786-ba5d3f28a5d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Function\Function_Single_Data">
+      <UniqueIdentifier>{55f58fc5-f54b-4652-b4bb-82ddf348b2c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -267,9 +270,6 @@
     <ClInclude Include="Expand.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Single_Data.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Method_Core.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
@@ -389,6 +389,12 @@
     </ClInclude>
     <ClInclude Include="Function_Core_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Single_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Single_Data_Args_Check.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

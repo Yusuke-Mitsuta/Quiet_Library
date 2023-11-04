@@ -67,3 +67,12 @@ public:
 	int a = 1;
 
 };
+
+
+template<class t>
+class TEST
+{
+public:
+	using type = t;
+
+};

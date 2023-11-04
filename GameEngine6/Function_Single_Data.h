@@ -59,6 +59,11 @@ namespace N_Function
 
 		template<class ...TP_Method_Inner>
 		struct S_Parent;
+		template<class T_Fns, class ...T_Bind_Args>
+		struct S_Args;
+
+		template<class T_Request_args, class ...T_Bind_Args >
+		using req= S_Args<T_Request_args, T_Bind_Args...>::request_args;
 
 		//仕様
 		//[using request_args],[using bind_args]を定義する
@@ -71,19 +76,26 @@ namespace N_Function
 		struct S_Args
 		{
 
-
-
-
 			template<class T_Request_args>
 			struct S_request_args
 			{
-				using type = S_Args<T_Request_args, T_Bind_Args...>::request_args;
+				using type = 
+					//T_Request_args;
+					//tuple_t<T_Request_args, T_Bind_Args...>;
+					//T_Request_args;
+					//typename 
+					
+					typename S_Function_Data<T_Request_args>::request_args;
 			};
 
 			template<class ...T_Fns_Request_args>
 			struct S_request_args<tuple_t<T_Fns_Request_args...>>
 			{
 				using type = tuple_t<typename S_request_args<T_Fns_Request_args>::type...>;
+
+
+					//<typename S_Args<T_Fns_Request_args,T_Bind_Args...>::request_args...>;
+					//typename S_request_args<T_Fns_Request_args>::type...>;
 
 					//typename S_request_args<T_Flont_Fn_Request_args>::type,
 					//typename S_request_args<tuple_t<T_Fns_Request_args...>>::type>;
@@ -94,19 +106,40 @@ namespace N_Function
 			template<class T_Fn_Core>
 			struct S_before_request_args
 			{
-				using type = typename S_Function_Data<T_Fn_Core>::request_args;
+				using type = T_Fn_Core;
+
+					//typename S_Args<
+					//typename S_Function_Data<T_Fn_Core>::request_args,
+					//T_Bind_Args...>::request_args;
+
+
 
 			};
 
 			template<class ...T_Fns_Core,class ...T_before_Bind_Args>
 			struct S_before_request_args<Function_Core<tuple_t<T_Fns_Core...>,T_before_Bind_Args...>>
 			{
-				using type = tuple_t<typename S_before_request_args<Function_Core<T_Fns_Core, T_before_Bind_Args...>>::type...>;
+				using a =
+					tuple_t<Function_Core<T_Fns_Core,T_before_Bind_Args...>...>;
+					
+					//tuple_t<
+					//typename S_before_request_args<Function_Core<T_Fns_Core,T_before_Bind_Args...>>::type...
+					//>
+					;
 
+
+
+
+					using type = a;
 			};
 
 
-			using request_args = S_request_args<S_before_request_args<T_Fns>>::type;
+			using request_args = 
+				//T_Fns;
+				//tuple_t< T_Fns>;
+				//typename S_before_request_args<T_Fns>::type;
+				typename S_request_args<typename S_before_request_args<T_Fns>::type>::type;
+
 
 			using bind_args = tuple_t<T_Bind_Args...>;
 
@@ -127,6 +160,7 @@ namespace N_Function
 				tuple_tp<T_Head, T, T_Tail>, tuple_t<T_Bind_Args...>>;
 
 		public:
+
 			using request_args = args_chack::request_args;
 
 			using bind_args = tuple_t<T_Bind_Args...>;
@@ -239,19 +273,30 @@ namespace N_Function
 			S_Function_Data<T_Fn, T_Bind_Args...>
 		{};
 
-		template<class ...T_Fns, class ...T_before_Bind_Args, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args... > :
-			S_Function<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>,
-			S_Args<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args...>
+		template<class T_Fn, class ...T_before_Bind_Args, class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...>:
+			S_Function<Function_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...>,
+			S_Args<typename S_Args<Function_Core<T_Fn, T_before_Bind_Args...>>::request_args, T_Bind_Args...>
 		{
 
+		};
+
+		template<class ...T_Fns, class ...T_before_Bind_Args, class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args... > :
+			S_Function<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>
+		{
+			using request_args = tuple_t<typename S_Function_Data<Function_Core<T_Fns, T_before_Bind_Args...>, T_Bind_Args...>::request_args...>;
+			using bind_args = tuple_t<T_Bind_Args...>;
 		};
 
 
 		template<class T_Fns, class ...T_Bind_Args>
 		struct S_Function_Data<Function<T_Fns>, T_Bind_Args...> :
 			S_Function_Data<Function_Core<T_Fns,T_Bind_Args...>>
-		{};
+		{
+			//using function = Function_Core<T_Fns, T_Bind_Args...>;
+		
+		};
 
 		////仕様
 		////引数をバインド済み、かつクラスポインタの型を判定しない場合

@@ -24,6 +24,7 @@
 #include<utility>
 
 #include"Function.h"
+#include"Function_Single_Data_Args_Check.h"
 
 constexpr std::string getLastPathComponent(std::string path) {
 	std::string r;
@@ -155,13 +156,7 @@ struct S_Zip<H>
 #include"Tuple_Test.h"
 #include"Function_Operator.h"
 
-template<class t>
-class TEST
-{
-public:
-	using type = t;
 
-};
 
 template<class ...T>
 class TEST<N_Function::Method_Core<T...>>
@@ -193,8 +188,8 @@ int main()
 
 		typename
 		N_Function::I_Function_Multiple_Helper<
-		decltype(&H::Static_Args_3),int,
-		decltype(&H::Static_Args_3)
+		decltype(&H::Static_Args_5),int,
+		decltype(&H::Static_Args_5)
 		//decltype(&H::Static_Args_2), int,
 		//H*, decltype(&H::Args_3), int,int,int
 
@@ -205,22 +200,48 @@ int main()
 	using FF_1 = typename N_Function::I_Function_Multiple_Helper<
 		Function<FF>,int>::type;
 
-	//using int_0=typename N_Function::I_Function_Single_Data<Function<FF>>::request_args;
-
-
-	//using int_1 = typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>,int>::request_args;
-
-
-	//using int_2 = typename N_Function::I_Function_Single_Data<Function<FF_1>>::request_args;
+	using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
 
 
 
-	//TYPE_ID(int_0);
-	//TYPE_ID(int_1);
+	using int_1 = typename N_Function::I_Function_Single_Data<Function<FF_1>>::type::request_args;
+		//request_args;
+
+
+
+	using FF_test=
+	N_Function::Function_Core
+	<
+		//N_Function::Function_Core
+		//<
+			//N_Function::Function_Core
+			//<
+				tuple_t
+				<
+				N_Function::Function_Core<void(__cdecl*)(int, int, int), int>,
+				N_Function::Function_Core<void(__cdecl*)(int, int, int)>
+				>
+		,int
+			//>
+		//>
+	>;
+	
+	using fnc= N_Function::Function_Core < N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, int,int,int,int), int>,int>,int,int>;
+
+	using int_2 = typename N_Function::I_Function_Single_Data<FF_test,int>::type::request_args;
+	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
+
+
+	TYPE_ID(int_0);
+	TYPE_ID(int_1);
 
 	TYPE_ID(FF);
 	TYPE_ID(FF_1);
-	//TYPE_ID(int_2);
+	C_OUT("");
+	TYPE_ID(int_2);
+	C_OUT("");
+	TYPE_ID(int_4);
+	
 
 
 		//method_range_t<N_Tuple::U_Select<0, tuple_t<int, decltype(&H::Args_2)>>>;
