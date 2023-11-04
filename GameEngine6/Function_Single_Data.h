@@ -6,6 +6,9 @@
 
 #include"Function_Args_Chack.h"
 
+template<class TP_Fns>
+class Function;
+
 namespace N_Function
 {
 
@@ -52,20 +55,62 @@ namespace N_Function
 		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>,invalid_t, tuple_t<T_Tail...>>> :
 			S_Function_Data<T_Head..., T_Tail...> {};
 
+
+
 		template<class ...TP_Method_Inner>
 		struct S_Parent;
 
 		//仕様
 		//[using request_args],[using bind_args]を定義する
 		//要求する引数の型に、指定する引数の型が正しいか判定する
-		// 
+		//
 		//テンプレート
 		//[T_Parent]::現在の関数オブジェクトの一つ親の型
 		//[T_Bind_Args...]::指定する引数の型
-		template<class T_Parent, class ...T_Bind_Args>
-		struct S_Args :
-			S_Args<typename T_Parent::request_args,T_Bind_Args...>
-		{};
+		template<class T_Fns, class ...T_Bind_Args>
+		struct S_Args
+		{
+
+
+
+
+			template<class T_Request_args>
+			struct S_request_args
+			{
+				using type = S_Args<T_Request_args, T_Bind_Args...>::request_args;
+			};
+
+			template<class ...T_Fns_Request_args>
+			struct S_request_args<tuple_t<T_Fns_Request_args...>>
+			{
+				using type = tuple_t<typename S_request_args<T_Fns_Request_args>::type...>;
+
+					//typename S_request_args<T_Flont_Fn_Request_args>::type,
+					//typename S_request_args<tuple_t<T_Fns_Request_args...>>::type>;
+
+			};
+
+
+			template<class T_Fn_Core>
+			struct S_before_request_args
+			{
+				using type = typename S_Function_Data<T_Fn_Core>::request_args;
+
+			};
+
+			template<class ...T_Fns_Core,class ...T_before_Bind_Args>
+			struct S_before_request_args<Function_Core<tuple_t<T_Fns_Core...>,T_before_Bind_Args...>>
+			{
+				using type = tuple_t<typename S_before_request_args<Function_Core<T_Fns_Core, T_before_Bind_Args...>>::type...>;
+
+			};
+
+
+			using request_args = S_request_args<S_before_request_args<T_Fns>>::type;
+
+			using bind_args = tuple_t<T_Bind_Args...>;
+
+		};
 
 		//仕様
 		//[using request_args],[using bind_args]を定義する
@@ -84,9 +129,11 @@ namespace N_Function
 		public:
 			using request_args = args_chack::request_args;
 
-			using bind_args = args_chack::bind_args;
+			using bind_args = tuple_t<T_Bind_Args...>;
+				//args_chack::bind_args;
 
 		};
+
 
 
 		//仕様
@@ -147,28 +194,7 @@ namespace N_Function
 			using function = U_if_t1<Function_Core< T_Fn, T_Bind_Args...>,invalid_t, convertible_to<T_Dedicated_Point, typename S_Function_Data<T_Fn>::c_name>>;
 		};
 
-		//仕様
-		//関数オブジェクトを何回包み込んだか判定する
-		//
-		//テンプレート
-		//[TP_Method_Inner...]::一回包み込んだ中身
-		//
-		//補足
-		//
-		//一回包み込んだ中身とは
-		//[Method_Core<TP_Method_Inner...>]or[Function_Core<TP_Method_Inner...>]のインナーテンプレートを指す
-		template<class ...TP_Method_Inner>
-		struct S_Parent
-		{
-			using parent = typename S_Function_Data<TP_Method_Inner...>;
-
-			using c_name = parent::c_name;
-			using r_type = parent::r_type;
-
-			static constexpr int lelve = parent::lelve + 1;
-
-		};
-		
+	
 		//仕様
 		//関数オブジェクトが静的メソッドの場合
 		template<class T_RType, class ...T_Args, class ...T_Bind_Args>
@@ -207,32 +233,57 @@ namespace N_Function
 			static constexpr int lelve = 0;
 		};
 
-		//仕様
-		//引数をバインド済み、かつクラスポインタの型を判定しない場合
-		template<class ...TP_Method_Inner, class ...T_Bind_Args>
-		struct S_Function_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
-			S_Method<Method_Core<TP_Method_Inner...>, T_Bind_Args...>,
-			S_Args<S_Function_Data<TP_Method_Inner...>, T_Bind_Args...>,
-			S_Parent<TP_Method_Inner...>
+
+		template<class T_Fn,class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<T_Fn,T_Bind_Args...>> :
+			S_Function_Data<T_Fn, T_Bind_Args...>
 		{};
 
-		//仕様
-		//引数をバインド済み、かつクラスポインタの型を判定する場合
-		template<class T_Dedicated_Point, class ...TP_Method_Inner, class ...T_Bind_Args>
-		struct S_Function_Data<T_Dedicated_Point*, Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
-			S_Function<T_Dedicated_Point*, Method_Core<TP_Method_Inner...>, T_Bind_Args...>,
-			S_Args<S_Function_Data<TP_Method_Inner...>, T_Bind_Args...>,
-			S_Parent<TP_Method_Inner...>
+		template<class ...T_Fns, class ...T_before_Bind_Args, class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args... > :
+			S_Function<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>,
+			S_Args<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args...>
+		{
+
+		};
+
+
+		template<class T_Fns, class ...T_Bind_Args>
+		struct S_Function_Data<Function<T_Fns>, T_Bind_Args...> :
+			S_Function_Data<Function_Core<T_Fns,T_Bind_Args...>>
 		{};
 
-		//仕様
-		//引数バインド済み、及び、クラスポインタの型を指定済み、又は静的メソッドの場合
-		template<class ...TP_Function_Inner, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<TP_Function_Inner...>, T_Bind_Args...> :
-			S_Function<Function_Core<TP_Function_Inner...>, T_Bind_Args...>,
-			S_Args<S_Function_Data<TP_Function_Inner...>, T_Bind_Args...>,
-			S_Parent<TP_Function_Inner...>
-		{};
+		////仕様
+		////引数をバインド済み、かつクラスポインタの型を判定しない場合
+		//template<class ...TP_Method_Inner, class ...T_Bind_Args>
+		//struct S_Function_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
+		//	S_Method<Method_Core<TP_Method_Inner...>, T_Bind_Args...>,
+		//	S_Args<S_Function_Data<TP_Method_Inner...>, T_Bind_Args...>,
+		//	S_Parent<TP_Method_Inner...>
+		//{};
+
+		////仕様
+		////引数をバインド済み、かつクラスポインタの型を判定する場合
+		//template<class T_Dedicated_Point, class ...TP_Method_Inner, class ...T_Bind_Args>
+		//struct S_Function_Data<T_Dedicated_Point*, Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
+		//	S_Function<T_Dedicated_Point*, Method_Core<TP_Method_Inner...>, T_Bind_Args...>,
+		//	S_Args<S_Function_Data<TP_Method_Inner...>, T_Bind_Args...>,
+		//	S_Parent<TP_Method_Inner...>
+		//{};
+
+		////仕様
+		////引数バインド済み、及び、クラスポインタの型を指定済み、又は静的メソッドの場合
+		//template<class ...TP_Function_Inner, class ...T_Bind_Args>
+		//struct S_Function_Data<Function_Core<TP_Function_Inner...>, T_Bind_Args...> :
+		//	S_Function<Function_Core<TP_Function_Inner...>, T_Bind_Args...>,
+		//	S_Args<S_Function_Data<TP_Function_Inner...>, T_Bind_Args...>,
+		//	S_Parent<TP_Function_Inner...>
+		//{
+		//
+		//};
+
+
+
 
 
 		//仕様
@@ -260,10 +311,10 @@ namespace N_Function
 		using method = typename S_is_Valid_Method_Data<type>::method;
 		using request_args = type::request_args;
 		using bind_args = type::bind_args;
-		using c_name = type::c_name;
-		using r_type = type::r_type;
+		//using c_name = type::c_name;
+		//using r_type = type::r_type;
 
-		static constexpr int lelve = type::lelve;
+		//static constexpr int lelve = type::lelve;
 
 	};
 

@@ -1,10 +1,19 @@
 #pragma once
 
-//#include"Function_Multiple_Helper.h"
-//#include"Function_Multiple_Operator.h"
+namespace N_Function
+{
+
+	template<class T>
+	class Function_Multiple
+	{
+	public:
 
 
-//namespace N_Function
+
+	};
+
+}
+
 //{
 //
 //	//Žd—l

@@ -1,7 +1,6 @@
 #pragma once
 
 #include"Concept.h"
-#include"Function_Data.h"
 #include"Function_Helper.h"
 
 template<class TP_Fns>
@@ -19,13 +18,8 @@ public:
 
 
 
-
-
-
-
-
 };
 
 template<class ...T_Fn_Parts>
 Function(T_Fn_Parts... fn_Parts) -> Function<typename
-	N_Function::IS_Function_Helper<T_Fn_Parts...>::Pointer_Judge>;
+	N_Function::I_Function_Multiple_Helper<T_Fn_Parts...>::function_check>;

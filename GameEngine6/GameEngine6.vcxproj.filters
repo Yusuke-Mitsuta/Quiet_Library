@@ -192,7 +192,7 @@
     <ClInclude Include="Function_Multiple.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="MethodData.h">
+    <ClInclude Include="Method.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="tuple_convertible_to.h">
@@ -254,9 +254,6 @@
     </ClInclude>
     <ClInclude Include="Parameter_Get.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Data.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Function_Data_Core.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -384,6 +381,15 @@
     <ClInclude Include="Select_Type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Method_Operator.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Method_Multiple.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Core_Operator.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -497,5 +503,8 @@
     <ClCompile Include="Function_Args_Chack.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HTMLPage.htm" />
   </ItemGroup>
 </Project>

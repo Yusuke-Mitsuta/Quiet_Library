@@ -25,7 +25,10 @@
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
+    <ClInclude Include="Function_Core_Operator.h" />
     <ClInclude Include="Invalid.h" />
+    <ClInclude Include="Method_Multiple.h" />
+    <ClInclude Include="Method_Operator.h" />
     <ClInclude Include="Select_Type.h" />
     <ClInclude Include="Template_Calculate.h" />
     <ClInclude Include="ClassFunction.h" />
@@ -69,7 +72,7 @@
     <ClInclude Include="Message_Router.h" />
     <ClInclude Include="Function_Single.h" />
     <ClInclude Include="Method_Core.h" />
-    <ClInclude Include="MethodData.h" />
+    <ClInclude Include="Method.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Outer_Change.h" />
     <ClInclude Include="Parameter.h" />
@@ -90,7 +93,6 @@
     <ClInclude Include="Size_T.h" />
     <ClInclude Include="Storge_Access.h" />
     <ClInclude Include="SwapType.h" />
-    <ClInclude Include="Function_Data.h" />
     <ClInclude Include="Tag.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimeControl.h" />
@@ -167,6 +169,11 @@
     <ClCompile Include="Tuple_Test.cpp" />
     <ClCompile Include="Tuple_Value.h" />
     <ClCompile Include="Using_Type.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HTMLPage.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

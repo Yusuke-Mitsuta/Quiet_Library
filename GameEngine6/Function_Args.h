@@ -27,11 +27,11 @@ namespace N_Function
 
 }
 
-template<auto t_Fn=invalid, class T_Parent = invalid_t>
+template<auto t_Fn=invalid, class T_Fns = invalid_t>
 class Functiona;
 
-template<class T_Parent>
-class Functiona<invalid,T_Parent>
+template<class T_Fns>
+class Functiona<invalid,T_Fns>
 {
 public:
 	template<class ...TP_Args>

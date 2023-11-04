@@ -12,7 +12,6 @@
 #include"tuple_convertible_to.h"
 #include"Parameter.h"
 #include<list>
-#include"MethodData.h"
 #include<type_traits>
 #include"Quick_Sort.h"
 #include"Parameter_Value.h"
@@ -159,10 +158,18 @@ struct S_Zip<H>
 template<class t>
 class TEST
 {
+public:
 	using type = t;
 
 };
 
+template<class ...T>
+class TEST<N_Function::Method_Core<T...>>
+{
+public:
+	using type = tuple_t<T...>;
+
+};
 
 int main()
 {
@@ -175,30 +182,45 @@ int main()
 		//typename N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_5), int, int, int
 		//, decltype(&H::Args_7), int, int>::type1;// ::type2::type3::type4::T1;// ::type3::type4;
 
-	//using Fn1= typename  Fn::type2::type3::type4::T1;
-	//using Fn0 = Fn::T1;
 
-
+	C_OUT(std::is_member_function_pointer<decltype(&H::Args_2)>::value);
+	C_OUT(std::is_member_function_pointer<decltype(&H::Static_Args_2)>::value);
 	using Te = tuple_tp<tuple_t<int, float, double>,char,tuple_t<>>;
-	using ins = N_Tuple::U_Insert<Te, int, 0>;
+	using ins = 
+		N_Tuple::U_Insert<Te, int, 0>;
 	using ins_1 = N_Tuple::I_Insert<Te, int, 0>::type;
 	using FF = //typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::type::function;
 
 		typename
-		N_Function::IS_Function_Multiple_Helper<
-		decltype(&H::Static_Args_2),
-		decltype(&H::Static_Args_2), int
-		//H*, decltype(&H::Args_4), int, int,
-		//H*, decltype(&H::Args_3), int,
+		N_Function::I_Function_Multiple_Helper<
+		decltype(&H::Static_Args_3),int,
+		decltype(&H::Static_Args_3)
 		//decltype(&H::Static_Args_2), int,
 		//H*, decltype(&H::Args_3), int,int,int
 
-
-
 		>::type;
 
-		//N_Tuple::U_Range< tuple_t<short, int, double>, 1>;
-		//tuple_tp<tuple_t<>,short, tuple_t<int, double>>, 1>;
+
+
+	using FF_1 = typename N_Function::I_Function_Multiple_Helper<
+		Function<FF>,int>::type;
+
+	//using int_0=typename N_Function::I_Function_Single_Data<Function<FF>>::request_args;
+
+
+	//using int_1 = typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>,int>::request_args;
+
+
+	//using int_2 = typename N_Function::I_Function_Single_Data<Function<FF_1>>::request_args;
+
+
+
+	//TYPE_ID(int_0);
+	//TYPE_ID(int_1);
+
+	TYPE_ID(FF);
+	TYPE_ID(FF_1);
+	//TYPE_ID(int_2);
 
 
 		//method_range_t<N_Tuple::U_Select<0, tuple_t<int, decltype(&H::Args_2)>>>;
@@ -223,7 +245,7 @@ int main()
 		//N_Tuple::S_Action_Tuple_t<TEST,
 		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
 
-	TYPE_ID(FF);
+	TYPE_ID(TEST<typename FF::back_t>::type);
 	//TYPE_ID(decltype(H::Static_Args_2));
 	//TYPE_ID(decltype(H::Args_2));
 	
@@ -233,10 +255,10 @@ int main()
 	//C_OUT(std::is_class_v< std::remove_pointer_t<decltype(&H::Args_2)>>);
 	//C_OUT(std::is_class_v<H*>);
 
-	//TYPE_ID(FF::type);
-	//TYPE_ID(FF::next_t);
-	//TYPE_ID(FF::next::next_t);
-	//TYPE_ID(FF::next::next::next_t);
+	TYPE_ID(FF::type);
+	TYPE_ID(FF::next_t);
+	TYPE_ID(FF::next::next_t);
+	TYPE_ID(FF::next::next::next_t);
 
 	//TYPE_ID(FF::type_1);
 	//TYPE_ID(FF::type_2);
@@ -500,4 +522,21 @@ int main()
 	return 0;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

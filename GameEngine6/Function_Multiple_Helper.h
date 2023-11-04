@@ -9,22 +9,31 @@
 namespace N_Function
 {
 
+	
 	//仕様
-	//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
+	//関数に対して、次の関数又はメソッドが出てくるまでの間の型が引数の型と互換性があるか判定する
+	//メソッドに対しては、上記に加え、メソッドの前の型がポインターの型と互換性があるか判定し、
+	//	失敗すれば、テンプレートの先頭の型がポインターの型と互換性があるか判定する
+	//この操作を繰り返し、全て成功すれば、関数、メソッドオブジェクト事に纏められた後、[tuple_t]に纏められる。
 	//
 	//テンプレート
-	//TP_Fns::関数ポインター、指定する引数、のTuple
-	//
+	//[T_Fn_Parts...]:
+	//	メソッドに使用する共通のポインターの型(省略可能)
+	//	関数、又はメソッドの型
+	//	それに対する引数の型(並びの一番後ろの型が、関数の引数型の一番後ろと判定される)
+	//	次のメソッドに対する専用のポインターの型(次にメソッドを使用する場合)
+	//	関数、又はメソッドの型
+	// と続く
+	// 
 	//補足
-	//T_Fn_Argsは関数ポインター、それに指定する引数、次の関数ポインター、となるようにする事
-	// //SetJudge::関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定する
-	//Fns::関数ポインターor[Function_Single]と、後ろに続く引数の型を[Function_Single]としてまとめ、その動作を[TP_Fns...]がなくなるまで繰り返す
+	//関数に対する引数の型として関数の型を取る場合
+	//その間の型と引数の型に互換性があれば、引数として取ろうとしてる関数の型が次の関数として見なされる為、
+	//	単体の関数として処理をする事
 	template<class ...T_Fn_Parts>
-	struct IS_Function_Multiple_Helper
+	struct I_Function_Multiple_Helper
 	{
 	private:
 
-	public:
 
 		using commond_point = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
 
@@ -49,70 +58,84 @@ namespace N_Function
 		};
 
 
-		template<class T_Tuple, class T_Tuple_Method_Bound = tuple_t<>>
+		template<class T_Tuple, bool t_function_check_fg, bool t_method_check_fg, class T_Tuple_Method_Bound = tuple_t<>>
 		struct S_Method_Bound
 		{
-
-			template<class T_Method_Point>
-			using chack_tuple = typename
-				N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size-(T_Method_Point::head_size== T_Method_Point::size)>::reverse;
 
 
 			template<class T_Method_Point = typename S_Method_Search<T_Tuple>::type>
 			struct S_Method_Point
 			{
 
-				template<class T_Tuple,class T_Method_Group>
-				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,
-					N_Tuple::U_Insert<T_Tuple_Method_Bound,typename T_Method_Group::remove_p>>::type;
+
+				template<class T_Method_Point>
+				using chack_tuple = typename
+					N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size - (T_Method_Point::head_size == T_Method_Point::size)>::reverse;
+
+				template<class T_Tuple,class T_Method>
+				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,t_function_check_fg,t_method_check_fg,
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>>::type;
 
 				//仕様
-				//関数及び、引数の型に対して、適切にポインターをセットする
+				//関数に対しては、指定された引数の型を受け取るか判定する、
+				//メソッドに対しては、指定された引数の型と、クラスポインターを受け取るか判定する、
 				// 
 				// テンプレート
-				//[T_Function_Check]:取得した関数、及び引数が、既に使用出来る状態
-				//[T_Dedicated_Point_Check]:取得した関数、及び引数が、関数の次に設定されているポインターで使用出来る状態
-				//[T_Commond_Point_Check]:取得した関数、及び引数が、共通で設定されたポインターで使用出来る状態
+				//[T_Function_Check]:指定された引数の型を受け取るか判定する
+				//[T_Dedicated_Point_Check]:指定された引数の型と、関数の次に設定されているポインターを判定する
+				//[T_Commond_Point_Check]:指定された引数の型と、共通で設定されたポインターを判定する
+				//[T_Method_Check]:指定された引数の型を受け取るか判定する
 				template<class T_Function_Check = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::function,
 						 class T_Dedicated_Point_Check = typename I_Function_Single_Data<chack_tuple<typename T_Method_Point::next>>::function,
-						 class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>,commond_point,0>>::function>
-				struct S_Function_Check
+						 class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>,commond_point,0>>::function,
+						 class T_Method_Check = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::method>
+				struct S_Callable_Check
 				{
-					using type = Method_Bound<T_Method_Point, chack_tuple<T_Method_Point>>;
+					using type = Method_Bound<T_Method_Point, T_Function_Check>;
+				};	
+
+				//仕様
+				//指定された引数の型を受け取るか判定する
+				template<class T_Dedicated_Point_Check, class T_Commond_Point_Check, class T_Method_Check>
+				struct S_Callable_Check<invalid_t, T_Dedicated_Point_Check, T_Commond_Point_Check, T_Method_Check>
+				{
+					using type = Method_Bound<typename T_Method_Point::next, T_Dedicated_Point_Check>;
 				};
 
 				//仕様
-				//取得した関数、及び引数が、関数の次に設定されているポインターで使用出来る状態
-				template<class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-				struct S_Function_Check<invalid_t, T_Dedicated_Point_Check, T_Commond_Point_Check>
+				//指定された引数の型と、共通で設定されたポインターを判定する
+				template<class T_Commond_Point_Check, class T_Method_Check>
+				struct S_Callable_Check<invalid_t, invalid_t, T_Commond_Point_Check, T_Method_Check>
 				{
-					using type = Method_Bound<typename T_Method_Point::next, chack_tuple<typename T_Method_Point::next>>;
-				};
-
-				//仕様
-				//取得した関数、及び引数が、共通で設定されたポインターで使用出来る状態
-				template<class T_Commond_Point_Check>
-				struct S_Function_Check<invalid_t, invalid_t, T_Commond_Point_Check>
-				{
-					using type = Method_Bound<T_Method_Point, N_Tuple::U_Insert<chack_tuple<T_Method_Point>, commond_point, 0>>;
+					using type = Method_Bound<T_Method_Point,T_Commond_Point_Check>;
 
 				};
 
 				//仕様
-				//関数に対して、引数の方が不一致な場合、次の関数を探索する
+				//指定された引数の型を受け取るか判定する
+				template<class T_Method_Check>
+					requires t_method_check_fg
+				struct S_Callable_Check<invalid_t, invalid_t, invalid_t, T_Method_Check>
+				{
+					using type = Method_Bound<T_Method_Point, T_Method_Check>;
+
+				};
+
+				//仕様
+				//関数に対して、引数のが不一致な場合、次の関数を探索する
 				template<>
-				struct S_Function_Check<invalid_t, invalid_t, invalid_t>
+				struct S_Callable_Check<invalid_t, invalid_t, invalid_t,invalid_t>
 				{
-
 					using type = S_Method_Point<typename S_Method_Search<typename T_Method_Point::next>::type>::type;
 				};
 
-				using type = S_Function_Check<>::type;
+
+				using type = U_if_t1<S_Callable_Check<>, S_Callable_Check<invalid_t,invalid_t,invalid_t>,t_function_check_fg>::type;
 
 			};
 
 			//仕様
-			//関数に対して、引数の方が不一致であり、全ての探索が終わった場合
+			//関数に対して、引数の型が不一致であり、全ての探索が終わった場合
 			template<class T_Head>
 			struct S_Method_Point<tuple_tp<T_Head,invalid_t,tuple_t<>>>
 			{
@@ -125,34 +148,31 @@ namespace N_Function
 
 		//仕様
 		//全ての型の探査が正常に終了した場合、結果を出力する
-		template<class T_Head,class T_Tail,class T_Tuple_Method_Bound>
-		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Tuple_Method_Bound>
+		template<class T_Head,class T_Tail, bool t_function_check_fg, bool t_method_check_fg,class T_Tuple_Method_Bound>
+		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>, t_function_check_fg,t_method_check_fg, T_Tuple_Method_Bound>
 		{
 			using type = T_Tuple_Method_Bound;
 
+
 		};
+
+		using start_tuple = typename tuple_t<T_Fn_Parts...>::reverse::front;
 
 	public:
 
-		using type = S_Method_Bound<
-			typename tuple_t<T_Fn_Parts...>::reverse::front>::type;
+		//仕様
+		//ファンクションとして判定し、失敗すれば、メソッドとして判定する
+		using type = S_Method_Bound<start_tuple,true,true>::type;
+		
+		//仕様
+		//ファンクションとして判定する
+		using function_check= S_Method_Bound<start_tuple, true, false>::type;
+
+		//仕様
+		//メソッドとして判定する
+		using method_check = S_Method_Bound<start_tuple, false, true>::type;
 
 		
-
-		//仕様
-		//全ての関数オブジェクトにおいて適切なクラスポインターがセットされているか判定する
-		//using Pointer_Judge = S_CorrectType<>::type;
-
-
-		//using type1_1 = S_CorrectType<>;
-
-		//using type1 = S_CorrectType<0>;
-
-		//仕様
-		//判定の項目からクラスポインターがセットされているかを除外する
-		//using Not_Pointer_Judge = S_CorrectType<0>::type;
-
-		//using Fns = Type::Fns;
 
 	};
 

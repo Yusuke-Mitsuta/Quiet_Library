@@ -98,11 +98,12 @@ struct is_same_as_template_type :
 template<template<class...>class _Ty1, class ..._Ty1_Types, template<class...>class _Ty2>
 	requires (std::is_class_v<_Ty1<_Ty1_Types...>>)
 struct is_same_as_template_type<_Ty1<_Ty1_Types...>, _Ty2> :
-	std::bool_constant< std::same_as< _Ty1<_Ty1_Types...>, _Ty2<_Ty1_Types...>>>{};
+	std::bool_constant<std::same_as< _Ty1<_Ty1_Types...>, _Ty2<_Ty1_Types...>>>{};
 
 
 template<class _Ty1, template<class...>class _Ty2>
 concept same_as_template_type = is_same_as_template_type<_Ty1, _Ty2>::value;
+
 
 template<class _Ty1, template<auto...>class _Ty2>
 struct is_same_as_template_value :
