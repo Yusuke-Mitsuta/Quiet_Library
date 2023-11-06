@@ -75,70 +75,17 @@ namespace N_Function
 		template<class T_Fns, class ...T_Bind_Args>
 		struct S_Args
 		{
-
-			template<class T_Request_args>
-			struct S_request_args
-			{
-				using type = 
-					//T_Request_args;
-					//tuple_t<T_Request_args, T_Bind_Args...>;
-					//T_Request_args;
-					//typename 
-					
-					typename S_Function_Data<T_Request_args>::request_args;
-			};
-
-			template<class ...T_Fns_Request_args>
-			struct S_request_args<tuple_t<T_Fns_Request_args...>>
-			{
-				using type = tuple_t<typename S_request_args<T_Fns_Request_args>::type...>;
+			using request_args = invalid_t;
 
 
-					//<typename S_Args<T_Fns_Request_args,T_Bind_Args...>::request_args...>;
-					//typename S_request_args<T_Fns_Request_args>::type...>;
+			using bind_args = invalid_t;
+		};
 
-					//typename S_request_args<T_Flont_Fn_Request_args>::type,
-					//typename S_request_args<tuple_t<T_Fns_Request_args...>>::type>;
+		template<class ...T_Fns, class ...T_Bind_Args>
+		struct S_Args<tuple_t<T_Fns...>,T_Bind_Args...>
+		{
 
-			};
-
-
-			template<class T_Fn_Core>
-			struct S_before_request_args
-			{
-				using type = T_Fn_Core;
-
-					//typename S_Args<
-					//typename S_Function_Data<T_Fn_Core>::request_args,
-					//T_Bind_Args...>::request_args;
-
-
-
-			};
-
-			template<class ...T_Fns_Core,class ...T_before_Bind_Args>
-			struct S_before_request_args<Function_Core<tuple_t<T_Fns_Core...>,T_before_Bind_Args...>>
-			{
-				using a =
-					tuple_t<Function_Core<T_Fns_Core,T_before_Bind_Args...>...>;
-					
-					//tuple_t<
-					//typename S_before_request_args<Function_Core<T_Fns_Core,T_before_Bind_Args...>>::type...
-					//>
-					;
-
-
-
-
-					using type = a;
-			};
-
-
-			using request_args = 
-				//T_Fns;
-				//tuple_t< T_Fns>;
-				//typename S_before_request_args<T_Fns>::type;
-				typename S_request_args<typename S_before_request_args<T_Fns>::type>::type;
+			using request_args = tuple_t<typename S_Args<T_Fns, T_Bind_Args...>::request_args...>;
 
 
 			using bind_args = tuple_t<T_Bind_Args...>;
@@ -268,34 +215,25 @@ namespace N_Function
 		};
 
 
-		template<class T_Fn,class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<T_Fn,T_Bind_Args...>> :
-			S_Function_Data<T_Fn, T_Bind_Args...>
-		{};
-
 		template<class T_Fn, class ...T_before_Bind_Args, class ...T_Bind_Args>
 		struct S_Function_Data<Function_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...>:
 			S_Function<Function_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...>,
-			S_Args<typename S_Args<Function_Core<T_Fn, T_before_Bind_Args...>>::request_args, T_Bind_Args...>
+			S_Args<typename S_Function_Data<T_Fn, T_before_Bind_Args...>::request_args, T_Bind_Args...>
 		{
-
 		};
 
 		template<class ...T_Fns, class ...T_before_Bind_Args, class ...T_Bind_Args>
 		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args... > :
 			S_Function<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>
 		{
-			using request_args = tuple_t<typename S_Function_Data<Function_Core<T_Fns, T_before_Bind_Args...>, T_Bind_Args...>::request_args...>;
+			using request_args = tuple_t<typename S_Function_Data<Function_Core<T_Fns, T_before_Bind_Args...>,T_Bind_Args...>::request_args...>;
 			using bind_args = tuple_t<T_Bind_Args...>;
-		};
-
-
+		};		
+		
 		template<class T_Fns, class ...T_Bind_Args>
 		struct S_Function_Data<Function<T_Fns>, T_Bind_Args...> :
 			S_Function_Data<Function_Core<T_Fns,T_Bind_Args...>>
 		{
-			//using function = Function_Core<T_Fns, T_Bind_Args...>;
-		
 		};
 
 		////Žd—l
@@ -356,10 +294,6 @@ namespace N_Function
 		using method = typename S_is_Valid_Method_Data<type>::method;
 		using request_args = type::request_args;
 		using bind_args = type::bind_args;
-		//using c_name = type::c_name;
-		//using r_type = type::r_type;
-
-		//static constexpr int lelve = type::lelve;
 
 	};
 

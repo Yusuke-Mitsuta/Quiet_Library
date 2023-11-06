@@ -204,29 +204,54 @@ int main()
 
 
 
-	using int_1 = typename N_Function::I_Function_Single_Data<Function<FF_1>>::type::request_args;
-		//request_args;
+	using int_1 = typename N_Function::I_Function_Single_Data<
+
+		N_Function::Function_Core<
+		tuple_t<
+		N_Function::Function_Core<void(__cdecl*)(float, float, float),int>,
+		N_Function::Function_Core<void(__cdecl*)(float, float, float)>
+		>,int>
+	
+	
+	
+	>::type::request_args;
 
 
 
 	using FF_test=
+
 	N_Function::Function_Core
 	<
-		//N_Function::Function_Core
-		//<
-			//N_Function::Function_Core
-			//<
+		tuple_t
+		<
+		N_Function::Function_Core<void(__cdecl*)(float,float,float)>,
+
+		
+		N_Function::Function_Core
+			<
 				tuple_t
 				<
 				N_Function::Function_Core<void(__cdecl*)(int, int, int), int>,
-				N_Function::Function_Core<void(__cdecl*)(int, int, int)>
+				N_Function::Function_Core<void(__cdecl*)(int, int, int)>,
+
+		N_Function::Function_Core
+		<
+		tuple_t
+		<
+		N_Function::Function_Core<void(__cdecl*)(int, int, int,double), int>,
+		N_Function::Function_Core<void(__cdecl*)(int, int, int, double)>
+		>
+		, int
+		>
+				
 				>
-		,int
-			//>
-		//>
+			,int
+			>
+		>,int
+
 	>;
 	
-	using fnc= N_Function::Function_Core < N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, int,int,int,int), int>,int>,int,int>;
+	using fnc= N_Function::Function_Core <N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, int,int,int,int), int>,int>,int,int>;
 
 	using int_2 = typename N_Function::I_Function_Single_Data<FF_test,int>::type::request_args;
 	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
