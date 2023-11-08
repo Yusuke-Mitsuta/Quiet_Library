@@ -396,6 +396,9 @@
     <ClInclude Include="Function_Single_Data_Args_Check.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple_Expand.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

@@ -197,10 +197,10 @@ int main()
 
 
 
-	using FF_1 = typename N_Function::I_Function_Multiple_Helper<
-		Function<FF>,int>::type;
+	//using FF_1 = typename N_Function::I_Function_Multiple_Helper<
+		//Function<FF>,int>::type;
 
-	using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
+	//using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
 
 
 
@@ -208,13 +208,13 @@ int main()
 
 		N_Function::Function_Core<
 		tuple_t<
-		N_Function::Function_Core<void(__cdecl*)(float, float, float),int>,
+		N_Function::Function_Core<void(__cdecl*)(float, float, float), int>,
 		N_Function::Function_Core<void(__cdecl*)(float, float, float)>
-		>,int>
-	
-	
-	
-	>::type::request_args;
+		>, int>
+
+
+
+	>;
 
 
 
@@ -255,13 +255,21 @@ int main()
 
 	using int_2 = typename N_Function::I_Function_Single_Data<FF_test,int>::type::request_args;
 	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
+	using ff = typename N_Function::I_Function_Single_Data< 
+		H*,decltype(&H::Static_Args_2)>;
+		//decltype(&H::Static_Args_2)>;
 
 
-	TYPE_ID(int_0);
+	TYPE_ID(ff::function);
+	TYPE_ID(typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_1)>::S_Function_Data<decltype(&H::Args_1)>::c_name);
+
+	//return 0;
+
+	//TYPE_ID(int_0);
 	TYPE_ID(int_1);
 
 	TYPE_ID(FF);
-	TYPE_ID(FF_1);
+	//TYPE_ID(FF_1);
 	C_OUT("");
 	TYPE_ID(int_2);
 	C_OUT("");
@@ -291,20 +299,33 @@ int main()
 		//N_Tuple::S_Action_Tuple_t<TEST,
 		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
 
-	TYPE_ID(TEST<typename FF::back_t>::type);
+	//TYPE_ID(TEST<typename FF::back_t>::type);
 	//TYPE_ID(decltype(H::Static_Args_2));
 	//TYPE_ID(decltype(H::Args_2));
 	
 	//std::is_member_function_pointer_v
+	
+	C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Static_Args_2)>>);
+	C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Args_2)>>);
+	C_OUT(std::is_class_v<std::remove_pointer_t<N_Function::Function_Core<void(__cdecl*)(int, int, int, int, int, int)>>>);
+	C_OUT(std::is_class_v<invalid_t>);
+	C_OUT(std::is_class_v<H*>);
 
-	//C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Static_Args_2)>>);
-	//C_OUT(std::is_class_v< std::remove_pointer_t<decltype(&H::Args_2)>>);
-	//C_OUT(std::is_class_v<H*>);
+	using t =fnc;
+	C_OUT(
+	(!
+		(
+			(std::is_class_v<std::remove_pointer_t<t>>) &&
+			(std::is_pointer_v<t>)
+		)
+	)
+	
+	);
 
-	TYPE_ID(FF::type);
-	TYPE_ID(FF::next_t);
-	TYPE_ID(FF::next::next_t);
-	TYPE_ID(FF::next::next::next_t);
+	//TYPE_ID(FF::type);
+	//TYPE_ID(FF::next_t);
+	//TYPE_ID(FF::next::next_t);
+	//TYPE_ID(FF::next::next::next_t);
 
 	//TYPE_ID(FF::type_1);
 	//TYPE_ID(FF::type_2);

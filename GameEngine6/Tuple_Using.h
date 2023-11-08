@@ -114,5 +114,21 @@ namespace N_Tuple
 	//[T_Tuple]から[tuple_v< ... >]の順番で型を順番に抽出
 	template<class T_Tuple, class T_Extract_Number>
 	using U_Extract =typename I_Extract<T_Tuple, T_Extract_Number>::type;
+
+
+	//仕様
+	//[T_Tuple]の中身を[T_Outer_class]のテンプレートにセットする
+	//[T_Tuple]がtupleでない場合その型のまま実行される
+	//
+	//テンプレート
+	//[T_Tuple]::中身を展開するTuple
+	//[T_Outer_class]::展開した中身とそれに続く型[T_Types...]をセットする
+	//[T_Types...]::展開した中身に続いて設定する型
+	//
+	//補足
+	//[T_Tuple<types...>]->[T_Outer_class<types... , T_Types...>]とする
+	template<template<class...>class T_Outer_class, class T_Tuple, class ...T_Types>
+	using U_Expand_Set = typename I_Expand_Set<T_Outer_class, T_Tuple, T_Types...>::type;
+
 }
 

@@ -100,6 +100,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="Tuple_Create_Pointer.h" />
+    <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Extract.h" />
     <ClInclude Include="Tuple_For.h" />
     <ClInclude Include="Tuple_ID.h" />
