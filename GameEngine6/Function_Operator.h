@@ -1,11 +1,15 @@
 #pragma once
 
 #include"Tuple.h"
+#include"Function_Core_Operator.h"
 
 namespace N_Function
 {
+	template<class ...T_Fn_Parts>
+	struct I_Function_Single_Data;
 
-
+	template<class T_Fn, class ...TP_Bind_Args>
+	struct Function_Core;
 
 	template<class T_Fns>
 	struct I_Function_Operator
@@ -15,29 +19,55 @@ namespace N_Function
 		struct S_Function_Select
 		{
 
-
-			using Fn = typename T_Fns::type;
-			using Fn_Data = I_Function_Single_Data<Fn>;
-			using Request_Args = Fn_Data::request_args;
 			
 			
 
 
+			template<class T_Fn_Core>
+			struct S_Function_Operator;
 
-			template<
-				class T_Fn = typename T_Fns::type,
-				class T_Fn_Data = I_Function_Single_Data<T_Fn>,
-				class T_Request_Args_Numbers = T_Fn_Data
+			using fn_operator = S_Function_Operator<T_Fns>;
+			using next_operator = typename S_Function_Select<typename T_Fns::next>::fn_operator;
 			
-			>
-			struct S_Function_Operator
+
+			template<class T_Fn, class ...T_Bind_Args>
+				requires (I_Function_Single_Data<Function_Core<T_Fn>>::fn_count == 1)
+			struct S_Function_Operator<Function_Core<T_Fn, T_Bind_Args...>>:
+				next_operator
 			{
+
+				template<class ...MT_Fn_Parts>
+				S_Function_Operator(T_Fn set_fn, T_Bind_Args... set_bind_args, MT_Fn_Parts ...fn_parts) {}
+
+
+				template<class T_Commond_p, class ...MT_Fn_Parts>
+				S_Function_Operator(T_Commond_p* commond_p,T_Fn set_fn,T_Bind_Args... set_bind_args, MT_Fn_Parts ...fn_parts) :
+					next_operator(commond_p, fn_parts...)
+				{}
+
+				template<class T_Commond_p,class T_Dedicated_p, class ...MT_Fn_Parts>
+				S_Function_Operator(T_Commond_p* commond_p,T_Dedicated_p* dedicated_p,T_Fn fn, T_Bind_Args... bind_args, MT_Fn_Parts ...fn_parts):
+					next_operator(commond_p, fn_parts...)
+				{}
+
 
 			};
 
 
+			template<class ...T_Fns,class ...T_Bind_Args>
+			struct S_Function_Operator<Function_Core<tuple_t<T_Fns...>, T_Bind_Args...>> :
+				next_operator
+			{
+
+				template<class T_Commond_p, class T_Dedicated_p, class ...MT_Fn_Parts>
+				S_Function_Operator(Function<tuple_t<T_Fns...>> fns, T_Bind_Args... bind_args) :
+				next_operator()
+				{}
+
+			};
 
 
+			
 
 
 

@@ -26,6 +26,7 @@
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
     <ClInclude Include="Function_Core_Operator.h" />
+    <ClInclude Include="Function_Operator_Core.h" />
     <ClInclude Include="Function_Single_Data_Args_Check.h" />
     <ClInclude Include="Invalid.h" />
     <ClInclude Include="Method_Multiple.h" />
@@ -128,6 +129,7 @@
     <ClInclude Include="tuple_convertible_to.h" />
     <ClInclude Include="Tuple_Using.h" />
     <ClInclude Include="Tuple_v_Calculate.h" />
+    <ClInclude Include="Tuple_v_make_index_sequence.h" />
     <ClInclude Include="Tuple_v_To_t.h" />
     <ClInclude Include="Type_Nameh.h" />
     <ClInclude Include="Using_Type.h" />

@@ -72,6 +72,9 @@ namespace N_Function
 				using chack_tuple = typename
 					N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size - (T_Method_Point::head_size == T_Method_Point::size)>::reverse;
 
+				template<class T_Method_Point>
+				using access_numbers = int;
+
 				template<class T_Tuple,class T_Method>
 				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,t_function_check_fg,t_method_check_fg,
 					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>>::type;
@@ -91,6 +94,7 @@ namespace N_Function
 						 class T_Method_Check = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::method>
 				struct S_Callable_Check
 				{
+
 					using type = Method_Bound<T_Method_Point, T_Function_Check>;
 				};	
 

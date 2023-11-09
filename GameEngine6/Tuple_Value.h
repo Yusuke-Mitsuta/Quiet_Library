@@ -23,7 +23,7 @@ template<auto ..._Value>
 struct tuple_v :
 	N_Tuple::Control_vp<tuple_v<>, invalid, tuple_v<>>
 {
-
+	
 };
 
 template<auto t_Flont_Value, auto ..._Value>
@@ -32,7 +32,6 @@ struct tuple_v<t_Flont_Value, _Value...> :
 {
 
 };
-
 
 namespace std
 {

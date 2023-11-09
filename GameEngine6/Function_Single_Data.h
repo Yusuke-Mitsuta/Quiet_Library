@@ -37,16 +37,18 @@ namespace N_Function
 			using c_name = invalid_t;
 			using r_type = invalid_t;
 
-			static constexpr int lelve = -1;
+			static constexpr size_t fn_count = 0;
 		};
 
 		//仕様
-		//先頭の型がクラスポインターの型で無いなら、ポインターの型として無効の型を追加する
+		//先頭の型がクラス型かつ、ポインター型であり、メソッドが指定されているなら、
+		//クラスのポインター型の判定を行う
 		template<class T_Dedicated_Point, class ...T_Fn_Parts>
 			requires (std::is_class_v<T_Dedicated_Point>)
 		struct S_Function_Data<T_Dedicated_Point*, T_Fn_Parts...> :
 			S_Function_Data<T_Fn_Parts...>
 		{
+
 			using base = typename S_Function_Data<T_Fn_Parts...>;
 			
 			using function = U_Judge_t<typename base::function,
@@ -81,7 +83,6 @@ namespace N_Function
 		{
 
 			using request_args = tuple_t<typename S_Args<T_Fns, T_Bind_Args...>::request_args...>;
-
 
 			using bind_args = tuple_t<T_Bind_Args...>;
 
@@ -121,21 +122,9 @@ namespace N_Function
 		template<class T_Parent, class ...T_Bind_Args>
 		struct S_Method
 		{
-			using method = Method_Core<T_Parent, T_Bind_Args...>;
+			using method = Function_Core<T_Parent, T_Bind_Args...>;
 		};
 
-		//仕様
-		//第一引数が[Function_Core< ... >]の場合、[Method_Core< ... >]のインナーテンプレートに[Function_Core]が存在させない為に[Function_Core]を[Method_Core]に変換する
-		//
-		//テンプレート
-		//[T_Dedicated_Point*]::[T_Fn]で使用するクラスポインタの型
-		//[T_Fn]::関数オブジェクトの型
-		//[T_Bind_Args...]::指定する引数の型
-		template<class ...TP_Function_Inner, class ...T_Bind_Args>
-		struct S_Method<Function_Core<TP_Function_Inner...>, T_Bind_Args...>
-		{
-			using method = Method_Core<typename S_Method<TP_Function_Inner...>::method, T_Bind_Args...>;
-		};
 
 		//仕様
 		//[using function]を定義する
@@ -168,7 +157,7 @@ namespace N_Function
 			
 			using r_type = T_RType;
 
-			static constexpr int lelve = 0;
+			static constexpr size_t fn_count = 1;
 		};
 
 
@@ -182,10 +171,8 @@ namespace N_Function
 			using c_name = T_CName;
 			using r_type = T_RType;
 
-			static constexpr int lelve = 0;
+			static constexpr size_t fn_count = 1;
 		};
-
-
 
 
 		template<class T_Fn, class ...T_before_Bind_Args, class ...T_Bind_Args>
@@ -194,17 +181,7 @@ namespace N_Function
 			S_Args<typename S_Function_Data<T_Fn, T_before_Bind_Args...>::request_args, T_Bind_Args...>
 		{
 			using c_name = S_Function_Data<T_Fn>::c_name;
-		};
-
-
-
-
-		template<class T_Fn, class ...T_before_Bind_Args, class ...T_Bind_Args>
-		struct S_Function_Data<Method_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...> :
-			S_Function<typename S_Function_Data<T_Fn>::c_name, Method_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...>,
-			S_Args<typename S_Function_Data<T_Fn, T_before_Bind_Args...>::request_args, T_Bind_Args...>
-		{
-			using c_name = S_Function_Data<T_Fn>::c_name;
+			static constexpr size_t fn_count = S_Function_Data<T_Fn>::fn_count;
 		};
 
 
@@ -212,14 +189,14 @@ namespace N_Function
 		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args... > :
 			S_Function<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>
 		{
-			
+			static constexpr size_t fn_count = (S_Function_Data<T_Fns>::fn_count + ...);
 			using c_name = invalid_t;
 			using request_args = tuple_t<typename S_Function_Data<Function_Core<T_Fns, T_before_Bind_Args...>, T_Bind_Args...>::request_args...>;
 			using bind_args = tuple_t<T_Bind_Args...>;
 		};
 
 		template< class T_Fns, class ...T_Bind_Args>
-		struct S_Function_Data< Function<T_Fns>, T_Bind_Args...> :
+		struct S_Function_Data<Function<T_Fns>, T_Bind_Args...> :
 			S_Function_Data<Function_Core<T_Fns, T_Bind_Args...>>
 		{
 		};
@@ -295,7 +272,6 @@ namespace N_Function
 	public:
 
 		using type = N_Tuple::I_Expand_Set<S_Function_Data, T_Fn_Parts...>::type;
-		//I_Expand_Set<S_Function_Data, T_Fn_Parts...>::type;
 		using function =
 			//type::function;
 			typename S_is_Valid_Method_Data<type>::function;
@@ -304,6 +280,8 @@ namespace N_Function
 			typename S_is_Valid_Method_Data<type>::method;
 		using request_args = type::request_args;
 		using bind_args = type::bind_args;
+
+		static constexpr size_t fn_count = type::fn_count;
 
 	};
 

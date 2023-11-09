@@ -115,4 +115,7 @@ namespace N_Tuple
 	template<template<class...>class T_Outer_class, class T_Tuple, class ...T_Types>
 	struct I_Expand_Set;
 
+	template<size_t N>
+	struct I_make_index_sequence;
+
 }

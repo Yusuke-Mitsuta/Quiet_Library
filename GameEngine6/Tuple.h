@@ -24,10 +24,12 @@
 #include"Tuple_Extract.h"
 #include"Tuple_Expand.h"
 
+
 #include"Tuple_Remove_Pointer.h"
 #include"Tuple_Create_Pointer.h"
 
 #include"Tuple_v_Calculate.h"
+#include"Tuple_v_make_index_sequence.h"
 
 template<class ..._Types>
 struct Tuple :

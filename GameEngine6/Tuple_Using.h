@@ -130,5 +130,13 @@ namespace N_Tuple
 	template<template<class...>class T_Outer_class, class T_Tuple, class ...T_Types>
 	using U_Expand_Set = typename I_Expand_Set<T_Outer_class, T_Tuple, T_Types...>::type;
 
+	//仕様
+	//[0 ... (N-1)]の値を[tuple_v]に入れて返す
+	//
+	//補足
+	//つまり、[std::make_index_sequence<N>] で帰ってくる型が [std::integer_sequence<size_t,N...>]の所を、[tupel_v<N...>]に変更する
+	template<size_t N>
+	using U_make_index_sequence =typename I_make_index_sequence<N>::type;
+
 }
 
