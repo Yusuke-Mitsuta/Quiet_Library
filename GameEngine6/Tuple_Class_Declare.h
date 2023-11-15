@@ -116,6 +116,9 @@ namespace N_Tuple
 	struct I_Expand_Set;
 
 	template<size_t N>
-	struct I_make_index_sequence;
+	struct I_index_sequence;
+
+	template<size_t N_1, size_t N_2>
+	struct I_range_index_sequence;
 
 }

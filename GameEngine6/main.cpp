@@ -145,7 +145,7 @@ void Hogege(int t) {}
 #include"Tuple.h"
 #include"Tuple_Value.h"
 #include"Size_T.h"
-#include"Tuple_v_make_index_sequence.h"
+#include"Tuple_index_sequence.h"
 
 
 template<>
@@ -170,7 +170,7 @@ public:
 int main()
 {
 	//Tuple_Test();
-	using nnn= N_Tuple::I_Tuple_v_make_index_sequence<5>::type;
+	using nnn = N_Tuple::U_range_index_sequence<9, 14>;
 
 	TYPE_ID(nnn);
 
@@ -192,13 +192,15 @@ int main()
 		typename
 		N_Function::I_Function_Multiple_Helper<
 		decltype(&H::Static_Args_5), int,
-		decltype(&H::Static_Args_5)
+		decltype(&H::Static_Args_5),
 		//decltype(&H::Static_Args_2), int,
-		//H*, decltype(&H::Args_3), int,int,int
+		H*, decltype(&H::Args_3), int,int,int
 
 		>::type;
 
+	using FFF = N_Function::I_Function_Single_Data<N_Function::Function_Core<decltype(&H::Args_3), int, int, int>>;
 
+	TYPE_ID(FFF::function);
 
 	//using FF_1 = typename N_Function::I_Function_Multiple_Helper<
 		//Function<FF>,int>::type;

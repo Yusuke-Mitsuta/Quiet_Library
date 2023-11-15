@@ -58,7 +58,9 @@ namespace N_Function
 		};
 
 
-		template<class T_Tuple, bool t_function_check_fg, bool t_method_check_fg, class T_Tuple_Method_Bound = tuple_t<>>
+		template<class T_Tuple, bool t_function_check_fg, bool t_method_check_fg, 
+			class T_Tuple_Method_Bound = tuple_t<>,
+			class T_Tuple_Access_Number = tuple_t<>>
 		struct S_Method_Bound
 		{
 
@@ -73,11 +75,16 @@ namespace N_Function
 					N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size - (T_Method_Point::head_size == T_Method_Point::size)>::reverse;
 
 				template<class T_Method_Point>
-				using access_numbers = int;
+				using access_numbers =
+					tuple_v<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
+					//N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
+				
 
-				template<class T_Tuple,class T_Method>
+				template<class T_Tuple,class T_Method,class T_Access_Number>
 				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,t_function_check_fg,t_method_check_fg,
-					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>>::type;
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>,
+					N_Tuple::U_Insert<T_Tuple_Access_Number, T_Access_Number>
+				>::type;
 
 				//仕様
 				//関数に対しては、指定された引数の型を受け取るか判定する、
@@ -95,7 +102,7 @@ namespace N_Function
 				struct S_Callable_Check
 				{
 
-					using type = Method_Bound<T_Method_Point, T_Function_Check>;
+					using type = Method_Bound<T_Method_Point, T_Function_Check,access_numbers<T_Method_Point>>;
 				};	
 
 				//仕様
@@ -103,7 +110,10 @@ namespace N_Function
 				template<class T_Dedicated_Point_Check, class T_Commond_Point_Check, class T_Method_Check>
 				struct S_Callable_Check<invalid_t, T_Dedicated_Point_Check, T_Commond_Point_Check, T_Method_Check>
 				{
-					using type = Method_Bound<typename T_Method_Point::next, T_Dedicated_Point_Check>;
+					using type = int;
+						//Method_Bound<typename T_Method_Point::next, T_Dedicated_Point_Check,
+						//tuple_v<T_Method_Point::tail_size-1, T_Tuple::tail_size + 1>>;
+						//access_numbers<typename T_Method_Point::next>>;
 				};
 
 				//仕様
@@ -111,7 +121,7 @@ namespace N_Function
 				template<class T_Commond_Point_Check, class T_Method_Check>
 				struct S_Callable_Check<invalid_t, invalid_t, T_Commond_Point_Check, T_Method_Check>
 				{
-					using type = Method_Bound<T_Method_Point,T_Commond_Point_Check>;
+					using type = Method_Bound<T_Method_Point,T_Commond_Point_Check,access_numbers<T_Method_Point>>;
 
 				};
 
@@ -121,7 +131,7 @@ namespace N_Function
 					requires t_method_check_fg
 				struct S_Callable_Check<invalid_t, invalid_t, invalid_t, T_Method_Check>
 				{
-					using type = Method_Bound<T_Method_Point, T_Method_Check>;
+					using type = Method_Bound<T_Method_Point, T_Method_Check, access_numbers<T_Method_Point>>;
 
 				};
 
@@ -152,10 +162,10 @@ namespace N_Function
 
 		//仕様
 		//全ての型の探査が正常に終了した場合、結果を出力する
-		template<class T_Head,class T_Tail, bool t_function_check_fg, bool t_method_check_fg,class T_Tuple_Method_Bound>
-		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>, t_function_check_fg,t_method_check_fg, T_Tuple_Method_Bound>
+		template<class T_Head,class T_Tail, bool t_function_check_fg, bool t_method_check_fg,class T_Tuple_Method_Bound, class T_Tuple_Access_Number>
+		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>, t_function_check_fg,t_method_check_fg, T_Tuple_Method_Bound,T_Tuple_Access_Number>
 		{
-			using type = T_Tuple_Method_Bound;
+			using type = tuple_t<T_Tuple_Method_Bound, T_Tuple_Access_Number>;
 
 
 		};

@@ -51,7 +51,8 @@ namespace N_Function
 
 			using base = typename S_Function_Data<T_Fn_Parts...>;
 			
-			using function = U_Judge_t<typename base::function,
+			using function =
+				U_Judge_t<typename base::method,
 				convertible_to<T_Dedicated_Point, typename base::c_name> ||
 				same_as<typename base::c_name,invalid_t>>;
 				
@@ -144,8 +145,6 @@ namespace N_Function
 		};
 
 
-
-
 		//仕様
 		//関数オブジェクトが静的メソッドの場合
 		template<class T_RType, class ...T_Args, class ...T_Bind_Args>
@@ -165,9 +164,10 @@ namespace N_Function
 		//関数オブジェクトがクラスメソッドの場合、かつクラスポインタの型を判定する場合
 		template<class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
 		struct S_Function_Data<T_RType(T_CName::*)(T_Args...), T_Bind_Args...> :
-			S_Function<T_RType(T_CName::*)(T_Args...), T_Bind_Args...>,
+			S_Method<T_RType(T_CName::*)(T_Args...), T_Bind_Args...>,
 			S_Args<typename tuple_t<T_Args...>::back, T_Bind_Args...>
 		{
+			using function = invalid_t;
 			using c_name = T_CName;
 			using r_type = T_RType;
 
@@ -186,7 +186,7 @@ namespace N_Function
 
 
 		template<class ...T_Fns, class ...T_before_Bind_Args, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args... > :
+		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args...> :
 			S_Function<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>
 		{
 			static constexpr size_t fn_count = (S_Function_Data<T_Fns>::fn_count + ...);
@@ -195,42 +195,12 @@ namespace N_Function
 			using bind_args = tuple_t<T_Bind_Args...>;
 		};
 
-		template< class T_Fns, class ...T_Bind_Args>
-		struct S_Function_Data<Function<T_Fns>, T_Bind_Args...> :
+		template< class T_Fns,class T_type_numbers ,class ...T_Bind_Args>
+		struct S_Function_Data<Function<tuple_t<T_Fns,T_type_numbers>>, T_Bind_Args...> :
 			S_Function_Data<Function_Core<T_Fns, T_Bind_Args...>>
 		{
+
 		};
-
-
-		////仕様
-		////引数をバインド済み、かつクラスポインタの型を判定しない場合
-		//template<class ...TP_Method_Inner, class ...T_Bind_Args>
-		//struct S_Function_Data<Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
-		//	S_Method<Method_Core<TP_Method_Inner...>, T_Bind_Args...>,
-		//	S_Args<S_Function_Data<TP_Method_Inner...>, T_Bind_Args...>,
-		//	S_Parent<TP_Method_Inner...>
-		//{};
-
-		////仕様
-		////引数をバインド済み、かつクラスポインタの型を判定する場合
-		//template<class T_Dedicated_Point, class ...TP_Method_Inner, class ...T_Bind_Args>
-		//struct S_Function_Data<T_Dedicated_Point*, Method_Core<TP_Method_Inner...>, T_Bind_Args...> :
-		//	S_Function<T_Dedicated_Point*, Method_Core<TP_Method_Inner...>, T_Bind_Args...>,
-		//	S_Args<S_Function_Data<TP_Method_Inner...>, T_Bind_Args...>,
-		//	S_Parent<TP_Method_Inner...>
-		//{};
-
-		////仕様
-		////引数バインド済み、及び、クラスポインタの型を指定済み、又は静的メソッドの場合
-		//template<class ...TP_Function_Inner, class ...T_Bind_Args>
-		//struct S_Function_Data<Function_Core<TP_Function_Inner...>, T_Bind_Args...> :
-		//	S_Function<Function_Core<TP_Function_Inner...>, T_Bind_Args...>,
-		//	S_Args<S_Function_Data<TP_Function_Inner...>, T_Bind_Args...>,
-		//	S_Parent<TP_Function_Inner...>
-		//{
-		//
-		//};
-
 
 
 

@@ -136,7 +136,13 @@ namespace N_Tuple
 	//補足
 	//つまり、[std::make_index_sequence<N>] で帰ってくる型が [std::integer_sequence<size_t,N...>]の所を、[tupel_v<N...>]に変更する
 	template<size_t N>
-	using U_make_index_sequence =typename I_make_index_sequence<N>::type;
+	using U_index_sequence =typename I_index_sequence<N>::type;
+
+	//仕様
+	//[N_1 ... N-2]の値を[tuple_v]に入れて返す
+	template<size_t N_1, size_t N_2>
+	using U_range_index_sequence = typename I_range_index_sequence<N_1,N_2>::type;
+
 
 }
 
