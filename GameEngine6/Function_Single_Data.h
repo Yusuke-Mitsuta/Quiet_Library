@@ -39,6 +39,7 @@ namespace N_Function
 
 			static constexpr size_t fn_count = 0;
 		};
+			
 
 		//仕様
 		//先頭の型がクラス型かつ、ポインター型であり、メソッドが指定されているなら、
@@ -49,12 +50,43 @@ namespace N_Function
 			S_Function_Data<T_Fn_Parts...>
 		{
 
+			template<class T_Fns>
+			struct Method_Point_Chack 
+			{
+				using type = T_Fns;
+			};
+
+			template<class T_Fn, class ...T_Bind_Args>
+				requires (convertible_to<T_Dedicated_Point, typename S_Function_Data<T_Fn>::c_name>)
+			struct Method_Point_Chack<Method_Core<T_Fn, T_Bind_Args...>>
+			{
+				using type = Function_Core<T_Fn, T_Bind_Args...>;
+			};
+
+			template<class ...T_Fns,class ...T_Bind_Args>
+			struct Method_Point_Chack<Method_Core<tuple_t<T_Fns...>,T_Bind_Args...>>
+			{
+				template<class T_Fns>
+				struct method_change_function
+				{
+					using type = Method_Core<T_Fns, T_Bind_Args...>;
+				};				
+				
+				template<same_as_template_type<Function_Core> ...T_Fns>
+				struct method_change_function<tuple_t<T_Fns...>>
+				{
+					using type = Function_Core<tuple_t<T_Fns...>, T_Bind_Args...>;
+				};
+
+				using type = typename method_change_function<tuple_t<typename Method_Point_Chack<T_Fns>::type...>>::type;
+
+			};
+
 			using base = typename S_Function_Data<T_Fn_Parts...>;
 			
-			using function =
-				U_Judge_t<typename base::method,
-				convertible_to<T_Dedicated_Point, typename base::c_name> ||
-				same_as<typename base::c_name,invalid_t>>;
+
+			using function = typename Method_Point_Chack<typename base::function>::type;
+
 				
 		};
 		
@@ -114,44 +146,15 @@ namespace N_Function
 
 
 
-		//仕様
-		//[using method]を定義する
-		//[method]は使用するクラスポインタの型を未指定のオブジェクトを示す
-		//テンプレート
-		//[T_Parent]::元にする関数オブジェクト
-		//[T_Bind_Args...]::指定する引数の型
-		template<class T_Parent, class ...T_Bind_Args>
-		struct S_Method
-		{
-			using method = Function_Core<T_Parent, T_Bind_Args...>;
-		};
-
-
-		//仕様
-		//[using function]を定義する
-		//[function]は呼び出せる状態になっている関数オブジェクトを示す
-		//
-		//テンプレート
-		//[T_Fn]::関数オブジェクトの型
-		//[T_Bind_Args...]::指定する引数の型
-		//
-		//補足
-		//[function]はクラスポインターを指定済み、若しくは、静的メソッドの場合に限る
-		template<class T_Fn, class ...T_Bind_Args>
-		struct S_Function :
-			S_Method<T_Fn, T_Bind_Args...>
-		{
-			using function = Function_Core<T_Fn, T_Bind_Args...>;
-		};
-
 
 		//仕様
 		//関数オブジェクトが静的メソッドの場合
 		template<class T_RType, class ...T_Args, class ...T_Bind_Args>
 		struct S_Function_Data<T_RType(*)(T_Args...), T_Bind_Args...> :
-			S_Function<T_RType(*)(T_Args...), T_Bind_Args...>,
 			S_Args<typename tuple_t<T_Args...>::back, T_Bind_Args...>
 		{
+
+			using function = Function_Core<T_RType(*)(T_Args...), T_Bind_Args...>;
 			using c_name = invalid_t;
 			
 			using r_type = T_RType;
@@ -164,10 +167,10 @@ namespace N_Function
 		//関数オブジェクトがクラスメソッドの場合、かつクラスポインタの型を判定する場合
 		template<class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
 		struct S_Function_Data<T_RType(T_CName::*)(T_Args...), T_Bind_Args...> :
-			S_Method<T_RType(T_CName::*)(T_Args...), T_Bind_Args...>,
 			S_Args<typename tuple_t<T_Args...>::back, T_Bind_Args...>
 		{
-			using function = invalid_t;
+
+			using function = Method_Core<T_RType(T_CName::*)(T_Args...), T_Bind_Args...>;
 			using c_name = T_CName;
 			using r_type = T_RType;
 
@@ -175,32 +178,45 @@ namespace N_Function
 		};
 
 
-		template<class T_Fn, class ...T_before_Bind_Args, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...> :
-			S_Function<Function_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...>,
+		//仕様
+		//既に引数を設定済みの関数オブジェクトに新たに引数を設定する場合
+		template<template<class...>class T_Outer_Core, class T_Fn, class ...T_before_Bind_Args, class ...T_Bind_Args>
+		struct S_Function_Data<T_Outer_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...> :
 			S_Args<typename S_Function_Data<T_Fn, T_before_Bind_Args...>::request_args, T_Bind_Args...>
 		{
+			using function = T_Outer_Core<T_Outer_Core<T_Fn, T_before_Bind_Args...>, T_Bind_Args...>;
+
 			using c_name = S_Function_Data<T_Fn>::c_name;
 			static constexpr size_t fn_count = S_Function_Data<T_Fn>::fn_count;
 		};
 
 
-		template<class ...T_Fns, class ...T_before_Bind_Args, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>,T_Bind_Args...> :
-			S_Function<Function_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>
+		//仕様
+		//複数に纏められている関数を展開する
+		template<template<class...>class T_Outer_Core,  class ...T_Fns, class ...T_before_Bind_Args, class ...T_Bind_Args>
+		struct S_Function_Data<T_Outer_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args...>
 		{
+			using function = T_Outer_Core<T_Outer_Core<tuple_t<T_Fns...>, T_before_Bind_Args...>, T_Bind_Args... >;
+
 			static constexpr size_t fn_count = (S_Function_Data<T_Fns>::fn_count + ...);
 			using c_name = invalid_t;
 			using request_args = tuple_t<typename S_Function_Data<Function_Core<T_Fns, T_before_Bind_Args...>, T_Bind_Args...>::request_args...>;
 			using bind_args = tuple_t<T_Bind_Args...>;
+
 		};
 
-		template< class T_Fns,class T_type_numbers ,class ...T_Bind_Args>
-		struct S_Function_Data<Function<tuple_t<T_Fns,T_type_numbers>>, T_Bind_Args...> :
-			S_Function_Data<Function_Core<T_Fns, T_Bind_Args...>>
+
+		template<class ...T_Fns,class T_type_numbers ,class ...T_Bind_Args>
+		struct S_Function_Data<Function<tuple_t<tuple_t<T_Fns...>,T_type_numbers>>, T_Bind_Args...> :
+			S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_Bind_Args...>>
 		{
-
 		};
+
+		//template<class ...T_Fns, class T_type_numbers, class ...T_Bind_Args>
+		//struct S_Function_Data<Function<tuple_t<tuple_t<T_Fns...>, T_type_numbers>>, T_Bind_Args...> :
+		//	S_Function_Data<Method_Core<tuple_t<T_Fns...>, T_Bind_Args...>>
+		//{
+		//};
 
 
 
@@ -211,14 +227,12 @@ namespace N_Function
 		struct S_is_Valid_Method_Data
 		{
 			using function = T_Parent::function;
-			using method = T_Parent::method;
 		};
 
 		template<class T_Parent>
 		struct S_is_Valid_Method_Data<T_Parent, invalid_t>
 		{
 			using function = invalid_t;
-			using method = invalid_t;
 		};
 
 
@@ -245,9 +259,6 @@ namespace N_Function
 		using function =
 			//type::function;
 			typename S_is_Valid_Method_Data<type>::function;
-		using method =
-			//type::method;
-			typename S_is_Valid_Method_Data<type>::method;
 		using request_args = type::request_args;
 		using bind_args = type::bind_args;
 

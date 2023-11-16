@@ -167,8 +167,39 @@ public:
 
 };
 
+
+
+template<size_t n>
+struct TESE
+{
+	void Hogege(int, float)
+		requires(n==5)
+	{
+
+	};
+
+	void Hogege(int)
+		requires(n == 4)
+	{
+
+
+	};
+};
+
 int main()
 {
+	
+
+	using invalid_tuple = tuple_t<invalid_t, invalid_t, invalid_t>;
+
+	using invalid_tuple_1 = invalid_tuple::front;
+	using invalid_tuple_2 = invalid_tuple_1::next;
+	using invalid_tuple_3 = invalid_tuple_2::next;
+	TYPE_ID(invalid_tuple);
+	TYPE_ID(invalid_tuple_1);
+	TYPE_ID(invalid_tuple_2);
+	TYPE_ID(invalid_tuple_3);
+
 	//Tuple_Test();
 	using nnn = N_Tuple::U_range_index_sequence<9, 14>;
 
@@ -198,13 +229,13 @@ int main()
 
 		>::type;
 
-	using FFF = N_Function::I_Function_Single_Data<N_Function::Function_Core<decltype(&H::Args_3), int, int, int>>;
+	using FFF = N_Function::I_Function_Single_Data<N_Function::Method_Core<decltype(&H::Args_3), int, int>,float>;
 
 	TYPE_ID(FFF::function);
 
-	//using FF_1 = typename N_Function::I_Function_Multiple_Helper<
-		//Function<FF>,int>::type;
-
+	using FF_1 = typename N_Function::I_Function_Multiple_Helper<
+		Function<FF>,int>::type;
+	TYPE_ID(FF);
 	//using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
 
 
@@ -213,8 +244,12 @@ int main()
 
 		N_Function::Function_Core<
 		tuple_t<
-		N_Function::Function_Core<void(__cdecl*)(float, float, float), int>,
-		N_Function::Function_Core<void(__cdecl*)(float, float, float)>
+		N_Function::Function_Core<void(__cdecl*)(float, float, float), int>, 
+			N_Function::Function_Core<
+			tuple_t<
+			N_Function::Function_Core<void(__cdecl*)(float, float), int>,
+			N_Function::Function_Core<void(__cdecl*)(float, float,double), int>
+		>>
 		>, int>
 
 
@@ -246,7 +281,7 @@ int main()
 		//decltype(&H::Static_Args_2)>;
 
 
-	TYPE_ID(int_1::function);
+	TYPE_ID(int_1::request_args);
 	TYPE_ID(typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_1)>::S_Function_Data<decltype(&H::Args_1)>::c_name);
 
 	//return 0;

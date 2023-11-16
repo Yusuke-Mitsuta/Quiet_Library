@@ -8,66 +8,115 @@ namespace N_Function
 	template<class ...T_Fn_Parts>
 	struct I_Function_Single_Data;
 
-	template<class T_Fn, class ...TP_Bind_Args>
+	template<class ...T_Fn_Parts>
 	struct Function_Core;
 
-	template<class T_Fns>
+	template<class T_Fns,class T_Bind_Args_Type>
 	struct I_Function_Operator
 	{
 
-		template<class T_Fns>
+		template<class T_Fns,class T_Tuple_Args_Numbers,class T_Args_Numbers=typename T_Tuple_Args_Numbers::type>
 		struct S_Function_Select
 		{
 
-			
-			
 
 
-			template<class T_Fn_Core>
+			template<class T_Fn_Core,class T_Request_Args_Numbers=int>
 			struct S_Function_Operator;
 
-			using fn_operator = S_Function_Operator<T_Fns>;
-			using next_operator = typename S_Function_Select<typename T_Fns::next>::fn_operator;
+
+			using fn_operator = S_Function_Operator<typename T_Fns::type>;
+
+			using fn_data = I_Function_Single_Data<typename T_Fns::type>;
+
+			using request_args = typename fn_data::request_args;
+
+			using next_operator = typename S_Function_Select<typename T_Fns::next, typename T_Tuple_Args_Numbers::next>::fn_operator;
 			
 
-			template<class T_Fn, class ...T_Bind_Args>
-				requires (I_Function_Single_Data<Function_Core<T_Fn>>::fn_count == 1)
-			struct S_Function_Operator<Function_Core<T_Fn, T_Bind_Args...>>:
+			struct S_Function_Operator_Core
+			{
+				T_Bind_Args_Type bind_list;
+
+			protected:
+
+
+				constexpr auto Action_Operator(auto ...args) {}
+
+				constexpr S_Function_Operator_Core(auto... args) :
+					bind_list(args...) {}
+			};
+
+			template<class T_Fn, class ...T_Bind_Args,size_t ...t_Request_Args_Numbers>
+				requires (fn_data::fn_count == 1)
+			struct S_Function_Operator<Function_Core<T_Fn, T_Bind_Args...>,tuple_v<t_Request_Args_Numbers...>> :
 				next_operator
 			{
+				constexpr auto operator()(N_Tuple::U_Element_t<t_Request_Args_Numbers, request_args>... args) 
+				{
+				}
 
-				template<class ...MT_Fn_Parts>
-				S_Function_Operator(T_Fn set_fn, T_Bind_Args... set_bind_args, MT_Fn_Parts ...fn_parts) {}
-
-
-				template<class T_Commond_p, class ...MT_Fn_Parts>
-				S_Function_Operator(T_Commond_p* commond_p,T_Fn set_fn,T_Bind_Args... set_bind_args, MT_Fn_Parts ...fn_parts) :
-					next_operator(commond_p, fn_parts...)
-				{}
-
-				template<class T_Commond_p,class T_Dedicated_p, class ...MT_Fn_Parts>
-				S_Function_Operator(T_Commond_p* commond_p,T_Dedicated_p* dedicated_p,T_Fn fn, T_Bind_Args... bind_args, MT_Fn_Parts ...fn_parts):
-					next_operator(commond_p, fn_parts...)
-				{}
-
-
+				constexpr S_Function_Operator(auto... args) :
+					next_operator(args...) {}
 			};
 
 
-			template<class ...T_Fns,class ...T_Bind_Args>
-			struct S_Function_Operator<Function_Core<tuple_t<T_Fns...>, T_Bind_Args...>> :
+			//template<class T_Return_type,class T_Fns,class T_Flont_Reqest_Args, class ...T_Reqest_Args>
+			//struct S_request_args_expand
+			//{
+
+			//};
+
+			//
+			//template<class T_Return_type,class T_Head_Fns,class T_Fn,class ...T_Tail_Fns,class ...T_Reqest_Args, class T_Reqest_Args_end, class T_Tail, class ...T_Fns_Reqest_Args>
+			//struct S_request_args_expand<T_Return_type, tuple_tp<T_Head_Fns,T_Fn,tuple_t<T_Tail_Fns...>>,tuple_tp<tuple_t<T_Reqest_Args...>, T_Reqest_Args_end, T_Tail>, T_Fns_Reqest_Args...>
+			//{
+			//	constexpr auto operator()(T_Reqest_Args... args, T_Reqest_Args_end args_e)
+			//	{
+			//		return S_Function_Operator_Core::Action_Operator(args... , args_e);
+
+			//	}
+			//};
+
+
+
+			//template<class T_Return_type, class T_Head_Fns,class T_Flont_Fn ,class ...T_Fns, class ...T_before_Bind_Args, class ...T_Tail_Fns, class ...T_Reqest_Args, class T_Reqest_Args_end, class T_Tail,class T_Tuple_Reqest_Args..., class ...T_Fns_Reqest_Args>
+			//struct S_request_args_expand<T_Return_type, 
+			//	tuple_tp<T_Head_Fns, Function_Core<tuple_t<T_Flont_Fn,T_Fns...>, T_before_Bind_Args...>, tuple_t<T_Tail_Fns...>>,
+			//	tuple_t<T_Tuple_Reqest_Args...>, T_Fns_Reqest_Args...> 
+			//	:
+			//	S_request_args_expand<T_Return_type,
+			//	tuple_tp<T_Head_Fns, T_Flont_Fn, tuple_t<T_Fns...,T_Tail_Fns...>>,
+			//	T_Tuple_Reqest_Args..., T_Fns_Reqest_Args...>>
+			//{
+
+			//};
+
+
+
+			template<class T_Fn, class ...T_Bind_Args, size_t ...t_Request_Args_Numbers>
+				requires (fn_data::fn_count != 1)
+			struct S_Function_Operator<Function_Core<T_Fn, T_Bind_Args...>, tuple_v<t_Request_Args_Numbers...>> :
 				next_operator
 			{
 
-				template<class T_Commond_p, class T_Dedicated_p, class ...MT_Fn_Parts>
-				S_Function_Operator(Function<tuple_t<T_Fns...>> fns, T_Bind_Args... bind_args) :
-				next_operator()
-				{}
 
+				constexpr S_Function_Operator(auto... args) :
+					next_operator(args...) {}
 			};
 
 
-			
+
+			//template<class ...T_Fns,class ...T_Bind_Args,  size_t ...t_Request_Args_Numbers>
+			//struct S_Function_Operator<Function_Core<tuple_t<T_Fns...>,T_Bind_Args...>, tuple_v<t_Request_Args_Numbers...>>:
+			//	S_request_args_expand<next_operator,tuple_t<T_Fns...>,request_args>
+			//{
+			//	constexpr S_Function_Operator(auto... args) :
+			//		next_operator(args...) {};
+
+			//};
+
+
 
 
 

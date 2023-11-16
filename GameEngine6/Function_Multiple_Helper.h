@@ -38,7 +38,7 @@ namespace N_Function
 		using commond_point = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
 
 
-		template<class T_Tuple, class T_method = typename I_Function_Single_Data<typename T_Tuple::type>::method>
+		template<class T_Tuple, class T_method = typename I_Function_Single_Data<typename T_Tuple::type>::function>
 		struct S_Method_Search
 		{
 			using type = T_Tuple;
@@ -76,8 +76,7 @@ namespace N_Function
 
 				template<class T_Method_Point>
 				using access_numbers =
-					tuple_v<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
-					//N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
+					N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
 				
 
 				template<class T_Tuple,class T_Method,class T_Access_Number>
@@ -97,8 +96,9 @@ namespace N_Function
 				//[T_Method_Check]:指定された引数の型を受け取るか判定する
 				template<class T_Function_Check = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::function,
 						 class T_Dedicated_Point_Check = typename I_Function_Single_Data<chack_tuple<typename T_Method_Point::next>>::function,
-						 class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>,commond_point,0>>::function,
-						 class T_Method_Check = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::method>
+						 class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>,commond_point,0>>::function
+				
+				>
 				struct S_Callable_Check
 				{
 
@@ -107,38 +107,27 @@ namespace N_Function
 
 				//仕様
 				//指定された引数の型を受け取るか判定する
-				template<class T_Dedicated_Point_Check, class T_Commond_Point_Check, class T_Method_Check>
-				struct S_Callable_Check<invalid_t, T_Dedicated_Point_Check, T_Commond_Point_Check, T_Method_Check>
+				template<class ...T_Function_Check,class T_Dedicated_Point_Check, class T_Commond_Point_Check>
+				struct S_Callable_Check<Method_Core<T_Function_Check...>, T_Dedicated_Point_Check, T_Commond_Point_Check>
 				{
-					using type = int;
-						//Method_Bound<typename T_Method_Point::next, T_Dedicated_Point_Check,
-						//tuple_v<T_Method_Point::tail_size-1, T_Tuple::tail_size + 1>>;
-						//access_numbers<typename T_Method_Point::next>>;
+					using type = 
+						Method_Bound<typename T_Method_Point::next, T_Dedicated_Point_Check,
+						access_numbers<typename T_Method_Point::next>>;
 				};
 
 				//仕様
 				//指定された引数の型と、共通で設定されたポインターを判定する
-				template<class T_Commond_Point_Check, class T_Method_Check>
-				struct S_Callable_Check<invalid_t, invalid_t, T_Commond_Point_Check, T_Method_Check>
+				template<class ...T_Function_Check, class ...T_Dedicated_Point_Check, class T_Commond_Point_Check>
+				struct S_Callable_Check<Method_Core<T_Function_Check...>, Method_Core<T_Dedicated_Point_Check...>, T_Commond_Point_Check>
 				{
 					using type = Method_Bound<T_Method_Point,T_Commond_Point_Check,access_numbers<T_Method_Point>>;
-
 				};
 
-				//仕様
-				//指定された引数の型を受け取るか判定する
-				template<class T_Method_Check>
-					requires t_method_check_fg
-				struct S_Callable_Check<invalid_t, invalid_t, invalid_t, T_Method_Check>
-				{
-					using type = Method_Bound<T_Method_Point, T_Method_Check, access_numbers<T_Method_Point>>;
-
-				};
 
 				//仕様
 				//関数に対して、引数のが不一致な場合、次の関数を探索する
 				template<>
-				struct S_Callable_Check<invalid_t, invalid_t, invalid_t,invalid_t>
+				struct S_Callable_Check<invalid_t, invalid_t, invalid_t>
 				{
 					using type = S_Method_Point<typename S_Method_Search<typename T_Method_Point::next>::type>::type;
 				};
@@ -185,8 +174,6 @@ namespace N_Function
 		//仕様
 		//メソッドとして判定する
 		using method_check = S_Method_Bound<start_tuple, false, true>::type;
-
-		
 
 	};
 

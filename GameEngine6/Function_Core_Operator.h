@@ -5,7 +5,7 @@
 namespace N_Function
 {
 
-	template<class T_Fns, class ...TP_Bind_Args>
+	template<class ...T_Fn_Parts>
 	struct Function_Core;
 
 	template<class T_Fns, class ...TP_Bind_Args>
