@@ -15,24 +15,9 @@ namespace N_Function
 	struct I_Function_Operator
 	{
 
-		template<class T_Fns,class T_Tuple_Args_Numbers,class T_Args_Numbers=typename T_Tuple_Args_Numbers::type>
+		template<class T_Fns,class T_Tuple_Args_Numbers>
 		struct S_Function_Select
 		{
-
-
-
-			template<class T_Fn_Core,class T_Request_Args_Numbers=int>
-			struct S_Function_Operator;
-
-
-			using fn_operator = S_Function_Operator<typename T_Fns::type>;
-
-			using fn_data = I_Function_Single_Data<typename T_Fns::type>;
-
-			using request_args = typename fn_data::request_args;
-
-			using next_operator = typename S_Function_Select<typename T_Fns::next, typename T_Tuple_Args_Numbers::next>::fn_operator;
-			
 
 			struct S_Function_Operator_Core
 			{
@@ -47,13 +32,33 @@ namespace N_Function
 					bind_list(args...) {}
 			};
 
-			template<class T_Fn, class ...T_Bind_Args,size_t ...t_Request_Args_Numbers>
+
+			template<class T_Fn_Core,class T_Request_Args = int>
+			struct S_Function_Operator :
+				S_Function_Operator_Core
+			{
+				constexpr S_Function_Operator(auto... args) :
+					S_Function_Operator_Core(args...) {}
+			};
+
+
+			using fn_operator = S_Function_Operator<typename T_Fns::type>;
+
+			using fn_data = I_Function_Single_Data<typename T_Fns::type>;
+
+			using request_args = typename fn_data::request_args;
+
+			using next_operator = typename S_Function_Select<typename T_Fns::next, typename T_Tuple_Args_Numbers::next>::fn_operator;
+			
+
+			template<class T_Fn, class ...T_Bind_Args,class ...T_Request_Args>
 				requires (fn_data::fn_count == 1)
-			struct S_Function_Operator<Function_Core<T_Fn, T_Bind_Args...>,tuple_v<t_Request_Args_Numbers...>> :
+			struct S_Function_Operator<Function_Core<T_Fn, T_Bind_Args...>,tuple_t<T_Request_Args...>> :
 				next_operator
 			{
-				constexpr auto operator()(N_Tuple::U_Element_t<t_Request_Args_Numbers, request_args>... args) 
+				constexpr auto operator()(T_Request_Args... args)
 				{
+					return S_Function_Operator_Core::Action_Operator(T_Tuple_Args_Numbers(), args...);
 				}
 
 				constexpr S_Function_Operator(auto... args) :
@@ -61,11 +66,11 @@ namespace N_Function
 			};
 
 
-			//template<class T_Return_type,class T_Fns,class T_Flont_Reqest_Args, class ...T_Reqest_Args>
-			//struct S_request_args_expand
-			//{
+			template<class T_Return_type,class T_Fns,class ...T_Reqest_Args>
+			struct S_request_args_expand
+			{
 
-			//};
+			};
 
 			//
 			//template<class T_Return_type,class T_Head_Fns,class T_Fn,class ...T_Tail_Fns,class ...T_Reqest_Args, class T_Reqest_Args_end, class T_Tail, class ...T_Fns_Reqest_Args>
@@ -76,7 +81,20 @@ namespace N_Function
 			//		return S_Function_Operator_Core::Action_Operator(args... , args_e);
 
 			//	}
+			// 
 			//};
+
+
+			template<class T_Return_type, class T_Fn, class ...T_Bind_Args, class ...T_Tuple_Reqest_Args, class ...T_Fns_Reqest_Args>
+			struct S_request_args_expand<T_Return_type,Function_Core<T_Fn,T_Bind_Args...>, tuple_t<T_Tuple_Reqest_Args...>, T_Fns_Reqest_Args...> :
+				S_request_args_expand<
+				
+				T_Return_type,
+				
+				Function_Core<typename T_Fn::flont, T_Bind_Args...>, T_Tuple_Reqest_Args...,T_Fns_Reqest_Args...>
+			{
+
+			};
 
 
 
@@ -97,7 +115,7 @@ namespace N_Function
 			template<class T_Fn, class ...T_Bind_Args, size_t ...t_Request_Args_Numbers>
 				requires (fn_data::fn_count != 1)
 			struct S_Function_Operator<Function_Core<T_Fn, T_Bind_Args...>, tuple_v<t_Request_Args_Numbers...>> :
-				next_operator
+					S_request_args_expand<next_operator, Function_Core<T_Fn, T_Bind_Args...>,request_args>
 			{
 
 

@@ -134,6 +134,7 @@ struct H3
 
 struct H2
 {
+	void Args_5(int a, int b, int c, int d, int e) {}
 };
 
 //template<class T>
@@ -240,40 +241,39 @@ int main()
 
 
 
-	using int_1 = typename N_Function::I_Function_Single_Data<
-
-		N_Function::Function_Core<
-		tuple_t<
-		N_Function::Function_Core<void(__cdecl*)(float, float, float), int>, 
-			N_Function::Function_Core<
-			tuple_t<
-			N_Function::Function_Core<void(__cdecl*)(float, float), int>,
-			N_Function::Function_Core<void(__cdecl*)(float, float,double), int>
-		>>
-		>, int>
+	using int_1 = N_Function::Method_Core < N_Function::Method_Core<N_Function::Method_Core<decltype(&H::Args_4)>>>;
 
 
 
-	>;
 
 
 
 	using FF_test =
 
-		N_Function::Function_Core
-		<
+	N_Function::Method_Core
+	<
 		tuple_t
 		<
-		N_Function::Function_Core<void(__cdecl*)(float, float, float)>,
+			N_Function::Method_Core<decltype(&H::Args_4)>,
+			N_Function::Method_Core<decltype(&H::Args_3)>,
+			N_Function::Function_Core<decltype(&H::Static_Args_3)>,
+			N_Function::Method_Core
+			<
+				tuple_t
+				<
+					N_Function::Method_Core<decltype(&H::Args_4)>,
+					N_Function::Method_Core<decltype(&H::Args_2)>
+				>
+			>
 
-		N_Function::Function_Core<void(__cdecl*)(int, int, int), int>
 		>
-
 	>;
+	//N_Function::Method_Core<decltype(&H::Args_4)>;
 	
 	using fnc= N_Function::Function_Core<N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, int,int,int,int), int>,int>,int,int>;
 
-	using int_2 = typename N_Function::I_Function_Single_Data<FF_test, int>::function;
+	using int_2 = typename N_Function::I_Function_Single_Data<int_1>;
+
 	using int_5 = typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::function;
 	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
 	using ff = typename N_Function::I_Function_Single_Data< 
@@ -281,7 +281,8 @@ int main()
 		//decltype(&H::Static_Args_2)>;
 
 
-	TYPE_ID(int_1::request_args);
+	TYPE_ID(int_2::function);
+	TYPE_ID(int_2::request_args);
 	TYPE_ID(typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_1)>::S_Function_Data<decltype(&H::Args_1)>::c_name);
 
 	//return 0;

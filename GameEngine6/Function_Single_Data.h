@@ -50,6 +50,27 @@ namespace N_Function
 			S_Function_Data<T_Fn_Parts...>
 		{
 
+			template<class T_Fns, class ...T_Bind_Args>
+			struct method_change_function
+			{
+				using type = Method_Core<T_Fns, T_Bind_Args...>;
+			};
+
+
+			template<same_as_template_type<Function_Core> ...T_Fns, class ...T_Bind_Args>
+			struct method_change_function<tuple_t<T_Fns...>, T_Bind_Args... >
+			{
+				using type = Function_Core<tuple_t<T_Fns...>, T_Bind_Args...>;
+			};
+
+
+			template<class ...T_Fn_parts, class ...T_Bind_Args>
+			struct method_change_function<Function_Core<T_Fn_parts...>, T_Bind_Args... >
+			{
+				using type = Function_Core<Function_Core<T_Fn_parts...>, T_Bind_Args...>;
+			};
+
+
 			template<class T_Fns>
 			struct Method_Point_Chack 
 			{
@@ -63,20 +84,18 @@ namespace N_Function
 				using type = Function_Core<T_Fn, T_Bind_Args...>;
 			};
 
+			template<class T_Fn, class ...T_Bind_Args>
+				requires (S_Function_Data<T_Fn>::fn_count != 1 )
+			struct Method_Point_Chack<Method_Core<T_Fn, T_Bind_Args...>>
+			{
+
+				using type = method_change_function<
+					typename Method_Point_Chack< T_Fn>::type,T_Bind_Args...>::type;
+			};
+
 			template<class ...T_Fns,class ...T_Bind_Args>
 			struct Method_Point_Chack<Method_Core<tuple_t<T_Fns...>,T_Bind_Args...>>
 			{
-				template<class T_Fns>
-				struct method_change_function
-				{
-					using type = Method_Core<T_Fns, T_Bind_Args...>;
-				};				
-				
-				template<same_as_template_type<Function_Core> ...T_Fns>
-				struct method_change_function<tuple_t<T_Fns...>>
-				{
-					using type = Function_Core<tuple_t<T_Fns...>, T_Bind_Args...>;
-				};
 
 				using type = typename method_change_function<tuple_t<typename Method_Point_Chack<T_Fns>::type...>>::type;
 
