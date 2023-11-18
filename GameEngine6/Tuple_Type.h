@@ -16,11 +16,14 @@ struct tuple_tp :
 
 template<class ..._Types>
 struct tuple_t :
-	N_Tuple::Control_tp<tuple_t<>, invalid_t, tuple_t<>> {};
+	N_Tuple::Control_tp<tuple_t<>, invalid_t, tuple_t<>>{};
 
 template<class T_Flont_Type, class ...T_Types>
 struct tuple_t<T_Flont_Type, T_Types...> :
-	N_Tuple::Control_tp<tuple_t<>, T_Flont_Type, tuple_t<T_Types...>> {};
+	N_Tuple::Control_tp<tuple_t<>, T_Flont_Type, tuple_t<T_Types...>>
+{
+	using tuple = std::tuple<T_Flont_Type, T_Types...>;
+};
 
 
 

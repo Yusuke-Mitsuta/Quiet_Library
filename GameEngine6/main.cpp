@@ -170,26 +170,38 @@ public:
 
 
 
-template<size_t n>
-struct TESE
-{
-	void Hogege(int, float)
-		requires(n==5)
-	{
 
-	};
-
-	void Hogege(int)
-		requires(n == 4)
-	{
-
-
-	};
-};
 
 int main()
 {
+	int a=4;
+	int& b=a;
+
+	C_OUT(sizeof(a));
+	C_OUT(sizeof(b));
+	Function fn_test(&H::Static_Args_2, 3);
+	fn_test;
+	TYPE_ID(decltype(fn_test)::t);
+	using fn_test_h = 
+		typename
+		N_Function::I_Function_Multiple_Helper<
+		decltype(&H::Args_2), int,
+		decltype(&H::Args_2), int
+		>::type;
 	
+	TYPE_ID(fn_test_h);
+	TYPE_ID(fn_test_h::next::type);
+	TYPE_ID(fn_test_h::next::type);
+	TYPE_ID(fn_test_h::next::type::next);
+	TYPE_ID(fn_test_h::next::type::next::next);
+
+	using op= N_Function::I_Function_Operator< fn_test_h, tuple_t<decltype(&H::Args_2), int,
+		decltype(&H::Args_2), int>>;
+
+
+
+
+
 
 	using invalid_tuple = tuple_t<invalid_t, invalid_t, invalid_t>;
 
@@ -234,14 +246,12 @@ int main()
 
 	TYPE_ID(FFF::function);
 
-	using FF_1 = typename N_Function::I_Function_Multiple_Helper<
-		Function<FF>,int>::type;
 	TYPE_ID(FF);
 	//using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
 
 
 
-	using int_1 = N_Function::Method_Core < N_Function::Method_Core<N_Function::Method_Core<decltype(&H::Args_4)>>>;
+	using int_1 = N_Function::Method_Core <N_Function::Method_Core<N_Function::Method_Core<decltype(&H::Args_4)>>>;
 
 
 
@@ -249,7 +259,7 @@ int main()
 
 
 	using FF_test =
-
+		N_Function::Method_Core<
 	N_Function::Method_Core
 	<
 		tuple_t
@@ -267,12 +277,12 @@ int main()
 			>
 
 		>
-	>;
+	>>;
 	//N_Function::Method_Core<decltype(&H::Args_4)>;
 	
 	using fnc= N_Function::Function_Core<N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, int,int,int,int), int>,int>,int,int>;
 
-	using int_2 = typename N_Function::I_Function_Single_Data<int_1>;
+	using int_2 = typename N_Function::I_Function_Single_Data<FF_test>;
 
 	using int_5 = typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::function;
 	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
@@ -289,6 +299,8 @@ int main()
 
 	//TYPE_ID(int_0);
 	TYPE_ID(int_1);
+
+	TYPE_ID(int_2::function);
 
 	TYPE_ID(FF);
 	//TYPE_ID(FF_1);

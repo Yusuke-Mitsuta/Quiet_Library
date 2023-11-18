@@ -6,7 +6,7 @@
 
 #include"Function_Args_Chack.h"
 
-template<class TP_Fns>
+template<class TP_Fns, class TP_Args_type>
 class Function;
 
 namespace N_Function
@@ -225,8 +225,8 @@ namespace N_Function
 		};
 
 
-		template<class ...T_Fns,class T_type_numbers ,class ...T_Bind_Args>
-		struct S_Function_Data<Function<tuple_t<tuple_t<T_Fns...>,T_type_numbers>>, T_Bind_Args...> :
+		template<class ...T_Fns,class T_type_numbers , class T_Tuple_Args_types,class ...T_Bind_Args>
+		struct S_Function_Data<Function<tuple_t<tuple_t<T_Fns...>,T_type_numbers>, T_Tuple_Args_types>, T_Bind_Args...> :
 			S_Function_Data<Function_Core<tuple_t<T_Fns...>, T_Bind_Args...>>
 		{
 		};
@@ -280,6 +280,8 @@ namespace N_Function
 			typename S_is_Valid_Method_Data<type>::function;
 		using request_args = type::request_args;
 		using bind_args = type::bind_args;
+
+		using c_name = type::c_name;
 
 		static constexpr size_t fn_count = type::fn_count;
 

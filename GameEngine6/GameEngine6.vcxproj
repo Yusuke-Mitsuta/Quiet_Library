@@ -25,8 +25,6 @@
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
-    <ClInclude Include="Function_Core_Operator.h" />
-    <ClInclude Include="Function_Operator_Core.h" />
     <ClInclude Include="Function_Single_Data_Args_Check.h" />
     <ClInclude Include="Invalid.h" />
     <ClInclude Include="Method_Multiple.h" />

@@ -387,9 +387,6 @@
     <ClInclude Include="Method_Multiple.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Core_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Single_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
@@ -399,11 +396,8 @@
     <ClInclude Include="Tuple_Expand.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Operator_Core.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_v_make_index_sequence.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    <ClInclude Include="Tuple_index_sequence.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

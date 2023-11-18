@@ -107,20 +107,20 @@ namespace N_Function
 
 				//仕様
 				//指定された引数の型を受け取るか判定する
-				template<class ...T_Function_Check,class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-				struct S_Callable_Check<Method_Core<T_Function_Check...>, T_Dedicated_Point_Check, T_Commond_Point_Check>
+				template<class ...T_Function_Check,class ...T_Dedicated_Point_Check, class T_Commond_Point_Check>
+				struct S_Callable_Check<Method_Core<T_Function_Check...>,Function_Core<T_Dedicated_Point_Check...>, T_Commond_Point_Check>
 				{
 					using type = 
-						Method_Bound<typename T_Method_Point::next, T_Dedicated_Point_Check,
+						Method_Bound<typename T_Method_Point::next, Function_Core<T_Dedicated_Point_Check...>,
 						access_numbers<typename T_Method_Point::next>>;
 				};
 
 				//仕様
 				//指定された引数の型と、共通で設定されたポインターを判定する
-				template<class ...T_Function_Check, class ...T_Dedicated_Point_Check, class T_Commond_Point_Check>
-				struct S_Callable_Check<Method_Core<T_Function_Check...>, Method_Core<T_Dedicated_Point_Check...>, T_Commond_Point_Check>
+				template<class ...T_Function_Check, class ...T_Dedicated_Point_Check, class ...T_Commond_Point_Check>
+				struct S_Callable_Check<Method_Core<T_Function_Check...>, Method_Core<T_Dedicated_Point_Check...>, Function_Core<T_Commond_Point_Check...>>
 				{
-					using type = Method_Bound<T_Method_Point,T_Commond_Point_Check,access_numbers<T_Method_Point>>;
+					using type = Method_Bound<T_Method_Point, Function_Core<T_Commond_Point_Check...>,access_numbers<T_Method_Point>>;
 				};
 
 
