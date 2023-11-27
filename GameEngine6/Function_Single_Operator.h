@@ -45,7 +45,7 @@
 //	public:
 //
 //		template<class T_Args_Number,class T_Request_Args_Number>
-//		struct S_Function_Operator;
+//		struct S_Function_Operator_Helper;
 //
 //		//仕様
 //		//bindArgsを持たない[Function_Single]のOperator部分の実装
@@ -53,7 +53,7 @@
 //		//template
 //		//...t_Request_Args_Number::operator()()の引数で要求する型の[size_t]パラメータパック
 //		template<size_t... t_Request_Args_Number>
-//		struct S_Function_Operator<invalid_t,
+//		struct S_Function_Operator_Helper<invalid_t,
 //			std::index_sequence<t_Request_Args_Number...>>
 //		{
 //		private:
@@ -63,7 +63,7 @@
 //		public:
 //
 //			template<class MT_Fn>
-//			constexpr S_Function_Operator(MT_Fn setFn)
+//			constexpr S_Function_Operator_Helper(MT_Fn setFn)
 //				:fn(setFn)
 //			{}
 //
@@ -89,21 +89,21 @@
 //		//...t_Args_BindNumber::バインド済みの引数を呼び出す為の[size_t]パラメータパック
 //		//...t_Request_Args_Number::operator()()の引数で要求する型の[size_t]パラメータパック
 //		template<size_t ...t_Args_BindNumber,size_t... t_Request_Args_Number>
-//		struct S_Function_Operator<std::index_sequence<t_Args_BindNumber...>,
+//		struct S_Function_Operator_Helper<std::index_sequence<t_Args_BindNumber...>,
 //			std::index_sequence<t_Request_Args_Number...>>:
-//			public S_Function_Operator<invalid_t,
+//			public S_Function_Operator_Helper<invalid_t,
 //			T_Default_Request_Args_Number<sizeof...(TP_Args)>>
 //		{
 //		private:
 //
-//			using Fn = S_Function_Operator<invalid_t,
+//			using Fn = S_Function_Operator_Helper<invalid_t,
 //				T_Default_Request_Args_Number<sizeof...(TP_Args)>>;
 //
 //			BindArgs bindArgs;
 //		public:
 //
 //			template<class MT_Fn, class ...MT_Args>
-//			constexpr S_Function_Operator(MT_Fn setFn, MT_Args ...setArgs)
+//			constexpr S_Function_Operator_Helper(MT_Fn setFn, MT_Args ...setArgs)
 //				:Fn(setFn), bindArgs(setArgs...) {}
 //
 //			constexpr RType operator()(std::tuple_element_t<t_Request_Args_Number, Args>... args)
@@ -118,7 +118,7 @@
 //			(sizeof...(TP_Args))>;
 //	public:
 //
-//		using Type = S_Function_Operator<Judge,T_Default_Request_Args_Number<>>;
+//		using Type = S_Function_Operator_Helper<Judge,T_Default_Request_Args_Number<>>;
 //	};
 //
 //}

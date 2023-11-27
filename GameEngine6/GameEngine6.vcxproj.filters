@@ -279,7 +279,7 @@
     <ClInclude Include="Parameter_Range.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Operator.h">
+    <ClInclude Include="Function_Operator_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Tuple.h">
@@ -398,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="Tuple_index_sequence.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

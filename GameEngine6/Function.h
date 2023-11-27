@@ -11,7 +11,6 @@ class Function :
 
 
 public:
-	using t = N_Function::I_Function_Operator<TP_Fns, TP_Args_type>::type;
 
 	template<class ...MT_Fn_Parts>
 	constexpr Function(MT_Fn_Parts... fn_Parts) :
