@@ -194,6 +194,7 @@ int main()
 	using aaa = typename N_Function::I_Function_Operator_Helper<fn_test_h>::type;
 
 
+
 	TYPE_ID(aaa);
 
 
@@ -203,8 +204,8 @@ int main()
 	TYPE_ID(fn_test_h::next::type::next);
 	TYPE_ID(fn_test_h::next::type::next::next);
 
-	using op= N_Function::I_Function_Operator< fn_test_h, tuple_t<decltype(&H::Args_2), int,
-		decltype(&H::Args_2), int>>;
+	//using op= N_Function::I_Function_Operator< fn_test_h, tuple_t<decltype(&H::Args_2), int,
+	//	decltype(&H::Args_2), int>>;
 
 
 
