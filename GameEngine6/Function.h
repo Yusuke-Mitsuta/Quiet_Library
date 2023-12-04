@@ -5,20 +5,20 @@
 #include"Function_Operator.h"
 
 template<class TP_Fns,class TP_Args_type>
-class Function //:
-	//public N_Function::I_Function_Operator<TP_Fns,TP_Args_type>::type
+class Function :
+	public N_Function::I_Function_Operator<TP_Fns,TP_Args_type>::type
 {
 
 
 public:
 
 	template<class ...MT_Fn_Parts>
-	constexpr Function(MT_Fn_Parts... fn_Parts)// :
-		//N_Function::I_Function_Operator<TP_Fns, TP_Args_type>::type(fn_Parts...)
+	constexpr Function(MT_Fn_Parts... fn_Parts) :
+		N_Function::I_Function_Operator<TP_Fns, TP_Args_type>::type(fn_Parts...)
 		{}
 
 
-	//using N_Function::I_Function_Operator<TP_Fns, TP_Args_type>::type::operator();
+	using N_Function::I_Function_Operator<TP_Fns, TP_Args_type>::type::operator();
 
 
 

@@ -40,22 +40,23 @@ namespace N_Function
 
 		};
 
-		template<class T_Tuple_Function_Operator_data,class T_Select_data = typename T_Tuple_Function_Operator_data::type>
+		template<class T_Tuple_Function_Operator>
 		struct S_Function_Operator :
 			S_Function_Operator_Core
 		{
-			constexpr auto operator()(T_Select_data a)
+
+			constexpr auto operator()()
 			{
-				C_OUT("5");
 			}
 
 			constexpr S_Function_Operator(auto... args) :
 				S_Function_Operator_Core(args...) {}
 		};
 
-		template<class T_Tuple_Function_Operator_data, class T_Request_Args,size_t... t_request_args_number,size_t... t_bind_args_number>
-		struct S_Function_Operator<T_Tuple_Function_Operator_data,tuple_t<T_Request_Args,tuple_v<t_request_args_number...>,tuple_v<t_bind_args_number...>>> :
-			S_Function_Operator<typename T_Tuple_Function_Operator_data::next>
+		template<class T_Request_Args,size_t... t_request_args_number,size_t... t_bind_args_number,class ...T_Function_Operator_data_list>
+		struct S_Function_Operator<tuple_t< tuple_t<T_Request_Args,tuple_v<t_request_args_number...>,tuple_v<t_bind_args_number...>>,
+		T_Function_Operator_data_list...>> :
+			S_Function_Operator<tuple_t<T_Function_Operator_data_list...>>
 		{
 
 
@@ -64,18 +65,18 @@ namespace N_Function
 				return S_Function_Operator_Core::Action_Operator(std::get<t_bind_args_number>(S_Function_Operator_Core::bind_list)..., args...);
 			}
 
-			using ty = tuple_t<N_Tuple::U_Element_t<t_request_args_number, T_Request_Args>...>;
-
+			using S_Function_Operator<tuple_t<T_Function_Operator_data_list...>>::operator();
 			constexpr S_Function_Operator(auto... args) :
-				S_Function_Operator<typename T_Tuple_Function_Operator_data::next>(args...) {
+				S_Function_Operator<tuple_t<T_Function_Operator_data_list...>>(args...) {
 
 
 
+				C_OUT("a");
+				TYPE_ID(T_Request_Args);
 
 			}
 		};
 
-		using t = I_Function_Operator_Helper<T_Fns>::type;
 		using type = S_Function_Operator<typename I_Function_Operator_Helper<T_Fns>::type>;
 
 	};

@@ -14,7 +14,7 @@ namespace N_Function
 	template<class ...T_Method_Parts>
 	struct Method_Core;
 
-	template<class T_Fnsa>
+	template<class T_Fns>
 	struct I_Function_Operator_Helper
 	{
 
@@ -126,10 +126,98 @@ namespace N_Function
 			};*/
 
 
+			//template<class T_Reqest_Args_list, class T_Fn, class T_Reqest_Args>
+			//struct S_request_args_expand
+			//{
+
+			//	using data = tuple_t<T_Reqest_Args, N_Tuple::U_index_sequence<T_Reqest_Args::head_size + 1>, T_Flont_Bind_Args_Number>;
+
+			//	using type = tuple_t<T_Reqest_Args_list..., data>;
+			//		
+			//		//T_Reqest_Args_list;// S_Function_Operator_Helper<T_Reqest_Args_list, T_Fn, 1, T_Reqest_Args>;
+			//};
+
+			//template<class ...T_Reqest_Args_list, class T_Fn>
+			//struct S_request_args_expand<tuple_t<T_Reqest_Args_list...>, T_Fn, tuple_t<>>
+			//{
+			//	using type = tuple_t<T_Reqest_Args_list...>;
+			//};
+
+
+			//template<class ...T_Reqest_Args_list, class T_Fn, class T_Request_Args>
+			//struct S_request_args_expand<tuple_t<T_Reqest_Args_list...>, T_Fn, T_Request_Args>
+			//{
+
+			//	using c_name = I_Function_Single_Data<T_Fn>::c_name;
+
+			//	using data = tuple_t<N_Tuple::U_Insert<T_Request_Args, c_name*, 0>, N_Tuple::U_index_sequence<T_Request_Args::head_size + 2>, T_Flont_Bind_Args_Number>;
+
+			//	using type = tuple_t<T_Reqest_Args_list..., data>;
+			//};
+
+
+
+			//template<class ...T_Reqest_Args_list, class T_Fn, class T_Flont_Reqest_Args, class ...T_Tuple_Reqest_Args>
+			//struct S_request_args_expand<tuple_t<T_Reqest_Args_list...>, T_Fn, tuple_t<T_Flont_Reqest_Args, T_Tuple_Reqest_Args...>>
+			//{
+
+			//	using child_reqest_args_list = S_request_args_expand<tuple_t<T_Reqest_Args_list...>, T_Fn, T_Flont_Reqest_Args>::type;
+
+
+			//	using type = S_request_args_expand<N_Tuple::U_Merge_tuple_expand<tuple_t<T_Reqest_Args_list...>, child_reqest_args_list>,
+			//		T_Fn, tuple_t<T_Tuple_Reqest_Args...>>;
+			//};
+
+			//template<class ...T_Reqest_Args_list, class T_Method, class ...T_Bind_Args, class ...T_Tuple_Reqest_Args>
+			//struct S_request_args_expand<tuple_t<T_Reqest_Args_list...>, Method_Core<T_Method, T_Bind_Args...>, tuple_t<T_Tuple_Reqest_Args...>>
+			//{
+			//	using type = S_request_args_expand<tuple_t<T_Reqest_Args_list...>, T_Method, tuple_t<T_Tuple_Reqest_Args...>>::type;
+			//};
+
+
+			//template<class ...T_Reqest_Args_list, class T_Flont_Method, class ...T_Methods, class ...T_Bind_Args, class T_Flont_Reqest_Args, class ...T_Tuple_Reqest_Args>
+			//struct S_request_args_expand<tuple_t<T_Reqest_Args_list...>, Method_Core<tuple_t<T_Flont_Method, T_Methods...>, T_Bind_Args...>, tuple_t<T_Flont_Reqest_Args, T_Tuple_Reqest_Args...>>
+			//{
+			//	using child_reqest_args_list = S_request_args_expand<tuple_t<T_Reqest_Args_list...>, T_Flont_Method, T_Flont_Reqest_Args>::type;
+
+			//	using type = S_request_args_expand<N_Tuple::U_Merge_tuple_expand<tuple_t<T_Reqest_Args_list...>, child_reqest_args_list>,
+			//		Method_Core<tuple_t<T_Methods...>, T_Bind_Args...>, tuple_t<T_Tuple_Reqest_Args...>>;
+			//};
+
+
+
+			//template<class ...T_Reqest_Args_list, class T_Flont_Method, class ...T_Methods, class ...T_Bind_Args, class T_Flont_Reqest_Args, class ...T_Tuple_Reqest_Args>
+			//	requires(I_Function_Single_Data<T_Flont_Method>::fn_count == 1)
+			//struct S_request_args_expand<tuple_t<T_Reqest_Args_list...>, Method_Core<tuple_t<T_Flont_Method, T_Methods...>, T_Bind_Args...>, tuple_t<T_Flont_Reqest_Args, T_Tuple_Reqest_Args...>>
+			//{
+			//	using c_name = I_Function_Single_Data<T_Flont_Method>::c_name;
+
+			//	using data = tuple_t<N_Tuple::U_Insert<T_Flont_Reqest_Args, c_name*, 0>, N_Tuple::U_index_sequence<T_Flont_Reqest_Args::head_size + 2>, T_Flont_Bind_Args_Number>;
+
+			//	using type = S_request_args_expand<tuple_t<T_Reqest_Args_list..., data>, Method_Core<tuple_t<T_Methods...>, T_Bind_Args...>, tuple_t<T_Tuple_Reqest_Args...>>::type;
+
+			//};
+
+
+
+
+			//template<class T_Fns, size_t t_fn_count, class T_Request_Args>
+			//requires (t_fn_count > 1)
+			//struct S_Function_Operator_Helper<T_Fns, t_fn_count, T_Request_Args>
+			//{
+			//	using data =
+			//	S_request_args_expand<tuple_t<>,T_Fns, T_Request_Args>::type;
+
+
+			//	using type = typename S_Function_Select<tuple_t<T_Fns...>, tuple_t<T_Bind_Args_Numbers...>, T_Reqest_Args_list..., data>::type;
+
+			//};
+
+
 		};
 
 
-		using type = typename S_Function_Select<N_Tuple::U_Element_t<0,T_Fnsa>, N_Tuple::U_Element_t<1, T_Fnsa>>::type;
+		using type = typename S_Function_Select<N_Tuple::U_Element_t<0,T_Fns>, N_Tuple::U_Element_t<1, T_Fns>>::type;
 
 
 	};

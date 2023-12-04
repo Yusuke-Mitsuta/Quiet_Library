@@ -179,21 +179,39 @@ int main()
 
 	C_OUT(sizeof(a));
 	C_OUT(sizeof(b));
-	Function fn_test(&H::Static_Args_2, 3);
+	Function fn_test(new H(),
+		&H::Args_4, 3,
+		&H::Args_3, 2
+	);
+	
 	fn_test;
+	
+
+	Function fn_test2(&H::Static_Args_3, 2);
+
+	
+
+	//Function fn_test3(fn_test, fn_test2);
+
+	
+
+	
+	
+	
 	
 
 	TYPE_ID(N_Tuple::U_index_sequence<0>);
 	using fn_test_h = 
 		typename
-		N_Function::I_Function_Multiple_Helper<
-		decltype(&H::Static_Args_2), int,
+		N_Function::I_Function_Multiple_Helper<H*,
+		decltype(&H::Args_3), int,
 		decltype(&H::Args_2), int
 		>::type;
-	
+
+
 	using aaa = typename N_Function::I_Function_Operator_Helper<fn_test_h>::type;
 
-
+	
 
 	TYPE_ID(aaa);
 
