@@ -184,7 +184,8 @@ int main()
 		&H::Args_3, 2
 	);
 	
-	fn_test;
+	fn_test()
+	//fn_test(3,5,1);
 	
 
 	Function fn_test2(&H::Static_Args_3, 2);
@@ -193,11 +194,6 @@ int main()
 
 	//Function fn_test3(fn_test, fn_test2);
 
-	
-
-	
-	
-	
 	
 
 	TYPE_ID(N_Tuple::U_index_sequence<0>);
@@ -209,179 +205,179 @@ int main()
 		>::type;
 
 
-	using aaa = typename N_Function::I_Function_Operator_Helper<fn_test_h>::type;
+	//using aaa = typename N_Function::I_Function_Operator_Helper<fn_test_h>::type;
 
 	
 
-	TYPE_ID(aaa);
+	//TYPE_ID(aaa);
 
 
-	TYPE_ID(fn_test_h);
-	TYPE_ID(fn_test_h::next::type);
-	TYPE_ID(fn_test_h::next::type);
-	TYPE_ID(fn_test_h::next::type::next);
-	TYPE_ID(fn_test_h::next::type::next::next);
-
-	//using op= N_Function::I_Function_Operator< fn_test_h, tuple_t<decltype(&H::Args_2), int,
-	//	decltype(&H::Args_2), int>>;
-
-
-
-
-
-
-	using invalid_tuple = tuple_t<invalid_t, invalid_t, invalid_t>;
-
-	using invalid_tuple_1 = invalid_tuple::front;
-	using invalid_tuple_2 = invalid_tuple_1::next;
-	using invalid_tuple_3 = invalid_tuple_2::next;
-	TYPE_ID(invalid_tuple);
-	TYPE_ID(invalid_tuple_1);
-	TYPE_ID(invalid_tuple_2);
-	TYPE_ID(invalid_tuple_3);
-
-	//Tuple_Test();
-	using nnn = N_Tuple::U_range_index_sequence<9, 14>;
-
-	TYPE_ID(nnn);
-
-	//using Fn = //N_Function::I_Function_Args_Chack<tuple_t<int, int>::back, tuple_t<H>>::request_args;
-		//N_Function::I_Function_Single_Data<H*, N_Function::Method_Core<decltype(&H::Args_2)>,H>::request_args;
-
-		//typename N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_5), int, int, int
-		//, decltype(&H::Args_7), int, int>::type1;// ::type2::type3::type4::T1;// ::type3::type4;
-
-
-	C_OUT(std::is_member_function_pointer<decltype(&H::Args_2)>::value);
-	C_OUT(std::is_member_function_pointer<decltype(&H::Static_Args_2)>::value);
-	using Te = tuple_tp<tuple_t<int, float, double>, char, tuple_t<>>;
-	using ins =
-		N_Tuple::U_Insert<Te, int, 0>;
-	using ins_1 = N_Tuple::I_Insert<Te, int, 0>::type;
-	using FF = //typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::type::function;
-
-		typename
-		N_Function::I_Function_Multiple_Helper<
-		decltype(&H::Static_Args_5), int,
-		decltype(&H::Static_Args_5),
-		//decltype(&H::Static_Args_2), int,
-		H*, decltype(&H::Args_3), int,int,int
-
-		>::type;
-
-	using FFF = N_Function::I_Function_Single_Data<N_Function::Method_Core<decltype(&H::Args_3), int, int>,float>;
-
-	TYPE_ID(FFF::function);
-
-	TYPE_ID(FF);
-	//using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
-
-
-
-	using int_1 = N_Function::Method_Core <N_Function::Method_Core<N_Function::Method_Core<decltype(&H::Args_4)>>>;
-
-
-
-
-
-
-	using FF_test =
-		N_Function::Method_Core<
-	N_Function::Method_Core
-	<
-		tuple_t
-		<
-			N_Function::Method_Core<decltype(&H::Args_4)>,
-			N_Function::Method_Core<decltype(&H::Args_3)>,
-			N_Function::Function_Core<decltype(&H::Static_Args_3)>,
-			N_Function::Method_Core
-			<
-				tuple_t
-				<
-					N_Function::Method_Core<decltype(&H::Args_4)>,
-					N_Function::Method_Core<decltype(&H::Args_2)>
-				>
-			>
-
-		>
-	>>;
-	//N_Function::Method_Core<decltype(&H::Args_4)>;
-	
-	using fnc= N_Function::Function_Core<N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, int,int,int,int), int>,int>,int,int>;
-
-	using int_2 = typename N_Function::I_Function_Single_Data<FF_test>;
-
-	using int_5 = typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::function;
-	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
-	using ff = typename N_Function::I_Function_Single_Data< 
-		H*,decltype(&H::Static_Args_2)>;
-		//decltype(&H::Static_Args_2)>;
-
-
-	TYPE_ID(int_2::function);
-	TYPE_ID(int_2::request_args);
-	TYPE_ID(typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_1)>::S_Function_Data<decltype(&H::Args_1)>::c_name);
-
-	//return 0;
-
-	//TYPE_ID(int_0);
-	TYPE_ID(int_1);
-
-	TYPE_ID(int_2::function);
-
-	TYPE_ID(FF);
-	//TYPE_ID(FF_1);
-	C_OUT("");
-	TYPE_ID(int_5);
-	C_OUT("");
-	TYPE_ID(int_4);
-	
-
-
-		//method_range_t<N_Tuple::U_Select<0, tuple_t<int, decltype(&H::Args_2)>>>;
-
-	//using Fn0T = Fn::T;
-	//using Fn1T =typename Fn::type2::type3::type4::T;
-
-	//using Fn0chack_tuple = typename
-		//N_Tuple::U_Range<Fn0T, Fn0::head_size>::reverse;
-
-	//using Fn1chack_tuple = typename N_Tuple::U_Range<Fn1T, Fn1::head_size>::reverse;
-
-	//using Test_T =
-
-		//N_Tuple::I_Remove_Pointer<
-		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>
-		//>::type;
-
-		//typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
-
-
-		//N_Tuple::S_Action_Tuple_t<TEST,
-		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
-
-	//TYPE_ID(TEST<typename FF::back_t>::type);
-	//TYPE_ID(decltype(H::Static_Args_2));
-	//TYPE_ID(decltype(H::Args_2));
-	
-	//std::is_member_function_pointer_v
-	
-	C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Static_Args_2)>>);
-	C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Args_2)>>);
-	C_OUT(std::is_class_v<std::remove_pointer_t<N_Function::Function_Core<void(__cdecl*)(int, int, int, int, int, int)>>>);
-	C_OUT(std::is_class_v<invalid_t>);
-	C_OUT(std::is_class_v<H*>);
-
-	using t =fnc;
-	C_OUT(
-	(!
-		(
-			(std::is_class_v<std::remove_pointer_t<t>>) &&
-			(std::is_pointer_v<t>)
-		)
-	)
-	
-	);
+//	TYPE_ID(fn_test_h);
+//	TYPE_ID(fn_test_h::next::type);
+//	TYPE_ID(fn_test_h::next::type);
+//	TYPE_ID(fn_test_h::next::type::next);
+//	TYPE_ID(fn_test_h::next::type::next::next);
+//
+//	//using op= N_Function::I_Function_Operator< fn_test_h, tuple_t<decltype(&H::Args_2), int,
+//	//	decltype(&H::Args_2), int>>;
+//
+//
+//
+//
+//
+//
+//	using invalid_tuple = tuple_t<invalid_t, invalid_t, invalid_t>;
+//
+//	using invalid_tuple_1 = invalid_tuple::front;
+//	using invalid_tuple_2 = invalid_tuple_1::next;
+//	using invalid_tuple_3 = invalid_tuple_2::next;
+//	TYPE_ID(invalid_tuple);
+//	TYPE_ID(invalid_tuple_1);
+//	TYPE_ID(invalid_tuple_2);
+//	TYPE_ID(invalid_tuple_3);
+//
+//	//Tuple_Test();
+//	using nnn = N_Tuple::U_range_index_sequence<9, 14>;
+//
+//	TYPE_ID(nnn);
+//
+//	//using Fn = //N_Function::I_Function_Args_Chack<tuple_t<int, int>::back, tuple_t<H>>::request_args;
+//		//N_Function::I_Function_Single_Data<H*, N_Function::Method_Core<decltype(&H::Args_2)>,H>::request_args;
+//
+//		//typename N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_5), int, int, int
+//		//, decltype(&H::Args_7), int, int>::type1;// ::type2::type3::type4::T1;// ::type3::type4;
+//
+//
+//	C_OUT(std::is_member_function_pointer<decltype(&H::Args_2)>::value);
+//	C_OUT(std::is_member_function_pointer<decltype(&H::Static_Args_2)>::value);
+//	using Te = tuple_tp<tuple_t<int, float, double>, char, tuple_t<>>;
+//	using ins =
+//		N_Tuple::U_Insert<Te, int, 0>;
+//	using ins_1 = N_Tuple::I_Insert<Te, int, 0>::type;
+//	using FF = //typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::type::function;
+//
+//		typename
+//		N_Function::I_Function_Multiple_Helper<
+//		decltype(&H::Static_Args_5), int,
+//		decltype(&H::Static_Args_5),
+//		//decltype(&H::Static_Args_2), int,
+//		H*, decltype(&H::Args_3), int,int,int
+//
+//		>::type;
+//
+//	using FFF = N_Function::I_Function_Single_Data<N_Function::Method_Core<decltype(&H::Args_3), int, int>,float>;
+//
+//	TYPE_ID(FFF::function);
+//
+//	TYPE_ID(FF);
+//	//using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
+//
+//
+//
+//	using int_1 = N_Function::Method_Core <N_Function::Method_Core<N_Function::Method_Core<decltype(&H::Args_4)>>>;
+//
+//
+//
+//
+//
+//
+//	using FF_test =
+//		N_Function::Method_Core<
+//	N_Function::Method_Core
+//	<
+//		tuple_t
+//		<
+//			N_Function::Method_Core<decltype(&H::Args_4)>,
+//			N_Function::Method_Core<decltype(&H::Args_3)>,
+//			N_Function::Function_Core<decltype(&H::Static_Args_3)>,
+//			N_Function::Method_Core
+//			<
+//				tuple_t
+//				<
+//					N_Function::Method_Core<decltype(&H::Args_4)>,
+//					N_Function::Method_Core<decltype(&H::Args_2)>
+//				>
+//			>
+//
+//		>
+//	>>;
+//	//N_Function::Method_Core<decltype(&H::Args_4)>;
+//	
+//	using fnc= N_Function::Function_Core<N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, //int,int,int,int), int>,int>,int,int>;
+//
+//	using int_2 = typename N_Function::I_Function_Single_Data<FF_test>;
+//
+//	using int_5 = typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::function;
+//	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
+//	using ff = typename N_Function::I_Function_Single_Data< 
+//		H*,decltype(&H::Static_Args_2)>;
+//		//decltype(&H::Static_Args_2)>;
+//
+//
+//	TYPE_ID(int_2::function);
+//	TYPE_ID(int_2::request_args);
+//	TYPE_ID(typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_1)>::S_Function_Data<decltype(&H::Args_1)>::c_name);
+//
+//	//return 0;
+//
+//	//TYPE_ID(int_0);
+//	TYPE_ID(int_1);
+//
+//	TYPE_ID(int_2::function);
+//
+//	TYPE_ID(FF);
+//	//TYPE_ID(FF_1);
+//	C_OUT("");
+//	TYPE_ID(int_5);
+//	C_OUT("");
+//	TYPE_ID(int_4);
+//	
+//
+//
+//		//method_range_t<N_Tuple::U_Select<0, tuple_t<int, decltype(&H::Args_2)>>>;
+//
+//	//using Fn0T = Fn::T;
+//	//using Fn1T =typename Fn::type2::type3::type4::T;
+//
+//	//using Fn0chack_tuple = typename
+//		//N_Tuple::U_Range<Fn0T, Fn0::head_size>::reverse;
+//
+//	//using Fn1chack_tuple = typename N_Tuple::U_Range<Fn1T, Fn1::head_size>::reverse;
+//
+//	//using Test_T =
+//
+//		//N_Tuple::I_Remove_Pointer<
+//		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>
+//		//>::type;
+//
+//		//typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
+//
+//
+//		//N_Tuple::S_Action_Tuple_t<TEST,
+//		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
+//
+//	//TYPE_ID(TEST<typename FF::back_t>::type);
+//	//TYPE_ID(decltype(H::Static_Args_2));
+//	//TYPE_ID(decltype(H::Args_2));
+//	
+//	//std::is_member_function_pointer_v
+//	
+//	C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Static_Args_2)>>);
+//	C_OUT(std::is_class_v<std::remove_pointer_t<decltype(&H::Args_2)>>);
+//	C_OUT(std::is_class_v<std::remove_pointer_t<N_Function::Function_Core<void(__cdecl*)(int, int, int, int, int, int)>>>);
+//	C_OUT(std::is_class_v<invalid_t>);
+//	C_OUT(std::is_class_v<H*>);
+//
+//	using t =fnc;
+//	C_OUT(
+//	(!
+//		(
+//			(std::is_class_v<std::remove_pointer_t<t>>) &&
+//			(std::is_pointer_v<t>)
+//		)
+//	)
+//	
+//	);
 
 	//TYPE_ID(FF::type);
 	//TYPE_ID(FF::next_t);

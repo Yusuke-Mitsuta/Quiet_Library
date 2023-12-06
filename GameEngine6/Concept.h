@@ -85,6 +85,7 @@ concept is_invalid = same_as<_Ty1, invalid_t>;
 template <class _Ty1>
 concept not_is_invalid = !is_invalid<_Ty1>;
 
+
 template <class _Ty1, class _Ty2>
 struct same_as_S
 {
@@ -209,6 +210,8 @@ concept not_is_reference = !std::is_reference_v<T>;
 
 template <class T>
 concept is_member_function_pointer = std::is_member_function_pointer_v<T>;
+
+
 
 
 

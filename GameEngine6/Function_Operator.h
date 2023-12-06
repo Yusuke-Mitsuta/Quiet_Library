@@ -25,11 +25,11 @@ namespace N_Function
 				return (p->*method)(args...);
 			};
 
-			//constexpr auto Action_Operator(auto* p, auto method, auto ...args)
-			//	requires (same_as_template_type<Method_Core, decltype(method)>)
-			//{
-			//	return method(p, args...);
-			//};
+			constexpr auto Action_Operator(auto* p, auto method, auto ...args)
+				requires (same_as_template_type<Method_Core, decltype(method)>)
+			{
+				return method(p, args...);
+			};
 
 
 			constexpr auto Action_Operator(auto fn, auto ...args)
@@ -54,7 +54,7 @@ namespace N_Function
 		};
 
 		template<class T_Request_Args,size_t... t_request_args_number,size_t... t_bind_args_number,class ...T_Function_Operator_data_list>
-		struct S_Function_Operator<tuple_t< tuple_t<T_Request_Args,tuple_v<t_request_args_number...>,tuple_v<t_bind_args_number...>>,
+		struct S_Function_Operator<tuple_t<tuple_t<T_Request_Args,tuple_v<t_request_args_number...>,tuple_v<t_bind_args_number...>>,
 		T_Function_Operator_data_list...>> :
 			S_Function_Operator<tuple_t<T_Function_Operator_data_list...>>
 		{

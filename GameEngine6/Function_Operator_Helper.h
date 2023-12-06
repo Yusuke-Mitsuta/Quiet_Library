@@ -35,18 +35,6 @@ namespace N_Function
 		struct S_Function_Select<tuple_t<T_Flont_Fn,T_Fns...>,tuple_t<T_Flont_Bind_Args_Number,T_Bind_Args_Numbers...>, T_Reqest_Args_list...>
 		{
 
-			template<class c_name, class T_Request_Args>
-			struct S_Function_Operator_Helper_data
-			{
-				using data = tuple_t<N_Tuple::U_Insert<T_Request_Args, c_name*, 0>, N_Tuple::U_index_sequence<T_Request_Args::head_size + 2>, T_Flont_Bind_Args_Number>;
-			};
-
-			template<class T_Request_Args>
-			struct S_Function_Operator_Helper_data<invalid_t, T_Request_Args>
-			{
-				using data = tuple_t<T_Request_Args, N_Tuple::U_index_sequence<T_Request_Args::head_size + 1>, T_Flont_Bind_Args_Number>;
-			};
-
 
 			template<
 				class T_Fn_Core = T_Flont_Fn,
@@ -54,28 +42,30 @@ namespace N_Function
 				class T_Request_Args = typename I_Function_Single_Data<T_Fn_Core>::request_args>
 			struct S_Function_Operator_Helper;
 
+
 			template<class T_Fn, class ...T_Bind_Args, size_t t_fn_count, class T_Request_Args>
 				requires (t_fn_count == 1)
 			struct S_Function_Operator_Helper<Function_Core<T_Fn, T_Bind_Args...>,t_fn_count,T_Request_Args>
 			{
 				using data = tuple_t<T_Request_Args, N_Tuple::U_index_sequence<T_Request_Args::head_size + 1>, T_Flont_Bind_Args_Number>;
-
+			
 				using type = typename S_Function_Select<tuple_t<T_Fns...>,tuple_t<T_Bind_Args_Numbers...>, T_Reqest_Args_list..., data>::type;
-
+			
 			};
 
+			
 			template<class T_Method, class ...T_Bind_Args, size_t t_fn_count, class T_Request_Args>
 				requires (t_fn_count == 1)
 			struct S_Function_Operator_Helper<Method_Core<T_Method, T_Bind_Args...>, t_fn_count, T_Request_Args>
 			{
-
-
+			
+			
 				using c_name = I_Function_Single_Data<T_Method>::c_name;
-
+			
 				using data = tuple_t<N_Tuple::U_Insert<T_Request_Args, c_name*, 0>, N_Tuple::U_index_sequence<T_Request_Args::head_size + 2>, T_Flont_Bind_Args_Number>;
-
+			
 				using type = typename S_Function_Select<tuple_t<T_Fns...>, tuple_t<T_Bind_Args_Numbers...>, T_Reqest_Args_list..., data>::type;
-
+			
 			};
 
 
