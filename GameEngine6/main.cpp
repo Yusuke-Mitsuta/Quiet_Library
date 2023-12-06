@@ -184,10 +184,12 @@ int main()
 		&H::Args_3, 2
 	);
 	
-	fn_test()
+	fn_test();
 	//fn_test(3,5,1);
-	
 
+	using tup= tuple_t<int, float, double>;
+	using t= N_Tuple::U_Range<tup,1,0>;
+	TYPE_ID(t);
 	Function fn_test2(&H::Static_Args_3, 2);
 
 	

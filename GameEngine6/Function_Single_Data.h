@@ -23,6 +23,10 @@ namespace N_Function
 	template<class ...T_Fn_Parts>
 	struct I_Function_Single_Data
 	{
+
+		
+
+
 	//private:
 
 		//仕様
@@ -39,7 +43,9 @@ namespace N_Function
 
 			static constexpr size_t fn_count = 0;
 		};
-			
+		
+
+
 
 		//仕様
 		//先頭の型がクラス型かつ、ポインター型であり、メソッドが指定されているなら、
@@ -273,6 +279,204 @@ namespace N_Function
 
 
 	public:
+
+
+
+		using type = N_Tuple::I_Expand_Set<S_Function_Data, T_Fn_Parts...>::type;
+		using function =
+			//type::function;
+			typename S_is_Valid_Method_Data<type>::function;
+		using request_args = type::request_args;
+		using bind_args = type::bind_args;
+
+		using c_name = type::c_name;
+
+		static constexpr size_t fn_count = type::fn_count;
+
+	};
+
+}
+
+
+
+
+
+
+
+
+
+namespace N_Function
+{
+
+	//仕様
+	//関数オブジェクトの型に対して、続く引数の型が有効か判定する。
+	//
+	//テンプレート
+	//[T_Fn_Parts...]::
+	// 第一引数は第二引数の呼び出しに使用するクラスポインターの型である。クラスポインターの型を判定しない場合は指定不要である。静的メソッド、クラスポインターの型を指定済み、の場合は指定不可である。
+	// 第二引数は関数の型、若しくは、引数をbindした型[Function_Core],[Method_Core]とする
+	// 第三引数以降は、第二引数の関数オブジェクトの引数に指定する型リスト
+	template<class ...T_Fn_Parts>
+	struct I_Function_Single_Data
+	{
+
+
+
+
+	//private:
+
+		//仕様
+		//関数オブジェクトの型に対して、続く引数の型が有効か判定が無効の場合
+		template<class T_Result,class ...T_Fn_Parts>
+		struct S_Function_Data
+		{
+
+
+			using function = invalid_t;
+			using method = invalid_t;
+			using request_args = invalid_t;
+			using bind_args = invalid_t;
+			using c_name = invalid_t;
+			using r_type = invalid_t;
+
+			static constexpr size_t fn_count = 0;
+		};
+
+		
+		template<class ...T_Result, class T_Dedicated_Point, class ...T_Fn_Parts>
+			requires (std::is_class_v<T_Dedicated_Point>)
+		struct S_Function_Data<Function_Core<T_Result...>,T_Dedicated_Point*, T_Fn_Parts...>
+		{
+			using type = S_Function_Data<
+				Function_Core<T_Result..., Parts<"pointer", T_Dedicated_Point>>,
+				T_Fn_Parts...>::type;
+		};
+
+		//仕様
+		//関数オブジェクトがクラスメソッドの場合、かつクラスポインタの型を判定する場合
+		template<class ...T_Result, class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<T_Result...>, T_RType(T_CName::*)(T_Args...), T_Bind_Args...>
+		{
+			using fn = T_RType(T_CName::*)(T_Args...);
+
+			using type = S_Function_Data<
+				Function_Core<T_Result...,
+				Parts<"function",
+					Function_Core<Parts<"function", fn>,
+					Parts<"request_args", typename tuple_t<T_Args...>::back>,
+					Parts<"c_name", T_CName>,
+					Parts<"r_type", T_RType>>>,
+				Parts<"bind_args", tuple_t<T_Bind_Args...>>
+				>>::type;
+		};
+
+		//仕様
+		//関数オブジェクトが静的メソッドの場合
+		template<class ...T_Result, class T_RType, class ...T_Args, class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<T_Result...>, T_RType(*)(T_Args...), T_Bind_Args...>
+		{
+			using fn = T_RType(*)(T_Args...);
+
+			using type = S_Function_Data<
+				Function_Core<T_Result...,
+				Parts<"function",
+					Function_Core<Parts<"function",fn>,
+					Parts<"request_args", typename tuple_t<T_Args...>::back>,
+					Parts<"r_type", T_RType>>>,
+				Parts<"bind_args", tuple_t<T_Bind_Args...>>
+				>>::type;
+
+
+		};
+
+		template<class ...T_Result, class T_Fn, class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<T_Result...>, T_Fn,T_Bind_Args...>
+		{
+			using type = S_Function_Data<
+				Function_Core<T_Result...,
+					Parts<"function",T_Fn>,
+					Parts<"bind_args",tuple_t<T_Bind_Args...>>
+				>>::type;
+		};
+
+
+
+		template<class T_Core, class T_Fn = typename T_Core::function, class T_request_args = U_Parts_Search_InnerType<"request_args", T_Fn>>
+		struct S_Args
+		{
+			using type = I_Function_Args_Chack<T_request_args, typename T_Core::bind_args>::request_args;
+
+		};
+
+		template<class T_Core, class T_Fn, class ...T_request_args>
+		struct S_Args<T_Core, T_Fn,tuple_t<T_request_args...>>
+		{
+			using type = tuple_t<typename S_Args<T_Core, T_Fn, T_request_args>::type...>;
+		};
+
+
+		template<class T_Core,class ...T_Fns ,class T_request_args>
+		struct S_Args<T_Core,tuple_t<T_Fns...>,T_request_args>
+		{
+			using type = tuple_t<typename S_Args<T_Core,T_Fns>::type...>;
+		};
+
+
+
+		template<class ...T_Result>
+		struct S_Function_Data<Function_Core<T_Result...>>
+		{
+			using core = Function_Core<T_Result...>;
+
+			using type = 
+				Function_Core<T_Result...,
+				Parts<"request_args", S_Args<core>>
+				>>;
+		};
+
+
+
+
+
+
+
+
+
+		//仕様
+		//バインド済み引数が無効の場合、[function],[method]を無効値に変更する
+		template<class T_Parent, class T_Args_Chack = typename T_Parent::request_args>
+		struct S_is_Valid_Method_Data
+		{
+			using function = T_Parent::function;
+		};
+
+		template<class T_Parent>
+		struct S_is_Valid_Method_Data<T_Parent, invalid_t>
+		{
+			using function = invalid_t;
+		};
+
+
+
+		//仕様
+		//tuple_tでまとめられている場合、展開する
+		template<class ...T_Fn_Parts>
+		struct S_Function_Data<tuple_t<T_Fn_Parts...>> :
+			S_Function_Data<T_Fn_Parts...>
+		{};
+
+		template<class ...T_Head, class T, class ...T_Tail>
+		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>, T, tuple_t<T_Tail...>>> :
+			S_Function_Data<T_Head..., T, T_Tail...> {};
+
+		template<class ...T_Head, class ...T_Tail>
+		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>, invalid_t, tuple_t<T_Tail...>>> :
+			S_Function_Data<T_Head..., T_Tail...> {};
+
+
+	public:
+
+
 
 		using type = N_Tuple::I_Expand_Set<S_Function_Data, T_Fn_Parts...>::type;
 		using function =
