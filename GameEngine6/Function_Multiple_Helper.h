@@ -33,7 +33,7 @@ namespace N_Function
 	struct I_Function_Multiple_Helper
 	{
 	private:
-
+		
 
 		using commond_point = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
 

@@ -32,6 +32,7 @@
     <ClInclude Include="Method_Multiple.h" />
     <ClInclude Include="Method_Operator.h" />
     <ClInclude Include="Parts.h" />
+    <ClInclude Include="Parts_Pack.h" />
     <ClInclude Include="Parts_Search.h" />
     <ClInclude Include="Parts_Search_Inner.h" />
     <ClInclude Include="Select_Type.h" />

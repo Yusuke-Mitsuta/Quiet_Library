@@ -7,7 +7,7 @@ namespace N_Function
 
 	//仕様
 	//クラスメソッドとメソッドを同一方法で扱う為のクラス
-	template<class ...T_Parts>
+	template<class T_Fn_Core>
 	struct I_Function_Core_Helper
 	{
 
@@ -24,6 +24,8 @@ namespace N_Function
 		using function = type::function;
 		using request_args = type::request_args;
 		using bind_args = type::bind_args;
+
+		using request_pointer = int;
 
 		using c_name = type::c_name;
 

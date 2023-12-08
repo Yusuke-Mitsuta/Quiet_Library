@@ -20,7 +20,7 @@ namespace N_Function
 
 		using r_type = U_Search<"r_type">;
 
-		using pointer = U_Search<"pointer">;
+		using request_pointer = U_Search<"request_pointer">;
 
 		using bind_args = U_Search<"bind_args">;
 

@@ -342,14 +342,38 @@ namespace N_Function
 			static constexpr size_t fn_count = 0;
 		};
 
+		template<class T_Fn_Core,class T_pointer>
+		struct I_pointer_check
+		{
+			using type = invalid_t;
+		};
+
+		template<class ...T_Parts, class T_pointer>
+		struct I_pointer_check<Function_Core<T_Parts...>, T_pointer>
+		{
+			template<class T_Core,class T_Fn = typename T_Core::function , class T_request_point = U_Parts_Search_InnerType<"request_pointer", T_Fn>>
+			struct S_point_check
+			{
+
+			};
+
+			template<class T_Core, class T_Fns, class T_request_point>
+			struct S_point_check<T_Core,tuple_t<T_Fns...>>
+			{
+
+			};
+
+			using type = invalid_t;
+		};
 		
 		template<class ...T_Result, class T_Dedicated_Point, class ...T_Fn_Parts>
 			requires (std::is_class_v<T_Dedicated_Point>)
 		struct S_Function_Data<Function_Core<T_Result...>,T_Dedicated_Point*, T_Fn_Parts...>
 		{
-			using type = S_Function_Data<
-				Function_Core<T_Result..., Parts<"pointer", T_Dedicated_Point>>,
-				T_Fn_Parts...>::type;
+
+			using pointer_check = S_Function_Data<Function_Core<T_Result...,
+				Parts<"pointer",T_Dedicated_Point>>,T_Fn_Parts...>::type;
+			using type = 
 		};
 
 		//Žd—l
@@ -365,6 +389,7 @@ namespace N_Function
 					Function_Core<Parts<"function", fn>,
 					Parts<"request_args", typename tuple_t<T_Args...>::back>,
 					Parts<"c_name", T_CName>,
+					Parts<"request_pointer", T_CName>,
 					Parts<"r_type", T_RType>>>,
 				Parts<"bind_args", tuple_t<T_Bind_Args...>>
 				>>::type;
@@ -422,7 +447,6 @@ namespace N_Function
 		};
 
 
-
 		template<class ...T_Result>
 		struct S_Function_Data<Function_Core<T_Result...>>
 		{
@@ -430,14 +454,60 @@ namespace N_Function
 
 			using type = 
 				Function_Core<T_Result...,
-				Parts<"request_args", S_Args<core>>
+				Parts<"request_args" , S_Args<core>>
 				>>;
 		};
 
 
 
 
+		template<class T_Core>
+		struct I_Request
+		{
+			template<N_Constexpr::String t_request_name, class T_Fn = typename T_Core::function,
+				class T_request = typename U_Parts_Search_InnerType<t_request_name, T_Fn>::type>
+			struct S_Request
+			{
+				template<N_Constexpr::String t_request_name = t_request_name, class T_Fn = T_Fn, class T_request = T_request>
+				struct S_Switch
+				{
+					using type = T_request;
+				};
 
+				template<class T_Fn, class T_request>
+				struct S_Switch<"request_args", T_Fn, T_request >
+				{
+					using type = I_Function_Args_Chack<T_request, typename T_Core::bind_args>::request_args;
+				};
+
+				template<class T_Fn, class T_request>
+					requires(convertible_to<typename U_Parts_Search_InnerType<"pointer", T_Core>::type, T_request>)
+				struct S_Switch<"request_pointer", T_Fn, T_request>
+				{
+					using type = invalid_t;
+				};
+
+				using type = S_Switch<>::type;
+			};
+
+
+			template<N_Constexpr::String t_request_name, class T_Fn, class ...T_request>
+			struct S_Request<t_request_name, T_Fn, tuple_t<T_request...>>
+			{
+				using type = tuple_t<typename S_Request<t_request_name, T_Fn, T_request>::type...>;
+			};
+
+			template<N_Constexpr::String t_request_name, class ...T_Fns, class T_request>
+			struct S_Request<t_request_name, tuple_t<T_Fns...>, T_request>
+			{
+				using type = tuple_t<typename S_Request<t_request_name, T_Fns>::type...>;
+			};
+
+			using request_args = S_Request<"request_args">::type;
+
+			using request_pointer = S_Request<"request_pointer">::type;
+
+		};
 
 
 
