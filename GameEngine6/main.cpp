@@ -33,14 +33,15 @@ constexpr std::string getLastPathComponent(std::string path) {
 	{
 		if (path[i] == '\\')
 		{
-			p = i; break;
+			
+			p = i; 
+			break;
 		}
 	}
 	for (int i = static_cast<int>(p) + 1; i < path.size(); i++)
 		r.push_back(path[i]);
 	return r;
 }
-
 
 void H::Args_1(int a)
 {
@@ -186,6 +187,10 @@ int main()
 	
 	fn_test();
 	//fn_test(3,5,1);
+
+	using r_t= N_Function::I_Function_Single_Data_2<H*, decltype(&H::Args_3), int, int>::type;
+
+	TYPE_ID(r_t);
 
 	using tup= tuple_t<int, float, double>;
 	using t= N_Tuple::U_Range<tup,1,0>;

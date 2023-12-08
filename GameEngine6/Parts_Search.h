@@ -38,7 +38,7 @@ struct I_Parts_Search
 		using type = Parts<t_Parts_Name, T>;
 	};
 
-	using type = S_Parts_Search<U_Judge<tuple_t<>, (t_max_search_num != 1)>, T_Search_list...>::type;
+	using type = S_Parts_Search<U_Judge_t<tuple_t<>, (t_max_search_num != 1)>, T_Search_list...>::type;
 };
 
 template<N_Constexpr::String t_Parts_Name, class ...T_Search_list>

@@ -12,7 +12,7 @@ namespace N_Function
 	struct Function_Core
 	{
 		template<N_Constexpr::String t_Parts_Name>
-		using U_Search = U_Parts_Search<t_Parts_Name, T_Fn_Parts...>;
+		using U_Search = U_Parts_Search<t_Parts_Name, T_Fn_Parts...>::type;
 
 		using function = U_Search<"function">;
 

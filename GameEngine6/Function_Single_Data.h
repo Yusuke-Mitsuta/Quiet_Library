@@ -317,13 +317,8 @@ namespace N_Function
 	// 第二引数は関数の型、若しくは、引数をbindした型[Function_Core],[Method_Core]とする
 	// 第三引数以降は、第二引数の関数オブジェクトの引数に指定する型リスト
 	template<class ...T_Fn_Parts>
-	struct I_Function_Single_Data
+	struct I_Function_Single_Data_2
 	{
-
-
-
-
-	//private:
 
 		//仕様
 		//関数オブジェクトの型に対して、続く引数の型が有効か判定が無効の場合
@@ -338,48 +333,32 @@ namespace N_Function
 			using bind_args = invalid_t;
 			using c_name = invalid_t;
 			using r_type = invalid_t;
-
+			using type = int;
 			static constexpr size_t fn_count = 0;
 		};
 
-		template<class T_Fn_Core,class T_pointer>
-		struct I_pointer_check
-		{
-			using type = invalid_t;
-		};
-
-		template<class ...T_Parts, class T_pointer>
-		struct I_pointer_check<Function_Core<T_Parts...>, T_pointer>
-		{
-			template<class T_Core,class T_Fn = typename T_Core::function , class T_request_point = U_Parts_Search_InnerType<"request_pointer", T_Fn>>
-			struct S_point_check
-			{
-
-			};
-
-			template<class T_Core, class T_Fns, class T_request_point>
-			struct S_point_check<T_Core,tuple_t<T_Fns...>>
-			{
-
-			};
-
-			using type = invalid_t;
-		};
-		
 		template<class ...T_Result, class T_Dedicated_Point, class ...T_Fn_Parts>
 			requires (std::is_class_v<T_Dedicated_Point>)
 		struct S_Function_Data<Function_Core<T_Result...>,T_Dedicated_Point*, T_Fn_Parts...>
 		{
+			using type = S_Function_Data<Function_Core<T_Result...,
+				Parts<"pointer", T_Dedicated_Point>>, T_Fn_Parts...>::type;
+		};
 
-			using pointer_check = S_Function_Data<Function_Core<T_Result...,
-				Parts<"pointer",T_Dedicated_Point>>,T_Fn_Parts...>::type;
-			using type = 
+
+		template<class ...T_Result, class T_Fn, class ...T_Bind_Args>
+		struct S_Function_Data<Function_Core<T_Result...>, T_Fn, T_Bind_Args...>
+		{
+			using type = S_Function_Data<
+				Function_Core<T_Result...,
+				Parts<"bind_args", tuple_t<T_Bind_Args...>>>,
+				T_Fn>::type;
 		};
 
 		//仕様
 		//関数オブジェクトがクラスメソッドの場合、かつクラスポインタの型を判定する場合
-		template<class ...T_Result, class T_CName, class T_RType, class ...T_Args, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<T_Result...>, T_RType(T_CName::*)(T_Args...), T_Bind_Args...>
+		template<class ...T_Result, class T_CName, class T_RType, class ...T_Args>
+		struct S_Function_Data<Function_Core<T_Result...>, T_RType(T_CName::*)(T_Args...)>
 		{
 			using fn = T_RType(T_CName::*)(T_Args...);
 
@@ -390,15 +369,14 @@ namespace N_Function
 					Parts<"request_args", typename tuple_t<T_Args...>::back>,
 					Parts<"c_name", T_CName>,
 					Parts<"request_pointer", T_CName>,
-					Parts<"r_type", T_RType>>>,
-				Parts<"bind_args", tuple_t<T_Bind_Args...>>
+					Parts<"r_type", T_RType>>>
 				>>::type;
 		};
 
 		//仕様
 		//関数オブジェクトが静的メソッドの場合
-		template<class ...T_Result, class T_RType, class ...T_Args, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<T_Result...>, T_RType(*)(T_Args...), T_Bind_Args...>
+		template<class ...T_Result, class T_RType, class ...T_Args>
+		struct S_Function_Data<Function_Core<T_Result...>, T_RType(*)(T_Args...)>
 		{
 			using fn = T_RType(*)(T_Args...);
 
@@ -407,58 +385,51 @@ namespace N_Function
 				Parts<"function",
 					Function_Core<Parts<"function",fn>,
 					Parts<"request_args", typename tuple_t<T_Args...>::back>,
-					Parts<"r_type", T_RType>>>,
-				Parts<"bind_args", tuple_t<T_Bind_Args...>>
+					Parts<"r_type", T_RType>>>
 				>>::type;
 
 
 		};
 
-		template<class ...T_Result, class T_Fn, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<T_Result...>, T_Fn,T_Bind_Args...>
+		template<class ...T_Result, class T_Fn>
+		struct S_Function_Data<Function_Core<T_Result...>, T_Fn>
 		{
 			using type = S_Function_Data<
 				Function_Core<T_Result...,
-					Parts<"function",T_Fn>,
-					Parts<"bind_args",tuple_t<T_Bind_Args...>>
+					Parts<"function",T_Fn>
 				>>::type;
 		};
 
 
-
-		template<class T_Core, class T_Fn = typename T_Core::function, class T_request_args = U_Parts_Search_InnerType<"request_args", T_Fn>>
+		template<class T_Core,class T_Fn= typename T_Core::function, 
+			class T_Request_Args= typename U_Parts_Search_InnerType<"request_args", T_Core>::type>
 		struct S_Args
 		{
-			using type = I_Function_Args_Chack<T_request_args, typename T_Core::bind_args>::request_args;
-
+			using type = T_Request_Args;
 		};
 
-		template<class T_Core, class T_Fn, class ...T_request_args>
-		struct S_Args<T_Core, T_Fn,tuple_t<T_request_args...>>
+		template<class T_Core,class ...T_Parts,class T_Request_Args>
+			requires(not_is_invalid<typename U_Parts_Search_InnerType<"bind_args", T_Core>::type>)
+		struct S_Args<T_Core,Function_Core<T_Parts...>,T_Request_Args>
 		{
-			using type = tuple_t<typename S_Args<T_Core, T_Fn, T_request_args>::type...>;
+			using type= I_Function_Args_Chack<T_Request_Args, typename T_Core::bind_args>::request_args;
 		};
 
 
-		template<class T_Core,class ...T_Fns ,class T_request_args>
-		struct S_Args<T_Core,tuple_t<T_Fns...>,T_request_args>
+		template<class T_Core, class T_Fn = typename T_Core::function,
+			class T_Request_pointer = typename U_Parts_Search_InnerType<"request_pointer", T_Core>::type>
+		struct S_Pointer
 		{
-			using type = tuple_t<typename S_Args<T_Core,T_Fns>::type...>;
+			using type = T_Request_pointer;
 		};
 
-
-		template<class ...T_Result>
-		struct S_Function_Data<Function_Core<T_Result...>>
+		template<class T_Core, class ...T_Parts, class T_Request_pointer>
+			requires(convertible_to<typename U_Parts_Search_InnerType<"pointer", T_Core>::type,T_Request_pointer>)
+		struct S_Pointer<T_Core, Function_Core<T_Parts...>, T_Request_pointer>
 		{
-			using core = Function_Core<T_Result...>;
+			using type = invalid_t;
 
-			using type = 
-				Function_Core<T_Result...,
-				Parts<"request_args" , S_Args<core>>
-				>>;
 		};
-
-
 
 
 		template<class T_Core>
@@ -468,28 +439,26 @@ namespace N_Function
 				class T_request = typename U_Parts_Search_InnerType<t_request_name, T_Fn>::type>
 			struct S_Request
 			{
-				template<N_Constexpr::String t_request_name = t_request_name, class T_Fn = T_Fn, class T_request = T_request>
+				template<N_Constexpr::String t_request_name = t_request_name>
 				struct S_Switch
 				{
 					using type = T_request;
 				};
 
-				template<class T_Fn, class T_request>
-				struct S_Switch<"request_args", T_Fn, T_request >
+				template<>
+				struct S_Switch<"request_args">
 				{
-					using type = I_Function_Args_Chack<T_request, typename T_Core::bind_args>::request_args;
+					using type = S_Args<T_Core, T_Fn, T_request>::type;
 				};
-
-				template<class T_Fn, class T_request>
-					requires(convertible_to<typename U_Parts_Search_InnerType<"pointer", T_Core>::type, T_request>)
-				struct S_Switch<"request_pointer", T_Fn, T_request>
+				
+				template<>
+				struct S_Switch<"request_pointer">
 				{
-					using type = invalid_t;
+					using type = S_Pointer<T_Core, T_Fn, T_request>::type;
 				};
 
 				using type = S_Switch<>::type;
 			};
-
 
 			template<N_Constexpr::String t_request_name, class T_Fn, class ...T_request>
 			struct S_Request<t_request_name, T_Fn, tuple_t<T_request...>>
@@ -509,6 +478,17 @@ namespace N_Function
 
 		};
 
+		template<class ...T_Result>
+		struct S_Function_Data<Function_Core<T_Result...>>
+		{
+			using core = Function_Core<T_Result...>;
+
+			using type = 
+				Function_Core<T_Result...,
+				Parts<"request_args" , typename I_Request<core>::request_args>,
+				Parts<"request_pointer", typename I_Request<core>::request_pointer>
+				>;
+		};
 
 
 
@@ -530,34 +510,34 @@ namespace N_Function
 
 		//仕様
 		//tuple_tでまとめられている場合、展開する
-		template<class ...T_Fn_Parts>
-		struct S_Function_Data<tuple_t<T_Fn_Parts...>> :
-			S_Function_Data<T_Fn_Parts...>
-		{};
-
-		template<class ...T_Head, class T, class ...T_Tail>
-		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>, T, tuple_t<T_Tail...>>> :
-			S_Function_Data<T_Head..., T, T_Tail...> {};
-
-		template<class ...T_Head, class ...T_Tail>
-		struct S_Function_Data<tuple_tp<tuple_t<T_Head...>, invalid_t, tuple_t<T_Tail...>>> :
-			S_Function_Data<T_Head..., T_Tail...> {};
+		//template<class ...T_Fn_Parts>
+		//struct S_Function_Data<tuple_t<T_Fn_Parts...>> :
+		//	S_Function_Data<T_Fn_Parts...>
+		//{};
+		//
+		//template<class ...T_Head, class T, class ...T_Tail>
+		//struct S_Function_Data<tuple_tp<tuple_t<T_Head...>, T, tuple_t<T_Tail...>>> :
+		//	S_Function_Data<T_Head..., T, T_Tail...> {};
+		//
+		//template<class ...T_Head, class ...T_Tail>
+		//struct S_Function_Data<tuple_tp<tuple_t<T_Head...>, invalid_t, tuple_t<T_Tail...>>> :
+		//	S_Function_Data<T_Head..., T_Tail...> {};
 
 
 	public:
 
 
 
-		using type = N_Tuple::I_Expand_Set<S_Function_Data, T_Fn_Parts...>::type;
-		using function =
-			//type::function;
-			typename S_is_Valid_Method_Data<type>::function;
-		using request_args = type::request_args;
-		using bind_args = type::bind_args;
+		using type = S_Function_Data<Function_Core<>,T_Fn_Parts...>::type;
+			//N_Tuple::I_Expand_Set<S_Function_Data, T_Fn_Parts...>::type;
+		//using function =
+		//	typename S_is_Valid_Method_Data<type>::function;
+		//using request_args = type::request_args;
+		//using bind_args = type::bind_args;
+		//
+		//using c_name = type::c_name;
 
-		using c_name = type::c_name;
-
-		static constexpr size_t fn_count = type::fn_count;
+		//static constexpr size_t fn_count = type::fn_count;
 
 	};
 
