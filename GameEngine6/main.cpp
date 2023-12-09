@@ -1,5 +1,8 @@
 #include"main.h"
 #include<iostream>
+#include<initializer_list>
+#include<compare>
+
 #include"Constexpr_Array.h"
 #include"Constexpr_String.h"
 #include"Game_Engine.h"
@@ -42,6 +45,71 @@ constexpr std::string getLastPathComponent(std::string path) {
 		r.push_back(path[i]);
 	return r;
 }
+
+std::string Type_id_change_String(std::string path) 
+{
+
+	size_t start_point = path.find("class N_Constexpr::String");
+
+	if (start_point == std::string::npos)
+	{
+		return path;
+	}
+
+
+	std::string subString = path.substr(start_point);
+
+	size_t char_start_point = subString.find("{char{") + 6;
+
+	size_t end_point = subString.find("}}");
+
+	std::string char_number;
+
+	char_number += 32;
+	char_number += 34;
+
+	for (size_t i = char_start_point; i < end_point; i++)
+	{
+		std::string char_number_chip;
+
+		for (i; !(',' == subString[i] || '}' == subString[i]); i++)
+		{
+			char_number_chip += subString[i];
+		}
+
+		char_number += static_cast<char>(std::stoi(char_number_chip));
+	}
+	char_number += 34;
+	char_number += 32;
+
+	path.replace(start_point, end_point+2, char_number);
+
+	return Type_id_change_String(path);
+
+}
+
+std::string Type_id_delete_head_class_struct(std::string path)
+{
+	size_t delete_p = path.find("class ");
+	
+	while (delete_p != std::string::npos) 
+	{
+		path = path.erase(delete_p, 5);
+		delete_p = path.find("class ");
+	}
+
+	delete_p = path.find("struct ");
+	
+	while (delete_p != std::string::npos)
+	{
+		path= path.erase(delete_p, 6);
+		delete_p = path.find("struct ");
+	}
+	
+	return path;
+}
+
+constexpr int a = '"';
 
 void H::Args_1(int a)
 {
@@ -188,9 +256,34 @@ int main()
 	fn_test();
 	//fn_test(3,5,1);
 
-	using r_t= N_Function::I_Function_Single_Data_2<H*, decltype(&H::Args_3), int, int>::type;
+	using FF_1= N_Function::I_Function_Single_Data_2<decltype(&H::Args_4), int,int,int,int,int,int>::type;
+	using FF_1_1= N_Function::I_Function_Single_Data_2<FF_1,int>::type;
 
-	TYPE_ID(r_t);
+	using FF_2= N_Function::I_Function_Single_Data_2<decltype(&H::Args_3), int>::type;
+	
+	using FF_3 = N_Function::I_Function_Single_Data_2<H*,N_Function::Function_Core<tuple_t<FF_1_1, FF_2>>,int >::type;
+
+
+
+
+
+	//using r_t= N_Function::I_Function_Single_Data_2< decltype(&H::Args_3), int, int>::type;
+
+	TYPE_ID(FF_1);
+
+	//TYPE_ID(FF_3);
+	TYPE_ID(FF_3::function);
+	TYPE_ID(FF_3::request_pointer);
+	TYPE_ID(FF_3::request_args);
+	//TYPE_ID(FF_3::function);
+
+	using ii = U_Parts_Search<"aiueo",  Parts<"aieo", int>,Parts<"aiueo", int>>::type;
+
+
+	TYPE_ID(ii);
+
+	//TYPE_ID(r_t::bind_args);
+	//TYPE_ID(r_t::function);
 
 	using tup= tuple_t<int, float, double>;
 	using t= N_Tuple::U_Range<tup,1,0>;

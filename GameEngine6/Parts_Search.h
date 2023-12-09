@@ -13,7 +13,8 @@ struct I_Parts_Search
 	template<class T_Result , class ...T_Search_list>
 	struct S_Parts_Search
 	{
-		using type = T_Result;
+		using type = invalid_t;
+			//T_Result;
 	};
 
 	template<class T_Result,class T_flont_type,class ...T_Search_list>
@@ -38,7 +39,7 @@ struct I_Parts_Search
 		using type = Parts<t_Parts_Name, T>;
 	};
 
-	using type = S_Parts_Search<U_Judge_t<tuple_t<>, (t_max_search_num != 1)>, T_Search_list...>::type;
+	using type = S_Parts_Search<tuple_t<>, T_Search_list...>::type;
 };
 
 template<N_Constexpr::String t_Parts_Name, class ...T_Search_list>

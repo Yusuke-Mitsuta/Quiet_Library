@@ -8,6 +8,10 @@
 
 constexpr std::string getLastPathComponent(std::string path);
 
+std::string Type_id_change_String(std::string path);
+
+std::string Type_id_delete_head_class_struct(std::string path);
+
 #define Constant static constexpr auto \
 
 #define C_OUT(message) \
@@ -20,7 +24,7 @@ C_OUT(Name) \
 } \
 
 #define TYPE_ID(className) \
-C_OUT(typeid(className).name()) \
+C_OUT(Type_id_delete_head_class_struct(Type_id_change_String(typeid(className).name()))); \
 
 #define type_id(className) \
 TYPE_ID(decltype(className))\
