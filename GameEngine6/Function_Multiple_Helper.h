@@ -60,7 +60,8 @@ namespace N_Function
 
 
 		template<class T_Tuple,
-			class T_Tuple_Method_Bound = tuple_t<>>
+			class T_Tuple_Method_Bound = tuple_t<>,
+			class T_Tuple_Access_Number = tuple_t<>>
 		struct S_Method_Bound
 		{
 
@@ -79,9 +80,12 @@ namespace N_Function
 					N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
 				
 
-				template<class T_Tuple,class T_Method>
+
+
+				template<class T_Tuple,class T_Method,class T_access_numbers>
 				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,
-					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>,
+					N_Tuple::U_Insert<T_Tuple_Access_Number,T_access_numbers>
 				>::type;
 
 
@@ -97,19 +101,10 @@ namespace N_Function
 					class T_Dedicated_Point_Check = typename I_Function_Single_Data<chack_tuple<typename T_Method_Point::next>>::function,
 					class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>, commond_point, 0>>::function
 				>
-				struct S_Pointer_Chack;
-
-				//仕様
-				//ポインターを使用しない、出来ない場合
-				template<class ...T_Parts, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-				struct S_Pointer_Chack<Function_Core<T_Parts...>, T_Dedicated_Point_Check, T_Commond_Point_Check >
+				struct S_Pointer_Chack
 				{
-					using type =
-						Method_Bound<T_Method_Point,
-						Function_Core<T_Parts...,
-						Parts<"request_data_numbers",access_numbers<T_Method_Point>>
-						>>;
-
+					using type =Method_Bound<T_Method_Point,
+						T_Function, access_numbers<T_Method_Point>>;
 				};
 
 				//仕様
@@ -125,10 +120,8 @@ namespace N_Function
 				{
 					using type =
 						Method_Bound<typename T_Method_Point::next,
-						Function_Core<T_Dedicated_Point_Check...,
-						Parts<"request_data_numbers", access_numbers<typename T_Method_Point::next>>
-						>>;
-
+						Function_Core<T_Dedicated_Point_Check...>,
+						access_numbers<typename T_Method_Point::next>>;
 
 				};
 
@@ -144,12 +137,8 @@ namespace N_Function
 				struct S_Pointer_Chack<Function_Core<T_Parts...>, T_Dedicated_Point_Check , Function_Core<T_Commond_Point_Check...>>
 				{
 					using type = Method_Bound<T_Method_Point,
-						Function_Core<T_Commond_Point_Check...,
-						Parts<"request_data_numbers", access_numbers<T_Method_Point>>
-						>>;
-
-
-
+						Function_Core<T_Commond_Point_Check...>, 
+						access_numbers<T_Method_Point>>;
 				};
 
 				//仕様
@@ -191,10 +180,23 @@ namespace N_Function
 
 		//仕様
 		//全ての型の探査が正常に終了した場合、結果を出力する
-		template<class T_Head,class T_Tail,class T_Fns>
-		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Fns>
+		template<class T_Head,class T_Tail,class T_Fns,class T_Tuple_Access_Number>
+		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Fns,T_Tuple_Access_Number>
 		{
-			using type = tuple_t<T_Fns>;
+			using type = S_Method_Bound<tuple_tp<T_Head, invalid_t, T_Tail>,
+				tuple_t<typename I_Function_Single_Data_2<Function_Core<T_Fns>>::type>,
+				T_Tuple_Access_Number>::type;
+		};
+
+		//仕様
+		//全ての型の探査が正常に終了した場合、結果を出力する
+		template<class T_Head, class T_Tail, class ...T_Parts, class T_Tuple_Access_Number>
+		struct S_Method_Bound<tuple_tp<T_Head, invalid_t, T_Tail>,tuple_t<Function_Core<T_Parts...>>, T_Tuple_Access_Number>
+		{
+			using type =
+				Function_Core<T_Parts...,
+					Parts<"access_number", T_Tuple_Access_Number>,
+					Parts<"args_type_list", tuple_t<T_Fn_Parts...>>>;
 		};
 
 		using start_tuple = typename tuple_t<T_Fn_Parts...>::reverse::front;

@@ -86,28 +86,125 @@ namespace N_Function
 
 namespace N_Function
 {
-	template<class T_Fns, class T_Bind_Args_Type>
+	template<class T_Fn>
 	struct I_Function_Operator_2
 	{
-		
-		template<class T_Fn,
-			class T_request_data_numbers,
+
+		template<N_Constexpr::String t_Parts_Name>
+		using U_Search = U_Parts_Search<t_Parts_Name,T_Fn>::type;
+
+		struct S_Function_Operator_Core
+		{
+			using type = S_Function_Operator_Core;
+
+		};
+
+		template<
+			class T_access_number ,
+			class T_request_pointer ,
+			class T_request_args ,
+			class T_request_args_number,
+			class T_Next>
+		struct S_Function_Operator;
+
+		template<
+			size_t ...t_access_number,
 			class T_request_pointer,
-			class T_request_args
-		>
-		struct S_Function_Operator
+			class T_request_args,
+			size_t ...t_request_args_number,
+			class T_Next>
+		struct S_Function_Operator<tuple_v<t_access_number...>,
+			T_request_pointer , T_request_args, tuple_v<t_request_args_number...>, T_Next> :
+			T_Next
 		{
 
 		};
 
-		template<class T_Fn>
-		struct S_Function_Operator_Access;
+
+		template<
+			class T_access_number = U_Search<"access_number">,
+			class T_request_pointer = U_Search<"request_pointer">,
+			class T_request_args = U_Search<"request_args">>
+		struct S_Function_Operator_Helper;
 
 
-		template<class T_Flont_Fn,class ...T_Fn>
-		struct S_Function_Operator_Access<tuple_t<T_Flont_Fn, T_Fn...>>
+		template<
+			size_t ...t_access_number,
+			class ...T_access_number ,
+			class T_request_pointer,
+			class T_request_args>
+		struct S_Function_Operator_Helper<
+			tuple_t<tuple_v<t_access_number...>,T_access_number...>,
+			T_request_pointer,T_request_args>
 		{
+			using type = S_Function_Operator<
+				tuple_v<t_access_number...>,
+				T_request_pointer, T_request_args,
+				N_Tuple::U_index_sequence<T_request_args::head_size>,
+				S_Function_Operator_Core>;
 		};
+
+
+		template<
+			size_t ...t_access_number,
+			class ...T_access_number>
+		struct S_Function_Operator_Helper<
+			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+			tuple_t<>,
+			tuple_t<>>
+		{
+			using type = S_Function_Operator_Helper<
+				tuple_t<T_access_number...>
+			
+			>;
+		};
+
+
+		template<
+			size_t ...t_access_number ,
+			class ...T_access_number ,
+			class T_Flont_request_pointer ,
+			class ...T_request_pointer ,
+			class T_Flont_request_args ,
+			class ...T_request_args>
+		struct S_Function_Operator_Helper<
+			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+			tuple_t<T_Flont_request_pointer,T_request_pointer...>, 
+			tuple_t<T_Flont_request_args,T_request_args...>>
+		{
+
+			using next = S_Function_Operator_Helper<
+				tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+				tuple_t<T_request_pointer...>,
+				tuple_t<T_request_args...>>::type;
+
+			using type = S_Function_Operator<
+				tuple_v<t_access_number...>,
+				T_Flont_request_pointer,T_Flont_request_args,
+				N_Tuple::U_index_sequence<T_Flont_request_args::head_size>,
+				next>;
+		};
+
+
+		template<
+			size_t ...t_access_number,
+			class ...T_access_number,
+			class ...T_request_pointer,
+			class ...T_Second_request_pointer,
+			class ...T_request_args,
+			class ...T_Second_request_args>
+		struct S_Function_Operator_Helper<
+			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+			tuple_t<tuple_t<T_request_pointer...>, T_Second_request_pointer...>,
+			tuple_t<tuple_t<T_request_args...>,T_Second_request_args...>>
+		{
+			using type = S_Function_Operator_Helper<
+				tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+				tuple_t<T_request_pointer..., T_Second_request_pointer...>,
+				tuple_t<T_request_args..., T_Second_request_args...>>::type;
+		};
+
+
 
 	};
 }
