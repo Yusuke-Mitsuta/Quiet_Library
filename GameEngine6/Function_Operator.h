@@ -82,3 +82,32 @@ namespace N_Function
 	};
 
 }
+
+
+namespace N_Function
+{
+	template<class T_Fns, class T_Bind_Args_Type>
+	struct I_Function_Operator_2
+	{
+		
+		template<class T_Fn,
+			class T_request_data_numbers,
+			class T_request_pointer,
+			class T_request_args
+		>
+		struct S_Function_Operator
+		{
+
+		};
+
+		template<class T_Fn>
+		struct S_Function_Operator_Access;
+
+
+		template<class T_Flont_Fn,class ...T_Fn>
+		struct S_Function_Operator_Access<tuple_t<T_Flont_Fn, T_Fn...>>
+		{
+		};
+
+	};
+}

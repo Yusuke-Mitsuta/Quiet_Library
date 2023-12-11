@@ -39,7 +39,20 @@ struct I_Parts_Search
 		using type = Parts<t_Parts_Name, T>;
 	};
 
-	using type = S_Parts_Search<tuple_t<>, T_Search_list...>::type;
+
+	template<class ...T_Search_list>
+	struct S_Parts_Search_InnerType
+	{
+		using type = typename I_Parts_Search<t_Parts_Name, t_max_search_num,T_Search_list...>::type;
+	};
+
+	template<template<class...>class T_Outer, class ...T_Ineer_Search>
+	struct S_Parts_Search_InnerType<T_Outer<T_Ineer_Search...>>
+	{
+		using type = typename I_Parts_Search<t_Parts_Name, t_max_search_num, T_Ineer_Search... >::type;
+	};
+
+	using type = S_Parts_Search<T_Search_list...>::type;
 };
 
 template<N_Constexpr::String t_Parts_Name, class ...T_Search_list>

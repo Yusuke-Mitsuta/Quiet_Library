@@ -6,7 +6,7 @@
 
 #include"Function_Args_Chack.h"
 
-template<class TP_Fns, class TP_Args_type>
+template<class TP_Fns>
 class Function;
 
 namespace N_Function
@@ -332,7 +332,7 @@ namespace N_Function
 		//共通で使用するポインターの型をセットする
 		template<class ...T_Result, class T_Dedicated_Point, class ...T_Fn_Parts>
 			requires (std::is_class_v<T_Dedicated_Point>)
-		struct S_Function_Data<Function_Core<T_Result...>, T_Dedicated_Point*, T_Fn_Parts...>
+		struct S_Function_Data<Function_Core<T_Result...>, T_Dedicated_Point* , T_Fn_Parts...>
 		{
 			using type = S_Function_Data<Function_Core<T_Result...,
 				Parts<"pointer", T_Dedicated_Point>>, T_Fn_Parts...>::type;
@@ -460,7 +460,7 @@ namespace N_Function
 				using type = I_Function_Args_Chack<T_Request_Args, typename Function_Core<T_Parts...>::bind_args>::request_args;
 			};
 
-			using type = I_Request<S_Request_args, "request_args", T_Core>::type;
+			using type = I_Request<S_Request_args, "request_args",T_Core>::type;
 		};
 
 		//仕様
@@ -473,7 +473,7 @@ namespace N_Function
 		template<class T_Core>
 		struct I_Request_pointer
 		{
-			template<class T_Core, class T_Request_pointer>
+			template<class T_Core, class T_Request_pointer= typename U_Parts_Search_InnerType<"request_pointer", T_Fn>::type>
 			struct S_Request_pointer
 			{
 				using type = T_Request_pointer;
@@ -486,7 +486,8 @@ namespace N_Function
 				using type = invalid_t;
 			};
 
-			using type = I_Request<S_Request_pointer, "request_pointer", T_Core>::type;
+			using type = I_Request<S_Request_pointer,"request_pointer",T_Core>::type;
+
 		};
 
 
@@ -503,8 +504,6 @@ namespace N_Function
 				Parts<"request_pointer", typename I_Request_pointer<core>::type>
 				>;
 		};
-
-
 
 		//仕様
 		//バインド済み引数が無効の場合、[function]を無効値に変更する
@@ -531,16 +530,18 @@ namespace N_Function
 	public:
 
 		using type = N_Tuple::I_Expand_Set<S_Function_Data_Access, T_Fn_Parts...>::type::type;
-			
-		using function =typename S_is_Valid_Fn<type>::type;
+
+		using function = typename S_is_Valid_Fn<type>::type;
 
 		using request_args = type::request_args;
+
+		using request_pointer = type::request_pointer;
 
 		using bind_args = type::bind_args;
 
 		using c_name = type::c_name;
 
-	//static constexpr size_t fn_count = type::fn_count;
+		//static constexpr size_t fn_count = type::fn_count;
 
 	};
 
