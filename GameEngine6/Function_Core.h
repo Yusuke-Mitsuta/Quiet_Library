@@ -20,17 +20,15 @@ namespace N_Function
 	template<class ...T_Parts>
 	struct Function_Core
 	{
+		using fn_t = I_Function_Single_Data<T_Parts...>::type;
 
+		using function = fn_t::function;
 
-		using fn_data = I_Function_Single_Data<T_Parts...>::type;
+		using pointer = fn_t::pointer;
 
-		using function = fn_data::function;
+		using bind_args = fn_t::bind_args;
 
-		using pointer = fn_data::pointer;
-
-		using bind_args = fn_data::bind_args;
-
-		using request = fn_data::request;
+		using request = I_Function_Single_Data<T_Parts...>::request;
 
 		using request_args = request::request_args;
 

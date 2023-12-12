@@ -267,9 +267,12 @@ int main()
 	//fn_test();
 	//fn_test(3,5,1);
 	
-	using FF_1= N_Function::I_Function_Single_Data<H*,decltype(&H::Args_4),int>::type;
+	using FF_1= N_Function::I_Function_Single_Data<H*,decltype(&H::Args_4),int>;
 
-	TYPE_ID(FF_1::request::request_args);
+	using FF_2= N_Function::I_Function_Single_Data<FF_1::function,int>;
+
+	TYPE_ID(FF_1);
+	TYPE_ID(FF_2);
 
 	//using FF_1= N_Function::I_Function_Single_Data<int>::type;
 

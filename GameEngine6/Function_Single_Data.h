@@ -3,6 +3,7 @@
 #include"Function_Core.h"
 #include"Tuple.h"
 #include"Concept.h"
+#include"Function_Core_Request.h"
 
 
 template<not_is_invalid T_Fns>
@@ -16,6 +17,12 @@ namespace N_Function
 
 	template<class T_Fn_Data>
 	struct I_Request;
+
+	template<class T_Request_Args, class T_Bind_Args>
+	struct S_Request_args;	
+
+	template<class T_Request_pointer, class T_Pointer, bool t_judge >
+	struct S_Request_pointer;
 
 	//仕様
 	//関数オブジェクトの型に対して、続く引数の型が有効か判定する。
@@ -40,10 +47,6 @@ namespace N_Function
 			using c_name = invalid_t;
 			using request = Request_Core<invalid_t,invalid_t>;
 			using r_type = invalid_t;
-
-
-
-
 
 		};
 
@@ -77,10 +80,6 @@ namespace N_Function
 
 			using c_name = T_CName;
 
-			using request = Request_Core<
-				typename tuple_t<T_Args...>::reverse,
-				c_name>;
-
 			using r_type = T_RType;
 		};
 
@@ -91,11 +90,6 @@ namespace N_Function
 			S_Function_Data<>
 		{
 			using function = T_RType(*)(T_Args...);
-
-			using request = Request_Core<
-				typename tuple_t<T_Args...>::reverse,
-			invalid_t
-			>;
 
 			using r_type = T_RType;
 		};
@@ -116,7 +110,6 @@ namespace N_Function
 		{
 			using function = Function_Core<T_Parts...>;
 
-			using request = I_Request<I_Function_Single_Data>::type;
 		};
 
 		template<class ...T_Fns>
@@ -125,7 +118,6 @@ namespace N_Function
 		{
 			using function = tuple_t<T_Fns...>;
 
-			using request = I_Request<I_Function_Single_Data>::type;
 		};
 
 		//仕様
@@ -147,45 +139,6 @@ namespace N_Function
 
 		using type = typename N_Tuple::I_Expand_Set<S_Function_Data_Access, T_Fn_Parts...>::type::type;
 
-
-		//仕様
-		//[TT_Action][t_parts_name]で要求する要素をT_Coreから抽出する
-		//
-		//テンプレート
-		//[TT_Action]:第一引数にコア、第二引数に対して、コアの値で処理をする値
-		//[t_parts_name]:要求するコアの要素名
-		//
-		//補足
-		//[TT_Action]の第二引数は[T_Core]に複数の関数が纏められている場合、一つずつ処理をする
-		template<template<class...>class TT_Action, N_Constexpr::String t_parts_name, class T_Core>
-		struct I_Request
-		{
-
-			template<class T_Fn = typename T_Core::function,
-				class T_request = typename U_Parts_Search_InnerType<t_parts_name, T_Fn>::type>
-			struct S_Request
-			{
-				using type = TT_Action<T_Core, T_request>::type;
-			};
-
-			template<class T_Fn, class ...T_request>
-			struct S_Request<T_Fn, tuple_t<T_request...>>
-			{
-				using type = tuple_t<typename S_Request<T_Fn, T_request>::type...>;
-			};
-
-			template<class ...T_Fns, class T_request>
-			struct S_Request<Function_Core<tuple_t<T_Fns...>>, T_request>
-			{
-				using type = tuple_t<typename S_Request<T_Fns>::type...>;
-			};
-
-			using type = S_Request<>::type;
-
-		};
-
-
-
 		//仕様
 		//バインド済み引数が無効の場合、[function]を無効値に変更する
 		template<class T_Core, class T_Args_Chack = typename T_Core::request_args>
@@ -202,7 +155,14 @@ namespace N_Function
 
 	public:
 
-		using function = type;
+		using function = Function_Core<T_Fn_Parts...>;
+
+		//using request = typename S_Request_Access<>::type;
+
+		using bind_args = type::bind_args;
+
+
+
 
 			//typename S_is_Valid_Fn<type>::type;
 		
@@ -210,7 +170,6 @@ namespace N_Function
 		
 		//using request_pointer = type::request_pointer;
 		
-		//using bind_args = type::bind_args;
 		
 		//using c_name = type::c_name;
 

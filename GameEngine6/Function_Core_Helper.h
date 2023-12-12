@@ -22,15 +22,15 @@ namespace N_Function
 	{
 
 
-		using fn_data = I_Function_Single_Data<T_Parts...>::type;
+		using fn_t = I_Function_Single_Data<T_Parts...>::type;
 
-		using function = fn_data::function;
+		using function = fn_t::function;
 
-		using pointer = fn_data::pointer;
+		using pointer = fn_t::pointer;
 
-		using bind_args = fn_data::bind_args;
+		using bind_args = fn_t::bind_args;
 
-		using request = fn_data::request;
+		using request = fn_t::request;
 
 		using request_args = request::request_args;
 
