@@ -248,63 +248,75 @@ int main()
 
 	C_OUT(sizeof(a));
 	C_OUT(sizeof(b));
-	Function fn_test(new H(),
-		&H::Args_4, 3,
-		&H::Args_3, 2
+	Function fn_test(
+		&H::Static_Args_4, 3,
+		&H::Static_Args_3, 3
 	);
+
+	Function fn_test2(fn_test, 88,9);
+
+	//fn_test2();
+	//fn_test2(5);
+
+	C_OUT(sizeof(fn_test));
+	//);
+	//fn_test2(4);
 	
-	fn_test();
+	type_id(fn_test);
+	//fn_test();
 	//fn_test(3,5,1);
-
-	using FF_1= N_Function::I_Function_Single_Data_2<decltype(&H::Args_4), int,int,int,int,int,int>::type;
-	using FF_1_1= N_Function::I_Function_Single_Data_2<FF_1,int>::type;
-
-	using FF_2= N_Function::I_Function_Single_Data_2<decltype(&H::Args_3), int>::type;
 	
-	using FF_3 = N_Function::I_Function_Single_Data_2<H*,N_Function::Function_Core<tuple_t<FF_1_1, FF_2>>,int >::type;
+	using FF_1= N_Function::I_Function_Single_Data<H*,decltype(&H::Args_4)>::type;
+	//using FF_1= N_Function::I_Function_Single_Data<int>::type;
 
-
-
-
-
-	//using r_t= N_Function::I_Function_Single_Data_2< decltype(&H::Args_3), int, int>::type;
-
-	TYPE_ID(FF_1);
-
-	//TYPE_ID(FF_3);
-	TYPE_ID(FF_3::function);
-	TYPE_ID(FF_3::request_pointer);
-	TYPE_ID(FF_3::request_args);
+	//using FF_1_1= N_Function::I_Function_Single_Data<FF_1,int>::type;
+	//
+	//using FF_2= N_Function::I_Function_Single_Data<decltype(&H::Args_3), int>::type;
+	//
+	//using FF_3 = N_Function::I_Function_Single_Data<H*,N_Function::Function_Core<tuple_t<FF_1_1, FF_2>>,int >::type;
+	//
+	//
+	//
+	//
+	//
+	////using r_t= N_Function::I_Function_Single_Data< decltype(&H::Args_3), int, int>::type;
+	//
+	TYPE_ID(FF_1::request_pointer);
+	//
+	////TYPE_ID(FF_3);
 	//TYPE_ID(FF_3::function);
-
-	using ii = U_Parts_Search<"aiueo",  Parts<"aieo", int>,Parts<"aiueo", int>>::type;
-
-
-	TYPE_ID(ii);
-
-	//TYPE_ID(r_t::bind_args);
-	//TYPE_ID(r_t::function);
-
-	using tup= tuple_t<int, float, double>;
-	using t= N_Tuple::U_Range<tup,1,0>;
-	TYPE_ID(t);
-	Function fn_test2(&H::Static_Args_3, 2);
-
-	
-
-	//Function fn_test3(fn_test, fn_test2);
-
-	
-
-	TYPE_ID(N_Tuple::U_index_sequence<0>);
-	using fn_test_h = 
-		typename
-		N_Function::I_Function_Multiple_Helper<H*,
-		decltype(&H::Args_3), int,
-		decltype(&H::Args_2), int
-		>::type;
-
-
+	//TYPE_ID(FF_3::request_pointer);
+	//TYPE_ID(FF_3::request_args);
+	////TYPE_ID(FF_3::function);
+	//
+	//using ii = U_Parts_Search<"aiueo",  Parts<"aieo", int>,Parts<"aiueo", int>>::type;
+	//
+	//
+	//TYPE_ID(ii);
+	//
+	////TYPE_ID(r_t::bind_args);
+	////TYPE_ID(r_t::function);
+	//
+	//using tup= tuple_t<int, float, double>;
+	//using t= N_Tuple::U_Range<tup,1,0>;
+	//TYPE_ID(t);
+	////Function fn_test2(&H::Static_Args_3, 2);
+	//
+	//
+	//
+	////Function fn_test3(fn_test, fn_test2);
+	//
+	//
+	//
+	//TYPE_ID(N_Tuple::U_index_sequence<0>);
+	//using fn_test_h = 
+	//	typename
+	//	N_Function::I_Function_Multiple_Helper<H*,
+	//	decltype(&H::Args_3), int,
+	//	decltype(&H::Args_2), int
+	//	>::type;
+	//
+	//
 	//using aaa = typename N_Function::I_Function_Operator_Helper<fn_test_h>::type;
 
 	

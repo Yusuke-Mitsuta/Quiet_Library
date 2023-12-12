@@ -98,46 +98,41 @@ namespace N_Function
 				//[T_Commond_Point_Check]:指定された引数の型と、共通で設定されたポインターを判定する
 				//[T_Method_Check]:指定された引数の型を受け取るか判定する
 				template<class T_Function,
-					class T_Dedicated_Point_Check = typename I_Function_Single_Data<chack_tuple<typename T_Method_Point::next>>::function,
-					class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>, commond_point, 0>>::function
+					class T_Dedicated_Point_Check = typename I_Function_Single_Data<chack_tuple<typename T_Method_Point::next>>::type,
+					class T_Commond_Point_Check = typename I_Function_Single_Data<N_Tuple::U_Insert<chack_tuple<T_Method_Point>, commond_point, 0>>::type
 				>
 				struct S_Pointer_Chack
 				{
-					using type =Method_Bound<T_Method_Point,
+					using type = 
+						Method_Bound<T_Method_Point,
 						T_Function, access_numbers<T_Method_Point>>;
 				};
 
 				//仕様
 				//専用で設定されたポインターを判定する
-				template<class ...T_Parts,class ...T_Dedicated_Point_Check, class T_Commond_Point_Check>
-					requires requires
-				{
-					requires (std::is_pointer_v<typename T_Method_Point::next_t>);
-					requires (not_same_as<typename  Function_Core<T_Parts...>::request_pointer, typename Function_Core<T_Dedicated_Point_Check...>::request_pointer>);
-				}
-
-				struct S_Pointer_Chack<Function_Core<T_Parts...>, Function_Core<T_Dedicated_Point_Check...>, T_Commond_Point_Check >
+				template<class ...T_Parts,class T_Dedicated_Point_Check, class T_Commond_Point_Check>
+					requires ((std::is_pointer_v<typename T_Method_Point::next_t>) &&
+					(not_same_as<typename  Function_Core<T_Parts...>::request_pointer, typename T_Dedicated_Point_Check::request_pointer>))
+				struct S_Pointer_Chack<Function_Core<T_Parts...>, T_Dedicated_Point_Check, T_Commond_Point_Check>
 				{
 					using type =
 						Method_Bound<typename T_Method_Point::next,
-						Function_Core<T_Dedicated_Point_Check...>,
+						T_Dedicated_Point_Check,
 						access_numbers<typename T_Method_Point::next>>;
 
 				};
 
 				//仕様
 				//共通で設定されたポインターを判定する
-				template<class ...T_Parts,class T_Dedicated_Point_Check, class ...T_Commond_Point_Check>
-					requires requires
-				{
-					requires (!same_as_template_type<T_Dedicated_Point_Check, Function_Core>);
-					requires (std::is_pointer_v<commond_point>);
-					requires (not_same_as<typename  Function_Core<T_Parts...>::request_pointer, typename Function_Core<T_Commond_Point_Check...>::request_pointer>));
-				}
-				struct S_Pointer_Chack<Function_Core<T_Parts...>, T_Dedicated_Point_Check , Function_Core<T_Commond_Point_Check...>>
+					template<class ...T_Parts, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
+						requires ((std::is_pointer_v<commond_point>) &&
+					((same_as<T_Dedicated_Point_Check,Function_Core<>>) ||
+					 (same_as<typename  Function_Core<T_Parts...>::request_pointer, typename T_Dedicated_Point_Check::request_pointer>)) &&
+				 (not_same_as<typename Function_Core<T_Parts...>::request_pointer, typename T_Commond_Point_Check::request_pointer>))
+				struct S_Pointer_Chack<Function_Core<T_Parts...>, T_Dedicated_Point_Check ,T_Commond_Point_Check>
 				{
 					using type = Method_Bound<T_Method_Point,
-						Function_Core<T_Commond_Point_Check...>, 
+						T_Commond_Point_Check, 
 						access_numbers<T_Method_Point>>;
 				};
 
@@ -146,17 +141,18 @@ namespace N_Function
 				// 
 				// テンプレート
 				//[T_Function_Check]:指定された引数の型を受け取るか判定する
-				template<class T_Function_Check = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::function>
+				template<class T_Fn = typename I_Function_Single_Data<chack_tuple<T_Method_Point>>::type,
+					class T_Args_chack =typename T_Fn::request_args>
 				struct S_Callable_Check
 				{
-					using type = S_Pointer_Chack<T_Function_Check>::type;
+					using type = S_Pointer_Chack<T_Fn>::type;
 				};
 
 
 				//仕様
 				//関数に対して、引数のが不一致な場合、次の関数を探索する
-				template<>
-				struct S_Callable_Check<invalid_t>
+				template<class T_Fn>
+				struct S_Callable_Check<T_Fn,invalid_t>
 				{
 					using type = S_Method_Point<typename S_Method_Search<typename T_Method_Point::next>::type>::type;
 				};
@@ -184,7 +180,7 @@ namespace N_Function
 		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Fns,T_Tuple_Access_Number>
 		{
 			using type = S_Method_Bound<tuple_tp<T_Head, invalid_t, T_Tail>,
-				tuple_t<typename I_Function_Single_Data_2<Function_Core<T_Fns>>::type>,
+				tuple_t<typename I_Function_Single_Data<Function_Core<T_Fns>>::type>,
 				T_Tuple_Access_Number>::type;
 		};
 
@@ -207,13 +203,6 @@ namespace N_Function
 		//ファンクションとして判定し、失敗すれば、メソッドとして判定する
 		using type = S_Method_Bound<start_tuple>::type;
 		
-		//仕様
-		//ファンクションとして判定する
-		using function_check= S_Method_Bound<start_tuple>::type;
-
-		//仕様
-		//メソッドとして判定する
-		using method_check = S_Method_Bound<start_tuple>::type;
 
 	};
 

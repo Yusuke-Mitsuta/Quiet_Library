@@ -25,6 +25,8 @@ namespace N_Function
 		using bind_args = U_Search<"bind_args">;
 
 		using request_args = U_Search<"request_args">;
+
+		using t = U_Search<"args_type_list">;
 	};
 
 }

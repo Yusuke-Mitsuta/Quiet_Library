@@ -4,9 +4,9 @@
 #include"Function_Helper.h"
 #include"Function_Operator.h"
 
-template<class T_Fns>
+template<not_is_invalid T_Fns>
 class Function :
-	public N_Function::I_Function_Operator<TP_Fns>::type
+	public N_Function::I_Function_Operator_2<T_Fns>::type
 {
 
 
@@ -14,17 +14,19 @@ public:
 
 	template<class ...MT_Fn_Parts>
 	constexpr Function(MT_Fn_Parts... fn_Parts) :
-		N_Function::I_Function_Operator<TP_Fns, TP_Args_type>::type(fn_Parts...)
-		{}
+		N_Function::I_Function_Operator_2<T_Fns>::type(fn_Parts...)
+		{
+		C_OUT(T_Fns::t::size);
+	
+	}
 
+	using N_Function::I_Function_Operator_2<T_Fns>::type::operator();
 
-	using N_Function::I_Function_Operator<TP_Fns, TP_Args_type>::type::operator();
-
-
+	using core = T_Fns;
 
 
 };
 
 template<class ...T_Fn_Parts>
 Function(T_Fn_Parts... fn_Parts) -> Function<typename
-	N_Function::I_Function_Multiple_Helper<T_Fn_Parts...>::function_check>;
+	N_Function::I_Function_Multiple_Helper<T_Fn_Parts...>::type>;
