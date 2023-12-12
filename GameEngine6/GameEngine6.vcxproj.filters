@@ -58,6 +58,9 @@
     <Filter Include="ヘッダー ファイル\Function\Function_Single_Data">
       <UniqueIdentifier>{55f58fc5-f54b-4652-b4bb-82ddf348b2c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Function\Function_Core">
+      <UniqueIdentifier>{2f00da72-c433-4d32-b517-54b6937c8b35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -189,9 +192,6 @@
     <ClInclude Include="Function_Single.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Multiple_Helper.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Multiple.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
@@ -227,9 +227,6 @@
     </ClInclude>
     <ClInclude Include="DBG_NEW.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Core.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Parameter.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
@@ -401,6 +398,33 @@
     </ClInclude>
     <ClInclude Include="Function_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Parts.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Parts_Pack.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Parts_Search.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Parts_Search_Inner.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Core.h">
+      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Core_Helper.h">
+      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Multiple_Helper.h">
+      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Core_Create.h">
+      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Core_Request.h">
+      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

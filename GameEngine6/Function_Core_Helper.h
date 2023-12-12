@@ -1,37 +1,41 @@
 #pragma once
 
+#include"Tuple.h"
+
 namespace N_Function
 {
-	template<class ...T_Fn_Parts>
+
+
+	template<class ...T_Parts>
 	struct Function_Core;
+
+	template<class ...T_Fn_Parts>
+	struct I_Function_Single_Data;
+
+	template<class ...T_Fn_Parts>
+	struct I_Function_Multiple_Helper;
 
 	//仕様
 	//クラスメソッドとメソッドを同一方法で扱う為のクラス
-	template<class T_Fn_Core>
+	template<class ...T_Parts>
 	struct I_Function_Core_Helper
 	{
 
-		template<class T_Result = Function_Core<>, class ...T_Parts>
-		struct S_Function_Core_Helper;
 
-		template<class T_pointer, class T_Fn, class T_Args>
-		struct S_Function_Core_Helper<T_pointer, T_Fn, T_Args>
-		{
+		using fn_data = I_Function_Single_Data<T_Parts...>::type;
 
-		};
+		using function = fn_data::function;
 
+		using pointer = fn_data::pointer;
 
-		using function = type::function;
-		using request_args = type::request_args;
-		using bind_args = type::bind_args;
+		using bind_args = fn_data::bind_args;
 
-		using request_pointer = int;
+		using request = fn_data::request;
 
-		using c_name = type::c_name;
+		using request_args = request::request_args;
 
-		static constexpr size_t fn_count = type::fn_count;
+		using request_pointer = request::request_pointer;
+
 
 	};
-
-
 }

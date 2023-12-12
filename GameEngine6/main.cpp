@@ -227,7 +227,7 @@ struct S_Zip<H>
 #include"Tuple_Test.h"
 #include"Function_Operator.h"
 
-
+#include"Function_Core_Request.h"
 
 template<class ...T>
 class TEST<N_Function::Method_Core<T...>>
@@ -240,7 +240,6 @@ public:
 
 
 
-
 int main()
 {
 	int a=4;
@@ -248,25 +247,30 @@ int main()
 
 	C_OUT(sizeof(a));
 	C_OUT(sizeof(b));
-	Function fn_test(
-		&H::Static_Args_4, 3,
-		&H::Static_Args_3, 3
-	);
 
-	Function fn_test2(fn_test, 88,9);
+
+	//Function fn_test(
+	//	&H::Static_Args_4, 3,
+	//	&H::Static_Args_3, 3
+	//);
+
+	//Function fn_test2(fn_test, 88,9);
 
 	//fn_test2();
 	//fn_test2(5);
 
-	C_OUT(sizeof(fn_test));
+	//C_OUT(sizeof(fn_test));
 	//);
 	//fn_test2(4);
 	
-	type_id(fn_test);
+	//type_id(fn_test);
 	//fn_test();
 	//fn_test(3,5,1);
 	
-	using FF_1= N_Function::I_Function_Single_Data<H*,decltype(&H::Args_4)>::type;
+	using FF_1= N_Function::I_Function_Single_Data<H*,decltype(&H::Args_4),int>::type;
+
+	TYPE_ID(FF_1::request::request_args);
+
 	//using FF_1= N_Function::I_Function_Single_Data<int>::type;
 
 	//using FF_1_1= N_Function::I_Function_Single_Data<FF_1,int>::type;
@@ -281,7 +285,7 @@ int main()
 	//
 	////using r_t= N_Function::I_Function_Single_Data< decltype(&H::Args_3), int, int>::type;
 	//
-	TYPE_ID(FF_1::request_pointer);
+	//TYPE_ID(FF_1::request_pointer);
 	//
 	////TYPE_ID(FF_3);
 	//TYPE_ID(FF_3::function);
