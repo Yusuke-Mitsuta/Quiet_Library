@@ -60,8 +60,7 @@ namespace N_Function
 
 
 		template<class T_Tuple,
-			class T_Tuple_Method_Bound = tuple_t<>,
-			class T_Tuple_Access_Number = tuple_t<>>
+			class T_Tuple_Method_Bound = tuple_t<>>
 		struct S_Method_Bound
 		{
 
@@ -79,15 +78,9 @@ namespace N_Function
 				using access_numbers =
 					N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
 				
-
-
-
 				template<class T_Tuple,class T_Method,class T_access_numbers>
 				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,
-					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>,
-					N_Tuple::U_Insert<T_Tuple_Access_Number,T_access_numbers>
-				>::type;
-
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,T_Method>>::type;
 
 				//仕様
 				//指定されたポインターをが必要か判定する。
@@ -176,24 +169,12 @@ namespace N_Function
 
 		//仕様
 		//全ての型の探査が正常に終了した場合、結果を出力する
-		template<class T_Head,class T_Tail,class T_Fns,class T_Tuple_Access_Number>
-		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Fns,T_Tuple_Access_Number>
+		template<class T_Head,class T_Tail,class T_Fns>
+		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Fns>
 		{
-			using type = S_Method_Bound<tuple_tp<T_Head, invalid_t, T_Tail>,
-				tuple_t<typename I_Function_Single_Data<Function_Core<T_Fns>>::type>,
-				T_Tuple_Access_Number>::type;
+			using type = T_Fns;
 		};
 
-		//仕様
-		//全ての型の探査が正常に終了した場合、結果を出力する
-		template<class T_Head, class T_Tail, class ...T_Parts, class T_Tuple_Access_Number>
-		struct S_Method_Bound<tuple_tp<T_Head, invalid_t, T_Tail>,tuple_t<Function_Core<T_Parts...>>, T_Tuple_Access_Number>
-		{
-			using type =
-				Function_Core<T_Parts...,
-					Parts<"access_number", T_Tuple_Access_Number>,
-					Parts<"args_type_list", tuple_t<T_Fn_Parts...>>>;
-		};
 
 		using start_tuple = typename tuple_t<T_Fn_Parts...>::reverse::front;
 
@@ -205,5 +186,6 @@ namespace N_Function
 		
 
 	};
+
 
 }

@@ -4,7 +4,6 @@
 #include"Tuple.h"
 #include"Concept.h"
 
-#include"Function_Args_Chack.h"
 
 template<not_is_invalid T_Fns>
 class Function;
@@ -12,6 +11,11 @@ class Function;
 
 namespace N_Function
 {
+	template<class T_Request_Args, class T_Request_Pointer>
+	struct Request_Core;
+
+	template<class T_Fn_Data>
+	struct I_Request;
 
 	//仕様
 	//関数オブジェクトの型に対して、続く引数の型が有効か判定する。
@@ -30,91 +34,119 @@ namespace N_Function
 		template<class ...T_Fn_Parts>
 		struct S_Function_Data
 		{
-			using type = Function_Core<>;
+			using function = invalid_t;
+			using bind_args = invalid_t;
+			using pointer = invalid_t;
+			using c_name = invalid_t;
+			using request = Request_Core<invalid_t,invalid_t>;
+			using r_type = invalid_t;
+
+
+
+
+
 		};
 
 		//仕様
 		//共通で使用するポインターの型をセットする
-		template<class ...T_Result, class T_Dedicated_Point, class ...T_Fn_Parts>
+		template<class T_Dedicated_Point, class ...T_Fn_Parts>
 			requires (std::is_class_v<T_Dedicated_Point>)
-		struct S_Function_Data<Function_Core<T_Result...>, T_Dedicated_Point* , T_Fn_Parts...>
+		struct S_Function_Data<T_Dedicated_Point*, T_Fn_Parts...> :
+			S_Function_Data<T_Fn_Parts...>
 		{
-			using type = S_Function_Data<Function_Core<T_Result...,
-				Parts<"pointer", T_Dedicated_Point>>, T_Fn_Parts...>::type;
+			using pointer = T_Dedicated_Point;
 		};
 
 		//仕様
 		//引数の型をセットする
-		template<class ...T_Result, class T_Fn, class ...T_Bind_Args>
-		struct S_Function_Data<Function_Core<T_Result...>, T_Fn, T_Bind_Args...>
+		template<class T_Fn, class ...T_Bind_Args>
+		struct S_Function_Data<T_Fn,T_Bind_Args...> :
+			S_Function_Data<T_Fn>
 		{
-			using type = S_Function_Data<
-				Function_Core<T_Result...,
-				Parts<"bind_args", tuple_t<T_Bind_Args...>>>,
-				T_Fn>::type;
+			using bind_args = tuple_t<T_Bind_Args...>;
 		};
+
 
 		//仕様
 		//クラスメソッドの型から、各種パラメータをセットする
-		template<class ...T_Result, class T_CName, class T_RType, class ...T_Args>
-		struct S_Function_Data<Function_Core<T_Result...>, T_RType(T_CName::*)(T_Args...)>
+		template<class T_CName, class T_RType, class ...T_Args>
+		struct S_Function_Data<T_RType(T_CName::*)(T_Args...)> :
+			S_Function_Data<>
 		{
-			using fn = T_RType(T_CName::*)(T_Args...);
+			using function = T_RType(T_CName::*)(T_Args...);
 
-			using type = S_Function_Data<
-				Function_Core<T_Result...,
-				Parts<"function",
-				Function_Core<Parts<"function", fn>,
-				Parts<"request_args", typename tuple_t<T_Args...>::back>,
-				Parts<"c_name", T_CName>,
-				Parts<"request_pointer", T_CName>,
-				Parts<"r_type", T_RType>>>
-				>>::type;
+			using c_name = T_CName;
+
+			using request = Request_Core<
+				typename tuple_t<T_Args...>::reverse,
+				c_name>;
+
+			using r_type = T_RType;
 		};
 
 		//仕様
 		//静的関数の型から、各種パラメータをセットする
-		template<class ...T_Result, class T_RType, class ...T_Args>
-		struct S_Function_Data<Function_Core<T_Result...>, T_RType(*)(T_Args...)>
+		template<class T_RType, class ...T_Args>
+		struct S_Function_Data<T_RType(*)(T_Args...)> :
+			S_Function_Data<>
 		{
-			using fn = T_RType(*)(T_Args...);
+			using function = T_RType(*)(T_Args...);
 
-			using type = S_Function_Data<
-				Function_Core<T_Result...,
-				Parts<"function",
-				Function_Core<Parts<"function", fn>,
-				Parts<"request_args", typename tuple_t<T_Args...>::back>,
-				Parts<"r_type", T_RType>>>
-				>>::type;
+			using request = Request_Core<
+				typename tuple_t<T_Args...>::reverse,
+			invalid_t
+			>;
+
+			using r_type = T_RType;
 		};
+
 
 		//仕様
 		//親となる関数オブジェクトの型をセットする
-		template<class ...T_Result, class ...T_Parts>
-		struct S_Function_Data<Function_Core<T_Result...>, Function<Function_Core<T_Parts...>>>
-		{
-			using type = S_Function_Data<
-				Function_Core<T_Result...>, Function_Core<T_Parts...>>::type;
-		};
+		template<class ...T_Parts>
+		struct S_Function_Data<Function<Function_Core<T_Parts...>>> :
+			S_Function_Data<Function_Core<T_Parts...>>
+		{};
 
 		//仕様
 		//親となる関数オブジェクトの型をセットする
-		template<class ...T_Result, class ...T_Parts>
-		struct S_Function_Data<Function_Core<T_Result...>,Function_Core<T_Parts...>>
+		template<class ...T_Parts>
+		struct S_Function_Data<Function_Core<T_Parts...>> :
+			S_Function_Data<>
 		{
-			using type = S_Function_Data<
-				Function_Core<T_Result...,
-				Parts<"function", Function_Core<T_Parts...>>
-				>>::type;
+			using function = Function_Core<T_Parts...>;
+
+			using request = I_Request<I_Function_Single_Data>::type;
+		};
+
+		template<class ...T_Fns>
+		struct S_Function_Data<tuple_t<T_Fns...>> :
+			S_Function_Data<>
+		{
+			using function = tuple_t<T_Fns...>;
+
+			using request = I_Request<I_Function_Single_Data>::type;
 		};
 
 		//仕様
 		//関数オブジェクトの型でない場合、セットしない
-		template<class ...T_Result, class T_Fn>
-		struct S_Function_Data<Function_Core<T_Result...>, T_Fn>
+		template<class T_Fn>
+		struct S_Function_Data<T_Fn> :
+			S_Function_Data<>
+		{};
+
+
+		//仕様
+		//[Function_Core<>]を[ T_Fn_Parts...]の前に挿入し[S_Function_Data]に接続する
+		template<class ...T_Fn_Parts>
+		struct S_Function_Data_Access
 		{
-			using type = Function_Core<>;
+			using type = S_Function_Data<T_Fn_Parts...>;
 		};
+
+
+		using type = typename N_Tuple::I_Expand_Set<S_Function_Data_Access, T_Fn_Parts...>::type::type;
+
 
 		//仕様
 		//[TT_Action][t_parts_name]で要求する要素をT_Coreから抽出する
@@ -152,72 +184,7 @@ namespace N_Function
 
 		};
 
-		//仕様
-		//要求する引数をコアから取得する
-		//
-		//補足
-		//関数が纏められている場合、[tuple_t]で纏める
-		template<class T_Core>
-		struct I_Request_args
-		{
-			template<class T_Core, class T_Request_Args>
-			struct S_Request_args
-			{
-				using type = T_Request_Args;
-			};
 
-			template<class ...T_Parts, N_Tuple::is_Tuple T_Request_Args>
-				requires(not_is_invalid<typename U_Parts_Search_InnerType<"bind_args", Function_Core<T_Parts...>>::type>)
-			struct S_Request_args<Function_Core<T_Parts...>, T_Request_Args>
-			{
-				using type = I_Function_Args_Chack<T_Request_Args, typename Function_Core<T_Parts...>::bind_args>::request_args;
-			};
-
-			using type = I_Request<S_Request_args, "request_args",T_Core>::type;
-		};
-
-		//仕様
-		//要求するポインターの型をコアから取得し、
-		// 互換性のあるポインターがセットされて入れば要求を取り消す
-		//
-		//補足
-		//関数が纏められている場合、[tuple_t]で纏める
-		//必要でない場合、[invalid_t]が返る
-		template<class T_Core>
-		struct I_Request_pointer
-		{
-			template<class T_Core, class T_Request_pointer= typename U_Parts_Search_InnerType<"request_pointer", T_Core>::type>
-			struct S_Request_pointer
-			{
-				using type = T_Request_pointer;
-			};
-
-			template< class ...T_Parts, class T_Request_pointer>
-				requires(convertible_to<typename U_Parts_Search_InnerType<"pointer", Function_Core<T_Parts...>>::type, T_Request_pointer>)
-			struct S_Request_pointer<Function_Core<T_Parts...>, T_Request_pointer>
-			{
-				using type = invalid_t;
-			};
-
-
-			using type = I_Request<S_Request_pointer,"request_pointer",T_Core>::type;
-
-		};
-
-
-		//仕様
-		//要求するポインターの型と引数の型をセットする
-		template<class ...T_Result>
-		struct S_Function_Data<Function_Core<T_Result...>>
-		{
-			using core = Function_Core<T_Result...>;
-
-			using type =
-				Function_Core<T_Result...,
-				Parts<"request_args", typename I_Request_args<core>::type>,
-				Parts<"request_pointer", typename I_Request_pointer<core>::type>
-				>;
-		};
 
 		//仕様
 		//バインド済み引数が無効の場合、[function]を無効値に変更する
@@ -233,28 +200,19 @@ namespace N_Function
 			using type = invalid_t;
 		};
 
-		//仕様
-		//[Function_Core<>]を[ T_Fn_Parts...]の前に挿入し[S_Function_Data]に接続する
-		template<class ...T_Fn_Parts>
-		struct S_Function_Data_Access
-		{
-			using type = S_Function_Data<Function_Core<>, T_Fn_Parts...>::type;
-		};
-
 	public:
 
-		using type = typename N_Tuple::I_Expand_Set<S_Function_Data_Access, T_Fn_Parts...>::type::type;
+		using function = type;
 
-		using function = type::function;
 			//typename S_is_Valid_Fn<type>::type;
 		
-		using request_args = type::request_args;
+		//using request_args = type::request_args;
 		
-		using request_pointer = type::request_pointer;
+		//using request_pointer = type::request_pointer;
 		
-		using bind_args = type::bind_args;
+		//using bind_args = type::bind_args;
 		
-		using c_name = type::c_name;
+		//using c_name = type::c_name;
 
 		//static constexpr size_t fn_count = type::fn_count;
 
