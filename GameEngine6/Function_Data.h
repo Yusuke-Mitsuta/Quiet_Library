@@ -4,10 +4,9 @@ namespace N_Function
 {
 
 	template<class ...T_Parts>
-	struct Function_Core;
+	struct I_Function_Data
+	{
 
-
-
-
+	};
 
 }

@@ -40,7 +40,7 @@ namespace N_Function
 //		//複数の関数ポインター、及びそれに対する引数の値が正しいか、後方一致で判定する
 //		//
 //		//引数
-//		//[MT_Fn_Parts...]::(共通で使用するクラスポインター , 関数ポインターor関数オブジェクト , それに対する引数 , 次で使用するクラスポインター . 関数ポインターor関数オブジェクト ...)
+//		//[MT_Parts...]::(共通で使用するクラスポインター , 関数ポインターor関数オブジェクト , それに対する引数 , 次で使用するクラスポインター . 関数ポインターor関数オブジェクト ...)
 //		//
 //		//静的な関数ポインター and 関数Objectはクラスポインターの設定不可
 //		//
@@ -50,14 +50,14 @@ namespace N_Function
 //		// 
 //		//補足
 //		//関数に対して引数が正しくない場合T_Fnsが[invalid_t]になり生成不可になる
-//		template<class ...MT_Fn_Parts>
-//		constexpr Function_Multiple(MT_Fn_Parts... fn_Parts) :
-//			N_Function::IS_Function_Multiple_Operator<MT_Fn_Parts...>::Type(fn_Parts...) {}
+//		template<class ...MT_Parts>
+//		constexpr Function_Multiple(MT_Parts... fn_Parts) :
+//			N_Function::IS_Function_Multiple_Operator<MT_Parts...>::Type(fn_Parts...) {}
 //
 //	};
 //
-//	template<class MT_Flnot_Fn_Parts, class ...MT_Fn_Parts>
-//	Function_Multiple(MT_Flnot_Fn_Parts flnot_Fn_Parts, MT_Fn_Parts... fn_Parts) -> Function_Multiple
-//		<typename N_Function::IS_Function_Multiple_Helper<MT_Flnot_Fn_Parts, MT_Fn_Parts...>::Judge, MT_Fn_Parts...>;
+//	template<class MT_Flnot_Fn_Parts, class ...MT_Parts>
+//	Function_Multiple(MT_Flnot_Fn_Parts flnot_Fn_Parts, MT_Parts... fn_Parts) -> Function_Multiple
+//		<typename N_Function::IS_Function_Multiple_Helper<MT_Flnot_Fn_Parts, MT_Parts...>::Judge, MT_Parts...>;
 //
 //}

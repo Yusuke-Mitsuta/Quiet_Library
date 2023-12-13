@@ -255,9 +255,6 @@
     <ClInclude Include="Parameter_Get.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Data_Core.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Parameter_Merge.h">
       <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClInclude>
@@ -384,10 +381,7 @@
     <ClInclude Include="Method_Multiple.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Single_Data.h">
-      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Single_Data_Args_Check.h">
+    <ClInclude Include="Function_Base_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Expand.h">
@@ -414,17 +408,26 @@
     <ClInclude Include="Function_Core.h">
       <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Core_Helper.h">
+    <ClInclude Include="Function_Request._Core.h">
       <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Single_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Args.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_pointer.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
     <ClInclude Include="Function_Multiple_Helper.h">
-      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Core_Create.h">
-      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Core_Request.h">
-      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
+      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -537,7 +540,7 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Function_Args_Chack.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

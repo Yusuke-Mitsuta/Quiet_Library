@@ -112,7 +112,7 @@ namespace N_Tuple
 	template<class T_Tuple_v,N_Constexpr::String t_operator, auto number>
 	struct I_Tuple_Calculate;
 
-	template<template<class...>class T_Outer_class, class T_Tuple, class ...T_Types>
+	template<template<class...>class T_Outer_class,class ...T_Types>
 	struct I_Expand_Set;
 
 	template<size_t N>

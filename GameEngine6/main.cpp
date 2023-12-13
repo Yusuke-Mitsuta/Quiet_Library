@@ -27,7 +27,6 @@
 #include<utility>
 
 #include"Function.h"
-#include"Function_Single_Data_Args_Check.h"
 
 constexpr std::string getLastPathComponent(std::string path) {
 	std::string r;
@@ -195,16 +194,6 @@ void H::Static_Args_7(int a, int b, int c, int d, int e, int f, int g)
 	C_OUT(g);
 }
 
-template<class T,class TT,class TTT>
-struct H3
-{
-
-};
-
-struct H2
-{
-	void Args_5(int a, int b, int c, int d, int e) {}
-};
 
 //template<class T>
 void Hogege(int t) {}
@@ -216,7 +205,7 @@ void Hogege(int t) {}
 #include"Tuple_Value.h"
 #include"Size_T.h"
 #include"Tuple_index_sequence.h"
-
+#include"Function_Single_Data.h"
 
 template<>
 struct S_Zip<H>
@@ -227,8 +216,7 @@ struct S_Zip<H>
 #include"Tuple_Test.h"
 #include"Function_Operator.h"
 
-#include"Function_Core_Request.h"
-
+#include"Function_Core.h"
 template<class ...T>
 class TEST<N_Function::Method_Core<T...>>
 {
@@ -242,21 +230,43 @@ public:
 
 int main()
 {
-	int a=4;
-	int& b=a;
-
-	C_OUT(sizeof(a));
-	C_OUT(sizeof(b));
 
 
-	//Function fn_test(
-	//	&H::Static_Args_4, 3,
-	//	&H::Static_Args_3, 3
-	//);
 
-	//Function fn_test2(fn_test, 88,9);
+	Function fn_test(&H::Static_Args_3,3);
+
+	Function fn_test2(fn_test,2);
+
+	//Function fn_test3(fn_test2,1);
+	//Function fn_test4(fn_test3,fn_test2);
+
+	//Function fn_test5(fn_test4,fn_test2);
+
+	
+	using T = int;
+		//decltype(fn_test2);
+		//decltype(fn_test5);
+		//N_Function::I_Function_Multiple_Helper<decltype(fn_test5), decltype(fn_test2)>::type;
+	//N_Function::I_Function_Multiple_Helper<decltype(fn_test2)>::type;
+
+	//TYPE_ID(T);
+	//fn_test4();
+	//fn_test2.a();
+	//using n = N_Function::I_Function_Multiple_Helper<decltype(fn_test), int>::type;
+
+//TYPE_ID(n);
+
+	
+	//Function fn_test2(fn_test,3);
+
+
+	//std::get<0>(fn_test2.data)(2, 4, 5);
 
 	//fn_test2();
+
+
+	//fn_test2();
+
 	//fn_test2(5);
 
 	//C_OUT(sizeof(fn_test));
@@ -267,26 +277,43 @@ int main()
 	//fn_test();
 	//fn_test(3,5,1);
 	
-	using FF_1= N_Function::I_Function_Single_Data<H*,decltype(&H::Args_4),int>;
+	//using FF_1 = N_Function::Function_Core<decltype(& H::Static_Args_4),int,int>;
 
-	using FF_2= N_Function::I_Function_Single_Data<FF_1::function,int>;
 
-	TYPE_ID(FF_1);
-	TYPE_ID(FF_2);
+		//N_Function::I_Function_Single_Data<H*, decltype(&H::Args_4), int>::core;
+	//using FF_1 = N_Function::I_Function_Single_Data<H*, decltype(&H::Args_4), int>::request_pointer;
 
-	//using FF_1= N_Function::I_Function_Single_Data<int>::type;
+	//using FF_2 = N_Function::I_Function_Single_Data<decltype(&H::Args_3), int>::core;
+	
 
-	//using FF_1_1= N_Function::I_Function_Single_Data<FF_1,int>::type;
+	//using FF_3 = N_Function::I_Function_Single_Data<H*,Function<tuple_t<FF_1,FF_2>>,int,int>::request_pointer;
+
+
+
+
+	//using FF_2 = N_Function::I_Function_Single_Data<>::request_args;
+
+//	using FF_2= N_Function::I_Function_Base_Data<FF_1::function,int>;
+
+	//TYPE_ID(FF_1);
+	//TYPE_ID(FF_1::type);
+	//TYPE_ID(FF_1::request_args);
+	//TYPE_ID(FF_1::request_args::type);
+	//TYPE_ID(FF_2);
+
+	//using FF_1= N_Function::I_Function_Base_Data<int>::type;
+
+	//using FF_1_1= N_Function::I_Function_Base_Data<FF_1,int>::type;
 	//
-	//using FF_2= N_Function::I_Function_Single_Data<decltype(&H::Args_3), int>::type;
+	//using FF_2= N_Function::I_Function_Base_Data<decltype(&H::Args_3), int>::type;
 	//
-	//using FF_3 = N_Function::I_Function_Single_Data<H*,N_Function::Function_Core<tuple_t<FF_1_1, FF_2>>,int >::type;
-	//
-	//
+	//using FF_3 = N_Function::I_Function_Base_Data<H*,N_Function::Function_Core<tuple_t<FF_1_1, FF_2>>,int >::type;
 	//
 	//
 	//
-	////using r_t= N_Function::I_Function_Single_Data< decltype(&H::Args_3), int, int>::type;
+	//
+	//
+	////using r_t= N_Function::I_Function_Base_Data< decltype(&H::Args_3), int, int>::type;
 	//
 	//TYPE_ID(FF_1::request_pointer);
 	//
@@ -361,7 +388,7 @@ int main()
 //	TYPE_ID(nnn);
 //
 //	//using Fn = //N_Function::I_Function_Args_Chack<tuple_t<int, int>::back, tuple_t<H>>::request_args;
-//		//N_Function::I_Function_Single_Data<H*, N_Function::Method_Core<decltype(&H::Args_2)>,H>::request_args;
+//		//N_Function::I_Function_Base_Data<H*, N_Function::Method_Core<decltype(&H::Args_2)>,H>::request_args;
 //
 //		//typename N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_5), int, int, int
 //		//, decltype(&H::Args_7), int, int>::type1;// ::type2::type3::type4::T1;// ::type3::type4;
@@ -373,7 +400,7 @@ int main()
 //	using ins =
 //		N_Tuple::U_Insert<Te, int, 0>;
 //	using ins_1 = N_Tuple::I_Insert<Te, int, 0>::type;
-//	using FF = //typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::type::function;
+//	using FF = //typename N_Function::I_Function_Base_Data<decltype(&H::Static_Args_2), int>::type::function;
 //
 //		typename
 //		N_Function::I_Function_Multiple_Helper<
@@ -384,12 +411,12 @@ int main()
 //
 //		>::type;
 //
-//	using FFF = N_Function::I_Function_Single_Data<N_Function::Method_Core<decltype(&H::Args_3), int, int>,float>;
+//	using FFF = N_Function::I_Function_Base_Data<N_Function::Method_Core<decltype(&H::Args_3), int, int>,float>;
 //
 //	TYPE_ID(FFF::function);
 //
 //	TYPE_ID(FF);
-//	//using int_0=typename N_Function::I_Function_Single_Data<N_Function::Function_Core<FF>>::request_args;
+//	//using int_0=typename N_Function::I_Function_Base_Data<N_Function::Function_Core<FF>>::request_args;
 //
 //
 //
@@ -424,18 +451,18 @@ int main()
 //	
 //	using fnc= N_Function::Function_Core<N_Function::Function_Core<N_Function::Function_Core<void(__cdecl*)(int, int, //int,int,int,int), int>,int>,int,int>;
 //
-//	using int_2 = typename N_Function::I_Function_Single_Data<FF_test>;
+//	using int_2 = typename N_Function::I_Function_Base_Data<FF_test>;
 //
-//	using int_5 = typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_2), int>::function;
-//	using int_4 = typename N_Function::I_Function_Single_Data<fnc,int>::request_args;
-//	using ff = typename N_Function::I_Function_Single_Data< 
+//	using int_5 = typename N_Function::I_Function_Base_Data<decltype(&H::Static_Args_2), int>::function;
+//	using int_4 = typename N_Function::I_Function_Base_Data<fnc,int>::request_args;
+//	using ff = typename N_Function::I_Function_Base_Data< 
 //		H*,decltype(&H::Static_Args_2)>;
 //		//decltype(&H::Static_Args_2)>;
 //
 //
 //	TYPE_ID(int_2::function);
 //	TYPE_ID(int_2::request_args);
-//	TYPE_ID(typename N_Function::I_Function_Single_Data<decltype(&H::Static_Args_1)>::S_Function_Data<decltype(&H::Args_1)>::c_name);
+//	TYPE_ID(typename N_Function::I_Function_Base_Data<decltype(&H::Static_Args_1)>::S_Function_Data<decltype(&H::Args_1)>::c_name);
 //
 //	//return 0;
 //
