@@ -125,6 +125,7 @@ namespace N_Function
 			{
 				return S_Function_Operator_Core::Action_Operator(p, std::get<t_access_number>(S_Function_Operator_Core::data)..., args...);
 			}
+
 			constexpr S_Function_Operator(auto... args) :
 				S_Function_Operator_Core(args...) {}
 		};

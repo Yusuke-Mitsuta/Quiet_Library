@@ -83,7 +83,7 @@ namespace N_Function
 				
 				template<class T_Tuple,class T_Method,class T_access_numbers>
 				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,
-					N_Tuple::U_Insert<T_Tuple_Method_Bound,typename T_Method::type>,
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,typename  T_Method::type>,
 					N_Tuple::U_Insert<T_Tuple_Access_Number,T_access_numbers>>::type;
 
 
@@ -96,7 +96,7 @@ namespace N_Function
 				//[T_Dedicated_Point_Check]:指定された引数の型と、関数の次に設定されているポインターを判定する
 				//[T_Commond_Point_Check]:指定された引数の型と、共通で設定されたポインターを判定する
 				//[T_Method_Check]:指定された引数の型を受け取るか判定する
-				template<class T_Function = Function_Core<chack_Data< T_Method_Point>>,
+				template<class T_Function = Function_Core<chack_Data<T_Method_Point>>,
 					class T_Dedicated_Point_Check = Function_Core<chack_Data<typename T_Method_Point::next>>,
 					class T_Commond_Point_Check = Function_Core<N_Tuple::U_Insert<chack_Data<T_Method_Point>, flont_t, 0>>>
 				struct S_Pointer_Chack

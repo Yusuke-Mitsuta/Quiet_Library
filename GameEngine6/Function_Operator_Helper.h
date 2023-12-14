@@ -64,7 +64,7 @@ namespace N_Function
 			class T_request_args = typename core::request_args>
 		struct S_Function_Operator_Helper
 		{
-			using type = fn_multi_data::type;
+				//T_access_number;//fn_multi_data::type;
 				//invalid_t;
 		};
 
