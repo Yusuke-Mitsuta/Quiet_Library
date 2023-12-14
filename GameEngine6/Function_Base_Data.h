@@ -84,14 +84,79 @@ namespace N_Function
 		//仕様
 		//親となる関数オブジェクトの型をセットする
 		template<class ...T_Parts>
-		struct S_Function_Data<Function<T_Parts...>> 
-			:S_Function_Data<typename I_Function_Multiple_Helper<T_Parts...>::type>
+		struct S_Function_Data<Function<T_Parts...>> :
+			S_Function_Data<>
 		{
 
+			template<class T_Tuple_Parts =tuple_t<T_Parts...>,
+				class T_Access_Numbers = typename I_Function_Multiple_Helper<T_Parts...>::access_number, 
+				class T_Result =tuple_t<>>
+			struct S_Fn_Search
+			{
+				using type = invalid_t;
+			};
+
+			template<class T_Access_Number, class ...T_Result>
+			struct S_Fn_Search<tuple_t<>, T_Access_Number, tuple_t<T_Result...>>
+			{
+				using type = Function_Core<T_Result...>;
+			};
+
+			template<class T_Flont_Parts, class ...T_Parts, class T_Access_Number, class ...T_Result>
+				requires requires
+			{
+				requires T_Access_Number::size == 0;
+			} ||
+				(requires
+			{
+				requires T_Access_Number::type::value < sizeof...(T_Result);
+				requires T_Access_Number::type::value != 0;
+			} || 
+				requires
+			{
+				requires T_Access_Number::type::next_v < sizeof...(T_Result);
+				requires T_Access_Number::type::value == 0;
+			})
+			struct S_Fn_Search<tuple_t<T_Flont_Parts, T_Parts...>, T_Access_Number, tuple_t<T_Result...>>
+
+			{
+				using type = S_Fn_Search<tuple_t<T_Parts...>, T_Access_Number, tuple_t<T_Result..., T_Flont_Parts>>::type;
+			};
+
+
+			template<class T_Flont_Parts, class ...T_Parts, class T_Flont_Access_Number, class ...T_Access_Numbers, class ...T_Result>
+				requires requires
+			{
+				requires T_Flont_Access_Number::value == sizeof...(T_Result);
+			}
+			struct S_Fn_Search<tuple_t<T_Flont_Parts, T_Parts...>, tuple_t<T_Flont_Access_Number, T_Access_Numbers...>, tuple_t<T_Result...>>
+
+			{
+				using type = S_Fn_Search<tuple_t<T_Parts...>, tuple_t<T_Access_Numbers...>, tuple_t<T_Result..., T_Flont_Parts>>::type;
+			};
+
+
+			template<class ...T_Flont_Parts, class ...T_Parts, class T_Flont_Access_Number, class ...T_Access_Numbers, class ...T_Result>
+				requires requires
+			{
+				requires  std::is_pointer_v<typename tuple_t<T_Result...>::back_t>;
+				requires T_Flont_Access_Number::next_v == sizeof...(T_Result);
+			} ||
+				requires
+			{
+				requires T_Flont_Access_Number::value == sizeof...(T_Result);
+			}
+			struct S_Fn_Search<tuple_t<Function<T_Flont_Parts...>, T_Parts...>, tuple_t<T_Flont_Access_Number, T_Access_Numbers...>, tuple_t<T_Result...>>
+
+			{
+				using type = S_Fn_Search<tuple_t<T_Parts...>, tuple_t<T_Access_Numbers...>,
+					tuple_t<T_Result..., typename S_Function_Data<Function<T_Flont_Parts...>>::function>>::type;
+			};
+
+			using function = S_Fn_Search<>::type;
 
 		};
 
-		
 
 		//仕様
 		//親となる関数オブジェクトの型をセットする
@@ -126,10 +191,47 @@ namespace N_Function
 			using type = S_Function_Data<T_Fn_Parts...>;
 		};
 
+	public:
+		
+		using type = typename N_Tuple::I_Expand_Set<S_Function_Data_Access, T_Fn_Parts...>::type::type;
+protected:
+
+		struct I_Core_Molding
+		{
+			template<class T_Core, class T_Add>
+			struct S_Add_flont
+			{
+				using type = T_Core;
+			};
+
+			template<class ...T_Parts,not_is_invalid T_Add>
+			struct S_Add_flont<Function_Core<T_Parts...>,T_Add>
+			{
+				using type = Function_Core<T_Add,T_Parts...>;
+			};
+
+			template<class T_Bind_Args = typename type::bind_args>
+			struct S_Add_bind_args
+			{
+				using type = Function_Core<>;
+			};
+
+			template<class ...T_Bind_Args >
+			struct S_Add_bind_args<tuple_t<T_Bind_Args...>>
+			{
+				using type = Function_Core<T_Bind_Args...>;
+			};
+
+			using type = S_Add_flont<typename S_Add_flont<typename S_Add_bind_args<>::type,
+				typename type::function>::type,
+				typename type::pointer>::type;
+
+
+		};
 
 	public:
 
-		using type = typename N_Tuple::I_Expand_Set<S_Function_Data_Access, T_Fn_Parts...>::type::type;
+		using core = I_Core_Molding::type;
 
 	};
 

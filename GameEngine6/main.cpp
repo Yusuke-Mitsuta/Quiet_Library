@@ -237,19 +237,23 @@ int main()
 
 	Function fn_test2(fn_test,2);
 
-	//Function fn_test3(fn_test2,1);
+	Function fn_test3(fn_test2,1);
 	//Function fn_test4(fn_test3,fn_test2);
+
+	//fn_test4(
+
 
 	//Function fn_test5(fn_test4,fn_test2);
 
 	
-	using T = int;
+	using T = N_Function::I_Function_Operator_Helper<decltype(fn_test),int, decltype(fn_test), int,int>::type;
 		//decltype(fn_test2);
 		//decltype(fn_test5);
-		//N_Function::I_Function_Multiple_Helper<decltype(fn_test5), decltype(fn_test2)>::type;
+		//N_Function::I_Function_Base_Data<decltype(fn_test2)>::type::function;
+		//N_Function::I_Function_Multiple_Helper<decltype(fn_test2), decltype(fn_test2)>::type;
 	//N_Function::I_Function_Multiple_Helper<decltype(fn_test2)>::type;
 
-	//TYPE_ID(T);
+	TYPE_ID(T);
 	//fn_test4();
 	//fn_test2.a();
 	//using n = N_Function::I_Function_Multiple_Helper<decltype(fn_test), int>::type;

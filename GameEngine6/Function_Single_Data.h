@@ -17,7 +17,8 @@ namespace N_Function
 
 	public:
 
-		using type = typename N_Tuple::I_Expand_Set<Function_Core, T_Parts...>::type;
+		using type = I_Function_Base_Data<T_Parts...>::core;
+			//typename N_Tuple::I_Expand_Set<Function_Core, T_Parts...>::type;
 
 		using function = base_data::function;
 
