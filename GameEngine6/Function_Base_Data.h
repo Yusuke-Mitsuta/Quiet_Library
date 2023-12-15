@@ -85,8 +85,9 @@ namespace N_Function
 		//親となる関数オブジェクトの型をセットする
 		template<class ...T_Parts>
 		struct S_Function_Data<Function<T_Parts...>> :
-			S_Function_Data<>
+			S_Function_Data<typename I_Function_Multiple_Helper<T_Parts...>::type>
 		{
+
 
 			template<class T_Tuple_Parts =tuple_t<T_Parts...>,
 				class T_Access_Numbers = typename I_Function_Multiple_Helper<T_Parts...>::access_number, 
@@ -153,7 +154,7 @@ namespace N_Function
 					tuple_t<T_Result..., typename S_Function_Data<Function<T_Flont_Parts...>>::function>>::type;
 			};
 
-			using function = S_Fn_Search<>::type;
+			//using function = S_Fn_Search<>::type;
 
 		};
 
@@ -182,30 +183,34 @@ namespace N_Function
 			S_Function_Data<>
 		{};
 
-
-		//仕様
-		//[Function_Core<>]を[ T_Fn_Parts...]の前に挿入し[S_Function_Data]に接続する
-		template<class ...T_Fn_Parts>
-		struct S_Function_Data_Access
-		{
-			using type = S_Function_Data<T_Fn_Parts...>;
-		};
-
 	public:
 		
-		using type = typename N_Tuple::I_Expand_Set<S_Function_Data_Access, T_Fn_Parts...>::type::type;
+		using type = S_Function_Data<T_Fn_Parts...>;
+
 protected:
 
 		struct I_Core_Molding
 		{
 			template<class T_Core, class T_Add>
-			struct S_Add_flont
+			struct S_Add_p
+			{
+				using type = T_Core;
+			};
+
+			template<class ...T_Parts, not_is_invalid T_Add>
+			struct S_Add_p<Function_Core<T_Parts...>, T_Add>
+			{
+				using type = Function_Core<T_Add, T_Parts...>;
+			};
+
+			template<class T_Core, class T_Add>
+			struct S_Add_fn
 			{
 				using type = T_Core;
 			};
 
 			template<class ...T_Parts,not_is_invalid T_Add>
-			struct S_Add_flont<Function_Core<T_Parts...>,T_Add>
+			struct S_Add_fn<Function_Core<T_Parts...>,T_Add>
 			{
 				using type = Function_Core<T_Add,T_Parts...>;
 			};
@@ -222,9 +227,8 @@ protected:
 				using type = Function_Core<T_Bind_Args...>;
 			};
 
-			using type = S_Add_flont<typename S_Add_flont<typename S_Add_bind_args<>::type,
-				typename type::function>::type,
-				typename type::pointer>::type;
+			using type = S_Add_p<typename S_Add_fn<typename S_Add_bind_args<>::type,
+				typename type::function>::type,typename type::pointer>::type;
 
 
 		};

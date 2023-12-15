@@ -64,8 +64,6 @@ namespace N_Function
 			class T_request_args = typename core::request_args>
 		struct S_Function_Operator_Helper
 		{
-				//T_access_number;//fn_multi_data::type;
-				//invalid_t;
 		};
 
 
@@ -79,16 +77,16 @@ namespace N_Function
 		{
 			using type = S_Function_Operator<
 				tuple_v<t_access_number...>,
-				T_request_pointer, T_request_args,
+				T_request_pointer, 
+				T_request_args,
 				N_Tuple::U_index_sequence<T_request_args::head_size + not_is_invalid<typename T_request_args::type>>,
 				S_Function_Operator_Core>::type;
 		};
 
 
-		template<
-			size_t ...t_access_number>
+		template<>
 		struct S_Function_Operator_Helper<
-			tuple_t<tuple_v<t_access_number...>>,
+			tuple_t<>,
 			tuple_t<>,
 			tuple_t<>>
 		{
@@ -103,7 +101,7 @@ namespace N_Function
 			class ...T_request_pointer,
 			class T_Flont_request_args,
 			class ...T_request_args >
-			requires (sizeof...(T_access_number) <= sizeof...(T_request_pointer))
+			requires (sizeof...(T_request_pointer) >= sizeof...(T_access_number))
 		struct S_Function_Operator_Helper<
 			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
 			tuple_t<T_Flont_request_pointer, T_request_pointer...>,
@@ -130,7 +128,7 @@ namespace N_Function
 			class ...T_request_args >
 			requires requires
 		{
-			requires (sizeof...(T_request_pointer) == sizeof...(T_access_number));
+			requires (sizeof...(T_request_pointer) < sizeof...(T_access_number) + 1);
 			requires (sizeof...(T_request_pointer) != 0);
 		}
 		struct S_Function_Operator_Helper<
@@ -152,7 +150,7 @@ namespace N_Function
 			class ...T_Second_request_pointer,
 			class ...T_request_args,
 			class ...T_Second_request_args>
-			requires (sizeof...(T_access_number) <= sizeof...(T_Second_request_pointer))
+			requires (sizeof...(T_Second_request_pointer) >= sizeof...(T_access_number))
 		struct S_Function_Operator_Helper<
 			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
 			tuple_t<tuple_t<T_request_pointer...>, T_Second_request_pointer...>,

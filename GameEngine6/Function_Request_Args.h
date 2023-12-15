@@ -27,7 +27,8 @@ namespace N_Function
 	{
 		using request = T_Request::request_args;
 
-		using type = typename S_Request_args<request,
+		using type = 
+			typename S_Request_args<request,
 			typename T_Fn_Data::bind_args>::type;
 	};
 	

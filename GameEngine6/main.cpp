@@ -233,27 +233,40 @@ int main()
 
 
 
-	Function fn_test(&H::Static_Args_3,3);
+	Function fn_test(&H::Static_Args_4,3);
 
 	Function fn_test2(fn_test,2);
 
 	Function fn_test3(fn_test2,1);
-	//Function fn_test4(fn_test3,fn_test2);
+	Function fn_test4(fn_test2,fn_test3);
 
-	//fn_test4(
+	//fn_test4(4,3);
+	//fn_test4(999);
 
-
+	//fn_test2()
 	//Function fn_test5(fn_test4,fn_test2);
 
 	
-	using T = N_Function::I_Function_Operator_Helper<decltype(fn_test),int, decltype(fn_test), int,int>::type;
+	using mlti =typename N_Function::I_Function_Multiple_Helper<decltype(fn_test), int
+		, decltype(fn_test), int, int>::type;
+
+	using T=
+		//N_Function::Function_Core<mlti>::request_pointer;
+
+		N_Function::I_Function_Operator_Helper<
+		  decltype(fn_test),int
+		, decltype(fn_test),int,int
+		//, decltype(fn_test),int,int,int
+		>::type;
 		//decltype(fn_test2);
 		//decltype(fn_test5);
 		//N_Function::I_Function_Base_Data<decltype(fn_test2)>::type::function;
 		//N_Function::I_Function_Multiple_Helper<decltype(fn_test2), decltype(fn_test2)>::type;
 	//N_Function::I_Function_Multiple_Helper<decltype(fn_test2)>::type;
-
+	TYPE_ID(mlti);
 	TYPE_ID(T);
+	//TYPE_ID(T::next_t);
+	//TYPE_ID(T::next::next_t);
 	//fn_test4();
 	//fn_test2.a();
 	//using n = N_Function::I_Function_Multiple_Helper<decltype(fn_test), int>::type;
