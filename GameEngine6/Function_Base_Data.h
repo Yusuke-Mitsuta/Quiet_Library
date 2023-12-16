@@ -3,13 +3,16 @@
 #include"Tuple.h"
 #include"Concept.h"
 
-template<class T_Flont_Parts, class ...T_Parts>
+template<not_is_invalid T_Flont_Parts, class ...T_Parts>
 class Function;
 
 namespace N_Function
 {
 	template<class ...T_Parts>
 	struct Function_Core;
+
+	template<class ...T_Fn_Parts>
+	struct I_Function_Multiple_Helper;
 
 	//仕様
 	//関数オブジェクトの型に対して、続く引数の型が有効か判定する。
@@ -45,6 +48,13 @@ namespace N_Function
 		{
 			using pointer = T_Dedicated_Point;
 		};
+
+
+
+
+
+
+
 
 		//仕様
 		//引数の型をセットする
@@ -86,78 +96,13 @@ namespace N_Function
 		template<class ...T_Parts>
 		struct S_Function_Data<Function<T_Parts...>> :
 			S_Function_Data<typename I_Function_Multiple_Helper<T_Parts...>::type>
-		{
+		{};
 
 
-			template<class T_Tuple_Parts =tuple_t<T_Parts...>,
-				class T_Access_Numbers = typename I_Function_Multiple_Helper<T_Parts...>::access_number, 
-				class T_Result =tuple_t<>>
-			struct S_Fn_Search
-			{
-				using type = invalid_t;
-			};
-
-			template<class T_Access_Number, class ...T_Result>
-			struct S_Fn_Search<tuple_t<>, T_Access_Number, tuple_t<T_Result...>>
-			{
-				using type = Function_Core<T_Result...>;
-			};
-
-			template<class T_Flont_Parts, class ...T_Parts, class T_Access_Number, class ...T_Result>
-				requires requires
-			{
-				requires T_Access_Number::size == 0;
-			} ||
-				(requires
-			{
-				requires T_Access_Number::type::value < sizeof...(T_Result);
-				requires T_Access_Number::type::value != 0;
-			} || 
-				requires
-			{
-				requires T_Access_Number::type::next_v < sizeof...(T_Result);
-				requires T_Access_Number::type::value == 0;
-			})
-			struct S_Fn_Search<tuple_t<T_Flont_Parts, T_Parts...>, T_Access_Number, tuple_t<T_Result...>>
-
-			{
-				using type = S_Fn_Search<tuple_t<T_Parts...>, T_Access_Number, tuple_t<T_Result..., T_Flont_Parts>>::type;
-			};
-
-
-			template<class T_Flont_Parts, class ...T_Parts, class T_Flont_Access_Number, class ...T_Access_Numbers, class ...T_Result>
-				requires requires
-			{
-				requires T_Flont_Access_Number::value == sizeof...(T_Result);
-			}
-			struct S_Fn_Search<tuple_t<T_Flont_Parts, T_Parts...>, tuple_t<T_Flont_Access_Number, T_Access_Numbers...>, tuple_t<T_Result...>>
-
-			{
-				using type = S_Fn_Search<tuple_t<T_Parts...>, tuple_t<T_Access_Numbers...>, tuple_t<T_Result..., T_Flont_Parts>>::type;
-			};
-
-
-			template<class ...T_Flont_Parts, class ...T_Parts, class T_Flont_Access_Number, class ...T_Access_Numbers, class ...T_Result>
-				requires requires
-			{
-				requires  std::is_pointer_v<typename tuple_t<T_Result...>::back_t>;
-				requires T_Flont_Access_Number::next_v == sizeof...(T_Result);
-			} ||
-				requires
-			{
-				requires T_Flont_Access_Number::value == sizeof...(T_Result);
-			}
-			struct S_Fn_Search<tuple_t<Function<T_Flont_Parts...>, T_Parts...>, tuple_t<T_Flont_Access_Number, T_Access_Numbers...>, tuple_t<T_Result...>>
-
-			{
-				using type = S_Fn_Search<tuple_t<T_Parts...>, tuple_t<T_Access_Numbers...>,
-					tuple_t<T_Result..., typename S_Function_Data<Function<T_Flont_Parts...>>::function>>::type;
-			};
-
-			//using function = S_Fn_Search<>::type;
-
-		};
-
+		template<class ...T_Parts>
+		struct S_Function_Data<Function<T_Parts...>*> :
+			S_Function_Data<Function<T_Parts...>>
+		{};
 
 		//仕様
 		//親となる関数オブジェクトの型をセットする

@@ -207,64 +207,112 @@ void Hogege(int t) {}
 #include"Tuple_index_sequence.h"
 #include"Function_Single_Data.h"
 
-template<>
-struct S_Zip<H>
-{
-	using type = tuple_t<int,int>;
-};
-#include"Tuple.h"
-#include"Tuple_Test.h"
-#include"Function_Operator.h"
-
-#include"Function_Core.h"
 template<class ...T>
-class TEST<N_Function::Method_Core<T...>>
+class TE
 {
 public:
-	using type = tuple_t<T...>;
+
+	std::tuple<T&...> t;
+
+	TE(T&... d) :
+		t(d...) {}
 
 };
 
+template<class ...T>
+void A(T&&... t)
+{
+	Function fn(std::forward<T>(t)...);
 
+	fn(3);
+
+	//type_id(tu);
+	//type_id(t);
+}
+
+template<class T,class T2>
+struct MyStruct
+{
+
+};
 
 
 int main()
 {
+	int n = 4;
+	std::tuple<int&> tu(n);
 
+	std::get<0>(tu) = 10;
+	C_OUT(n);
 
+	Function fn_test(H::Static_Args_3,3);
 
-	Function fn_test(&H::Static_Args_4,3);
+	
+	Function fn_test1(fn_test,2,fn_test);
+	
+	//Function fn_test2(fn_test,6);
 
-	Function fn_test2(fn_test,2);
+	//Function fn_test3(fn_test1,fn_test2,10);
+	Function fn_test2(fn_test1,999);
 
-	Function fn_test3(fn_test2,1);
-	Function fn_test4(fn_test2,fn_test3);
+	fn_test2(2);
 
-	//fn_test4(4,3);
-	//fn_test4(999);
+	using TTTT = decltype(fn_test2)::o_type;
+		// N_Function::Function_Core<decltype(fn_test1), int>::request_args;
 
-	//fn_test2()
+	TYPE_ID(TTTT);
+
+	//fn_test4(3);
+	
+	//A(fn_test,5,&n);
+
+	//TE t(fn_test,n);
+
+	//C_OUT(sizeof(t));
+
+	//Function fn_test2(&fn_test,9);
+
+	
+	//Function fn_test3(fn_test2,8);
+	//Function fn_test4(fn_test3,7);
+	//Function fn_test5(fn_test3,4,fn_test2);
+	//Function fn_test6(fn_test5,5,fn_test);
+
+	//Function fn_test3(fn_test2,1);
+	//Function fn_test4(fn_test2,fn_test3);
+	
+	//fn_test5;
+	//fn_test6(32);
+	//fn_test6(32,4,9);
+	//TYPE_ID(N_Function::Function_Core<decltype(fn_test6)>::function);
+
+	//C_OUT(sizeof(fn_test6));
+	//fn_test6(1);
+	//fn_test4(3,3);
+	//fn_test2();
+
+	//fn_test4(2);
 	//Function fn_test5(fn_test4,fn_test2);
 
 	
-	using mlti =typename N_Function::I_Function_Multiple_Helper<decltype(fn_test), int
-		, decltype(fn_test), int, int>::type;
+	//using mlti =typename N_Function::I_Function_Multiple_Helper<decltype(fn_test), int
+	//	, decltype(fn_test), int, int>::type;
 
-	using T=
+	//using T = decltype(fn_test)::T;TYPE_ID(T);
+
 		//N_Function::Function_Core<mlti>::request_pointer;
 
-		N_Function::I_Function_Operator_Helper<
-		  decltype(fn_test),int
-		, decltype(fn_test),int,int
+		//N_Function::I_Function_Operator_Helper<
+		//  decltype(fn_test),int
+	//	, decltype(fn_test),int,int
 		//, decltype(fn_test),int,int,int
-		>::type;
+		//>::type;
 		//decltype(fn_test2);
 		//decltype(fn_test5);
 		//N_Function::I_Function_Base_Data<decltype(fn_test2)>::type::function;
 		//N_Function::I_Function_Multiple_Helper<decltype(fn_test2), decltype(fn_test2)>::type;
 	//N_Function::I_Function_Multiple_Helper<decltype(fn_test2)>::type;
-	TYPE_ID(mlti);
-	TYPE_ID(T);
+	
 	//TYPE_ID(T::next_t);
 	//TYPE_ID(T::next::next_t);
 	//fn_test4();

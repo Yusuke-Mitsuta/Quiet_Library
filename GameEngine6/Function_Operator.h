@@ -7,6 +7,132 @@
 
 namespace N_Function
 {
+
+
+
+	template<class ...T_Parts>
+	struct I_Function_Operator2
+	{
+
+
+		template<class T_Operator_Parameter =typename I_Function_Operator_Helper<T_Parts...>::type>
+		struct S_Function_Operator
+		{
+			std::tuple<T_Parts...> data;
+
+			//constexpr auto Action_Operator(auto* p, auto method, auto ...args)
+			//	requires (std::is_member_function_pointer_v<decltype(method)>)
+			//{
+			//	return (p->*method)(args...);
+			//};
+			//
+			//constexpr auto Action_Operator(auto* p, auto method, auto ...args)
+			//{
+			//	return method(p, args...);
+			//};
+
+			constexpr auto operator()() {}
+
+			constexpr auto Action_Operator(auto fn, auto ...args)
+			{
+				return fn(args...);
+			};
+			
+			constexpr S_Function_Operator(auto... args)
+				:data(args...) 
+			{
+			}
+		};
+
+
+		template<
+			size_t ...t_access_number,
+			class T_request_pointer,
+			class ...T_request_args,
+			class ...T_Operator_Parameters>
+		struct S_Function_Operator<
+			tuple_t<
+				tuple_t<
+				tuple_v<t_access_number...>, 
+				T_request_pointer, 
+				tuple_t< T_request_args...>>,
+			T_Operator_Parameters...>> :
+			S_Function_Operator<tuple_t<T_Operator_Parameters...>>
+		{
+
+			constexpr auto operator()(T_request_args... args)
+			{
+				
+				return S_Function_Operator<tuple_t<>>::Action_Operator(std::get<t_access_number>(S_Function_Operator<tuple_t<>>::data)..., args...);
+			}
+
+			using S_Function_Operator<tuple_t<T_Operator_Parameters...>>::operator();
+
+			constexpr S_Function_Operator(auto ...args) 
+				: S_Function_Operator<tuple_t<T_Operator_Parameters...>>(args...)
+			{
+				TYPE_ID(tuple_t<T_request_args...>);
+			}
+
+		};
+		using type = S_Function_Operator<>;
+
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	template<class ...T_Parts>
 	struct I_Function_Operator
 	{
@@ -31,6 +157,7 @@ namespace N_Function
 			//	return method(p, args...);
 			//};
 
+			constexpr auto operator()() {}
 
 			constexpr auto Action_Operator(auto fn, auto ...args)
 			{
@@ -96,7 +223,12 @@ namespace N_Function
 			using T_Next::operator();
 
 			constexpr S_Function_Operator(auto... args) :
-				T_Next(args...) {}
+				T_Next(args...) 
+			{
+				TYPE_ID(T_request_args);
+				TYPE_ID(T_request_pointer);
+				TYPE_ID(tuple_v<t_request_args_number...>);
+			}
 		};
 
 		template<
@@ -111,6 +243,7 @@ namespace N_Function
 			{
 				return S_Function_Operator_Core::Action_Operator(std::get<t_access_number>(S_Function_Operator_Core::data)..., args...);
 			}
+
 			constexpr S_Function_Operator(auto... args) :
 				S_Function_Operator_Core(args...) 
 			{
@@ -148,8 +281,10 @@ namespace N_Function
 			class T_access_number = typename fn_multi_data::access_number,
 			class T_request_pointer = typename core::request_pointer,
 			class T_request_args = typename core::request_args>
-		struct S_Function_Operator_Helper;
-
+		struct S_Function_Operator_Helper
+		{
+			using type = S_Function_Operator_Core;
+		};
 
 		template<
 			size_t ...t_access_number,
@@ -157,15 +292,107 @@ namespace N_Function
 			class T_request_args>
 		struct S_Function_Operator_Helper<
 			tuple_t<tuple_v<t_access_number...>>,
-			T_request_pointer,T_request_args>
+			tuple_t<T_request_pointer>,
+			tuple_t<T_request_args>>
 		{
-			using type = S_Function_Operator <
+			using type = S_Function_Operator<
 				tuple_v<t_access_number...>,
-				T_request_pointer, 
-				T_request_args,
-				N_Tuple::U_index_sequence<T_request_args::head_size + not_is_invalid<typename T_request_args::type>>, 
+				T_request_pointer, T_request_args,
+				N_Tuple::U_index_sequence<T_request_args::head_size +
+				not_is_invalid<typename T_request_args::type>>, 
 				S_Function_Operator_Core>;
 		};
+
+
+
+		template<
+			size_t ...t_access_number,
+			class ...T_access_number,
+			class T_Flont_request_pointer,
+			class ...T_request_pointer,
+			class T_Flont_request_args,
+			class ...T_request_args>
+			requires requires
+		{
+			requires (sizeof...(T_request_pointer) >= sizeof...(T_access_number) );
+		}
+		struct S_Function_Operator_Helper<
+			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+			tuple_t<T_Flont_request_pointer, T_request_pointer...>,
+			tuple_t<T_Flont_request_args, T_request_args...>>
+		{
+
+			using next = S_Function_Operator_Helper<
+				tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+				tuple_t<T_request_pointer...>,
+				tuple_t<T_request_args...>>::type;
+
+			using type = S_Function_Operator<
+				tuple_v<t_access_number...>,
+				T_Flont_request_pointer, T_Flont_request_args,
+				N_Tuple::U_index_sequence<T_Flont_request_args::head_size + 
+				not_is_invalid<typename T_Flont_request_args::type>>,next>;
+		};
+
+
+		template<
+			size_t ...t_access_number,
+			class ...T_access_number,
+			class ...T_request_pointer,
+			class ...T_request_args>
+			requires requires
+		{
+			requires (sizeof...(T_request_pointer) < sizeof...(T_access_number) + 1);
+		}
+		struct S_Function_Operator_Helper<
+			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+			tuple_t<T_request_pointer...>,
+			tuple_t<T_request_args...>>
+		{
+			using type = S_Function_Operator_Helper<
+				tuple_t<T_access_number...>,
+				tuple_t<T_request_pointer...>,
+				tuple_t<T_request_args...>>::type;
+		};
+
+		template<
+			size_t ...t_access_number,
+			class ...T_access_number,
+			class ...T_request_pointer,
+			class ...T_Second_request_pointer,
+			class ...T_request_args,
+			class ...T_Second_request_args>
+			requires requires
+		{
+			requires (sizeof...(T_request_pointer) >= sizeof...(T_access_number));
+		}
+		struct S_Function_Operator_Helper <
+			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+			tuple_t<tuple_t<T_request_pointer...>, T_Second_request_pointer... >,
+			tuple_t<tuple_t<T_request_args...>, T_Second_request_args...>>
+		{
+			using type = S_Function_Operator_Helper<
+				tuple_t<tuple_v<t_access_number...>, T_access_number...>,
+				tuple_t<T_request_pointer..., T_Second_request_pointer...>,
+				tuple_t<T_request_args..., T_Second_request_args...>>::type;
+		};
+
+		/*
+		//template<
+		//	size_t ...t_access_number,
+		//	class T_request_pointer,
+		//	class T_request_args>
+		//struct S_Function_Operator_Helper<
+		//	tuple_t<tuple_v<t_access_number...>>,
+		//	T_request_pointer,T_request_args>
+		//{
+		//	using type = S_Function_Operator <
+		//		tuple_v<t_access_number...>,
+		//		T_request_pointer, 
+		//		T_request_args,
+		//		N_Tuple::U_index_sequence<T_request_args::head_size + not_is_invalid<typename //T_request_args::type>>, 
+		//		S_Function_Operator_Core>;
+		//};
 
 
 		template<>
@@ -211,11 +438,11 @@ namespace N_Function
 			size_t ...t_access_number,
 			class ...T_access_number,
 			class ...T_request_pointer,
-			class ...T_request_args >
+			class ...T_request_args>
 			requires requires
 		{
 			requires (sizeof...(T_request_pointer) < sizeof...(T_access_number)+1);
-			requires (sizeof...(T_request_pointer) != 0);
+			//requires (sizeof...(T_request_pointer) != 0);
 		}
 		struct S_Function_Operator_Helper<
 			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
@@ -239,7 +466,7 @@ namespace N_Function
 			requires (sizeof...(T_Second_request_pointer) >= sizeof...(T_access_number) )
 		struct S_Function_Operator_Helper <
 			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
-			tuple_t < tuple_t<T_request_pointer...>, T_Second_request_pointer... > ,
+			tuple_t<tuple_t<T_request_pointer...>, T_Second_request_pointer... > ,
 			tuple_t<tuple_t<T_request_args...>,T_Second_request_args...>>
 		{
 			using type = S_Function_Operator_Helper<
@@ -247,9 +474,10 @@ namespace N_Function
 				tuple_t<T_request_pointer..., T_Second_request_pointer...>,
 				tuple_t<T_request_args..., T_Second_request_args...>>::type;
 		};
-
+		*/
 		using type = S_Function_Operator_Helper<>::type;
 
 	};
+
 }
 
