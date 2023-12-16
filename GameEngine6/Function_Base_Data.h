@@ -12,22 +12,19 @@ namespace N_Function
 	struct Function_Core;
 
 	template<class ...T_Fn_Parts>
-	struct I_Function_Multiple_Helper;
+	struct I_Function_Helper;
 
 	//仕様
-	//関数オブジェクトの型に対して、続く引数の型が有効か判定する。
+	//[T_Fn_Parts...]から、関数にアクセスするポインター、関数オブジェクト、バインドする引数を分別する
 	//
-	//テンプレート
-	//[T_Fn_Parts...]::
-	// 第一引数は第二引数の呼び出しに使用するクラスポインターの型である。クラスポインターの型を判定しない場合は指定不要である。静的メソッド、クラスポインターの型を指定済み、の場合は指定不可である。
-	// 第二引数は関数の型、若しくは、引数をbindした型[Function_Core],[Method_Core]とする
-	// 第三引数以降は、第二引数の関数オブジェクトの引数に指定する型リスト
+	//補足
+	//[Function]は[Function_Core]に変更される
 	template<class ...T_Fn_Parts>
 	struct I_Function_Base_Data
 	{
-		
+
 		//仕様
-		//関数オブジェクトが[T_Fn_Parts...]内に存在しない場合
+		//存在しないパラメータの参照先
 		template<class ...T_Fn_Parts>
 		struct S_Function_Data
 		{
@@ -50,16 +47,10 @@ namespace N_Function
 		};
 
 
-
-
-
-
-
-
 		//仕様
 		//引数の型をセットする
 		template<class T_Fn, class ...T_Bind_Args>
-		struct S_Function_Data<T_Fn,T_Bind_Args...> :
+		struct S_Function_Data<T_Fn, T_Bind_Args...> :
 			S_Function_Data<T_Fn>
 		{
 			using bind_args = tuple_t<T_Bind_Args...>;
@@ -80,7 +71,7 @@ namespace N_Function
 		};
 
 		//仕様
-		//静的関数の型から、各種パラメータをセットする
+		//関数の型から、各種パラメータをセットする
 		template<class T_RType, class ...T_Args>
 		struct S_Function_Data<T_RType(*)(T_Args...)> :
 			S_Function_Data<>
@@ -92,13 +83,17 @@ namespace N_Function
 
 
 		//仕様
-		//親となる関数オブジェクトの型をセットする
+		//[Function]内の[Function]を[Function_Core]に変更し、
+		// 複数の関数を1つずつの[Function_Core]に分別し[tuple_t]で纏め、再度functionの判定を行う
 		template<class ...T_Parts>
 		struct S_Function_Data<Function<T_Parts...>> :
-			S_Function_Data<typename I_Function_Multiple_Helper<T_Parts...>::type>
+			S_Function_Data<typename I_Function_Helper<T_Parts...>::type>
 		{};
 
 
+		//仕様
+		//[Function]のポインターを外し、
+		// 再度、functionの判定を行う
 		template<class ...T_Parts>
 		struct S_Function_Data<Function<T_Parts...>*> :
 			S_Function_Data<Function<T_Parts...>>
@@ -113,12 +108,14 @@ namespace N_Function
 			using function = Function_Core<T_Parts...>;
 		};
 
+		//仕様
+		//親となる関数オブジェクトが複数存在する場合、tuple_tで纏めてセットする
 		template<class ...T_Fns>
 		struct S_Function_Data<tuple_t<T_Fns...>> :
 			S_Function_Data<>
 		{
 			using function = tuple_t<T_Fns...>;
-		
+
 		};
 
 		//仕様
@@ -129,11 +126,13 @@ namespace N_Function
 		{};
 
 	public:
-		
+
 		using type = S_Function_Data<T_Fn_Parts...>;
 
-protected:
+	protected:
 
+		//仕様
+		//[T_Fn_Parts...]を処理した結果の[Function_Core]を出力する
 		struct I_Core_Molding
 		{
 			template<class T_Core, class T_Add>
@@ -154,10 +153,10 @@ protected:
 				using type = T_Core;
 			};
 
-			template<class ...T_Parts,not_is_invalid T_Add>
-			struct S_Add_fn<Function_Core<T_Parts...>,T_Add>
+			template<class ...T_Parts, not_is_invalid T_Add>
+			struct S_Add_fn<Function_Core<T_Parts...>, T_Add>
 			{
-				using type = Function_Core<T_Add,T_Parts...>;
+				using type = Function_Core<T_Add, T_Parts...>;
 			};
 
 			template<class T_Bind_Args = typename type::bind_args>
@@ -173,8 +172,7 @@ protected:
 			};
 
 			using type = S_Add_p<typename S_Add_fn<typename S_Add_bind_args<>::type,
-				typename type::function>::type,typename type::pointer>::type;
-
+				typename type::function>::type, typename type::pointer>::type;
 
 		};
 

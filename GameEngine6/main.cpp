@@ -13,14 +13,8 @@
 #include"Manager_Scene.h"
 #include"Timer.h"
 #include"tuple_convertible_to.h"
-#include"Parameter.h"
 #include<list>
 #include<type_traits>
-#include"Quick_Sort.h"
-#include"Parameter_Value.h"
-#include"Parameter_Change.h"
-#include"Parameter_Get.h"
-#include"Parameter_Merge.h"
 
 #include<tuple>
 #include<optional>
@@ -198,14 +192,10 @@ void H::Static_Args_7(int a, int b, int c, int d, int e, int f, int g)
 //template<class T>
 void Hogege(int t) {}
 
-#include"Function_Single_Data.h"
-#include"Function_Args_Chack.h"
-#include"Function_Multiple_Helper.h"
 #include"Tuple.h"
 #include"Tuple_Value.h"
 #include"Size_T.h"
 #include"Tuple_index_sequence.h"
-#include"Function_Single_Data.h"
 
 template<class ...T>
 class TE
@@ -230,11 +220,6 @@ void A(T&&... t)
 	//type_id(t);
 }
 
-template<class T,class T2>
-struct MyStruct
-{
-
-};
 
 
 int main()
@@ -247,7 +232,6 @@ int main()
 
 	Function fn_test(H::Static_Args_3,3);
 
-	
 	Function fn_test1(fn_test,2,fn_test);
 	
 	//Function fn_test2(fn_test,6);
@@ -255,7 +239,7 @@ int main()
 	//Function fn_test3(fn_test1,fn_test2,10);
 	Function fn_test2(fn_test1,999);
 
-	fn_test2(2);
+	fn_test2;
 
 	using TTTT = decltype(fn_test2)::o_type;
 		// N_Function::Function_Core<decltype(fn_test1), int>::request_args;

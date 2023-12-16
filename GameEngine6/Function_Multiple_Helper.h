@@ -3,25 +3,25 @@
 #include"Tuple.h"
 #include"SwapType.h"
 #include"Select_Type.h"
-#include"Function_Core.h"
 
 namespace N_Function
 {
-	
+	template<class ...T_Parts>
+	struct Function_Core;
 	
 	//仕様
-	//関数に対して、次の関数又はメソッドが出てくるまでの間の型が引数の型と互換性があるか判定する
+	//関数に対して、次の関数オブジェクトが出てくるまでの間の型が引数の型と互換性があるか判定する
 	//メソッドに対しては、上記に加え、メソッドの前の型がポインターの型と互換性があるか判定し、
 	//	失敗すれば、テンプレートの先頭の型がポインターの型と互換性があるか判定する
-	//この操作を繰り返し、全て成功すれば、関数、メソッドオブジェクト事に纏められた後、[tuple_t]に纏められる。
+	//この操作を繰り返し、全て成功すれば、[Function_Core]事に纏められた後、[tuple_t]に纏められる。
 	//
 	//テンプレート
 	//[T_Fn_Parts...]:
 	//	メソッドに使用する共通のポインターの型(省略可能)
-	//	関数、又はメソッドの型
+	//	関数オブジェクトの型
 	//	それに対する引数の型(並びの一番後ろの型が、関数の引数型の一番後ろと判定される)
 	//	次のメソッドに対する専用のポインターの型(次にメソッドを使用する場合)
-	//	関数、又はメソッドの型
+	//	関数オブジェクトの型
 	// と続く
 	// 
 	//補足
@@ -33,9 +33,7 @@ namespace N_Function
 	{
 	private:
 		
-
 		using flont_t = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
-
 
 		template<class T_Tuple, class T_method = typename Function_Core<typename T_Tuple::type>::function>
 		struct S_Method_Search
@@ -181,6 +179,12 @@ namespace N_Function
 			using type = S_Result<T_Fns, T_Tuple_Access_Number>;
 		};
 
+		//仕様
+		//結果を返すクラス
+		//
+		//テンプレート
+		//[T_Tuple_Method_Bound]::[Function_Core]が纏められた[tuple_t]
+		//[T_Tuple_Access_Number]::纏められた関数オブジェクト一つに対して、使用した型の番号をが纏められた[tupel_t]
 		template<class T_Tuple_Method_Bound, class T_Tuple_Access_Number>
 		struct S_Result
 		{
@@ -196,14 +200,16 @@ namespace N_Function
 
 	public:
 
-
 		//仕様
-		//ファンクションとして判定し、失敗すれば、メソッドとして判定する
+		//[Function_Core]が纏められた[tuple_t]
 		using type = result::type;
 
+		//仕様
+		//纏められた関数オブジェクト一つ一つに対応した、使用した型の番号をが纏められた[tupel_t]
 		using access_number = result::access_number;
 
-		
+		//仕様
+		//纏め作業が成功すれば、[T_Fn_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
 		using judge = U_Judge_t<flont_t, not_is_invalid<type>>;
 	};
 

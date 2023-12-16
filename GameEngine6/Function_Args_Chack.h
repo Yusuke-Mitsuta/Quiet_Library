@@ -10,7 +10,7 @@ namespace N_Function
 	template<class T_Request_Args,class T_Bind_Args>
 	struct I_Function_Args_Chack
 	{
-	//private:
+	private:
 
 		//仕様
 		//T_Request_Args,T_Bind_Argsの中身を適正に展開した結果を返す

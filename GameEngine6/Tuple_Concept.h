@@ -23,8 +23,6 @@ namespace N_Tuple
 
 
 	
-
-
 	template<class T_Tuple_p>
 	concept is_Tuple_p = same_as_tuple_tp<T_Tuple_p> || same_as_tuple_vp<T_Tuple_p>;
 

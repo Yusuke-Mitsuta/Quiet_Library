@@ -19,7 +19,6 @@ namespace N_Tuple
 	template<template<class...>class T_Outer_class,class ...T_Types>
 	struct I_Expand_Set
 	{
-
 		template<class ...T_Types>
 		struct S_Expand_Set
 		{

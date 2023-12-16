@@ -4,7 +4,8 @@
 
 namespace N_Tuple
 {
-
+	//仕様
+	//[T_Tuple_p]の型が、[tuple_t]ならば、[tuple_tp]に、[tuple_v]ならば、[tuple_vp]に変更する
 	template<class T_Tuple_p>
 	struct I_Create_Pointer
 	{

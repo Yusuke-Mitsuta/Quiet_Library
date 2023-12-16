@@ -1,8 +1,6 @@
 #include "Tuple_Test.h"
 #include"main.h"
 
-#include"Quick_Sort.h"
-
 #include"If_Type.h"
 
 using namespace N_Tuple;

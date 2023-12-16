@@ -4,7 +4,8 @@
 
 namespace N_Tuple
 {
-
+	//仕様
+	//[T]を[tuple_t,tp]から、要素を[integral_constant]で取り出し、[tuple_v,vp]に変換する
 	template<class T>
 	struct Tuple_t_To_v
 	{

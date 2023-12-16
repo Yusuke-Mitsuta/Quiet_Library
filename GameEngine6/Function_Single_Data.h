@@ -8,7 +8,8 @@ namespace N_Function
 	template<class ...T_Parts>
 	struct Function_Core;
 
-
+	//仕様
+	//[T_Parts...]から、各種データを生成する
 	template<class ...T_Parts>
 	struct I_Function_Single_Data
 	{
@@ -23,7 +24,7 @@ namespace N_Function
 
 		using pointer = base_data::pointer;
 
-		using bind_args = base_data::bind_args;
+		using bind_args = base_data::bind_args; 
 
 		using request_args = I_Function_Request_Data<S_Request_args_Access,base_data>::type;
 

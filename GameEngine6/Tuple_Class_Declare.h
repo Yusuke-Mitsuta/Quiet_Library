@@ -97,15 +97,82 @@ namespace N_Tuple
 	struct S_Action_Tuple_Helper;
 
 
+	//仕様
+	//[T_Tuple]を[tuple_tp]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_tp]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//
+	//テンプレート
+	//[T_Action]::変換した、Tuple_tpで[::type]を呼び出すクラステンプレート
+	//[T_Tuple]::変数するTuple型
+	//[t_Start_Point]::変換したTuple_tpの初期選択の場所
+	// 
+	//using
+	//[Return_not_p]::[tuple_tp,vp]から[tuple_t,v]に変換し[T_Action]を呼び出した際、
+	//	選択位置を戻す処理をスキップする
+	//[Return_p]::[tuple_t,v]から[tuple_tp,vp]に変換し[T_Action]を呼び出した際、
+	//	選択位置を外す処理をスキップする
+	// 
+	//補足
+	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
 	using S_Action_Tuple_tp = S_Action_Tuple_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
 
+	//仕様
+	//[T_Tuple]を[tuple_t]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_t]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//
+	//テンプレート
+	//[T_Action]::変換した、Tuple_tで[::type]を呼び出すクラステンプレート
+	//[T_Tuple]::変数するTuple型
+	// 
+	//using
+	//[Return_not_p]::[tuple_tp,vp]から[tuple_t,v]に変換し[T_Action]を呼び出した際、
+	//	選択位置を戻す処理をスキップする
+	//[Return_p]::[tuple_t,v]から[tuple_tp,vp]に変換し[T_Action]を呼び出した際、
+	//	選択位置を外す処理をスキップする
+	// 
+	//補足
+	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Action_Tuple_t = S_Action_Tuple_Helper<false, true, T_Action, T_Tuple>;
 
+	//仕様
+	//[T_Tuple]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_vp]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//
+	//テンプレート
+	//[T_Action]::変換した、Tuple_vpで[::type]を呼び出すクラステンプレート
+	//[T_Tuple]::変数するTuple型
+	//[t_Start_Point]::変換したTuple_vpの初期選択の場所
+	// 
+	//using
+	//[Return_not_p]::[tuple_tp,vp]から[tuple_t,v]に変換し[T_Action]を呼び出した際、
+	//	選択位置を戻す処理をスキップする
+	//[Return_p]::[tuple_t,v]から[tuple_tp,vp]に変換し[T_Action]を呼び出した際、
+	//	選択位置を外す処理をスキップする
+	// 
+	//補足
+	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
 	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
 
+	//仕様
+	//[T_Tuple]を[tuple_v]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_v]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//
+	//テンプレート
+	//[T_Action]::変換した、Tuple_vで[::type]を呼び出すクラステンプレート
+	//[T_Tuple]::変数するTuple型
+	//[t_Start_Point]::変換したTuple_vの初期選択の場所
+	// 	
+	//using
+	//[Return_not_p]::[tuple_tp,vp]から[tuple_t,v]に変換し[T_Action]を呼び出した際、
+	//	選択位置を戻す処理をスキップする
+	//[Return_p]::[tuple_t,v]から[tuple_tp,vp]に変換し[T_Action]を呼び出した際、
+	//	選択位置を外す処理をスキップする
+	// 
+	//補足
+	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Action_Tuple_v = S_Action_Tuple_Helper<false, false, T_Action, T_Tuple>;
 
@@ -120,5 +187,8 @@ namespace N_Tuple
 
 	template<size_t N_1, size_t N_2>
 	struct I_range_index_sequence;
+
+	template<template<class...>class TT_Action, class T_Tuple, class ...T_Extra>
+	struct I_Elements_Action;
 
 }

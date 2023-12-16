@@ -37,12 +37,6 @@ struct action_type
 		using type = invalid_chack<typename T_next_alternative::type,T_alternative...>::type;
 	};
 
-	//template<convertible_to<int> T>
-	//constexpr operator T()
-	//{
-	//	return 0;
-	//}
-
 	using type = invalid_chack<typename T_Main::type, T_alternative...>::type;
 
 };

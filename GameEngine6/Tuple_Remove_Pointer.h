@@ -4,6 +4,8 @@
 
 namespace N_Tuple
 {
+	//d—l
+	//[T]‚ğ[tuple_tp,vp]‚©‚çA[tuple_t,v]‚É•ÏŠ·‚·‚é
 	template<class T_Tuple_p>
 	struct I_Remove_Pointer
 	{

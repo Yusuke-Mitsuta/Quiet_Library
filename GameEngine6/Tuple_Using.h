@@ -143,6 +143,17 @@ namespace N_Tuple
 	template<size_t N_1, size_t N_2>
 	using U_range_index_sequence = typename I_range_index_sequence<N_1,N_2>::type;
 
-
+	//仕様
+	//[T_Tuple]の要素を一つずつ取り出し、[TT_Action]の[::type]を実行し、結果を[tuple_t]に纏める
+	//
+	//テンプレート
+	//[TT_Action]::[type]を呼び出すクラステンプレート
+	//[T_Tuple]::展開し、各要素で[TT_Action::type]を呼び出す
+	//[T_Extra...]::[TT_Action::type]を呼び出す際、追加でセットする型
+	//
+	//補足
+	//[T_Tuple -> tuple_t<T...>] -> [tuple_t<TT_Action<T,T_Extra...>::type...>]となる
+	template<template<class...>class TT_Action, class T_Tuple, class ...T_Extra>
+	using U_Elements_Action = I_Elements_Action<TT_Action, T_Tuple, T_Extra...>::type;
 }
 
