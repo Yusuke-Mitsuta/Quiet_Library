@@ -71,7 +71,6 @@
     <ClInclude Include="Message_Router.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Outer_Change.h" />
-    <ClInclude Include="Expand.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Manager_Scene.h" />
     <ClInclude Include="Size_T.h" />
