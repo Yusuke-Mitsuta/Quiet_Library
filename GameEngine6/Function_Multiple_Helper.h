@@ -3,13 +3,11 @@
 #include"Tuple.h"
 #include"SwapType.h"
 #include"Select_Type.h"
-#include"Function_Single_Data.h"
-
+#include"Function_Core.h"
 
 namespace N_Function
 {
-	template<class ...T_Fn_Parts>
-	struct I_Function_Single_Helper;
+	
 	
 	//仕様
 	//関数に対して、次の関数又はメソッドが出てくるまでの間の型が引数の型と互換性があるか判定する
