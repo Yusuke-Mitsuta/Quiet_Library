@@ -197,64 +197,38 @@ void Hogege(int t) {}
 #include"Size_T.h"
 #include"Tuple_index_sequence.h"
 
-template<class ...T>
-class TE
-{
-public:
 
-	std::tuple<T&...> t;
-
-	TE(T&... d) :
-		t(d...) {}
-
-};
-
-template<class ...T>
-void A(T&&... t)
-{
-	//Function fn(std::forward<T>(t)...);
-
-	//fn(3);
-
-	//type_id(tu);
-	//type_id(t);
-}
-
-template<class T>
-void B(T&& t)
-{
-	
-	//type_id(tu);
-	type_id(t);
-}
 
 int main()
 {
-	int n = 4;
-	std::tuple<int&> tu(n);
 
-	std::get<0>(tu) = 10;
-	C_OUT(n);
 
-	//Function fnp_test(&H::Static_Args_5,5);
-	//Function fnp_test2(&fnp_test,4);
-	//Function fnp_test3(&fnp_test2,3);
-	//Function fnp_test4(&fnp_test3,2);
+	Function fnp_test(h,&H::Args_5,5);
+
+	Function fnp_test2(&fnp_test,4);
+	Function fnp_test3(&fnp_test2,3);
+	Function fnp_test4(&fnp_test3,2);
 	
-	//fnp_test4(1);
+	fnp_test4(3);
 	//5SIZE_OF(fnp_test4);
 
 
-	Function fnr_test(&H::Static_Args_5, 5);
+	Function fnr_test(&H::Args_5, 5);
 	Function fnr_test2(fnr_test, 4);
 	Function fnr_test3(fnr_test2, 3);
-	Function fnr_test4(fnr_test3, 2,fnr_test,44);
+	Function fnr_test4(fnr_test3, 2,h,fnr_test,44,fnr_test3,3,2);
+	Function fnr_test5(fnr_test4,3);
 
-	SIZE_OF(fnr_test4);
+	//fnr_test5()
+	//fnr_test5(h);
 
 
-	//using T = decltype(fn_test2)::o_type;
-	//TYPE_ID(T);
+	//A(h);
+
+	using T = decltype(fnp_test)::ot;
+		//N_Function::I_Function_Operator_Helper <H*, decltype(&H::Args_3)>::type;//decltype(fnp_test)::ot;
+		//N_Function::I_Function_Multiple_Helper<H*, decltype(&H::Args_2)>::type::type::request_pointer;
+	TYPE_ID(T);
 	//fn_test3()
 	//SIZE_OF(fn_test4);
 	//fn_test2(3, 2, 1);

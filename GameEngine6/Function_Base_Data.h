@@ -53,6 +53,23 @@ namespace N_Function
 			using pointer = T_Dedicated_Point;
 		};
 
+		//仕様
+		//共通で使用するポインターの型をセットする
+		//
+		//補足
+		//[T_Dedicated_Point]が[Function]の場合はスキップする
+		template<class T_Dedicated_Point, class ...T_Fn_Parts>
+			requires requires
+		{
+			requires std::is_class_v<T_Dedicated_Point>;
+			requires !same_as_template_type<T_Dedicated_Point, Function>;
+		}
+		struct S_Function_Data<T_Dedicated_Point*&, T_Fn_Parts...> :
+			S_Function_Data<T_Fn_Parts...>
+		{
+			using pointer = T_Dedicated_Point;
+		};
+
 
 		//仕様
 		//引数の型をセットする
@@ -159,7 +176,7 @@ namespace N_Function
 			template<class ...T_Parts, not_is_invalid T_Add>
 			struct S_Add_p<Function_Core<T_Parts...>, T_Add>
 			{
-				using type = Function_Core<T_Add, T_Parts...>;
+				using type = Function_Core<T_Add*, T_Parts...>;
 			};
 
 			template<class T_Core, class T_Add>

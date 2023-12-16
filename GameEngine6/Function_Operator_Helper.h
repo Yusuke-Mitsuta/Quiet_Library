@@ -101,7 +101,8 @@ namespace N_Function
 			using type = S_Function_Operator_Helper_Core<
 				typename T_access_number::type,
 				T_request_pointer, T_request_args,
-				N_Tuple::U_index_sequence<T_request_args::head_size +
+				N_Tuple::U_index_sequence<
+				N_Tuple::S_Parameter<T_request_args>::Size_Head +
 				not_is_invalid<typename T_request_args::type>>,
 				invalid_t>;
 		};
@@ -151,7 +152,8 @@ namespace N_Function
 			using type = S_Function_Operator_Helper_Core<
 				tuple_v<t_access_number...>,
 				T_Front_request_pointer, T_Front_request_args,
-				N_Tuple::U_index_sequence<T_Front_request_args::head_size + not_is_invalid<typename T_Front_request_args::type>>,
+				N_Tuple::U_index_sequence<
+					N_Tuple::S_Parameter<T_Front_request_args>::Size_Head+ not_is_invalid<typename T_Front_request_args::type>>,
 				next>;
 		};
 
@@ -219,13 +221,29 @@ namespace N_Function
 		template<class ...T_Result, not_is_invalid T_Operator_Data>
 		struct S_Function_Operator_Parameter<tuple_t<T_Result...>, T_Operator_Data>
 		{
-			using type = S_Function_Operator_Parameter<
-				tuple_t<T_Result..., typename T_Operator_Data::type>,
-				typename T_Operator_Data::next>::type;
+
+			//仕様
+			//要求する引数の型が無効値なら、データの格納をスキップする
+			template<class T_Request_Args = N_Tuple::U_Element_t<2,typename T_Operator_Data::type>>
+			struct S_Request_Args_Chack
+			{
+				using type= S_Function_Operator_Parameter<
+					tuple_t<T_Result..., typename T_Operator_Data::type>,
+					typename T_Operator_Data::next>::type;
+			};
+
+			template<>
+			struct S_Request_Args_Chack<invalid_t>
+			{
+				using type= S_Function_Operator_Parameter<
+					tuple_t<T_Result...>,
+					typename T_Operator_Data::next>::type;
+			};
+
+			using type = S_Request_Args_Chack<>::type;
 		};
 
-
-		using type =S_Function_Operator_Parameter<>::type;
+		using type = S_Function_Operator_Parameter<>::type;
 
 	};
 

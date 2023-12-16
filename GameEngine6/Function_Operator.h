@@ -64,10 +64,60 @@ namespace N_Function
 				return Action_Operator(fn, p, args...);
 			};
 
-
 			constexpr S_Function_Operator(T_Parts&& ...args)
 				:data(std::forward<T_Parts>(args)...)
 			{}
+
+		};
+
+		template<
+			size_t ...t_access_number,
+			class ...T_request_args>
+		struct S_Function_Operator<
+			tuple_t<
+			tuple_t<
+			tuple_v<t_access_number...>,
+			invalid_t,
+			tuple_t< T_request_args...>>
+			>> :
+		S_Function_Operator<tuple_t<>>
+		{
+		protected:
+			constexpr auto operator()(T_request_args... args)
+			{
+				return S_Function_Operator<tuple_t<>>::Action_Operator(std::get<t_access_number>(S_Function_Operator<tuple_t<>>::data)..., args...);
+			}
+
+			constexpr S_Function_Operator(T_Parts&& ...args)
+				: S_Function_Operator<tuple_t<>>(std::forward<T_Parts>(args)...)
+			{}
+
+		};
+
+		template<
+			size_t ...t_access_number,
+			class T_request_pointer,
+			class ...T_request_args>
+		struct S_Function_Operator<
+			tuple_t<
+			tuple_t<
+			tuple_v<t_access_number...>,
+			T_request_pointer,
+			tuple_t< T_request_args...>>
+			>> :
+		S_Function_Operator<tuple_t<>>
+		{
+		protected:
+
+			constexpr auto operator()(T_request_pointer* p,T_request_args... args)
+			{
+				return S_Function_Operator<tuple_t<>>::Action_Operator(p,std::get<t_access_number>(S_Function_Operator<tuple_t<>>::data)..., args...);
+			}
+
+			constexpr S_Function_Operator(T_Parts&& ...args)
+				: S_Function_Operator<tuple_t<>>(std::forward<T_Parts>(args)...)
+			{}
+
 		};
 
 
@@ -94,9 +144,7 @@ namespace N_Function
 
 			constexpr S_Function_Operator(T_Parts&& ...args) 
 				: S_Function_Operator<tuple_t<T_Operator_Parameters...>>(std::forward<T_Parts>(args)...)
-			{
-				TYPE_ID(tuple_t<T_request_args...>);
-			}
+			{}
 
 		};
 
@@ -125,9 +173,7 @@ namespace N_Function
 
 			constexpr S_Function_Operator(T_Parts&& ...args)
 				: S_Function_Operator<tuple_t<T_Operator_Parameters...>>(std::forward<T_Parts>(args)...)
-			{
-				TYPE_ID(tuple_t<T_request_args...>);
-			}
+			{}
 
 		};
 

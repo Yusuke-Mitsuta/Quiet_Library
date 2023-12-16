@@ -14,6 +14,8 @@ namespace N_Tuple
 	struct S_Parameter
 	{
 		using T = std::tuple<T_Types...>;
+		static constexpr size_t Size_Head = 0;
+		static constexpr size_t Size_Tail = 0;
 		static constexpr size_t Size = sizeof...(T_Types);
 
 	};

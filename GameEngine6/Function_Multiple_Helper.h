@@ -108,7 +108,7 @@ namespace N_Function
 				//仕様
 				//専用で設定されたポインターを判定する
 				template<class ...T_Parts,class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-					requires ((std::is_pointer_v<typename T_Method_Point::next_t>) &&
+					requires ((std::is_pointer_v<std::remove_reference_t<typename T_Method_Point::next_t>>) &&
 					(not_same_as<typename  Function_Core<T_Parts...>::request_pointer, typename T_Dedicated_Point_Check::request_pointer>))
 				struct S_Pointer_Chack<Function_Core<T_Parts...>,T_Dedicated_Point_Check, T_Commond_Point_Check>
 				{
@@ -122,7 +122,7 @@ namespace N_Function
 				//仕様
 				//共通で設定されたポインターを判定する
 					template<class ...T_Parts, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-						requires ((std::is_pointer_v<front_t>) &&
+						requires ((std::is_pointer_v<std::remove_reference_t<front_t>>) &&
 					((is_invalid<typename T_Dedicated_Point_Check::function>) ||
 					 (same_as<typename  Function_Core<T_Parts...>::request_pointer, typename T_Dedicated_Point_Check::request_pointer>)) &&
 				 (not_same_as<typename Function_Core<T_Parts...>::request_pointer, typename T_Commond_Point_Check::request_pointer>))
