@@ -31,10 +31,10 @@ namespace N_Tuple
 			using type = T_Base_Tuple;
 		};
 
-		template<class T_Base_Head, class T, class ...T_Tail_Types,class T_Insert_Flont_Type, class ...T_Insert_Types>
-		struct S_Insert_Tuple_Expand<tuple_tp<T_Base_Head, T, tuple_t<T_Tail_Types...>>,tuple_t<T_Insert_Flont_Type,T_Insert_Types...>>
+		template<class T_Base_Head, class T, class ...T_Tail_Types,class T_Insert_Front_Type, class ...T_Insert_Types>
+		struct S_Insert_Tuple_Expand<tuple_tp<T_Base_Head, T, tuple_t<T_Tail_Types...>>,tuple_t<T_Insert_Front_Type,T_Insert_Types...>>
 		{
-			using type = tuple_tp<T_Base_Head, T_Insert_Flont_Type,
+			using type = tuple_tp<T_Base_Head, T_Insert_Front_Type,
 				U_if_t1<tuple_t<T_Insert_Types...,T, T_Tail_Types...>, tuple_t<T_Insert_Types...,T_Tail_Types...>, not_is_invalid<T>>>;
 		};
 

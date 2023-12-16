@@ -212,15 +212,21 @@ public:
 template<class ...T>
 void A(T&&... t)
 {
-	Function fn(std::forward<T>(t)...);
+	//Function fn(std::forward<T>(t)...);
 
-	fn(3);
+	//fn(3);
 
 	//type_id(tu);
 	//type_id(t);
 }
 
-
+template<class T>
+void B(T&& t)
+{
+	
+	//type_id(tu);
+	type_id(t);
+}
 
 int main()
 {
@@ -230,21 +236,46 @@ int main()
 	std::get<0>(tu) = 10;
 	C_OUT(n);
 
-	Function fn_test(H::Static_Args_3,3);
+	//Function fnp_test(&H::Static_Args_5,5);
+	//Function fnp_test2(&fnp_test,4);
+	//Function fnp_test3(&fnp_test2,3);
+	//Function fnp_test4(&fnp_test3,2);
+	
+	//fnp_test4(1);
+	//5SIZE_OF(fnp_test4);
 
-	Function fn_test1(fn_test,2,fn_test);
+
+	Function fnr_test(&H::Static_Args_5, 5);
+	Function fnr_test2(fnr_test, 4);
+	Function fnr_test3(fnr_test2, 3);
+	Function fnr_test4(fnr_test3, 2,fnr_test,44);
+
+	SIZE_OF(fnr_test4);
+
+
+	//using T = decltype(fn_test2)::o_type;
+	//TYPE_ID(T);
+	//fn_test3()
+	//SIZE_OF(fn_test4);
+	//fn_test2(3, 2, 1);
+	
+
+
+	//Function fn_test1(fn_test,2,fn_test);
 	
 	//Function fn_test2(fn_test,6);
 
 	//Function fn_test3(fn_test1,fn_test2,10);
-	Function fn_test2(fn_test1,999);
+	//Function fn_test2(fn_test1,999);
 
-	fn_test2;
+	//B(fn_test1, 2);
 
-	using TTTT = decltype(fn_test2)::o_type;
+	//fn_test2;
+
+	//using TTTT = decltype(fn_test2)::o_type;
 		// N_Function::Function_Core<decltype(fn_test1), int>::request_args;
 
-	TYPE_ID(TTTT);
+	//TYPE_ID(TTTT);
 
 	//fn_test4(3);
 	

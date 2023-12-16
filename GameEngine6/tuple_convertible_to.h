@@ -50,7 +50,7 @@ public:
 
 	//仕様
 	//tuple型の要素の前方が変換可能か判定する
-	using FlontPart = S_tuple_convertible_to<std::tuple_size<T_Flom>::value>::Type;
+	using FrontPart = S_tuple_convertible_to<std::tuple_size<T_Flom>::value>::Type;
 	
 	//仕様
 	//tuple型の要素の後方が変換可能か判定する
@@ -67,7 +67,7 @@ public:
 	template<>
 	struct S_Type<1>
 	{
-		using Type = FlontPart;
+		using Type = FrontPart;
 	};
 	template<>
 	struct S_Type<2>
@@ -94,7 +94,7 @@ concept tuple_convertible_to = std::same_as<std::true_type,typename IS_tuple_con
 //T_Flom::判定するtuple型
 //T_To::ベースのtuple型
 template<class _Flom, class _To>
-concept tuple_flont_part_convertible_to = std::same_as<std::true_type,typename IS_tuple_convertible_to<_Flom, _To>::FlontPart>;
+concept tuple_front_part_convertible_to = std::same_as<std::true_type,typename IS_tuple_convertible_to<_Flom, _To>::FrontPart>;
 
 //仕様
 //tuple型の要素の後方部分が変換可能か判定する

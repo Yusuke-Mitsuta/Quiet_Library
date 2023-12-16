@@ -3,7 +3,7 @@
 #include"Tuple.h"
 #include"Concept.h"
 
-template<not_is_invalid T_Flont_Parts, class ...T_Parts>
+template<not_is_invalid T_Front_Parts, class ...T_Parts>
 class Function;
 
 namespace N_Function
@@ -38,8 +38,15 @@ namespace N_Function
 
 		//仕様
 		//共通で使用するポインターの型をセットする
+		//
+		//補足
+		//[T_Dedicated_Point]が[Function]の場合はスキップする
 		template<class T_Dedicated_Point, class ...T_Fn_Parts>
-			requires (std::is_class_v<T_Dedicated_Point>)
+			requires requires
+		{
+			requires std::is_class_v<T_Dedicated_Point>;
+			requires !same_as_template_type<T_Dedicated_Point, Function>;
+		}
 		struct S_Function_Data<T_Dedicated_Point*, T_Fn_Parts...> :
 			S_Function_Data<T_Fn_Parts...>
 		{
@@ -96,6 +103,14 @@ namespace N_Function
 		// 再度、functionの判定を行う
 		template<class ...T_Parts>
 		struct S_Function_Data<Function<T_Parts...>*> :
+			S_Function_Data<Function<T_Parts...>>
+		{};
+
+		//仕様
+		//[Function]の参照を外し、
+		// 再度、functionの判定を行う
+		template<class ...T_Parts>
+		struct S_Function_Data<Function<T_Parts...>&> :
 			S_Function_Data<Function<T_Parts...>>
 		{};
 

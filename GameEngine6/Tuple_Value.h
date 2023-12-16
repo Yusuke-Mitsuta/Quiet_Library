@@ -26,9 +26,9 @@ struct tuple_v :
 	
 };
 
-template<auto t_Flont_Value, auto ..._Value>
-struct tuple_v<t_Flont_Value, _Value...> :
-	N_Tuple::Control_vp<tuple_v<>, t_Flont_Value, tuple_v<_Value...>>
+template<auto t_Front_Value, auto ..._Value>
+struct tuple_v<t_Front_Value, _Value...> :
+	N_Tuple::Control_vp<tuple_v<>, t_Front_Value, tuple_v<_Value...>>
 {
 
 };

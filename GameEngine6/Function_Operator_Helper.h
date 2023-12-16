@@ -129,9 +129,9 @@ namespace N_Function
 		template<
 			size_t ...t_access_number,
 			class ...T_access_number,
-			class T_Flont_request_pointer,
+			class T_Front_request_pointer,
 			class ...T_request_pointer,
-			class T_Flont_request_args,
+			class T_Front_request_args,
 			class ...T_request_args >
 			requires requires
 		{
@@ -139,8 +139,8 @@ namespace N_Function
 		}
 		struct S_Function_Operator_Helper<
 			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
-			tuple_t<T_Flont_request_pointer, T_request_pointer...>,
-			tuple_t<T_Flont_request_args, T_request_args...>>
+			tuple_t<T_Front_request_pointer, T_request_pointer...>,
+			tuple_t<T_Front_request_args, T_request_args...>>
 		{
 
 			using next = S_Function_Operator_Helper<
@@ -150,8 +150,8 @@ namespace N_Function
 
 			using type = S_Function_Operator_Helper_Core<
 				tuple_v<t_access_number...>,
-				T_Flont_request_pointer, T_Flont_request_args,
-				N_Tuple::U_index_sequence<T_Flont_request_args::head_size + not_is_invalid<typename T_Flont_request_args::type>>,
+				T_Front_request_pointer, T_Front_request_args,
+				N_Tuple::U_index_sequence<T_Front_request_args::head_size + not_is_invalid<typename T_Front_request_args::type>>,
 				next>;
 		};
 

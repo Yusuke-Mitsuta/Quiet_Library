@@ -23,6 +23,9 @@ void Hoge() \
 C_OUT(Name) \
 } \
 
+#define SIZE_OF(className) \
+C_OUT(sizeof(className));\
+
 #define TYPE_ID(className) \
 C_OUT(Type_id_delete_head_class_struct(Type_id_change_String(typeid(className).name()))); \
 

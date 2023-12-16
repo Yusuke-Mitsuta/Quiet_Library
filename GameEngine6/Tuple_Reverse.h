@@ -18,10 +18,10 @@ namespace N_Tuple
 			using type = T_Result;
 		};
 
-		template<class T_Flont_Type,class ...T_Types,template<class...>class T_Outer, class ...T_Result_Types>
-		struct S_Reverse<tuple_t<T_Flont_Type,T_Types...>,T_Outer<T_Result_Types...>>
+		template<class T_Front_Type,class ...T_Types,template<class...>class T_Outer, class ...T_Result_Types>
+		struct S_Reverse<tuple_t<T_Front_Type,T_Types...>,T_Outer<T_Result_Types...>>
 		{
-			using type = S_Reverse<tuple_t<T_Types...>, T_Outer<T_Flont_Type, T_Result_Types...>>::type;
+			using type = S_Reverse<tuple_t<T_Types...>, T_Outer<T_Front_Type, T_Result_Types...>>::type;
 		};
 
 		template<class ...T_Head_Types, class T, class ...T_Tail_Types,class T_Result>

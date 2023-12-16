@@ -14,16 +14,16 @@ struct select_type
 		using type = invalid_t;
 	};
 
-	template<class T_Flont_Chack_T,class ...T_Chack_Ts>
-		requires (is<T_Flont_Chack_T>::value)
-	struct S_select_type<T_Flont_Chack_T, T_Chack_Ts...>
+	template<class T_Front_Chack_T,class ...T_Chack_Ts>
+		requires (is<T_Front_Chack_T>::value)
+	struct S_select_type<T_Front_Chack_T, T_Chack_Ts...>
 	{
-		using type= T_Flont_Chack_T;
+		using type= T_Front_Chack_T;
 	};
 
-	template<class T_Flont_Chack_T,class ...T_Chack_Ts>
-		requires (!is<T_Flont_Chack_T>::value)
-	struct S_select_type<T_Flont_Chack_T,T_Chack_Ts...>
+	template<class T_Front_Chack_T,class ...T_Chack_Ts>
+		requires (!is<T_Front_Chack_T>::value)
+	struct S_select_type<T_Front_Chack_T,T_Chack_Ts...>
 	{
 		using type = S_select_type<T_Chack_Ts...>::type;
 	};

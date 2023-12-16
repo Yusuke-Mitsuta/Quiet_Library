@@ -33,7 +33,7 @@ namespace N_Function
 	{
 	private:
 		
-		using flont_t = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
+		using front_t = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
 
 		template<class T_Tuple, class T_method = typename Function_Core<typename T_Tuple::type>::function>
 		struct S_Method_Search
@@ -97,7 +97,7 @@ namespace N_Function
 				//[T_Method_Check]:指定された引数の型を受け取るか判定する
 				template<class T_Function = Function_Data<chack_Data<T_Method_Point>>,
 					class T_Dedicated_Point_Check = Function_Data<chack_Data<typename T_Method_Point::next>>,
-					class T_Commond_Point_Check = Function_Data<N_Tuple::U_Insert<chack_Data<T_Method_Point>, flont_t, 0>>>
+					class T_Commond_Point_Check = Function_Data<N_Tuple::U_Insert<chack_Data<T_Method_Point>, front_t, 0>>>
 				struct S_Pointer_Chack
 				{
 					using type = 
@@ -122,7 +122,7 @@ namespace N_Function
 				//仕様
 				//共通で設定されたポインターを判定する
 					template<class ...T_Parts, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-						requires ((std::is_pointer_v<flont_t>) &&
+						requires ((std::is_pointer_v<front_t>) &&
 					((is_invalid<typename T_Dedicated_Point_Check::function>) ||
 					 (same_as<typename  Function_Core<T_Parts...>::request_pointer, typename T_Dedicated_Point_Check::request_pointer>)) &&
 				 (not_same_as<typename Function_Core<T_Parts...>::request_pointer, typename T_Commond_Point_Check::request_pointer>))
@@ -210,7 +210,7 @@ namespace N_Function
 
 		//仕様
 		//纏め作業が成功すれば、[T_Fn_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
-		using judge = U_Judge_t<flont_t, not_is_invalid<type>>;
+		using judge = U_Judge_t<front_t, not_is_invalid<type>>;
 	};
 
 

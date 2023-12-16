@@ -24,11 +24,11 @@ namespace N_Tuple
 				tuple_t< T_Base_Tail_Types..., T_Merge_Types...>>;
 		};
 
-		template<class T_Base_Head,class T_Merge_Flont_Type, class ...T_Merge_Types>
+		template<class T_Base_Head,class T_Merge_Front_Type, class ...T_Merge_Types>
 		struct S_Merge_Tuple_Expand<tuple_tp<T_Base_Head, invalid_t, tuple_t<>>,
-			tuple_t<T_Merge_Flont_Type,T_Merge_Types...>>
+			tuple_t<T_Merge_Front_Type,T_Merge_Types...>>
 		{
-			using type = tuple_tp<T_Base_Head,T_Merge_Flont_Type,tuple_t<T_Merge_Types...>>;
+			using type = tuple_tp<T_Base_Head,T_Merge_Front_Type,tuple_t<T_Merge_Types...>>;
 		};
 
 		template<class T_Base_Tuple>

@@ -17,10 +17,10 @@ namespace N_Tuple
 			using type = T_Tuple;
 		};
 
-		template<class T_Flont_Type,class ...T_Types>
-		struct S_Create_Pointer<tuple_t<T_Flont_Type,T_Types...>>
+		template<class T_Front_Type,class ...T_Types>
+		struct S_Create_Pointer<tuple_t<T_Front_Type,T_Types...>>
 		{
-			using type= tuple_tp<tuple_t<>,T_Flont_Type, tuple_t<T_Types...>>;
+			using type= tuple_tp<tuple_t<>,T_Front_Type, tuple_t<T_Types...>>;
 		};
 
 		template<>
@@ -29,10 +29,10 @@ namespace N_Tuple
 			using type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
 		};
 
-		template<auto t_Flont_value, auto ...t_value>
-		struct S_Create_Pointer<tuple_v<t_Flont_value,t_value...>>
+		template<auto t_Front_value, auto ...t_value>
+		struct S_Create_Pointer<tuple_v<t_Front_value,t_value...>>
 		{
-			using type = tuple_vp<tuple_v<>,t_Flont_value, tuple_v<t_value...>>;
+			using type = tuple_vp<tuple_v<>,t_Front_value, tuple_v<t_value...>>;
 		};
 
 		template<>

@@ -19,7 +19,7 @@ namespace N_Tuple
 		//仕様
 		//目的ポイントまで距離[t_Point]が
 		//	[+]であれば[Type::Next],
-		//	[-]であれば[Type::Flont]
+		//	[-]であれば[Type::Front]
 		//	[0]であれば移動完了となる
 		template<int t_Point, class T_Tuple_t>
 		struct Select_Core
@@ -34,11 +34,11 @@ namespace N_Tuple
 			using type = Select_Core<t_Point - 1,U_Next<tuple_tp<tuple_t< T_Head_Types...>, T, tuple_t<T_Tail_Types...>>>>::type;
 		};
 
-		template<int t_Point, class T_Head_Flont_Type, class ...T_Head_Types, class T, class ...T_Tail_Types>
+		template<int t_Point, class T_Head_Front_Type, class ...T_Head_Types, class T, class ...T_Tail_Types>
 			requires(t_Point < 0)
-		struct Select_Core<t_Point, tuple_tp<tuple_t<T_Head_Flont_Type, T_Head_Types...>, T, tuple_t<T_Tail_Types...>>>
+		struct Select_Core<t_Point, tuple_tp<tuple_t<T_Head_Front_Type, T_Head_Types...>, T, tuple_t<T_Tail_Types...>>>
 		{
-			using type = Select_Core<t_Point + sizeof...(T_Head_Types) + 1, tuple_tp<tuple_t<>, T_Head_Flont_Type, tuple_t<T_Head_Types..., T, T_Tail_Types...>>>::type;
+			using type = Select_Core<t_Point + sizeof...(T_Head_Types) + 1, tuple_tp<tuple_t<>, T_Head_Front_Type, tuple_t<T_Head_Types..., T, T_Tail_Types...>>>::type;
 		};
 
 
