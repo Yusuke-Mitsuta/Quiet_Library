@@ -133,7 +133,7 @@ namespace N_Constexpr::N_Array
 
 		//仕様
 		//クラス[Array]のに対して、[U,V...]の要素で構築した時の結果にアクセスする
-		using Type = Calcu<t_Initial_Capacity, GetState<U, V...>(), U, V..., std::nullopt_t>::Type;
+		using Type = Calcu<t_Initial_Capacity, GetState<U, V...>(), U, V..., invalid_t>::Type;
 
 	public:
 

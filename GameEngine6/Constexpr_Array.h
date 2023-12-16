@@ -6,7 +6,6 @@
 #include"Using_Type.h"
 #include"Array_Capacity.h"
 
-
 namespace N_Constexpr::N_Array
 {
 
@@ -114,6 +113,7 @@ namespace N_Constexpr::N_Array
 		}
 		
 	};
+
 	//仕様
 	//次に[_1]を選択すると要素数を超えてしまうとき、[_1]を選択肢から外す
 	template<class T, Size_Type t_Size, short t_Two_index, Size_Type t_SelectNum>
@@ -172,7 +172,7 @@ namespace N_Constexpr
 
 
 		template<Size_Type t_Number, class U, class ...V>
-		constexpr void Set(std::nullopt_t nullopt, V ...v) {}
+		constexpr void Set(invalid_t nullopt, V ...v) {}
 
 	public:
 		//仕様
@@ -277,7 +277,7 @@ namespace N_Constexpr
 	}
 	inline constexpr Array<T, t_Size>::Array(U u, V ...v)
 	{
-		Set<0, U, V...>(u, v..., std::nullopt);
+		Set<0, U, V...>(u, v..., invalid);
 	}
 
 }

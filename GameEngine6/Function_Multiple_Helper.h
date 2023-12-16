@@ -1,139 +1,217 @@
 #pragma once
-#include"tuple_convertible_to.h"
-#include"Tuple_Unzip.h"
-#include"Parameter.h"
-#include"SwapType.h"
 
-#define FUNCTION_MULTIPLE(Variable,...)\
-S_MoveTupleInnerType<FunctionMultiple,decltype(std::tuple(__VA_ARGS__))>::Type Variable = { __VA_ARGS__ };\
+#include"Tuple.h"
+#include"SwapType.h"
+#include"Select_Type.h"
 
 namespace N_Function
 {
-
-	template<class T_Method, class ...T_Args>
-	struct S_MethodData;
-
-	template<not_same_as<std::nullopt_t> T_Method, class ...TP_Args>
-	class Function_Single;
-
-
+	template<class ...T_Parts>
+	struct Function_Core;
+	
 	//仕様
-	//関数ポインターに対して、引数の値が正しいか、後方一致で判定する
+	//関数に対して、次の関数オブジェクトが出てくるまでの間の型が引数の型と互換性があるか判定する
+	//メソッドに対しては、上記に加え、メソッドの前の型がポインターの型と互換性があるか判定し、
+	//	失敗すれば、テンプレートの先頭の型がポインターの型と互換性があるか判定する
+	//この操作を繰り返し、全て成功すれば、[Function_Core]事に纏められた後、[tuple_t]に纏められる。
 	//
 	//テンプレート
-	//TP_Fns::関数ポインター、指定する引数、のTuple
-	//
+	//[T_Fn_Parts...]:
+	//	メソッドに使用する共通のポインターの型(省略可能)
+	//	関数オブジェクトの型
+	//	それに対する引数の型(並びの一番後ろの型が、関数の引数型の一番後ろと判定される)
+	//	次のメソッドに対する専用のポインターの型(次にメソッドを使用する場合)
+	//	関数オブジェクトの型
+	// と続く
+	// 
 	//補足
-	//T_Fn_Argsは関数ポインター、それに指定する引数、次の関数ポインター、となるようにする事
-	// //SetJudge::関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定する
-	//Fns::関数ポインターor[Function_Single]と、後ろに続く引数の型を[Function_Single]としてまとめ、その動作を[TP_Fns...]がなくなるまで繰り返す
-	template<class T_FlontFn, class ...TP_Fns>
-	struct IS_Function_Multiple_Helper
+	//関数に対する引数の型として関数の型を取る場合
+	//その間の型と引数の型に互換性があれば、引数として取ろうとしてる関数の型が次の関数として見なされる為、
+	//	単体の関数として処理をする事
+	template<class ...T_Fn_Parts>
+	struct I_Function_Multiple_Helper
 	{
 	private:
+		
+		using front_t = std::tuple_element_t<0, tuple_t<T_Fn_Parts...>>;
+
+		template<class T_Tuple, class T_method = typename Function_Core<typename T_Tuple::type>::function>
+		struct S_Method_Search
+		{
+			using type = T_Tuple;
+		};
+
+		template<class T_Tuple>
+		struct S_Method_Search<T_Tuple, invalid_t>
+		{
+			using type = S_Method_Search<typename T_Tuple::next>::type;
+		};
+
+		template<class T_Tuple>
+			requires is_invalid<typename T_Tuple::type>
+		struct S_Method_Search<T_Tuple, invalid_t>
+		{
+			using type = T_Tuple;
+		};
 
 
-		using Parameter = S_Parameter<T_FlontFn, TP_Fns...>;
+		template<class T_Tuple_Method_Bound,class T_Tuple_Access_Number>
+		struct S_Result;
 
-		template<int _Index>
-		using Element_t = U_Element_t< (Parameter::Size * 2 - _Index) % Parameter::Size, Parameter>;
+		template<class T_Tuple,
+			class T_Tuple_Method_Bound = tuple_t<>,
+			class T_Tuple_Access_Number = tuple_t<>>
+		struct S_Method_Bound
+		{
+
+
+			template<class T_Method_Point = typename S_Method_Search<T_Tuple>::type>
+			struct S_Method_Point
+			{
+
+				template<class T_Method_Point>
+				using chack_Data = typename
+					N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size - (T_Method_Point::head_size == T_Method_Point::size)>::reverse;
+
+				template<class T_Method_Point>
+				using access_numbers =
+					N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple::tail_size+1>;
+				
+				template<class T_Tuple,class T_Method,class T_access_numbers>
+				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,typename  T_Method::type>,
+					N_Tuple::U_Insert<T_Tuple_Access_Number,T_access_numbers>>::type;
+
+				template<class T_Tuple>
+				using Function_Data = 
+					typename N_Tuple::I_Expand_Set<Function_Core,T_Tuple>::type;
+
+
+				//仕様
+				//指定されたポインターをが必要か判定する。
+				// 
+				// テンプレート
+				//[T_Function]:引数がBindされた関数オブジェクト
+				//[T_Dedicated_Point_Check]:指定された引数の型と、関数の次に設定されているポインターを判定する
+				//[T_Commond_Point_Check]:指定された引数の型と、共通で設定されたポインターを判定する
+				//[T_Method_Check]:指定された引数の型を受け取るか判定する
+				template<class T_Function = Function_Data<chack_Data<T_Method_Point>>,
+					class T_Dedicated_Point_Check = Function_Data<chack_Data<typename T_Method_Point::next>>,
+					class T_Commond_Point_Check = Function_Data<N_Tuple::U_Insert<chack_Data<T_Method_Point>, front_t, 0>>>
+				struct S_Pointer_Chack
+				{
+					using type = 
+						Method_Bound<T_Method_Point,
+						T_Function, access_numbers<T_Method_Point>>;
+				};
+
+				//仕様
+				//専用で設定されたポインターを判定する
+				template<class ...T_Parts,class T_Dedicated_Point_Check, class T_Commond_Point_Check>
+					requires ((std::is_pointer_v<std::remove_reference_t<typename T_Method_Point::next_t>>) &&
+					(not_same_as<typename  Function_Core<T_Parts...>::request_pointer, typename T_Dedicated_Point_Check::request_pointer>))
+				struct S_Pointer_Chack<Function_Core<T_Parts...>,T_Dedicated_Point_Check, T_Commond_Point_Check>
+				{
+					using type =
+						Method_Bound<typename T_Method_Point::next,
+						T_Dedicated_Point_Check,
+						access_numbers<typename T_Method_Point::next>>;
+
+				};
+
+				//仕様
+				//共通で設定されたポインターを判定する
+					template<class ...T_Parts, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
+						requires ((std::is_pointer_v<std::remove_reference_t<front_t>>) &&
+					((is_invalid<typename T_Dedicated_Point_Check::function>) ||
+					 (same_as<typename  Function_Core<T_Parts...>::request_pointer, typename T_Dedicated_Point_Check::request_pointer>)) &&
+				 (not_same_as<typename Function_Core<T_Parts...>::request_pointer, typename T_Commond_Point_Check::request_pointer>))
+				struct S_Pointer_Chack<Function_Core<T_Parts...>, T_Dedicated_Point_Check ,T_Commond_Point_Check>
+				{
+					using type = Method_Bound<T_Method_Point,
+						T_Commond_Point_Check, 
+						access_numbers<T_Method_Point>>;
+				};
+
+				//仕様
+				//関数に対しては、指定された引数の型を受け取るか判定する
+				// 
+				// テンプレート
+				//[T_Function_Check]:指定された引数の型を受け取るか判定する
+				template<class T_Args_chack =typename Function_Data<chack_Data<T_Method_Point>>::request_args>
+				struct S_Callable_Check
+				{
+					using type = S_Pointer_Chack<>::type;
+				};
+
+
+				//仕様
+				//関数に対して、引数のが不一致な場合、次の関数を探索する
+				template<>
+				struct S_Callable_Check<invalid_t>
+				{
+					using type = S_Method_Point<typename S_Method_Search<typename T_Method_Point::next>::type>::type;
+				};
+
+
+				using type = S_Callable_Check<>::type;
+
+			};
+
+			//仕様
+			//関数に対して、引数の型が不一致であり、全ての探索が終わった場合
+			template<class T_Head>
+			struct S_Method_Point<tuple_tp<T_Head,invalid_t,tuple_t<>>>
+			{
+				using type = S_Result<invalid_t, invalid_t>;
+			};
+
+			using type = S_Method_Point<>::type;
+
+		};
 
 
 		//仕様
-		//[Element<t_Pointer_Number>]が[Element<t_Method_Number>]と互換性があるか判定する
-		//
-		//条件
-		//1:[Element<t_Pointer_Number>]がポインターである
-		//2:[Element<t_Method_Number>]がメンバー関数ポインターである
-		//3:[Element<t_Pointer_Number>]で[Element<t_Method_Number>]が呼び出せる事
-		template<int t_Pointer_Number, int t_Method_Number>
-		static constexpr bool p_Judge = is_pointer<Element_t<t_Pointer_Number>> &&
-			convertible_to<std::remove_pointer_t<Element_t<t_Pointer_Number>>, typename S_MethodData<Element_t<t_Method_Number>>::CName>&&
-			same_as<typename S_MethodData<Element_t<t_Method_Number>>::Root, std::true_type>;
-
+		//全ての型の探査が正常に終了した場合、結果を出力する
+		template<class T_Head,class T_Tail,class T_Fns, class T_Tuple_Access_Number>
+		struct S_Method_Bound<tuple_tp<T_Head,invalid_t,T_Tail>,T_Fns, T_Tuple_Access_Number>
+		{
+			using type = S_Result<T_Fns, T_Tuple_Access_Number>;
+		};
 
 		//仕様
-		//関数に対して、「後ろに続く引数の型、関数にバインド済みの引数の型」が関数に対する引数の型の後方部分と互換性があるか判定し、互換性があれば[Function_Single]にまとめる
+		//結果を返すクラス
 		//
 		//テンプレート
-		//t_SearchNumber::現在の探査中の要素番号
-		//...TP_BoundFns::[Function_Single]でまとめた型
-		template<int t_Search_Number = 1, class TP_BoundFns= S_Parameter<>,
-			bool t_Loop_Fg= static_cast<bool>(t_Search_Number % (Parameter::Size + 1))>
-		struct S_CorrectType;
-
-		template<int t_Search_Number , class ...TP_BoundFns>
-		struct S_CorrectType<t_Search_Number, S_Parameter<TP_BoundFns...>,true>
+		//[T_Tuple_Method_Bound]::[Function_Core]が纏められた[tuple_t]
+		//[T_Tuple_Access_Number]::纏められた関数オブジェクト一つに対して、使用した型の番号をが纏められた[tupel_t]
+		template<class T_Tuple_Method_Bound, class T_Tuple_Access_Number>
+		struct S_Result
 		{
-			//仕様
-			//関数ポインターに対して引数をセットする
-			template<int t_TP_Number=t_Search_Number, class TP_ArgsNumbers = S_Parameter_Value<>, bool t_Create_Fg =
-				not_same_as<typename S_MethodData<Element_t<t_TP_Number>>::Method, std::nullopt_t>>
-				struct S_Function_Single_Create;
+			using type = T_Tuple_Method_Bound;
 
-			template<int t_TP_Number, int ...tP_ArgsNumbers>
-			struct S_Function_Single_Create<t_TP_Number, S_Parameter_Value<tP_ArgsNumbers...>, false>
-			{
-				//仕様
-				//関数ポインターに対して引数をセットする
-				using Type = S_Function_Single_Create<t_TP_Number + 1, S_Parameter_Value<t_TP_Number, tP_ArgsNumbers...>>::Type;
-			};
-
-			template<int t_Method_Number, int ...tP_ArgsNumbers>
-			struct S_Function_Single_Create<t_Method_Number, S_Parameter_Value<tP_ArgsNumbers...>, true>
-			{
-				using MethodData = N_Function::S_MethodData<Element_t<t_Method_Number>>;
-				
-				//仕様
-				//引数が関数に対して、正しいか判定する
-				//
-				//条件
-				//1:引数の型が後方一致する事
-				//2_1:[Element<t_Method_Number>]がメンバー関数ポインター、かつ[Element<t_Method_Number+1>]がメンバー関数ポインターを呼び出せるクラス
-				//2_2:共通のポインター[Element<Parameter::Size>]で[Element<t_Method_Number>]が呼び出せる事
-				//2_3:既に構築済みの関数オブジェクトの場合
-				//2_4:クラスに所属しないメソッドの場合
-				static constexpr bool judge = tuple_back_part_convertible_to<typename IS_TupleUnzip<Element_t<tP_ArgsNumbers>..., typename MethodData::BoundArgs>::Type, typename MethodData::Args> && (
-					p_Judge<t_Method_Number + 1, t_Method_Number> ||
-					p_Judge<Parameter::Size, t_Method_Number> ||
-					same_as<typename MethodData::Root, std::false_type> ||
-					same_as<typename MethodData::CName, std::nullopt_t>);
-
-				//仕様
-				//先頭の共通のポインターを、先頭の要素が使用しない場合判定をスキップする為のフラグ
-				static constexpr bool first_Element_Not_Pointer = is_pointer<Element_t<t_Method_Number + 1>> && same_as<typename MethodData::Root, std::false_type> && (t_Method_Number == Parameter::Size - 1);
-
-				//仕様
-				//引数を精査し、ラッピングする
-				using Type = S_CorrectType<(t_Method_Number + 1 +
-					(p_Judge<t_Method_Number + 1, t_Method_Number> || first_Element_Not_Pointer))* judge,
-					S_Parameter<Function_Single<Element_t<t_Method_Number>, Element_t<tP_ArgsNumbers>...>, TP_BoundFns...>>::Type;
-			};
-
-			using Type = S_Function_Single_Create<>::Type;
+			using access_number = T_Tuple_Access_Number;
 
 		};
 
-		//仕様
-		//Functionに対してセットした引数の全てが成功した場合はその結果が、失敗すれば[std::nullopt_t]が返る
-		template<int t_Search_Number , class ...TP_BoundFns>
-		struct S_CorrectType<t_Search_Number, S_Parameter<TP_BoundFns...>,false>
-		{
-			using Type = S_CorrectType;
+		using start_tuple = typename tuple_t<T_Fn_Parts...>::reverse::front;
 
-			using Judge = U_Judge_t<T_FlontFn, t_Search_Number>;
-
-			using Fns = U_Judge_t<S_Parameter<TP_BoundFns...>, t_Search_Number>;
-		};
+		using result = S_Method_Bound<start_tuple>::type;
 
 	public:
 
-		using Type = S_CorrectType<>::Type;
+		//仕様
+		//[Function_Core]が纏められた[tuple_t]
+		using type = result::type;
 
-		using Judge = Type::Judge;
+		//仕様
+		//纏められた関数オブジェクト一つ一つに対応した、使用した型の番号をが纏められた[tupel_t]
+		using access_number = result::access_number;
 
-		using Fns = Type::Fns;
-
+		//仕様
+		//纏め作業が成功すれば、[T_Fn_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
+		using judge = U_Judge_t<front_t, not_is_invalid<type>>;
 	};
+
 
 }

@@ -15,23 +15,23 @@
 template<class ...T_Tuple>
 struct IS_TupleUnzip
 {
-	template<int t_Number,class T_Flont_Type, class ...T_Tuple>
+	template<int t_Number,class T_Front_Type, class ...T_Tuple>
 	struct S_TupleUnzip
 	{
-		using Type = S_TupleUnzip<t_Number+1,T_Tuple..., T_Flont_Type>::Type;
+		using Type = S_TupleUnzip<t_Number+1,T_Tuple..., T_Front_Type>::Type;
 
 		//d—l
-		//[flont]‚Ì’l‚ğ[set_Tuple]‚ÉŠi”[‚·‚é
+		//[front]‚Ì’l‚ğ[set_Tuple]‚ÉŠi”[‚·‚é
 		//
 		//ˆø”
 		//set_Tuple::•ª‰ğŒã‚Ì’l‚ğŠi”[‚·‚éTuple
-		//flont::Ši”[‚·‚é’l
+		//front::Ši”[‚·‚é’l
 		//tuple::“ñ‚Â–ÚˆÈ~‚Ì’l
-		template<class MT_FlontType,class ...MT_Tuple>
-		static constexpr void TupleUnzip(auto& set_Tuple, MT_FlontType& flont, MT_Tuple&... tuple)
+		template<class MT_FrontType,class ...MT_Tuple>
+		static constexpr void TupleUnzip(auto& set_Tuple, MT_FrontType& front, MT_Tuple&... tuple)
 		{
-			std::get<t_Number>(set_Tuple) = flont;
-			S_TupleUnzip<t_Number+1,T_Tuple..., T_Flont_Type>::TupleUnzip(set_Tuple,tuple...);
+			std::get<t_Number>(set_Tuple) = front;
+			S_TupleUnzip<t_Number+1,T_Tuple..., T_Front_Type>::TupleUnzip(set_Tuple,tuple...);
 		}
 	};
 
@@ -40,37 +40,37 @@ struct IS_TupleUnzip
 	{
 	private:
 		//d—l
-		//[flont_Tuple]‚Ì’l‚ğ•ª‰ğ‚µA[set_Tuple]‚ÉŠi”[‚·‚é
+		//[front_Tuple]‚Ì’l‚ğ•ª‰ğ‚µA[set_Tuple]‚ÉŠi”[‚·‚é
 		//
 		//ˆø”
 		//set_Tuple::•ª‰ğŒã‚Ì’l‚ğŠi”[‚·‚éTuple
-		//flont_Tuple::•ª‰ğ‚·‚étuple‚Ì’l
+		//front_Tuple::•ª‰ğ‚·‚étuple‚Ì’l
 		//tuple::“ñ‚Â–ÚˆÈ~‚Ì’l
-		template<size_t ...N, class MT_FlontType, class ...MT_Tuple>
-		static constexpr void TupleUnzip(auto& set_Tuple, std::integer_sequence<size_t, N...>, MT_FlontType& flont_Tuple, MT_Tuple&... tuple)
+		template<size_t ...N, class MT_FrontType, class ...MT_Tuple>
+		static constexpr void TupleUnzip(auto& set_Tuple, std::integer_sequence<size_t, N...>, MT_FrontType& front_Tuple, MT_Tuple&... tuple)
 		{
-			S_TupleUnzip<t_Number, T_TupleInside..., T_Tuple...>::TupleUnzip(set_Tuple, std::get<N>(flont_Tuple)..., tuple...);
+			S_TupleUnzip<t_Number, T_TupleInside..., T_Tuple...>::TupleUnzip(set_Tuple, std::get<N>(front_Tuple)..., tuple...);
 		}
 
 	public:
 		using Type = S_TupleUnzip<t_Number+1,T_TupleInside..., T_Tuple...>::Type;
 		
 		//d—l
-		//[flont_Tuple]‚Ì’l‚ğ•ª‰ğ€”õ‚·‚é
+		//[front_Tuple]‚Ì’l‚ğ•ª‰ğ€”õ‚·‚é
 		//
 		//ˆø”
 		//set_Tuple::•ª‰ğŒã‚Ì’l‚ğŠi”[‚·‚éTuple
-		//flont_Tuple::•ª‰ğ‚·‚étuple‚Ì’l
+		//front_Tuple::•ª‰ğ‚·‚étuple‚Ì’l
 		//tuple::“ñ‚Â–ÚˆÈ~‚Ì’l
-		template<class MT_FlontType, class ...MT_Tuple>
-		static constexpr void TupleUnzip(auto& set_Tuple, MT_FlontType& flont_Tuple, MT_Tuple&... tuple)
+		template<class MT_FrontType, class ...MT_Tuple>
+		static constexpr void TupleUnzip(auto& set_Tuple, MT_FrontType& front_Tuple, MT_Tuple&... tuple)
 		{
-			S_TupleUnzip<t_Number, std::tuple<T_TupleInside...>,T_Tuple...>::TupleUnzip(set_Tuple,std::make_index_sequence<sizeof...(T_TupleInside)>(),flont_Tuple,tuple...);
+			S_TupleUnzip<t_Number, std::tuple<T_TupleInside...>,T_Tuple...>::TupleUnzip(set_Tuple,std::make_index_sequence<sizeof...(T_TupleInside)>(),front_Tuple,tuple...);
 		}
 	};
 
 	template<int t_Number,class ...T_Tuple>
-	struct S_TupleUnzip<t_Number, std::nullopt_t, T_Tuple...>
+	struct S_TupleUnzip<t_Number, invalid_t, T_Tuple...>
 	{
 		//d—l
 		//[...T_Tuple]“à‚Ì‘S‚Ä‚ÌTuple‚ğ•ª‰ğ‚µA1‚Â‚ÌTuple‚ÉŠi”[‚µ‚½Œ^
@@ -83,7 +83,7 @@ struct IS_TupleUnzip
 public:
 	//d—l
 	//[...T_Tuple]“à‚Ì‘S‚Ä‚ÌTuple‚ğ•ª‰ğ‚µA1‚Â‚ÌTuple‚ÉŠi”[‚µ‚½Œ^
-	using Type = S_TupleUnzip<0,T_Tuple..., std::nullopt_t>::Type;
+	using Type = S_TupleUnzip<0,T_Tuple..., invalid_t>::Type;
 
 	//d—l
 	//•ª‰ğ‚µAŠi”[‚µ‚½Tuple‚Ì•Ï”‚ğæ“¾‚·‚é
@@ -100,7 +100,7 @@ private:
 	constexpr auto TupleUnzip(std::index_sequence<N...>, T_Tuple&... set_Tuple)
 	{
 		typename S_EnvelopOptional<Type>::Type optionalTuple;
-		S_TupleUnzip<0, T_Tuple..., std::nullopt_t>::TupleUnzip(optionalTuple, set_Tuple...);
+		S_TupleUnzip<0, T_Tuple..., invalid_t>::TupleUnzip(optionalTuple, set_Tuple...);
 		Type tuple(std::get<N>(optionalTuple).value()...);
 		return tuple;
 	}

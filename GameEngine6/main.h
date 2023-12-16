@@ -8,6 +8,10 @@
 
 constexpr std::string getLastPathComponent(std::string path);
 
+std::string Type_id_change_String(std::string path);
+
+std::string Type_id_delete_head_class_struct(std::string path);
+
 #define Constant static constexpr auto \
 
 #define C_OUT(message) \
@@ -19,8 +23,11 @@ void Hoge() \
 C_OUT(Name) \
 } \
 
+#define SIZE_OF(className) \
+C_OUT(sizeof(className));\
+
 #define TYPE_ID(className) \
-C_OUT(typeid(className).name()) \
+C_OUT(Type_id_delete_head_class_struct(Type_id_change_String(typeid(className).name()))); \
 
 #define type_id(className) \
 TYPE_ID(decltype(className))\
@@ -65,5 +72,14 @@ private:
 public:
 
 	int a = 1;
+
+};
+
+
+template<class t>
+class TEST
+{
+public:
+	using type = t;
 
 };
