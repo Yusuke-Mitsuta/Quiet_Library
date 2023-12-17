@@ -46,14 +46,15 @@ namespace N_Tuple
 	using U_Insert_tuple_expand = typename I_Insert<T_Base_Tuple, T_Insert_Tuple, t_Insert_Point>::tuple_expand;
 
 	//仕様
-	//[T_Base_Tuple]の後ろに[T_Merge]の要素を追加する
-	template<class T_Base_Tuple, class T_Merge>
-	using U_Merge = typename I_Merge<T_Base_Tuple, T_Merge>::type;
+	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
+	template<class T_Base_Tuple, class ...T_Add_Type>
+	using U_Merge = typename I_Merge<T_Base_Tuple, T_Add_Type...>::type;
 
 	//仕様
-	//[T_Base_Tuple]の後ろに[T_Merge]の要素を追加する
-	template<class T_Base_Tuple,is_Tuple T_Merge_Tuple>
-	using U_Merge_tuple_expand = typename I_Merge<T_Base_Tuple, T_Merge_Tuple>::tuple_expand;
+	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
+	//	[T_Add_type...]の中にtupleが含まれる場合、tupleを展開し、格納する
+	template<class T_Base_Tuple,class ...T_Add_Type>
+	using U_Merge_tuple_expand = typename I_Merge<T_Base_Tuple, T_Add_Type...>::tuple_expand;
 
 	//仕様
 	//[T_Tuple]の[t_Point_1]と[t_Point_2]の間の要素を取得する

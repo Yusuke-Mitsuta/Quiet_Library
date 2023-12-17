@@ -25,6 +25,7 @@
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
+    <ClInclude Include="Function_Operator_Sort.h" />
     <ClInclude Include="Function_Request_Core.h" />
     <ClInclude Include="Function_Operator.h" />
     <ClInclude Include="Function_Request_Args.h" />

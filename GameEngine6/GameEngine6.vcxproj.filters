@@ -165,9 +165,6 @@
     <ClInclude Include="Core_Base.h">
       <Filter>ヘッダー ファイル\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Tag.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>ヘッダー ファイル\Time</Filter>
     </ClInclude>
@@ -186,18 +183,6 @@
     <ClInclude Include="Message_Receive.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ClassFunction.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Single.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Multiple.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Method.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="tuple_convertible_to.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
@@ -210,14 +195,8 @@
     <ClInclude Include="SwapType.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Single_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Multiple_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Args.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Function_Multiple_Static_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
@@ -228,50 +207,11 @@
     <ClInclude Include="DBG_NEW.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Parameter.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Element.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Control.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Quick_Sort.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Value.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Change.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Insert.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Value_Index_Sequence.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Get.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Merge.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_convertible_to.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Expand.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Method_Core.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter_Range.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Function_Operator_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
@@ -366,20 +306,11 @@
     <ClInclude Include="Invalid.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_For.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="While_Type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Select_Type.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Method_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Method_Multiple.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Function_Base_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
@@ -393,28 +324,10 @@
     <ClInclude Include="Function_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Parts.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Parts_Pack.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Parts_Search.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Parts_Search_Inner.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Core.h">
       <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Request._Core.h">
-      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Request_Data.h">
-      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
     <ClInclude Include="Function_Single_Data.h">
@@ -428,6 +341,15 @@
     </ClInclude>
     <ClInclude Include="Function_Multiple_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Core.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator_Sort.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Elements_Action.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -506,17 +428,8 @@
     <ClCompile Include="Function_Single_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
-    <ClCompile Include="Function_Single_Static_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClCompile>
     <ClCompile Include="Function_Single_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Function_Multiple_Static.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Parameter_Remove.h">
-      <Filter>ヘッダー ファイル\Parameter</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Value.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
@@ -528,9 +441,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Declare.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClCompile>
-    <ClCompile Include="Tuple_Point.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Action.h">

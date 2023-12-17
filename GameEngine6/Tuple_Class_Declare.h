@@ -67,7 +67,7 @@ namespace N_Tuple
 	template<class T_Base_Tuple, class T_Insert_Tuple, size_t t_Insert_Point = S_Parameter<T_Base_Tuple>::Size_Head>
 	struct I_Insert;
 
-	template<class T_Base_Tuple, class T_Merge>
+	template<class T_Base_Tuple, class ...T_Add_Type>
 	struct I_Merge;
 
 	template<class T_Tuple_p, class T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::Size_Head>

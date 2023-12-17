@@ -10,8 +10,6 @@ struct Tuple_Element
 };
 
 
-template<class ...T_Parameters>
-struct S_Parameter;
 
 template<class T_Zip>
 struct S_Zip
