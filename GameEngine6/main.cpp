@@ -203,35 +203,56 @@ int main()
 {
 
 
-
-	Function fnp_test(h,&H::Args_5,5);
-
-	Function fnp_test2(&fnp_test,4);
-	Function fnp_test3(&fnp_test2,3);
-	Function fnp_test4(&fnp_test3,2);
+	Function fn_test0(h,&H::Args_7,7);
+	Function fn_test1(fn_test0,6);
+	Function fn_test2(fn_test1,5);
+	Function fn_test3(fn_test2,4);
+	Function fn_test4(fn_test3,3);
+	Function fn_test5(fn_test4,2);
+	Function fn_test6(fn_test5,1);
 	
-	//fnp_test3()
-	//5SIZE_OF(fnp_test4);
+	Function fn6(fn_test6, fn_test5, fn_test4, 3,3, fn_test3, fn_test2, fn_test1);
 
 
-	Function fnr_test(&H::Args_5, 5);
-	Function fnr_test2(fnr_test, 4);
-	Function fnr_test3(fnr_test2, 3);
-	Function fnr_test4(fnr_test3, 2,h,fnr_test,44,fnr_test3,3,2);
-	Function fnr_test5(fnr_test4,3);
+	//6, 4 , 2 , 0 , 1 , 3 , 5
+	// 
+	// 
+	// 
+	//0, 6 , 1 , 5 , 2 , 4 , 3
+	//
+	//0, 1 , 2 , 3 , 4 , 5 , 6
 
-	//fnr_test5()
-	//fnr_test5(h);
 
 
-	//A(h);
 
-	using T = N_Function::Function_Core<decltype(&H::Args_2),int>;
+	//0, 2 , 4 , 5 , 3 , 1
+	//
+	//0, 5 , 1 , 4 , 2 , 3
+	// 
+	TYPE_ID(decltype(fn6)::sort);
+	TYPE_ID(decltype(fn6)::data);
 
-		//N_Function::I_Function_Operator_Helper <H*, decltype(&H::Args_3)>::type;//decltype(fnp_test)::ot;
-		//N_Function::I_Function_Multiple_Helper<H*, decltype(&H::Args_2)>::type::type::request_pointer;
-	TYPE_ID(T);
-	//fn_test3()
+
+	Function fn7(fn6,999);
+
+	//Function fn6(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2, fn_test1);
+	//Function fn5(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2);
+	
+	//fn7()
+	//
+	//C_OUT('-');
+	//fn7(2,2);
+	//C_OUT('-');
+	//fn7(3, 3, 3, 3);
+	//C_OUT('-');
+	////fn7(4,4,4,4,4,4);
+	//C_OUT('-');
+	//fn7(5,5,5,5,5);
+	//C_OUT('-');
+	//fn7(6,6,6);
+	//C_OUT('-');
+	//fn7(7);
+//fn_test3()
 	//SIZE_OF(fn_test4);
 	//fn_test2(3, 2, 1);
 	

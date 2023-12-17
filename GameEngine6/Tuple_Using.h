@@ -53,7 +53,7 @@ namespace N_Tuple
 	//仕様
 	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
 	//	[T_Add_type...]の中にtupleが含まれる場合、tupleを展開し、格納する
-	template<class T_Base_Tuple, class ...T_Add_Type>
+	template<class T_Base_Tuple,class ...T_Add_Type>
 	using U_Merge_tuple_expand = typename I_Merge<T_Base_Tuple, T_Add_Type...>::tuple_expand;
 
 	//仕様

@@ -22,7 +22,8 @@ public:
 	}
 
 	using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
-	using ot = N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
+	//using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
+	//using data = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
 
 };
 

@@ -21,7 +21,10 @@ namespace N_Tuple
 		static constexpr size_t tail_size = S_Parameter<T_Tuple>::tail_size;
 
 		//要素数
-		static constexpr size_t size = S_Parameter<T_Tuple>::size;
+		static constexpr size_t size = S_Parameter<T_Tuple>::Size;
+
+		//現在選択している番号
+		static constexpr int select = S_Parameter<T_Tuple>::select;
 
 		//次の要素を選択する
 		using next = U_Next<T_Tuple>;

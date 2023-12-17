@@ -82,6 +82,7 @@ namespace N_Function
 			using type = 
 				S_Function_Operator_Helper;
 		};
+		
 
 		//d—l
 		//[T_Parts...]‚ÉŠÖ”‚ª1‚Â‚µ‚©‚È‚¢ê‡
