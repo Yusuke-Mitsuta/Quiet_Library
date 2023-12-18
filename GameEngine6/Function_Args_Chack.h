@@ -8,7 +8,7 @@ namespace N_Function
 
 
 	template<class T_Request_Args,class T_Bind_Args>
-	struct I_Function_Args_Chack2
+	struct I_Function_Args_Chack
 	{
 	private:
 
@@ -256,7 +256,7 @@ namespace N_Function
 
 
 	template<class T_Request_Args, class T_Bind_Args>
-	struct I_Function_Args_Chack
+	struct I_Function_Args_Chack2
 	{
 	private:
 
