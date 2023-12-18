@@ -13,15 +13,6 @@ namespace N_Function
 
 		};
 
-		template<class T_Request_Args>
-			requires requires
-		{
-			requires is_expand<typename T_Request_Args::type>;
-		}
-		struct S_Expand_Args
-		{
-			//using type = 
-		};
 
 
 		template<class T_Result, class T_Request_Args>
