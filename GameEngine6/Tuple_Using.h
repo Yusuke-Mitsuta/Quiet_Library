@@ -11,7 +11,7 @@ namespace N_Tuple
 
 	//最後の要素を選択する
 	template<class T_Tuple>
-	using U_Back = typename I_Select<static_cast<int>(S_Parameter<T_Tuple>::head_size) - 1, T_Tuple>::type;
+	using U_Back = typename I_Select<static_cast<int>(S_Parameter<T_Tuple>::size) - 1, T_Tuple>::type;
 
 	//次の要素を選択する
 	template<class T_Tuple>
@@ -42,7 +42,7 @@ namespace N_Tuple
 	//仕様
 	//[T_Base_Tuple]の選択中の箇所に[T_Insert_Tuple]の要素を追加する
 	//	[T_Add_type...]の中にtupleが含まれる場合、tupleを展開し、格納する
-	template<class T_Base_Tuple, class ...T_Add_Type>
+	template<class T_Base_Tuple,class ...T_Add_Type>
 	using U_Insert_tuple_expand = typename I_Insert<T_Base_Tuple, T_Add_Type...>::tuple_expand;
 
 	//仕様
@@ -157,7 +157,7 @@ namespace N_Tuple
 	template<template<class...>class TT_Action, class T_Tuple, class ...T_Extra>
 	using U_Elements_Action = I_Elements_Action<TT_Action, T_Tuple, T_Extra...>::type;
 
-
+	
 	//仕様
 	//[std::tuple_size],[std::tuple_element]が特殊化されている場合、
 	//	[T_Convert_Type]から[tuple_t]を生成する

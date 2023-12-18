@@ -42,11 +42,6 @@ namespace N_Tuple
 	template<class T_Tuple>
 	struct Control_p;
 
-	template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
-	struct Control_tp;
-
-	template<same_as_template_value<tuple_v> T_Head, auto _Value, same_as_template_value<tuple_v> T_Tail>
-	struct Control_vp;
 
 	template<class T_Tuple_t>
 	struct I_Next;
@@ -95,7 +90,7 @@ namespace N_Tuple
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple>
 	struct S_Action_Tuple;
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::head_size>
 	struct S_Action_Tuple_Helper;
 
 
@@ -155,7 +150,7 @@ namespace N_Tuple
 	// 
 	//•â‘«
 	//•Ï”‚É¸”s‚µ‚½ê‡A–¢ˆ—‚Ì[T_Tuple]‚ª‚»‚Ì‚Ü‚Ü•Ô‚³‚ê‚é
-	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
+	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
 
 	//d—l

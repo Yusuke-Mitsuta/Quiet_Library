@@ -196,22 +196,84 @@ void Hogege(int t) {}
 #include"Tuple_Value.h"
 #include"Size_T.h"
 #include"Tuple_index_sequence.h"
+#include"Vector.h"
 
 
+
+template<>
+struct S_Zipa<int>
+{
+	using type = float;
+};
+
+
+template<>
+struct S_Zipa<int,1>
+{
+	using type = double;
+};
+
+template<>
+struct S_Zipa<int, 2>
+{
+	using type = double;
+};
+
+template<>
+struct S_Zipa<int, 3>
+{
+	using type = double;
+};
+
+
+template<class T,bool a=true>
+struct TESTa
+{
+	using type = int;
+};
+
+template<class T>
+	requires requires
+{
+	std::tuple_size<T>::value;
+}
+struct TESTa<T,1>
+{
+	using type = float;
+};
+
+#include"Tuple_Convert.h"
+
+//using t = tuple_t<int, int, float>::back;
+//using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
+using FNTT = N_Function::Function_Core<decltype(&H::Static_Args_3), int>::request_args;
 
 int main()
 {
 
+	//TYPE_ID(t);
 
-	Function fn_test0(h,&H::Args_7,7);
-	Function fn_test1(fn_test0,6);
-	Function fn_test2(fn_test1,5);
-	Function fn_test3(fn_test2,4);
-	Function fn_test4(fn_test3,3);
-	Function fn_test5(fn_test4,2);
-	Function fn_test6(fn_test5,1);
+
+	//TYPE_ID(TESTa<tuple_t<>>::type);
 	
-	Function fn6(fn_test6, fn_test5, fn_test4, 3,3, fn_test3, fn_test2, fn_test1);
+	//Function fn_test0(&H::Static_Args_2,7);
+
+		//decltype(fn_test0)::data;
+
+	//TYPE_ID(FNT);
+	TYPE_ID(FNTT);
+
+	//Function fn_test1(fn_test0,6);
+
+	
+
+	//Function fn_test2(fn_test1,5);
+	//Function fn_test3(fn_test2,4);
+	//Function fn_test4(fn_test3,3);
+	//Function fn_test5(fn_test4,2);
+	//Function fn_test6(fn_test5,1);
+	//
+	//Function fn6(fn_test6, fn_test5, fn_test4, 3,3, fn_test3, fn_test2, fn_test1);
 
 
 	//6, 4 , 2 , 0 , 1 , 3 , 5
@@ -229,11 +291,11 @@ int main()
 	//
 	//0, 5 , 1 , 4 , 2 , 3
 	// 
-	TYPE_ID(decltype(fn6)::sort);
-	TYPE_ID(decltype(fn6)::data);
+	//TYPE_ID(decltype(fn6)::sort);
+	//TYPE_ID(decltype(fn6)::data);
 
 
-	Function fn7(fn6,999);
+	//Function fn7(fn6,999);
 
 	//Function fn6(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2, fn_test1);
 	//Function fn5(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2);

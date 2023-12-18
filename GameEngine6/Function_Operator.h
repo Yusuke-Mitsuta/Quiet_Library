@@ -19,6 +19,7 @@ namespace N_Function
 	struct I_Function_Operator
 	{
 	private:
+	public:
 		using function_operator_data = typename I_Function_Operator_Helper<T_Parts...>::type;
 		using function_operator_sort = typename I_Function_Operator_Sort<function_operator_data>::type;
 		template<class T_Operator_Parameter = function_operator_sort>

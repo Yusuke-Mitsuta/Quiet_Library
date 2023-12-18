@@ -32,11 +32,13 @@ namespace N_Tuple
 			using Tail_Reverse = typename S_Reverse<tuple_t<T_Tail_Types...>>::type;
 
 			using type = tuple_tp<Tail_Reverse, T, Head_Reverse>;
+
 		};
 
 	public:
 
 		using type = S_Action_Tuple_tp<S_Reverse, T_Tuple>::type;
+
 	};
 
 }

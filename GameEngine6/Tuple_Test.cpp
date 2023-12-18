@@ -63,7 +63,7 @@ void Tuple_Test()
 	//TYPE_ID(Tuple_Select<-1>);
 	//TYPE_ID(Tuple_Select<0>);
 	//TYPE_ID(Tuple_Select<1>);
-	TYPE_ID(Tuple_Select<2>);
+	//TYPE_ID(Tuple_Select<2>);
 	//TYPE_ID(Tuple_Select<3>);
 	//TYPE_ID(Tuple_Select<4>);
 	//TYPE_ID(Tuple_Select<5>);
@@ -89,20 +89,20 @@ void Tuple_Test()
 	//using remove_v = U_Remove_p <Tuple_vp5 > ;
 	//TYPE_ID(remove_v);
 
-	std::cout << std::endl;
+	//std::cout << std::endl;
 
-	using range = N_Tuple::U_Range<Tuple_tp5, 2, 4>;
-
-
-
-	TYPE_ID(range);
+	//using range = N_Tuple::U_Range<Tuple_tp5, 2, 4>;
 
 
-	std::cout << std::endl;
-	TYPE_ID(Tuple_Calculate<"+">::type);
-	TYPE_ID(Tuple_Calculate<"-">::type);
-	TYPE_ID(Tuple_Calculate<"*">::type);
-	TYPE_ID(Tuple_Calculate<"/">::type);
+
+	//TYPE_ID(range);
+
+
+	//std::cout << std::endl;
+	//TYPE_ID(Tuple_Calculate<"+">::type);
+	//TYPE_ID(Tuple_Calculate<"-">::type);
+	//TYPE_ID(Tuple_Calculate<"*">::type);
+	//TYPE_ID(Tuple_Calculate<"/">::type);
 
 	
 
@@ -114,7 +114,7 @@ void Tuple_Test()
 
 
 
-	std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
+	//std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
 	
 
 }

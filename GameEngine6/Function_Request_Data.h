@@ -45,7 +45,7 @@ namespace N_Function
 		template<class T_CName, class T_RType, class ...T_Args>
 		struct S_Function_Type<T_RType(T_CName::*)(T_Args...)>
 		{
-			using type = S_Request<Request_Core<typename tuple_t<T_Args...>::reverse,T_CName>>::type;
+			using type = S_Request<Request_Core<typename tuple_t<T_Args...>::back,T_CName>>::type;
 		};
 
 		//仕様
@@ -53,7 +53,7 @@ namespace N_Function
 		template< class T_RType, class ...T_Args>
 		struct S_Function_Type<T_RType(*)(T_Args...)>
 		{
-			using type = S_Request<Request_Core<typename tuple_t<T_Args...>::reverse,invalid_t>>::type;
+			using type = S_Request<Request_Core<typename tuple_t<T_Args...>::back,invalid_t>>::type;
 		};
 
 		//仕様

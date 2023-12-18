@@ -6,14 +6,14 @@
 
 template<not_is_invalid T_Front_Parts, class ...T_Parts>
 class Function 
-	:public N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
+	//:public N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
 {
 public:
 
 	template<class MT_Front_Parts, class ...MT_Parts>
 	constexpr Function(MT_Front_Parts&& front_parts, MT_Parts&&... fn_Parts) 
-		:N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
-		(std::forward<MT_Front_Parts>(front_parts),std::forward<MT_Parts>(fn_Parts)...)
+		//:N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
+		//(std::forward<MT_Front_Parts>(front_parts),std::forward<MT_Parts>(fn_Parts)...)
 	{}
 
 	constexpr Function* operator->()
@@ -21,9 +21,9 @@ public:
 		return this;
 	}
 
-	using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
-	//using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
-	//using data = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
+	//using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
+	using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
+	using data = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
 
 };
 

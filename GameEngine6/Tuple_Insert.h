@@ -18,15 +18,15 @@ namespace N_Tuple
 
 		template<class T_Base_Tuple,
 			class T_Add_Types_Tuple = tuple_t<T_Add_Type...>>
-			struct S_Insert
+		struct S_Insert
 		{
 			using type = T_Base_Tuple;
 		};
 
 		template<class T_Base_Head, class T, class ...T_Tail_Types,
-			class T_Front_Add_Type, class ...T_Add_Type>
+			class T_Front_Add_Type,class ...T_Add_Type>
 		struct S_Insert<tuple_tp<T_Base_Head, T, tuple_t<T_Tail_Types...>>,
-			tuple_t<T_Front_Add_Type, T_Add_Type...>>
+			tuple_t<T_Front_Add_Type,T_Add_Type...>>
 		{
 			using type = tuple_tp < T_Base_Head, T_Front_Add_Type,
 				tuple_t<T_Add_Type..., T, T_Tail_Types...>>;
@@ -52,8 +52,8 @@ namespace N_Tuple
 				U_Next<T_Add_Types_Tuple>>::type;
 		};
 
-		template<class T_Base_Tuple, class T_Add_Types_Tuple>
-		struct S_Insert_Tuple_Expand<T_Base_Tuple, T_Add_Types_Tuple, invalid_t>
+		template<class T_Base_Tuple,class T_Add_Types_Tuple>
+		struct S_Insert_Tuple_Expand<T_Base_Tuple,T_Add_Types_Tuple,invalid_t>
 		{
 			using type = T_Base_Tuple;
 		};

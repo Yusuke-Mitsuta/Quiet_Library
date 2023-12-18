@@ -85,6 +85,17 @@ concept is_invalid = same_as<_Ty1, invalid_t>;
 template <class _Ty1>
 concept not_is_invalid = !is_invalid<_Ty1>;
 
+template<class T,bool t_Fg=1>
+struct is_tuple_size_S :
+	std::false_type {};
+
+template<class T>
+struct is_tuple_size_S<T,1> :
+	std::true_type {};
+
+template<class T>
+concept is_tuple_size = is_tuple_size_S<T>::value;
+
 
 template <class _Ty1, class _Ty2>
 struct same_as_S
@@ -94,7 +105,7 @@ struct same_as_S
 
 template<class _Ty1,template<class...>class _Ty2>
 struct is_same_as_template_type :
-	std::bool_constant<false>{};
+	std::false_type {};
 
 template<template<class...>class _Ty1, class ..._Ty1_Types, template<class...>class _Ty2>
 	requires (std::is_class_v<_Ty1<_Ty1_Types...>>)
