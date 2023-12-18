@@ -58,6 +58,29 @@ namespace N_Tuple
 
 	};
 
+	template<class T_Return_type>
+	struct Control_p_invalid
+	{
+	private:
+		using r_type = T_Return_type;
+	public:
+
+		static constexpr size_t head_size = 0;
+		static constexpr size_t tail_size = 0;
+		static constexpr size_t size = 0;
+		static constexpr int select = -1;
+
+		using head = r_type;
+		using tail = r_type;
+
+		using next = r_type;
+		using prev = r_type;
+		using remove = r_type;
+		using front = r_type;
+		using back = r_type;
+		using reverse = r_type;
+	};
+
 	template<class ...T_Type>
 	struct Control_t :
 		Control_p<tuple_t<T_Type...>>
@@ -75,11 +98,26 @@ namespace N_Tuple
 		using type = Select_Tuple_t<Tuple_t>;
 
 		using next_t = Select_Tuple_t<U_Next<Tuple_t>>;
-		using prev_t = Select_Tuple_t<U_Prev<Tuple_t>>;
+		using prev_t = invalid_t;
 		using front_t = Select_Tuple_t<U_Front<Tuple_t>>;
 		using back_t = Select_Tuple_t<U_Back<Tuple_t>>;
 
 	};
+
+	struct Control_t_invalid
+	{
+		using type = invalid_t;
+		using next_t = invalid_t;
+		using prev_t = invalid_t;
+		using front_t = invalid_t;
+		using back_t = invalid_t;
+	};
+
+	template<>
+	struct Control_t<> :
+		Control_t_invalid,
+		Control_p_invalid<tuple_t<>>
+	{};
 
 	template<class T_Head,class T,class T_Tail>
 	struct Control_tp :
@@ -103,6 +141,42 @@ namespace N_Tuple
 
 	};
 
+	template<class T>
+	struct Control_tp<tuple_t<>,T,tuple_t<>> :
+		Control_p<tuple_tp<tuple_t<>, T, tuple_t<>>>
+	{
+	private:
+		using Tuple_tp = tuple_tp<tuple_t<>, T, tuple_t<>>;
+
+		template<class T_Select_Tuple_t>
+		using Select_Tuple_t = typename S_Parameter<T_Select_Tuple_t>::type;
+
+	public:
+
+		//‘I‘ð‚µ‚Ä‚¢‚é—v‘f‚ÌŒ^‚ð•Ô‚·
+		using type = Select_Tuple_t<Tuple_tp>;
+
+		using next_t = invalid_t;
+		using prev_t = invalid_t;
+		using front_t = T;
+		using back_t = T;
+
+	};
+
+	template<>
+	struct Control_tp<tuple_t<>, invalid_t, tuple_t<>> :
+		Control_t_invalid,
+		Control_p_invalid<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
+	{};
+
+	struct Control_v_invalid
+	{
+		static constexpr auto value = invalid;
+		static constexpr auto next_v = invalid;
+		static constexpr auto prev_v = invalid;
+		static constexpr auto front_v = invalid;
+		static constexpr auto back_v = invalid;
+	};
 
 	template<auto ...t_value>
 	struct Control_v :
@@ -118,11 +192,17 @@ namespace N_Tuple
 		static constexpr auto value = Select_Tuple_v<Tuple_v>;
 
 		static constexpr auto next_v = Select_Tuple_v<U_Next<Tuple_v>>;
-		static constexpr auto prev_v = Select_Tuple_v<U_Prev<Tuple_v>>;
+		static constexpr auto prev_v = invalid;
 		static constexpr auto front_v = Select_Tuple_v<U_Front<Tuple_v>>;
 		static constexpr auto back_v = Select_Tuple_v<U_Back<Tuple_v>>;
 
 	};
+
+	template<>
+	struct Control_v<> :
+		Control_v_invalid,
+		Control_p_invalid<tuple_v<>>
+	{};
 
 	template<class T_Head,auto t_value,class T_Tail>
 	struct Control_vp :
@@ -145,43 +225,11 @@ namespace N_Tuple
 	};
 
 
-
 	template<>
-	struct Control_p<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
-	{
-	private:
-		using r_type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
-	public:
-
-		static constexpr size_t head_size = 0;
-		static constexpr size_t tail_size = 0;
-		static constexpr size_t size = 0;
-
-		using next = r_type;
-		using prev = r_type;
-		using remove = r_type;
-		using front = r_type;
-		using back = r_type;
-		using reverse = r_type;
-	};
-
-	template<>
-	struct Control_p<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
-	{
-	private:
-		using r_type = tuple_vp<tuple_v<>, invalid, tuple_v<>>;
-	public:
-		static constexpr size_t head_size = 0;
-		static constexpr size_t tail_size = 0;
-		static constexpr size_t size = 0;
-
-		using next = r_type;
-		using prev = r_type;
-		using remove = r_type;
-		using front = r_type;
-		using back = r_type;
-		using reverse = r_type;
-	};
+	struct Control_vp<tuple_v<>,invalid,tuple_v<>> :
+		Control_v_invalid,
+		Control_p_invalid<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
+	{};
 
 
 
