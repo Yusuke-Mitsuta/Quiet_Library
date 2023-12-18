@@ -244,14 +244,14 @@ struct TESTa<T,1>
 
 #include"Tuple_Convert.h"
 
-//using t = tuple_t<int, int, float>::back;
-//using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
+using t = tuple_t<>;
+using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
 using FNTT = N_Function::Function_Core<decltype(&H::Static_Args_3), int>::request_args;
 
 int main()
 {
 
-	//TYPE_ID(t);
+	TYPE_ID(t);
 
 
 	//TYPE_ID(TESTa<tuple_t<>>::type);
@@ -261,7 +261,7 @@ int main()
 		//decltype(fn_test0)::data;
 
 	//TYPE_ID(FNT);
-	TYPE_ID(FNTT);
+	//TYPE_ID(FNTT);
 
 	//Function fn_test1(fn_test0,6);
 
