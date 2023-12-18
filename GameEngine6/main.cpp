@@ -219,13 +219,14 @@ int main()
 	Function fnr_test4(fnr_test3, 2,h,fnr_test,44,fnr_test3,3,2);
 	Function fnr_test5(fnr_test4,3);
 
-	//fnr_test5()
+	fnr_test5(h);
 	//fnr_test5(h);
 
 
 	//A(h);
 
-	using T = decltype(fnp_test)::ot;
+	using T = N_Function::Function_Core<decltype(&H::Args_2),int>;
+
 		//N_Function::I_Function_Operator_Helper <H*, decltype(&H::Args_3)>::type;//decltype(fnp_test)::ot;
 		//N_Function::I_Function_Multiple_Helper<H*, decltype(&H::Args_2)>::type::type::request_pointer;
 	TYPE_ID(T);

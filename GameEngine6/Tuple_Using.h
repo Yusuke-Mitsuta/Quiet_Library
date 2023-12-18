@@ -12,7 +12,7 @@ namespace N_Tuple
 
 	//最後の要素を選択する
 	template<class T_Tuple>
-	using U_Back = typename I_Select<static_cast<int>(S_Parameter<T_Tuple>::Size) - 1, T_Tuple>::type;
+	using U_Back = typename I_Select<static_cast<int>(S_Parameter<T_Tuple>::Size_Head) - 1, T_Tuple>::type;
 
 	//次の要素を選択する
 	template<class T_Tuple>
@@ -23,10 +23,10 @@ namespace N_Tuple
 	using U_Prev = typename I_Prev<T_Tuple>::type;
 
 	//指定した番号の要素を選択する
-	template<int t_Select_Point,class T_Tuple>
+	template<int t_Select_Point, class T_Tuple>
 	using U_Select = typename I_Select<t_Select_Point, T_Tuple>::type;
 
-	//[Type]の並び順を反転させる
+	//[type]の並び順を反転させる
 	template<class T_Tuple>
 	using U_Reverse = typename I_Reverse<T_Tuple>::type;
 
@@ -37,23 +37,25 @@ namespace N_Tuple
 
 	//仕様
 	//[T_Base_Tuple]の選択中の箇所に[T_Insert_Tuple]の要素を追加する
-	template<class T_Base_Tuple, class T_Insert_Tuple,size_t t_Insert_Point = S_Parameter<T_Base_Tuple>::Size_Head>
-	using U_Insert = typename I_Insert<T_Base_Tuple, T_Insert_Tuple, t_Insert_Point>::type;
+	template<class T_Base_Tuple, class ...T_Add_Typee>
+	using U_Insert = typename I_Insert<T_Base_Tuple, T_Add_Typee...>::type;
 
 	//仕様
 	//[T_Base_Tuple]の選択中の箇所に[T_Insert_Tuple]の要素を追加する
-	template<class T_Base_Tuple,is_Tuple T_Insert_Tuple, size_t t_Insert_Point = S_Parameter<T_Base_Tuple>::Size_Head>
-	using U_Insert_tuple_expand = typename I_Insert<T_Base_Tuple, T_Insert_Tuple, t_Insert_Point>::tuple_expand;
+	//	[T_Add_type...]の中にtupleが含まれる場合、tupleを展開し、格納する
+	template<class T_Base_Tuple, class ...T_Add_Type>
+	using U_Insert_tuple_expand = typename I_Insert<T_Base_Tuple, T_Add_Type...>::tuple_expand;
 
 	//仕様
-	//[T_Base_Tuple]の後ろに[T_Merge]の要素を追加する
-	template<class T_Base_Tuple, class T_Merge>
-	using U_Merge = typename I_Merge<T_Base_Tuple, T_Merge>::type;
+	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
+	template<class T_Base_Tuple, class ...T_Add_Type>
+	using U_Merge = typename I_Merge<T_Base_Tuple, T_Add_Type...>::type;
 
 	//仕様
-	//[T_Base_Tuple]の後ろに[T_Merge]の要素を追加する
-	template<class T_Base_Tuple,is_Tuple T_Merge_Tuple>
-	using U_Merge_tuple_expand = typename I_Merge<T_Base_Tuple, T_Merge_Tuple>::tuple_expand;
+	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
+	//	[T_Add_type...]の中にtupleが含まれる場合、tupleを展開し、格納する
+	template<class T_Base_Tuple, class ...T_Add_Type>
+	using U_Merge_tuple_expand = typename I_Merge<T_Base_Tuple, T_Add_Type...>::tuple_expand;
 
 	//仕様
 	//[T_Tuple]の[t_Point_1]と[t_Point_2]の間の要素を取得する
@@ -107,13 +109,13 @@ namespace N_Tuple
 	using U_Remove_p = typename I_Remove_Pointer<T_Tuple_p>::type;
 
 
-	template<class T_Tuple_v,auto number>
-	using U_Calculate_plus =typename I_Tuple_Calculate<T_Tuple_v, "+", number>::type;
+	template<class T_Tuple_v, auto number>
+	using U_Calculate_plus = typename I_Tuple_Calculate<T_Tuple_v, "+", number>::type;
 
 	//仕様
 	//[T_Tuple]から[tuple_v< ... >]の順番で型を順番に抽出
 	template<class T_Tuple, class T_Extract_Number>
-	using U_Extract =typename I_Extract<T_Tuple, T_Extract_Number>::type;
+	using U_Extract = typename I_Extract<T_Tuple, T_Extract_Number>::type;
 
 
 	//仕様
@@ -136,12 +138,12 @@ namespace N_Tuple
 	//補足
 	//つまり、[std::make_index_sequence<N>] で帰ってくる型が [std::integer_sequence<size_t,N...>]の所を、[tupel_v<N...>]に変更する
 	template<size_t N>
-	using U_index_sequence =typename I_index_sequence<N>::type;
+	using U_index_sequence = typename I_index_sequence<N>::type;
 
 	//仕様
 	//[N_1 ... N-2]の値を[tuple_v]に入れて返す
 	template<size_t N_1, size_t N_2>
-	using U_range_index_sequence = typename I_range_index_sequence<N_1,N_2>::type;
+	using U_range_index_sequence = typename I_range_index_sequence<N_1, N_2>::type;
 
 	//仕様
 	//[T_Tuple]の要素を一つずつ取り出し、[TT_Action]の[::type]を実行し、結果を[tuple_t]に纏める
@@ -155,5 +157,13 @@ namespace N_Tuple
 	//[T_Tuple -> tuple_t<T...>] -> [tuple_t<TT_Action<T,T_Extra...>::type...>]となる
 	template<template<class...>class TT_Action, class T_Tuple, class ...T_Extra>
 	using U_Elements_Action = I_Elements_Action<TT_Action, T_Tuple, T_Extra...>::type;
+
+
+	//仕様
+	//[std::tuple_size],[std::tuple_element]が特殊化されている場合、
+	//	[T_Convert_Type]から[tuple_t]を生成する
+	template<class T_Convert_Type>
+	using U_Convert_tuple = I_Convert<T_Convert_Type>::type;
+
 }
 
