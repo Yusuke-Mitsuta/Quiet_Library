@@ -1,12 +1,14 @@
 #pragma once
 
-#include<optional>
+#include<tuple>
 
 #include"Tuple_Concept.h"
 
 #include"Tuple_ID.h"
 
 #include"Constexpr_String.h"
+
+
 
 template<auto t_Value>
 struct integral_constant;
@@ -38,13 +40,8 @@ namespace N_Tuple
 	struct I_Create_Pointer;
 
 	template<class T_Tuple>
-	struct _Control_p;
+	struct Control_p;
 
-	template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
-	struct Control_tp;
-
-	template<same_as_template_value<tuple_v> T_Head, auto _Value, same_as_template_value<tuple_v> T_Tail>
-	struct Control_vp;
 
 	template<class T_Tuple_t>
 	struct I_Next;
@@ -58,22 +55,22 @@ namespace N_Tuple
 	template<size_t _Index, class ...T_Types>
 	struct I_Element;
 
-	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::Size_Head>
+	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::head_size>
 	struct I_Remove;
 
 	template<class T_Tuple_t>
 	struct I_Reverse;
 
-	template<class T_Base_Tuple, class T_Insert_Tuple, size_t t_Insert_Point = S_Parameter<T_Base_Tuple>::Size_Head>
+	template<class T_Base_Tuple, class ...T_Add_Typee>
 	struct I_Insert;
 
 	template<class T_Base_Tuple, class ...T_Add_Type>
 	struct I_Merge;
 
-	template<class T_Tuple_p, class T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::Size_Head>
+	template<class T_Tuple_p, class T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::head_size>
 	struct I_Change;
 
-	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2 = S_Parameter<T_Tuple>::Size_Head>
+	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2 = S_Parameter<T_Tuple>::head_size>
 		requires is_Element<T_Tuple, t_Swap_Num_1>&& is_Element<T_Tuple, t_Swap_Num_2>
 	struct I_Swap;
 
@@ -93,7 +90,7 @@ namespace N_Tuple
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple>
 	struct S_Action_Tuple;
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::Size_Head>
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::head_size>
 	struct S_Action_Tuple_Helper;
 
 
@@ -114,7 +111,7 @@ namespace N_Tuple
 	// 
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
-	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
+	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	using S_Action_Tuple_tp = S_Action_Tuple_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様
@@ -153,7 +150,7 @@ namespace N_Tuple
 	// 
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
-	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
+	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様
@@ -190,5 +187,8 @@ namespace N_Tuple
 
 	template<template<class...>class TT_Action, class T_Tuple, class ...T_Extra>
 	struct I_Elements_Action;
+
+	template<class T_Convert_Type>
+	struct I_Convert;
 
 }

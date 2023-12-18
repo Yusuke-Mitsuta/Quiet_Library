@@ -103,7 +103,7 @@ namespace N_Function
 				typename T_access_number::type,
 				T_request_pointer, T_request_args,
 				N_Tuple::U_index_sequence<
-				N_Tuple::S_Parameter<T_request_args>::Size_Head +
+				N_Tuple::S_Parameter<T_request_args>::head_size +
 				not_is_invalid<typename T_request_args::type>>,
 				invalid_t>;
 		};
@@ -154,7 +154,7 @@ namespace N_Function
 				tuple_v<t_access_number...>,
 				T_Front_request_pointer, T_Front_request_args,
 				N_Tuple::U_index_sequence<
-					N_Tuple::S_Parameter<T_Front_request_args>::Size_Head+ not_is_invalid<typename T_Front_request_args::type>>,
+					N_Tuple::S_Parameter<T_Front_request_args>::head_size + not_is_invalid<typename T_Front_request_args::type>>,
 				next>;
 		};
 

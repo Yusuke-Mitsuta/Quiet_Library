@@ -10,8 +10,8 @@
 //...T_Tuple::ˆê‚Â‚ÌTuple‚ÉŠi”[‚·‚éŒ^
 //
 //•â‘«
-//[using Type]‚ÅŠi”[‚µ‚½Tuple‚ÌŒ^‚ğæ“¾‚·‚é
-//[Type tuple]‚ÅŠi”[‚µ‚½Tuple‚Ì•Ï”‚ğæ“¾‚·‚é
+//[using type]‚ÅŠi”[‚µ‚½Tuple‚ÌŒ^‚ğæ“¾‚·‚é
+//[type tuple]‚ÅŠi”[‚µ‚½Tuple‚Ì•Ï”‚ğæ“¾‚·‚é
 template<class ...T_Tuple>
 struct IS_TupleUnzip
 {

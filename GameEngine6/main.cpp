@@ -196,22 +196,84 @@ void Hogege(int t) {}
 #include"Tuple_Value.h"
 #include"Size_T.h"
 #include"Tuple_index_sequence.h"
+#include"Vector.h"
 
 
+
+template<>
+struct S_Zipa<int>
+{
+	using type = float;
+};
+
+
+template<>
+struct S_Zipa<int,1>
+{
+	using type = double;
+};
+
+template<>
+struct S_Zipa<int, 2>
+{
+	using type = double;
+};
+
+template<>
+struct S_Zipa<int, 3>
+{
+	using type = double;
+};
+
+
+template<class T,bool a=true>
+struct TESTa
+{
+	using type = int;
+};
+
+template<class T>
+	requires requires
+{
+	std::tuple_size<T>::value;
+}
+struct TESTa<T,1>
+{
+	using type = float;
+};
+
+#include"Tuple_Convert.h"
+
+//using t = tuple_t<int, int, float>::back;
+//using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
+using FNTT = N_Function::Function_Core<decltype(&H::Static_Args_3), int>::request_args;
 
 int main()
 {
 
+	//TYPE_ID(t);
 
-	Function fn_test0(h,&H::Args_7,7);
-	Function fn_test1(fn_test0,6);
-	Function fn_test2(fn_test1,5);
-	Function fn_test3(fn_test2,4);
-	Function fn_test4(fn_test3,3);
-	Function fn_test5(fn_test4,2);
-	Function fn_test6(fn_test5,1);
+
+	//TYPE_ID(TESTa<tuple_t<>>::type);
 	
-	Function fn6(fn_test6, fn_test5, fn_test4, 3,3, fn_test3, fn_test2, fn_test1);
+	//Function fn_test0(&H::Static_Args_2,7);
+
+		//decltype(fn_test0)::data;
+
+	//TYPE_ID(FNT);
+	TYPE_ID(FNTT);
+
+	//Function fn_test1(fn_test0,6);
+
+	
+
+	//Function fn_test2(fn_test1,5);
+	//Function fn_test3(fn_test2,4);
+	//Function fn_test4(fn_test3,3);
+	//Function fn_test5(fn_test4,2);
+	//Function fn_test6(fn_test5,1);
+	//
+	//Function fn6(fn_test6, fn_test5, fn_test4, 3,3, fn_test3, fn_test2, fn_test1);
 
 
 	//6, 4 , 2 , 0 , 1 , 3 , 5
@@ -229,11 +291,11 @@ int main()
 	//
 	//0, 5 , 1 , 4 , 2 , 3
 	// 
-	TYPE_ID(decltype(fn6)::sort);
-	TYPE_ID(decltype(fn6)::data);
+	//TYPE_ID(decltype(fn6)::sort);
+	//TYPE_ID(decltype(fn6)::data);
 
 
-	Function fn7(fn6,999);
+	//Function fn7(fn6,999);
 
 	//Function fn6(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2, fn_test1);
 	//Function fn5(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2);
@@ -623,16 +685,16 @@ int main()
 	//TYPE_ID(Fn1T);
 	
 
-	//using T_ = typename N_Tuple::I_Select<8, tup>::Type::Type;
+	//using T_ = typename N_Tuple::I_Select<8, tup>::type::type;
 
 //
 //
 //	static constexpr int n = 2Ui64;
 //
-//	//using tT = typename N_Tuple::I_Pointer<2, T_>::Type;
+//	//using tT = typename N_Tuple::I_Pointer<2, T_>::type;
 //
 //
-//	//using sT = typename N_Tuple::I_Pointer<2, tup>::Type;
+//	//using sT = typename N_Tuple::I_Pointer<2, tup>::type;
 //
 //	using tua = typename N_Tuple::tuple_v<0, 3, 4, 7, 2.0f>;
 //
@@ -675,10 +737,10 @@ int main()
 //
 //
 //	//using Tn = typename N_Function::I_Function_Args_Chack<S_Parameter<int, int, int>,
-//	//	S_Parameter<int, int>>::Type;
+//	//	S_Parameter<int, int>>::type;
 //
 //
-//	using Tnaa = typename IS_Parameter_Merge<S_Parameter<N<1>, N<2>, N<3>>, N<4>, N<6>,N<7>>::Type;
+//	using Tnaa = typename IS_Parameter_Merge<S_Parameter<N<1>, N<2>, N<3>>, N<4>, N<6>,N<7>>::type;
 //
 //
 //
@@ -692,14 +754,14 @@ int main()
 //
 //	
 //
-//		//IS_Range_Parameters<S_Parameter<N<1>,N<2>,N<3>>, 0,2>::Type;
+//		//IS_Range_Parameters<S_Parameter<N<1>,N<2>,N<3>>, 0,2>::type;
 //
 //	//using TT4 = N_Function::I_Function_Args_Chack<S_Parameter<int,int,int>,S_Parameter<int>>::
-//	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::Type::Fns;
+//	//using Tfa = N_Function::IS_Function_Multiple_Helper<H*, decltype(&H::Args_3), int, decltype(&H::Args_3), int, int>::type::Fns;
 //
 //
 //
-//	//using Tfa = N_Function::IS_Function_Multiple_Operator<H*, decltype(&H::Args_3), int>::Type;
+//	//using Tfa = N_Function::IS_Function_Multiple_Operator<H*, decltype(&H::Args_3), int>::type;
 //
 //	//auto b = Tfa(h, &H::Args_3, 2);
 //
@@ -753,7 +815,7 @@ int main()
 //	//using TPN_4 = S_Parameter<N<2>, N<1>, N<4>, N<3>, N<6>, N<5>>;
 //	//using TPN_4 = S_Parameter<N<0>,N<1>, N<2>, N<3>, N<4>, N<5>,N<6>,N<14>,N<8>,N<9>,N<10>,N<11>,N<12>>;
 //
-//	using Q_Sort_1 =typename IS_Quick_Sort<N_Sort, TPN_4>::Type;
+//	using Q_Sort_1 =typename IS_Quick_Sort<N_Sort, TPN_4>::type;
 //
 //	using T_5 = S_Parameter_Value<0, 1, 3, 5, 7, 9>;
 //	//using T_6 = U_Get_Element_P_v<T_5, S_Parameter_Value<0, 1, 3>>;
@@ -776,22 +838,22 @@ int main()
 //	//using Tv2 = S_Parameter_Value < Tva{}, Tvb{}, Tvc{} > ;
 //	//using Tv3 = Tv2::Parameter_Type;
 //	//using Tv4 = U_Change_Element_v<0, 4, Tv2>;
-//		//IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename Tv2::Parameter_Type,4, integral_constant<4>, integral_constant<4>, integral_constant<4>, integral_constant<4>>::Type>::Type;
+//		//IS_Parameter_Class_Change_Value<typename IS_Insert_Parameters<typename Tv2::Parameter_Type,4, integral_constant<4>, integral_constant<4>, integral_constant<4>, integral_constant<4>>::type>::type;
 //	
 //
-////using Tvv = S_Parameter_Element_Variable<1, Tv2>::Type;
+////using Tvv = S_Parameter_Element_Variable<1, Tv2>::type;
 //
 //	//constexpr auto Tvvv = S_Parameter_Element_Variable<4, Tv2>::value;
 //
-//	//using Tf = IS_Insert_Parameters<T, 1, float>::Type;
+//	//using Tf = IS_Insert_Parameters<T, 1, float>::type;
 //
-//	//using Tr = IS_Remove_Parameters<T, 1,3>::Type;
+//	//using Tr = IS_Remove_Parameters<T, 1,3>::type;
 //	//using Tr = U_Remove_Element_t<T, 1, 3>;
 //	
 //	//IS_Change_Parameters
-//	//using Tcr = IS_Change_Parameters<0, 3, T>::Type;
+//	//using Tcr = IS_Change_Parameters<0, 3, T>::type;
 //
-//	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::Type::Type;
+//	//using Sort = IS_Quick_Sort<N_Sort, S_Parameter<N<2>, N<5>, N<7>>>::type::type;
 //
 //	//TYPE_ID(Sort);
 //

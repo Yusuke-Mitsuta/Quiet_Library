@@ -8,12 +8,12 @@ namespace N_Function
 
 
 	template<class T_Request_Args,class T_Bind_Args>
-	struct I_Function_Args_Chack
+	struct I_Function_Args_Chack2
 	{
 	private:
 
 		//仕様
-		//T_Request_Args,T_Bind_Argsの中身を適正に展開した結果を返す
+		//T_Request_Args_Tuple,T_Bind_Argsの中身を適正に展開した結果を返す
 		template<class T_Result_Request_Args, class T_Result_Bind_Args>
 		struct S_Result
 		{
@@ -38,11 +38,11 @@ namespace N_Function
 		};
 
 		//仕様
-		//[T_Request_Args]要求する引数の後ろと,[T_Bind_Args]の後ろから引数の型を精査する
-		//[T_Request_Args]及び、[T_Bind_Args]の引数の型が正しくない場合[S_Expand]により展開し再度、型の精査を行う
+		//[T_Request_Args_Tuple]要求する引数の後ろと,[T_Bind_Args]の後ろから引数の型を精査する
+		//[T_Request_Args_Tuple]及び、[T_Bind_Args]の引数の型が正しくない場合[S_Expand]により展開し再度、型の精査を行う
 		//
 		//テンプレート
-		//T_Request_Args::要求する引数の並びを反転させた型
+		//T_Request_Args_Tuple::要求する引数の並びを反転させた型
 		//T_Bind_Args::指定する引数の並びを反転させた型
 		//t_End_fg::T_Bind_Argsを最後まで精査したかのフラグ
 		template<class T_Request_Args =typename T_Request_Args::reverse, class T_Bind_Args =typename T_Bind_Args::reverse::front,
@@ -108,7 +108,7 @@ namespace N_Function
 		};
 
 		//仕様
-		//[T_Request_Args::type],[T_Bind_Args::type]で展開出来るか判定し、可能であれば展開し
+		//[T_Request_Args_Tuple::type],[T_Bind_Args::type]で展開出来るか判定し、可能であれば展開し
 		//展開後のリストと、展開してない方の[T_Request_Args_List]or[T_Bind_Args_List]の全ての型と判定する。
 		//判定が失敗すれば、展開した方の型のlistに展開後の型を追加し、展開後の型が更に展開出来るか判定する。
 		//展開できなく、型の判定に失敗すれば[std:;nullopt_t]を返す
@@ -120,7 +120,7 @@ namespace N_Function
 
 
 		//仕様
-		//[T_Request_Args::type]展開し、展開後のリストと、[T_Bind_Args_List]の全ての型と判定する。
+		//[T_Request_Args_Tuple::type]展開し、展開後のリストと、[T_Bind_Args_List]の全ての型と判定する。
 		//判定が失敗すれば、[T_Request_Args_List]に展開後の型を追加し、展開後の型が更に展開出来るか判定する。
 		template<class T_Request_Args, class T_Bind_Args, class T_Request_Args_List, class T_Bind_Args_List>
 			requires (is_expand<typename T_Request_Args::type>)
@@ -162,10 +162,10 @@ namespace N_Function
 		};
 
 		//仕様
-		//[T_Request_Args::type]展開し、展開後のリストと、[T_Bind_Args_List]の全ての型と判定する。
+		//[T_Request_Args_Tuple::type]展開し、展開後のリストと、[T_Bind_Args_List]の全ての型と判定する。
 		//判定が失敗すれば、[T_Request_Args_List]に展開後の型を追加し、
 		// [T_Bind_Args::type]展開し、展開後のリストと、[T_Request_Args_List]の全ての型と判定する。
-		//判定が失敗すれば、[T_Bind_Args_List]に展開後の型を追加し、[T_Request_Args::type],[T_Bind_Args::type]の展開後の型が更に展開出来るか判定する。
+		//判定が失敗すれば、[T_Bind_Args_List]に展開後の型を追加し、[T_Request_Args_Tuple::type],[o更に展開出来るか判定する。
 		template<class T_Request_Args, class T_Bind_Args, class T_Request_Args_List, class T_Bind_Args_List>
 			requires (is_expand<typename T_Request_Args::type>) && (is_expand<typename T_Bind_Args::type>)
 		struct S_Expand_Args<T_Request_Args, T_Bind_Args, T_Request_Args_List, T_Bind_Args_List, true>
@@ -189,8 +189,8 @@ namespace N_Function
 
 
 		//仕様
-		//[T_Request_Args::type]が[T_Bind_Args::type]から変換可能な時、
-		//[T_Request_Args],[T_Bind_Args]を１つ進める
+		//[T_Request_Args_Tuple::type]が[T_Bind_Args::type]から変換可能な時、
+		//[T_Request_Args_Tuple],[T_Bind_Args]を１つ進める
 		template<class T_Request_Args, class T_Bind_Args>
 			requires convertible_to<typename T_Bind_Args::type, typename T_Request_Args::type>
 		struct S_Args_Chack<T_Request_Args, T_Bind_Args, false>
@@ -199,7 +199,7 @@ namespace N_Function
 		};
 
 		//仕様
-		//[T_Request_Args::type]が[T_Bind_Args::type]から変換不可能な時、[S_Expand]により展開し再度、型の精査を行う
+		//[T_Request_Args_Tuple::type]が[T_Bind_Args::type]から変換不可能な時、[S_Expand]により展開し再度、型の精査を行う
 		template<class T_Request_Args, class T_Bind_Args>
 			requires not_convertible_to<typename T_Bind_Args::type, typename T_Request_Args::type>
 		struct S_Args_Chack<T_Request_Args, T_Bind_Args, false>
@@ -210,7 +210,7 @@ namespace N_Function
 
 		//仕様
 		//判定が成功した時、resultを作成する
-		//[T_Request_Args]は反転させたのを戻し、
+		//[T_Request_Args_Tuple]は反転させたのを戻し、
 		//[T_Bind_Args]は反転させたのを戻し、ポインタを取り除く
 		template<class T_Request_Args, class T_Bind_Args>
 		struct S_Args_Chack<T_Request_Args, T_Bind_Args, true>
@@ -247,5 +247,120 @@ namespace N_Function
 
 
 
+
+
+
+
+
+
+
+
+	template<class T_Request_Args, class T_Bind_Args>
+	struct I_Function_Args_Chack
+	{
+	private:
+
+		template<class T_Request_Args_Tuple,
+			class T_Bind_Args_Tuple ,
+			bool t_constructible_from,
+			bool t_Bind_Args_Expand,
+			class ...T_Bind_Args>
+		struct S_Function_Args_Chack
+		{
+			
+		};
+
+
+		template<class T_Request_Args_Tuple, class T_Bind_Args_Tuple, class ...T_Bind_Args>
+		using U_Function_Args_Chack_Next =
+			S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple,
+			std::constructible_from<typename T_Request_Args_Tuple::type, typename T_Bind_Args_Tuple::type, T_Bind_Args...>,false,
+			typename T_Bind_Args_Tuple::type, T_Bind_Args...>::type;
+
+
+		using U_Function_Args_Chack = U_Function_Args_Chack_Next<
+			typename T_Request_Args::reverse, 
+			typename T_Bind_Args::reverse>;
+
+
+		template<class T_Request_Args_Tuple,
+			class T_Bind_Args_Tuple,
+			bool t_constructible_from,
+			bool t_Bind_Args_Expand>
+			requires (is_invalid<typename T_Bind_Args_Tuple::type>)
+		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, t_constructible_from, t_Bind_Args_Expand, invalid_t>
+		{
+			using type = T_Request_Args_Tuple::reverse;
+		};
+
+
+		template<class T_Request_Args_Tuple,
+			class T_Bind_Args_Tuple,
+			bool t_constructible_from,
+			bool t_Bind_Args_Expand,class ...T_Bind_Args>
+		requires requires
+		{
+			requires is_invalid<typename T_Bind_Args_Tuple::type>;
+			requires (sizeof...(T_Bind_Args) > 0);
+		}
+		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, t_constructible_from, t_Bind_Args_Expand, invalid_t,T_Bind_Args...>
+		{
+			using type = invalid_t;
+		};
+
+
+		template<class T_Request_Args_Tuple,
+			class T_Bind_Args_Tuple,
+			class ...T_Bind_Args>
+		requires requires
+		{
+			requires not_is_invalid<typename T_Bind_Args_Tuple::type>;
+		}
+		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, false, false, T_Bind_Args...>
+		{
+			using type = U_Function_Args_Chack_Next<T_Request_Args_Tuple,
+				typename T_Bind_Args_Tuple::next,T_Bind_Args...>;
+		};
+
+
+		template<class T_Request_Args_Tuple,
+			class T_Bind_Args_Tuple,
+			bool t_Bind_Args_Expand,
+			class ...T_Bind_Args>
+			requires requires
+		{
+			requires not_is_invalid<typename T_Bind_Args_Tuple::type>;
+		}
+		struct S_Function_Args_Chack<T_Request_Args_Tuple,T_Bind_Args_Tuple,true,t_Bind_Args_Expand,T_Bind_Args...>
+		{
+			using type = U_Function_Args_Chack_Next<
+				typename T_Request_Args_Tuple::next,
+				typename T_Bind_Args_Tuple::next>;
+		};
+
+		
+		//template<class T_Request_Args_Tuple,
+		//	class T_Bind_Args_Tuple,
+		//	class T_Front_Bind_Args,
+		//	class ...T_Bind_Args>
+		//requires requires
+		//{
+		//	requires not_is_invalid<typename T_Bind_Args_Tuple::type>;
+		//}
+		//struct S_Function_Args_Chack<T_Request_Args_Tuple,T_Bind_Args_Tuple,false, true, //T_Front_Bind_Args,T_Bind_Args...>
+		//{
+		//	using convert = N_Tuple::U_Convert_tuple<T_Front_Bind_Args>::reverse;
+		//
+		//	using insert_bind_args = N_Tuple::U_Insert<T_Bind_Args_Tuple, convert>;
+		//
+		//	using type = U_Function_Args_Chack_Next<T_Request_Args_Tuple, insert_bind_args, T_Bind_Args...>;
+		//
+		//};
+
+	public:
+
+		using request_args = U_Function_Args_Chack;
+
+	};
 
 }

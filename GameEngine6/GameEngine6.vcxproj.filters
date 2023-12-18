@@ -61,6 +61,15 @@
     <Filter Include="ヘッダー ファイル\Function\Function_Core">
       <UniqueIdentifier>{2f00da72-c433-4d32-b517-54b6937c8b35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\N_Tuple\Tuple_Control">
+      <UniqueIdentifier>{47cfb076-28d9-43dd-a2c3-c3ee0c8cc158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Vector">
+      <UniqueIdentifier>{01f11266-b565-4af4-ad8d-f42fe56a0172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Function\Function_Args">
+      <UniqueIdentifier>{0ff4059a-8606-4bf3-9619-513bcc220d96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -219,23 +228,11 @@
     <ClInclude Include="Tuple.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Control.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Type.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Size_T.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Remove.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Next.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Prev.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Using.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
@@ -249,37 +246,16 @@
     <ClInclude Include="Tuple_Concept.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_t_To_v.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="Outer_Change.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Element.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Reverse.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Insert.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Remove_Pointer.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Merge.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Change.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Swap.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_v_To_t.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Create_Pointer.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Range.h">
@@ -318,9 +294,6 @@
     <ClInclude Include="Tuple_Expand.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_index_sequence.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Operator.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
@@ -342,13 +315,61 @@
     <ClInclude Include="Function_Multiple_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Request_Core.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Operator_Sort.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Elements_Action.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Change.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Create_Pointer.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Control.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Prev.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Remove.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Reverse.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Remove_Pointer.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Swap.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_t_To_v.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_v_To_t.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Next.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>ヘッダー ファイル\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Args_Compatible.h">
+      <Filter>ヘッダー ファイル\Function\Function_Args</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Args_List.h">
+      <Filter>ヘッダー ファイル\Function\Function_Args</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Core.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_index_sequence.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Convert.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
   </ItemGroup>
@@ -434,9 +455,6 @@
     <ClCompile Include="Tuple_Value.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
-    <ClCompile Include="Tuple_Select.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClCompile>
     <ClCompile Include="Using_Type.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -451,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="Function_Args_Chack.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Select.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -103,7 +103,7 @@
 //			
 //		};
 //
-//		using Type =S_Function_Multiple_Operator<typename IS_Function_Multiple_Helper<T_Fns...>::Fns>;
+//		using type =S_Function_Multiple_Operator<typename IS_Function_Multiple_Helper<T_Fns...>::Fns>;
 //
 //	};
 //

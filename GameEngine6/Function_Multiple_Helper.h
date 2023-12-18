@@ -97,7 +97,7 @@ namespace N_Function
 				//[T_Method_Check]:w’è‚³‚ê‚½ˆø”‚ÌŒ^‚ğó‚¯æ‚é‚©”»’è‚·‚é
 				template<class T_Function = Function_Data<chack_Data<T_Method_Point>>,
 					class T_Dedicated_Point_Check = Function_Data<chack_Data<typename T_Method_Point::next>>,
-					class T_Commond_Point_Check = Function_Data<N_Tuple::U_Insert<chack_Data<T_Method_Point>, front_t, 0>>>
+					class T_Commond_Point_Check = Function_Data<N_Tuple::U_Insert<typename chack_Data<T_Method_Point>::front, front_t>>>
 				struct S_Pointer_Chack
 				{
 					using type = 

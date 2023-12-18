@@ -12,17 +12,16 @@ struct tuple_tp :
 	N_Tuple::Control_tp<T_Head, T, T_Tail>
 {
 	using remove_p = N_Tuple::U_Remove_p<tuple_tp<T_Head, T, T_Tail>>;
+
 }; 
 
-template<class ..._Types>
+
+template<class ...T_Types>
 struct tuple_t :
-	N_Tuple::Control_tp<tuple_t<>, invalid_t, tuple_t<>>{};
+	N_Tuple::Control_t<T_Types...>
+{
 
-template<class T_Front_Type, class ...T_Types>
-struct tuple_t<T_Front_Type, T_Types...> :
-	N_Tuple::Control_tp<tuple_t<>, T_Front_Type, tuple_t<T_Types...>>
-{};
-
+};
 
 
 
@@ -31,10 +30,10 @@ namespace std
 	template<class ...T_Type>
 	struct tuple_size<tuple_tp<T_Type...>> :
 		integral_constant<size_t, N_Tuple::S_Parameter<
-		tuple_tp<T_Type...>>::Size> 
+		tuple_tp<T_Type...>>::size> 
 	{
 		static constexpr size_t value =
-			N_Tuple::S_Parameter<tuple_tp<T_Type...>>::Size;
+			N_Tuple::S_Parameter<tuple_tp<T_Type...>>::size;
 	};
 
 	template<class ...T_Type>

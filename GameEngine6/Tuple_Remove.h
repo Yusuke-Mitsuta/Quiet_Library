@@ -45,14 +45,14 @@ namespace N_Tuple
 		};
 
 		template<same_as_tuple_t T_Head,class T, same_as_tuple_t T_Tail>
-			requires (t_Remove_Point != S_Parameter<T_Tuple_p>::Size_Head)
+			requires (t_Remove_Point != S_Parameter<T_Tuple_p>::head_size)
 		struct S_Remove<tuple_tp<T_Head, T,T_Tail>>
 		{
 		private:
 			using Tuple_Remove = typename S_Remove<U_Select<t_Remove_Point, tuple_tp<T_Head, T, T_Tail>>>::type;
 
 		public:
-			using type = U_Select<(t_Remove_Point<S_Parameter<T_Tuple_p>::Size_Head) ? S_Parameter<T_Tuple_p>::Size_Head - 1 : S_Parameter<T_Tuple_p>::Size_Head, Tuple_Remove>;
+			using type = U_Select<(t_Remove_Point<S_Parameter<T_Tuple_p>::head_size) ? S_Parameter<T_Tuple_p>::head_size - 1 : S_Parameter<T_Tuple_p>::head_size, Tuple_Remove>;
 		};
 
 	public:

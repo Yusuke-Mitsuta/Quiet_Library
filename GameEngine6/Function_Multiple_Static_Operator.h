@@ -17,7 +17,7 @@
 //	//t_Fns...::関数ポインターor[Function_Single_Static]、それに対する引数、の繰り返し
 //	//
 //	//補足
-//	//[IS_Function_Multiple_Static_Operator::Type]を継承する事
+//	//[IS_Function_Multiple_Static_Operator::type]を継承する事
 //	//t_Fnsに[Function_Single_Static]をセットする際は[static constexpr]で修飾する事
 //	template <auto ...t_Fns>
 //	struct IS_Function_Multiple_Static_Operator
@@ -58,7 +58,7 @@
 //		{
 //			using T_FnStatic_Add = std::tuple<Fn_Static<t_Parameter_Number, t_Bind_ArgsNum...>, T_Fn_Static...>;
 //
-//			using Type = S_CreateFunctionStatic<T_FnStatic_Add, t_FnCount + 1, t_Parameter_Number + 1 + Bind_Args_Num<t_FnCount>>::Type;
+//			using type = S_CreateFunctionStatic<T_FnStatic_Add, t_FnCount + 1, t_Parameter_Number + 1 + Bind_Args_Num<t_FnCount>>::type;
 //		};
 //
 //		template<class ...T_Fn_Static,int t_Parameter_Number,
@@ -66,7 +66,7 @@
 //		struct S_CreateFunctionStatic<std::tuple<T_Fn_Static...>, Fns_Num-1, t_Parameter_Number,
 //			std::index_sequence<t_Bind_ArgsNum...>>
 //		{
-//			using Type = std::tuple<
+//			using type = std::tuple<
 //				Fn_Static<t_Parameter_Number, t_Bind_ArgsNum...>, 
 //				T_Fn_Static...>;
 //
@@ -85,8 +85,8 @@
 //			using T_FnsStatic::Execution...;
 //		};
 //
-//		using Type =
-//			S_FunctionMultipleOperatorStatic<typename S_CreateFunctionStatic<>::Type>;
+//		using type =
+//			S_FunctionMultipleOperatorStatic<typename S_CreateFunctionStatic<>::type>;
 //	};
 //
 //}
