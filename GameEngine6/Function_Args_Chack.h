@@ -8,7 +8,7 @@ namespace N_Function
 
 
 	template<class T_Request_Args,class T_Bind_Args>
-	struct I_Function_Args_Chack
+	struct I_Function_Args_Chack2
 	{
 	private:
 
@@ -250,18 +250,26 @@ namespace N_Function
 
 
 
+	template<class T_Request_Args, class T_Bind_Args>
+	struct I_Function_Args_Chack
+	{
+		using type = invalid_t;
+	};
 
-
-
-
+	
 
 	template<class T_Request_Args, class T_Bind_Args>
-	struct I_Function_Args_Chack2
+		requires requires
+	{
+		requires N_Tuple::is_Tuple_t<T_Request_Args>;
+		requires N_Tuple::is_Tuple_t<T_Bind_Args>;
+	}
+	struct I_Function_Args_Chack<T_Request_Args,T_Bind_Args>
 	{
 	private:
 
 		template<class T_Request_Args_Tuple,
-			class T_Bind_Args_Tuple ,
+			class T_Bind_Args_Tuple,
 			bool t_constructible_from,
 			bool t_Bind_Args_Expand,
 			class ...T_Bind_Args>
@@ -276,12 +284,6 @@ namespace N_Function
 			S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple,
 			std::constructible_from<typename T_Request_Args_Tuple::type, typename T_Bind_Args_Tuple::type, T_Bind_Args...>,false,
 			typename T_Bind_Args_Tuple::type, T_Bind_Args...>::type;
-
-
-		using U_Function_Args_Chack = U_Function_Args_Chack_Next<
-			typename T_Request_Args::reverse, 
-			typename T_Bind_Args::reverse>;
-
 
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,
@@ -305,7 +307,9 @@ namespace N_Function
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, t_constructible_from, t_Bind_Args_Expand, invalid_t,T_Bind_Args...>
 		{
-			using type = invalid_t;
+			using type = 
+				//T_Request_Args;
+				invalid_t;
 		};
 
 
@@ -359,7 +363,8 @@ namespace N_Function
 
 	public:
 
-		using request_args = U_Function_Args_Chack;
+		using type = U_Function_Args_Chack_Next<typename T_Request_Args::reverse,
+			typename T_Bind_Args::reverse>;
 
 	};
 

@@ -245,7 +245,7 @@ struct TESTa<T,1>
 #include"Tuple_Convert.h"
 
 using t = tuple_t<>;
-using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
+//using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
 using FNTT = N_Function::Function_Core<decltype(&H::Static_Args_3), int>::request_args;
 
 int main()
@@ -258,30 +258,38 @@ int main()
 	
 	Function fn_test0(&H::Static_Args_7,7);
 
-	using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
+	//using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
 ///	using fn_op_data=decltype(fn_test0)::data;
 
-	TYPE_ID(fn_r);
+//	TYPE_ID(fn_r);
 	//TYPE_ID(fn_op_data);
 	//TYPE_ID(FNTT);
 
 	Function fn_test1(fn_test0,6);
-	Function fn_test2(fn_test1,5,fn_test0);
+	Function fn_test2(fn_test1,5,fn_test0,fn_test1);
 	Function fn_test3(fn_test2,4);
-
-	//Function fn_test4(fn_test3,3);
+	Function fn_test4(fn_test3,fn_test2);
 	//Function fn_test5(fn_test4,2);
 	//Function fn_test6(fn_test5,1);
 
+	//fn_test4()
+
 	//
 	// 
-	//Function fn6(fn_test6, fn_test5, fn_test4, 3,3, fn_test3, fn_test2, fn_test1);
+	//Function fn6(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2, fn_test1);
 
-	using Fn2 = N_Function::Function_Core<decltype(fn_test2), int>;
-	using Fn3 = N_Function::Function_Core<decltype(fn_test3), int>;
 
-	TYPE_ID(Fn2::request_args);
-	TYPE_ID(Fn3::request_args);
+	//using Fn2 = N_Function::Function_Core<tuple_t<decltype(fn_test4),decltype(fn_test2)>>::function;
+
+		
+		
+	using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::request_args;
+
+
+
+	TYPE_ID(Fn3);
+	//TYPE_ID(Fn2::request_args);
+	//TYPE_ID(Fn3::request_args);
 
 	//6, 4 , 2 , 0 , 1 , 3 , 5
 	// 

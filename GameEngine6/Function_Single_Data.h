@@ -26,9 +26,10 @@ namespace N_Function
 
 		using bind_args = base_data::bind_args; 
 
-		using request_args = I_Function_Request_Data<S_Request_args_Access,base_data>::type;
+		using request_args = I_Function_Request_Data<S_Request_args_Access,
+			S_Request_args,base_data>::type;
 
-		using request_pointer = I_Function_Request_Data<S_Request_pointer_Access,base_data>::type;
+		using request_pointer = I_Function_Request_Data<S_Request_pointer_Access,S_Request_pointer,base_data>::type;
 
 		using request = Request_Core<request_args, request_pointer>;
 	};
