@@ -48,8 +48,7 @@ namespace N_Function
 			T_request_pointer, T_request_args, tuple_v<t_request_args_number...>, T_Next>
 		{
 			using type = tuple_t<tuple_v<t_access_number...>, T_request_pointer,
-				T_request_args>;
-				//tuple_t<N_Tuple::U_Element_t<t_request_args_number, T_request_args>...>>;
+				tuple_t<N_Tuple::U_Element_t<t_request_args_number, T_request_args>...>>;
 
 			using next = T_Next;
 
@@ -106,7 +105,7 @@ namespace N_Function
 				T_request_pointer, T_request_args,
 				N_Tuple::U_index_sequence<
 				N_Tuple::S_Parameter<T_request_args>::head_size
-				//+not_is_invalid<typename T_request_args::type>
+				+not_is_invalid<typename T_request_args::type>
 				>,
 				invalid_t>;
 		};
@@ -236,20 +235,18 @@ namespace N_Function
 					typename T_Operator_Data::next>::type;
 			};
 
-			//template<>
-			//struct S_Request_Args_Chack<invalid_t>
-			//{
-			//	using type= S_Function_Operator_Parameter<
-			//		tuple_t<T_Result...>,
-			//		typename T_Operator_Data::next>::type;
-			//};
+			template<>
+			struct S_Request_Args_Chack<invalid_t>
+			{
+				using type= S_Function_Operator_Parameter<
+					tuple_t<T_Result...>,
+					typename T_Operator_Data::next>::type;
+			};
 
 			using type = S_Request_Args_Chack<>::type;
 		};
 
-		using type = fn_multi_data::type;
-			//core::request_args;
-			//S_Function_Operator_Parameter<>::type;
+		using type = S_Function_Operator_Parameter<>::type;
 
 	};
 
