@@ -40,7 +40,7 @@ namespace N_Tuple
 	struct I_Create_Pointer;
 
 	template<class T_Tuple>
-	struct _Control_p;
+	struct Control_p;
 
 	template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
 	struct Control_tp;
@@ -97,7 +97,7 @@ namespace N_Tuple
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple>
 	struct S_Action_Tuple;
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	struct S_Action_Tuple_Helper;
 
 
@@ -118,7 +118,7 @@ namespace N_Tuple
 	// 
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
-	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
+	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	using S_Action_Tuple_tp = S_Action_Tuple_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様
@@ -157,7 +157,7 @@ namespace N_Tuple
 	// 
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
-	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::Size_Head>
+	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	using S_Action_Tuple_vp = S_Action_Tuple_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様

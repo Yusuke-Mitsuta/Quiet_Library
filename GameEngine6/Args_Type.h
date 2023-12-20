@@ -9,7 +9,7 @@
 //struct arg_type_impl
 //{
 //	template<unsigned int N>
-//	using Type = typename std::reverse_tuple_element<N, std::default_Args_Tuple<Args...>>::type;
+//	using type = typename std::reverse_tuple_element<N, std::default_Args_Tuple<Args...>>::type;
 //};
 //
 //// 可変個引数テンプレート
@@ -40,7 +40,7 @@
 //	using Args = typename arg_type_impl<Args..., invalid_t>;
 //};
 //
-//template<unsigned int N,class Args_1, class Args_2, class Args_1_First=Args_1::Type<N>,class Args_2_First = Args_2::Type<N>>
+//template<unsigned int N,class Args_1, class Args_2, class Args_1_First=Args_1::type<N>,class Args_2_First = Args_2::type<N>>
 //class Type_Judge
 //{
 //public:

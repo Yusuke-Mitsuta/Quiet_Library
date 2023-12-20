@@ -37,10 +37,10 @@ namespace std
 {
 	template<class T_Head,auto t_Value,class T_Tail>
 	struct tuple_size<tuple_vp<T_Head,t_Value,T_Tail>> :
-		integral_constant<size_t, N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::Size>
+		integral_constant<size_t, N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::size>
 	{
 		static constexpr size_t value =
-			N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::Size;
+			N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::size;
 	};
 
 	template<auto ...t_Value>

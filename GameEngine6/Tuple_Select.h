@@ -10,7 +10,7 @@ namespace N_Tuple
 {
 
 	//仕様
-	//[Type]の選択位置を[t_Point]に移動させる
+	//[type]の選択位置を[t_Point]に移動させる
 	template<int t_Point, class T_Tuple_t>
 	struct I_Select
 	{
@@ -18,8 +18,8 @@ namespace N_Tuple
 
 		//仕様
 		//目的ポイントまで距離[t_Point]が
-		//	[+]であれば[Type::Next],
-		//	[-]であれば[Type::Front]
+		//	[+]であれば[type::Next],
+		//	[-]であれば[type::Front]
 		//	[0]であれば移動完了となる
 		template<int t_Point, class T_Tuple_t>
 		struct Select_Core
@@ -43,13 +43,13 @@ namespace N_Tuple
 
 
 		template<class T_Tuple_t>
-		using Pointer_Core_t = typename Select_Core<t_Point - static_cast<int>(S_Parameter<T_Tuple_t>::Size_Head), T_Tuple_t>::type;
+		using Pointer_Core_t = typename Select_Core<t_Point - static_cast<int>(S_Parameter<T_Tuple_t>::head_size), T_Tuple_t>::type;
 
 
 		//仕様
 		//目的ポイント[t_Point]が
 		//	[0 <= t_Point <= t_Tuple_Size] かつ、
-		//	[Type::Type]が[invalid_t]で無ければ探索に移行
+		//	[type::type]が[invalid_t]で無ければ探索に移行
 		//		であれば[invalid_t]を除いて探索に移行
 		// 
 		//	[0 <= t_Point <= t_Tuple_Size] で無ければ、[invalid_t]による範囲外処理
@@ -81,7 +81,7 @@ namespace N_Tuple
 		template<class T_Tuple_t>
 		struct S_Action
 		{
-			using type = typename Select_Range_Judge<t_Point, S_Parameter<T_Tuple_t>::Size, T_Tuple_t>::type;
+			using type = typename Select_Range_Judge<t_Point, S_Parameter<T_Tuple_t>::size, T_Tuple_t>::type;
 		};
 
 	public:

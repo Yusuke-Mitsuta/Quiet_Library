@@ -6,7 +6,7 @@ namespace N_Tuple
 {
 
 	//d—l
-	//[Type]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
+	//[type]‚Ì•À‚Ñ‡‚ğ”½“]‚³‚¹‚é
 	template<class T_Tuple>
 	struct I_Reverse
 	{

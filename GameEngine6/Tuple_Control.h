@@ -11,18 +11,18 @@ namespace N_Tuple
 	//仕様
 	//[T_Tuple]の選択位置の操作、削除の実施
 	template<class T_Tuple>
-	struct _Control_p
+	struct Control_p
 	{
 
 		//選択中の要素より前にある要素数
-		static constexpr size_t head_size = S_Parameter<T_Tuple>::Size_Head;
+		static constexpr size_t head_size = S_Parameter<T_Tuple>::head_size;
 
 		//選択中の要素より後ろにある要素数
-		static constexpr size_t tail_size = S_Parameter<T_Tuple>::Size_Tail;
+		static constexpr size_t tail_size = S_Parameter<T_Tuple>::tail_size;
 
 		//要素数
-		static constexpr size_t size = S_Parameter<T_Tuple>::Size;
-		
+		static constexpr size_t size = S_Parameter<T_Tuple>::size;
+
 		//次の要素を選択する
 		using next = U_Next<T_Tuple>;
 
@@ -45,13 +45,13 @@ namespace N_Tuple
 
 	template<same_as_template_type<tuple_t> T_Head, class T, same_as_template_type<tuple_t> T_Tail>
 	struct Control_tp :
-		_Control_p<tuple_tp<T_Head, T, T_Tail>>
+		Control_p<tuple_tp<T_Head, T, T_Tail>>
 	{
 	private:
 		using T_Tuple_p = tuple_tp<T_Head, T, T_Tail>;
-		using Control = _Control_p<T_Tuple_p>;
+		using Control = Control_p<T_Tuple_p>;
 		template<class T_Select_Tuple_t>
-		using Select_Tuple_t = typename S_Parameter<T_Select_Tuple_t>::Type;
+		using Select_Tuple_t = typename S_Parameter<T_Select_Tuple_t>::type;
 	public:
 		//選択している要素の型を返す
 		using type = Select_Tuple_t<T_Tuple_p>;
@@ -63,13 +63,13 @@ namespace N_Tuple
 
 	};
 
-	template<same_as_template_value<tuple_v> T_Head, auto _Value, same_as_template_value<tuple_v> T_Tail>
+	template<same_as_template_value<tuple_v> T_Head, auto t_value, same_as_template_value<tuple_v> T_Tail>
 	struct Control_vp :
-		_Control_p<tuple_vp<T_Head, _Value, T_Tail>>
+		Control_p<tuple_vp<T_Head, t_value, T_Tail>>
 	{
 	private:
-		using T_Tuple_v = tuple_vp<T_Head, _Value, T_Tail>;
-		using Control = _Control_p<T_Tuple_v>;
+		using T_Tuple_v = tuple_vp<T_Head, t_value, T_Tail>;
+		using Control = Control_p<T_Tuple_v>;
 
 		template<class T_Select_Tuple_v>
 		static constexpr auto Select_Tuple_v = S_Parameter<T_Select_Tuple_v>::value;
@@ -86,7 +86,7 @@ namespace N_Tuple
 
 
 	template<>
-	struct _Control_p<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
+	struct Control_p<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
 	{
 	private:
 		using r_type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
@@ -105,7 +105,7 @@ namespace N_Tuple
 	};
 
 	template<>
-	struct _Control_p<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
+	struct Control_p<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
 	{
 	private:
 		using r_type = tuple_vp<tuple_v<>, invalid, tuple_v<>>;
@@ -123,7 +123,7 @@ namespace N_Tuple
 
 	template<>
 	struct Control_tp<tuple_t<>, invalid_t, tuple_t<>>
-		:_Control_p<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
+		:Control_p<tuple_tp<tuple_t<>, invalid_t, tuple_t<>>>
 	{
 		using type = invalid_t;
 		using next_t = type;
@@ -134,7 +134,7 @@ namespace N_Tuple
 
 	template<>
 	struct Control_vp<tuple_v<>,invalid,tuple_v<>> :
-		_Control_p<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
+		Control_p<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
 	{
 		static constexpr auto value = invalid;
 

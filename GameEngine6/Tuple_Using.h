@@ -12,7 +12,7 @@ namespace N_Tuple
 
 	//最後の要素を選択する
 	template<class T_Tuple>
-	using U_Back = typename I_Select<static_cast<int>(S_Parameter<T_Tuple>::Size_Head) - 1, T_Tuple>::type;
+	using U_Back = typename I_Select<static_cast<int>(S_Parameter<T_Tuple>::head_size) - 1, T_Tuple>::type;
 
 	//次の要素を選択する
 	template<class T_Tuple>
@@ -60,13 +60,13 @@ namespace N_Tuple
 	//仕様
 	//[T_Tuple]の[t_Point_1]と[t_Point_2]の間の要素を取得する
 	//[t_Point2]が設定されない場合、現在の選択位置を指定する
-	template<class T_Tuple, size_t t_Point_1, size_t t_Point_2 = S_Parameter<T_Tuple>::Size_Head>
+	template<class T_Tuple, size_t t_Point_1, size_t t_Point_2 = S_Parameter<T_Tuple>::head_size>
 		requires is_Element<T_Tuple, t_Point_1>&& is_Element<T_Tuple, t_Point_2>
 	using U_Range = typename I_Range<T_Tuple, t_Point_1, t_Point_2>::type;
 
 	//仕様
 	//選択位置の値を削除する
-	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::Size_Head>
+	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::head_size>
 	using U_Remove = typename I_Remove<T_Tuple_p, t_Remove_Point>::type;
 
 	template<class T_Tuple_v>
@@ -78,7 +78,7 @@ namespace N_Tuple
 
 	//仕様
 	//[T_Tuple]の[t_Swap_Num_1]番目と[t_Swap_Num_2]番目の要素を入れ替える
-	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2 = S_Parameter<T_Tuple>::Size_Head>
+	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2 = S_Parameter<T_Tuple>::head_size>
 		requires is_Element<T_Tuple, t_Swap_Num_1>&& is_Element<T_Tuple, t_Swap_Num_2>
 	using U_Swap = typename I_Swap<T_Tuple, t_Swap_Num_1, t_Swap_Num_2>::type;
 
@@ -87,14 +87,14 @@ namespace N_Tuple
 	//[T_Tuple_p]の[t_Change_Point]の値を[T_Change]に変更する
 	// 
 	//[t_Change_Point]::[T_Tuple_p]の変更する要素番号、指定しない場合は、現在の選択位置が仕様される
-	template<class T_Tuple_p, class T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::Size_Head>
+	template<class T_Tuple_p, class T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::head_size>
 	using U_Change = typename I_Change<T_Tuple_p, T_Change, t_Change_Point>::type;
 
 	//仕様
 	//[T_Tuple_p]の[t_Change_Point]の値を[T_Change]に変更する
 	// 
 	//[t_Change_Point]::[T_Tuple_p]の変更する要素番号、指定しない場合は、現在の選択位置が仕様される
-	template<class T_Tuple_p, is_Tuple T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::Size_Head>
+	template<class T_Tuple_p, is_Tuple T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::head_size>
 	using U_Change_tuple_expand = typename I_Change<T_Tuple_p, T_Change, t_Change_Point>::tuple_expand;
 
 	//仕様

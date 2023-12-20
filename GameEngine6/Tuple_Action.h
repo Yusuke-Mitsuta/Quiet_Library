@@ -100,9 +100,9 @@ namespace N_Tuple
 		template<>
 		struct S_action_break<false>
 		{
-			static constexpr size_t prev_head_size = S_Parameter<T_Tuple>::Size_Head;
+			static constexpr size_t prev_head_size = S_Parameter<T_Tuple>::head_size;
 			using create_p = U_Create_p<return_type>;
-			using type = U_if_t1<U_Select<prev_head_size,create_p>,create_p,(prev_head_size < S_Parameter<return_type>::Size)>;
+			using type = U_if_t1<U_Select<prev_head_size,create_p>,create_p,(prev_head_size < S_Parameter<return_type>::size)>;
 		};
 
 		using type = S_action_break<>::type;
@@ -135,8 +135,8 @@ namespace N_Tuple
 	private:
 
 		template<class T_Tuple,class T_Start_Point_Judge=std::bool_constant<
-			((t_Start_Point < S_Parameter<T_Tuple>::Size) &&
-			(t_Start_Point != S_Parameter<T_Tuple>::Size_Head))>>
+			((t_Start_Point < S_Parameter<T_Tuple>::size) &&
+			(t_Start_Point != S_Parameter<T_Tuple>::head_size))>>
 		struct I_Tuple_Start_Point_Set
 		{
 			using type = T_Action<T_Tuple>::type;
@@ -148,10 +148,10 @@ namespace N_Tuple
 		{
 			using return_type = T_Action<U_Select<t_Start_Point, T_Tuple>>::type;
 
-			template<bool t_not_size_change_Judge = (S_Parameter<T_Tuple>::Size_Head < S_Parameter<return_type>::Size) > 
+			template<bool t_not_size_change_Judge = (S_Parameter<T_Tuple>::head_size < S_Parameter<return_type>::size) > 
 			struct S_Tuple_Start_Point_Set
 			{
-				using type = U_Select<S_Parameter<T_Tuple>::Size_Head, return_type>;
+				using type = U_Select<S_Parameter<T_Tuple>::head_size, return_type>;
 			};
 
 			template<>

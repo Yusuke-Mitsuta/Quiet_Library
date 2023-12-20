@@ -33,7 +33,7 @@ namespace N_Constexpr
 //...V::引数の2つ目以降の型
 //
 //補足
-//[Array_Capacity::Type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
+//[Array_Capacity::type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
 //型TがArray型でなく、引数の型がArray型の時、Arrayが分解され、それぞれ一つの型として確認する
 namespace N_Constexpr::N_Array
 {
@@ -96,7 +96,7 @@ namespace N_Constexpr::N_Array
 		//Arrayに対して、[U,V...]の要素で構築時、構築可能かどうかの判定、可能ならば要素数の計算を行う
 		//
 		//補足
-		//[Array_Capacity::Type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
+		//[Array_Capacity::type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
 		template<Size_Type remaining_Capacity, E_State t_State, class U, class ...V>
 		class Calcu
 		{
@@ -123,7 +123,7 @@ namespace N_Constexpr::N_Array
 			//クラス[Array]の要素数の上限値に対して、引数にとる要素数が適正か判定した結果を返す
 			//
 			//補足
-			//[Array_Capacity::Type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
+			//[Array_Capacity::type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
 			using Bool_Type = std::bool_constant<Judge_Capacity()>;
 
 			//仕様
@@ -141,7 +141,7 @@ namespace N_Constexpr::N_Array
 		//クラス[Array]の要素数の上限値に対して、引数にとる要素数が適正か判定した結果を返す
 		//
 		//補足
-		//[Array_Capacity::Type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
+		//[Array_Capacity::type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
 		using Bool_Type = Type::Bool_Type;
 
 		//仕様

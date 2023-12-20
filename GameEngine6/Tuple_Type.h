@@ -31,10 +31,10 @@ namespace std
 	template<class ...T_Type>
 	struct tuple_size<tuple_tp<T_Type...>> :
 		integral_constant<size_t, N_Tuple::S_Parameter<
-		tuple_tp<T_Type...>>::Size> 
+		tuple_tp<T_Type...>>::size> 
 	{
 		static constexpr size_t value =
-			N_Tuple::S_Parameter<tuple_tp<T_Type...>>::Size;
+			N_Tuple::S_Parameter<tuple_tp<T_Type...>>::size;
 	};
 
 	template<class ...T_Type>
