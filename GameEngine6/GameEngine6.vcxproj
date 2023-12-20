@@ -116,6 +116,7 @@
     <ClInclude Include="Tuple_v_To_t.h" />
     <ClInclude Include="Type_Nameh.h" />
     <ClInclude Include="Using_Type.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="While_Type.h" />
     <ClInclude Include="Function_Args_Compatible.h" />
   </ItemGroup>
