@@ -10,26 +10,24 @@ namespace N_Function
 	//
 	//•â‘«
 	//ŠÖ”‚ª“Z‚ß‚ç‚ê‚Ä‚¢‚éê‡A[tuple_t]‚Å“Z‚ß‚é
-	template<class T_Request_Args, class T_Bind_Args>
+	template<class T_Request_Args, class T_Fn_Data, 
+		class T_Bind_Args =typename T_Fn_Data::bind_args>
 	struct S_Request_args
 	{
-		using type = I_Function_Args_Chack<T_Request_Args, T_Bind_Args>::request_args;
+		using type = I_Function_Args_Chack<T_Request_Args, T_Bind_Args>::type;
 	};
 
-	template<class T_Request_Args>
-	struct S_Request_args<T_Request_Args, invalid_t>
+	template<class T_Request_Args,class T_Fn_Data>
+	struct S_Request_args<T_Request_Args, T_Fn_Data,invalid_t>
 	{
 		using type = T_Request_Args;
 	};
 
-	template<class T_Fn_Data, class T_Request>
+
+	template<class T_Request>
 	struct S_Request_args_Access
 	{
-		using request = T_Request::request_args;
-
-		using type = 
-			typename S_Request_args<request,
-			typename T_Fn_Data::bind_args>::type;
+		using type = T_Request::request_args;
 	};
 	
 

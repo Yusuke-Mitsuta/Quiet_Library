@@ -16,20 +16,33 @@ namespace N_Function
 	//
 	//補足
 	//帰って来るデータは関数オブジェクト事に[tuple_t]で纏められている
-	template<template<class...>class TT_Access, class T_Fn_Data>
+	template<
+		template<class...>class TT_Access, 
+		template<class...>class TT_Action, 
+		class T_Fn_Data>
 	struct I_Function_Request_Data
 	{
 
 		template<class T_Request>
 		struct S_Request
 		{
-			using type = TT_Access<T_Fn_Data,T_Request>::type;
+			using type = TT_Action<T_Request,T_Fn_Data>::type;
 		};
 
 		template< class ...T_Request>
-		struct S_Request< tuple_t<T_Request... >>
+		struct S_Request<tuple_t<T_Request... >>
 		{
 			using type = tuple_t<typename S_Request<T_Request>::type...>;
+		};
+
+		template< class ...T_Request>
+		struct S_Request<Request_Core<T_Request... >>
+		{
+			using type = 
+				//Request_Core<T_Request... >;
+				
+				//typename TT_Access<Request_Core<T_Request... >>::type;
+				typename S_Request<typename TT_Access<Request_Core<T_Request... >>::type>::type;
 		};
 
 		//仕様

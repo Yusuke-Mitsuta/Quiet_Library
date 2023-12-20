@@ -5,9 +5,6 @@
 namespace N_Function
 {
 
-	template<class ...T_Parts>
-	struct Function_Core;
-
 	template<class T_Request_Args = invalid_t, class T_Request_Pointer = invalid_t>
 	struct Request_Core
 	{
@@ -15,6 +12,7 @@ namespace N_Function
 
 		using request_pointer = T_Request_Pointer;
 	};
+
 
 
 }

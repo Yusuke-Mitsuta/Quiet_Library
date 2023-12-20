@@ -31,6 +31,7 @@
     <ClInclude Include="Function_Operator.h" />
     <ClInclude Include="Function_Request_Args.h" />
     <ClInclude Include="Function_Request_Data.h" />
+    <ClInclude Include="Function_Request_Data_Access.h" />
     <ClInclude Include="Function_Request_pointer.h" />
     <ClInclude Include="Function_Single_Data.h" />
     <ClInclude Include="Invalid.h" />
