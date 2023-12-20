@@ -20,7 +20,7 @@ namespace N_Function
 	struct I_Function_Request_Data
 	{
 
-		template<  class T_Request>
+		template<class T_Request>
 		struct S_Request
 		{
 			using type = TT_Access<T_Fn_Data,T_Request>::type;
