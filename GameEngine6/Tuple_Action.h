@@ -64,7 +64,7 @@ namespace N_Tuple
 		template<>
 		struct S_action_break<false>
 		{
-			using type = return_type;//U_Remove_p<return_type>;
+			using type =U_Remove_p<return_type>;
 		};
 
 		using type = S_action_break<>::type;
