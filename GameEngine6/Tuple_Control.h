@@ -24,7 +24,7 @@ namespace N_Tuple
 		static constexpr size_t size = S_Parameter<T_Tuple>::size;
 
 		//現在選択している番号
-		static constexpr int select = S_Parameter<T_Tuple>::select;
+		//static constexpr int select = S_Parameter<T_Tuple>::select;
 
 		//現在選択している型より、前の型リスト
 		// [tuple_t,v]の場合、先頭の値が選択されている物と見なす
@@ -119,7 +119,7 @@ namespace N_Tuple
 		Control_p_invalid<tuple_t<>>
 	{};
 
-	template<class T_Head,class T,class T_Tail>
+	template<class T_Head, class T, class T_Tail>
 	struct Control_tp :
 		Control_p<tuple_tp<T_Head, T, T_Tail>>
 	{
@@ -142,7 +142,7 @@ namespace N_Tuple
 	};
 
 	template<class T>
-	struct Control_tp<tuple_t<>,T,tuple_t<>> :
+	struct Control_tp<tuple_t<>, T, tuple_t<>> :
 		Control_p<tuple_tp<tuple_t<>, T, tuple_t<>>>
 	{
 	private:
@@ -204,9 +204,9 @@ namespace N_Tuple
 		Control_p_invalid<tuple_v<>>
 	{};
 
-	template<class T_Head,auto t_value,class T_Tail>
+	template<class T_Head, auto t_value, class T_Tail>
 	struct Control_vp :
-		Control_p<tuple_vp<T_Head,t_value,T_Tail>>
+		Control_p<tuple_vp<T_Head, t_value, T_Tail>>
 	{
 		using Tuple_vp = tuple_vp<T_Head, t_value, T_Tail>;
 	private:
@@ -226,7 +226,7 @@ namespace N_Tuple
 
 
 	template<>
-	struct Control_vp<tuple_v<>,invalid,tuple_v<>> :
+	struct Control_vp<tuple_v<>, invalid, tuple_v<>> :
 		Control_v_invalid,
 		Control_p_invalid<tuple_vp<tuple_v<>, invalid, tuple_v<>>>
 	{};
