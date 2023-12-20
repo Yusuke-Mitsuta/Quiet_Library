@@ -256,11 +256,13 @@ int main()
 
 	//TYPE_ID(TESTa<tuple_t<>>::type);
 	
-	//Function fn_test0(&H::Static_Args_2,7);
+	Function fn_test0(&H::Static_Args_2,7);
 
-		//decltype(fn_test0)::data;
+	using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
+	using fn_op_data=decltype(fn_test0)::data;
 
-	//TYPE_ID(FNT);
+	TYPE_ID(fn_r);
+	TYPE_ID(fn_op_data);
 	//TYPE_ID(FNTT);
 
 	//Function fn_test1(fn_test0,6);

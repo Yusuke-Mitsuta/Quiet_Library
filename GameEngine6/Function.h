@@ -22,8 +22,11 @@ public:
 	}
 
 	//using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
-	using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
-	using data = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
+	//using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
+	using data =
+		//N_Function::Function_Core<T_Front_Parts, T_Parts...>::request_args;
+		N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
+		//N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
 
 };
 

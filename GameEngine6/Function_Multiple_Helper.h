@@ -79,7 +79,7 @@ namespace N_Function
 				
 				template<class T_Tuple,class T_Method,class T_access_numbers>
 				using Method_Bound =typename S_Method_Bound<typename T_Tuple::next,
-					N_Tuple::U_Insert<T_Tuple_Method_Bound,typename  T_Method::type>,
+					N_Tuple::U_Insert<T_Tuple_Method_Bound,typename T_Method::type>,
 					N_Tuple::U_Insert<T_Tuple_Access_Number,T_access_numbers>>::type;
 
 				template<class T_Tuple>

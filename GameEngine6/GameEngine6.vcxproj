@@ -89,6 +89,7 @@
     <ClInclude Include="Tuple_Elements_Action.h" />
     <ClInclude Include="Tuple_ID.h" />
     <ClInclude Include="Tuple_Range.h" />
+    <ClInclude Include="Tuple_Size.h" />
     <ClInclude Include="Tuple_Test.h" />
     <ClInclude Include="Tuple_t_To_v.h" />
     <ClInclude Include="Tuple.h" />

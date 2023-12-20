@@ -31,6 +31,9 @@ namespace N_Tuple
 	template<class ...T_Types>
 	struct S_Parameter;
 
+	template<class T_Tuple>
+	struct S_Size;
+
 	struct Tuple_p;
 
 	template<class T_Tuple_p>
@@ -41,6 +44,7 @@ namespace N_Tuple
 
 	template<class T_Tuple>
 	struct Control_p;
+
 
 
 	template<class T_Tuple_t>

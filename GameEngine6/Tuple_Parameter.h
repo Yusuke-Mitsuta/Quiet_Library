@@ -100,7 +100,7 @@ namespace N_Tuple
 		static constexpr size_t tail_size = sizeof...(T_Tail_Types);
 		static constexpr size_t size = head_size + tail_size + not_is_invalid<T>;
 
-		static constexpr int select = head_size - (tail_size == size);
+		//static constexpr int select = head_size - static_cast<bool>(tail_size == size);
 
 		using type = T;
 
@@ -120,7 +120,7 @@ namespace N_Tuple
 		static constexpr size_t tail_size = sizeof...(t_Tail_Value);
 		static constexpr size_t size = head_size + tail_size + not_is_invalid<decltype(t_value)>;
 
-		static constexpr int select = head_size - (tail_size == size);
+		//static constexpr int select = head_size - static_cast<bool>(tail_size == size);
 
 		static constexpr auto value = t_value;
 
