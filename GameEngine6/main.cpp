@@ -206,21 +206,21 @@ int main()
 
 	Function fnp_test(h,&H::Args_5,5);
 
-	//Function fnp_test2(&fnp_test,4);
-	//Function fnp_test3(&fnp_test2,3);
-	//Function fnp_test4(&fnp_test3,2);
+	Function fnp_test2(&fnp_test,4);
+	Function fnp_test3(&fnp_test2,3);
+	Function fnp_test4(&fnp_test3,2);
 	
-	//fnp_test4(3);
+	//fnp_test3()
 	//5SIZE_OF(fnp_test4);
 
 
 	Function fnr_test(&H::Args_5, 5);
-	//Function fnr_test2(fnr_test, 4);
-	//Function fnr_test3(fnr_test2, 3);
-	//Function fnr_test4(fnr_test3, 2,h,fnr_test,44,fnr_test3,3,2);
-	//Function fnr_test5(fnr_test4,3);
+	Function fnr_test2(fnr_test, 4);
+	Function fnr_test3(fnr_test2, 3);
+	Function fnr_test4(fnr_test3, 2,h,fnr_test,44,fnr_test3,3,2);
+	Function fnr_test5(fnr_test4,3);
 
-	//fnr_test5(h);
+	//fnr_test5()
 	//fnr_test5(h);
 
 

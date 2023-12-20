@@ -48,8 +48,6 @@ namespace N_Tuple
 	template<same_as_template_value<tuple_v> T_Head, auto _Value, same_as_template_value<tuple_v> T_Tail>
 	struct Control_vp;
 
-
-
 	template<class T_Tuple_t>
 	struct I_Next;
 

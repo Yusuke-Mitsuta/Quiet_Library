@@ -52,13 +52,13 @@ namespace N_Tuple
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_TP;
 	};
 
-	template<auto ...t_Head_Value, auto _Value, auto ...t_Tail_Value>
-	struct S_Parameter<tuple_vp<tuple_v<t_Head_Value...>, _Value, tuple_v<t_Tail_Value...>>>
+	template<auto ...t_Head_Value, auto t_value, auto ...t_Tail_Value>
+	struct S_Parameter<tuple_vp<tuple_v<t_Head_Value...>, t_value, tuple_v<t_Tail_Value...>>>
 	{
 		static constexpr size_t head_size = sizeof...(t_Head_Value);
 		static constexpr size_t tail_size = sizeof...(t_Tail_Value);
-		static constexpr size_t size = head_size + tail_size + not_is_invalid<decltype(_Value)>;
-		static constexpr auto value = _Value;
+		static constexpr size_t size = head_size + tail_size + not_is_invalid<decltype(t_value)>;
+		static constexpr auto value = t_value;
 
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_VP;
 	};
