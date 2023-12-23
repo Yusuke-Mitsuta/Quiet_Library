@@ -57,7 +57,7 @@ namespace N_Tuple
 
 	public:
 		
-		using type =S_Tuple_tp_Convert_Action<S_Remove, T_Tuple_p>::type;
+		using type =S_Action_Tuple_tp<S_Remove, T_Tuple_p>::type;
 
 	};
 

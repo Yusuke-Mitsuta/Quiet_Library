@@ -11,10 +11,9 @@ namespace N_Function
 	//仕様
 	//[T_Parts...]から、各種データを生成する
 	template<class ...T_Parts>
-	struct I_Function_Superficial_Data
+	struct I_Function_Single_Data
 	{
 	protected:
-
 		using base_data = I_Function_Base_Data<T_Parts...>::type;
 
 	public:
@@ -35,9 +34,4 @@ namespace N_Function
 		using request = Request_Core<request_args, request_pointer>;
 	};
 
-
-	template<class ...T_Parts>
-	struct I_Function_Single_Data :
-		I_Function_Superficial_Data<T_Parts...> 
-	{};
 }

@@ -25,8 +25,6 @@ namespace N_Tuple
 		using head = tuple_t<>;
 		using tail = tuple_t<>;
 
-		static constexpr N_Constexpr::String name = { "" };
-
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::NONE;
 	};
 
@@ -56,8 +54,6 @@ namespace N_Tuple
 
 		using head = tuple_t<>;
 		using tail = S_Parameter_tuple_t<T...>::tail;
-
-		static constexpr N_Constexpr::String name = { "" };
 
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_T;
 
@@ -92,8 +88,6 @@ namespace N_Tuple
 		using head = tuple_v<>;
 		using tail = S_Parameter_tuple_v<t_value...>::tail;
 
-		static constexpr N_Constexpr::String name = { "" };
-
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_V;
 	};
 
@@ -112,7 +106,6 @@ namespace N_Tuple
 
 		using head = tuple_t<T_Head_Types...>;
 		using tail = tuple_t<T_Tail_Types...>;
-		static constexpr N_Constexpr::String name = { "" };
 
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_TP;
 	};
@@ -135,18 +128,8 @@ namespace N_Tuple
 		using tail = tuple_v<t_Tail_Value...>;
 
 
-		static constexpr N_Constexpr::String name = { "" };
-
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_VP;
 	};
-
-	template<auto t_name,is_Tuple T_Tuple>
-	struct S_Parameter<tuple_name<t_name, T_Tuple>>:
-		S_Parameter<T_Tuple>
-	{
-		static constexpr auto name = t_name;
-	};
-
 
 
 
