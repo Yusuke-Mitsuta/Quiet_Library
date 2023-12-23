@@ -6,7 +6,7 @@
 namespace N_Function
 {
 	template<class ...T_Parts>
-	struct I_Function_Single_Data;
+	struct I_Function_Valid_Data;
 	
 
 	//仕様
@@ -21,16 +21,16 @@ namespace N_Function
 	struct I_Function_Single_Helper
 	{
 	private:
-		using Lapping_Fn = I_Function_Single_Data<T_Parts...>;
+		using Lapping_Fn = I_Function_Valid_Data<T_Parts...>;
 
 		template<class T_True>
-		using Fn_Judge = U_Judge_t<T_True, not_is_invalid<typename Lapping_Fn::request_args>>;
+		using Fn_Judge = U_Judge_t<T_True, is_invalid_not<typename Lapping_Fn::request_args>>;
 
 	public:
 
 		//仕様
 		//纏められた[Function_Core]
-		using type = typename I_Function_Single_Data<T_Parts...>::type;
+		using type = typename I_Function_Valid_Data<T_Parts...>::type;
 
 		//仕様
 		//纏められた関数オブジェクトに対応した、使用した型の番号を[tupel_t<tuple_v<>>]に入れる

@@ -20,7 +20,7 @@ namespace N_Tuple
 		};
 
 
-		template<bool t_Convert_Fg = is_tuple_size<T_Convert_Type>>
+		template<bool t_Convert_Fg = std::tuple_size_v<T_Convert_Type>>
 		struct S_Convert_Chack
 		{
 			using type = S_Convert<tuple_v<>>::type;

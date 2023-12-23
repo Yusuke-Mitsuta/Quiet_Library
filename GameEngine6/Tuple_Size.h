@@ -31,7 +31,7 @@ namespace N_Tuple
 		static constexpr size_t head_size = S_Size<T_Head>::size;
 		static constexpr size_t tail_size = S_Size<T_Tail>::size;
 
-		static constexpr size_t size = head_size + tail_size + not_is_invalid<T>;
+		static constexpr size_t size = head_size + tail_size + is_invalid_not<T>;
 	};
 
 	template<class T_Head, auto t_value, class T_Tail>
@@ -40,7 +40,7 @@ namespace N_Tuple
 		static constexpr size_t head_size = S_Size<T_Head>::size;
 		static constexpr size_t tail_size = S_Size<T_Tail>::size;
 
-		static constexpr size_t size = head_size + tail_size + not_is_invalid<decltype(t_value)>;
+		static constexpr size_t size = head_size + tail_size + is_invalid_not<decltype(t_value)>;
 	};
 
 	//template<is_Tuple_v T_Tuple_v>

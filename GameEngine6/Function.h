@@ -4,7 +4,7 @@
 #include"Function_Helper.h"
 #include"Function_Operator.h"
 
-template<not_is_invalid T_Front_Parts, class ...T_Parts>
+template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function 
 	//:public N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
 {
@@ -21,16 +21,19 @@ public:
 		return this;
 	}
 
-	//using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
+//	using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
 	//using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
 	//using data =
 		//N_Function::Function_Core<T_Front_Parts, T_Parts...>::request_args;
 		//N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
 		//N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
 
-	using function = N_Function::I_Function_Single_Data<T_Front_Parts, T_Parts...>::request_args;
-		//I_Function_Multiple_Helper
-		//function;
+	using function = N_Function::I_Function_Helper<T_Front_Parts, T_Parts...>::type;
+
+	using request_args= N_Function::I_Function_Valid_Data<Function>::request_args;
+	using request_args_s= N_Function::I_Function_Superficial_Data<Function>::request_args;
+	using function_s = N_Function::I_Function_Superficial_Data<Function>::function;
+
 };
 
 template<class T_Front_Parts, class ...T_Parts>

@@ -23,7 +23,7 @@ namespace N_Core_Control
 
 		template<class T>
 			requires derived_from<T,Base> &&
-		not_same_as<T,Base>
+		same_as_not<T,Base>
 		T* Add_Child();
 
 	};
@@ -31,7 +31,7 @@ namespace N_Core_Control
 
 	template<class T>
 		requires derived_from<T, Base> &&
-		not_same_as<T, Base>
+		same_as_not<T, Base>
 	inline T* Add_Origin::Add_Child()
 	{
 		T* material = new T();

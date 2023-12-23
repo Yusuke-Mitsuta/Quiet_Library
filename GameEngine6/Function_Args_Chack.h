@@ -92,10 +92,10 @@ namespace N_Function
 		//とし[S_Args_Chack]を実行する
 		//成功すれば値を、失敗すれば[T_Args_List]を進める
 		template< class T_Args, class T_Args_List>
-		struct S_Expand_Args_Check<is_convertible_from, T_Args, T_Args_List, true>
+		struct S_Expand_Args_Check<convertible_from_C, T_Args, T_Args_List, true>
 		{
 			using result_type = S_Args_Chack<T_Args,typename T_Args_List::type>::type;
-			using type = S_Next<result_type, S_Expand_Args_Check<is_convertible_from, T_Args, typename T_Args_List::next>>::type;
+			using type = S_Next<result_type, S_Expand_Args_Check<convertible_from_C, T_Args, typename T_Args_List::next>>::type;
 
 		};
 
@@ -129,7 +129,7 @@ namespace N_Function
 			using Expand_Request_Args = typename S_Expand_Change<T_Request_Args>::type;
 
 			using type = S_Next<typename S_Expand_Args_Check<
-				is_convertible_from,Expand_Request_Args,
+				convertible_from_C,Expand_Request_Args,
 				T_Bind_Args_List>::type,
 				S_Expand_Args<Expand_Request_Args, T_Bind_Args, N_Tuple::U_Merge< T_Request_Args_List, Expand_Request_Args>, T_Bind_Args_List>>::type;
 
@@ -177,7 +177,7 @@ namespace N_Function
 			using Bind_Args_List_Merge = N_Tuple::U_Merge<T_Bind_Args_List, Expand_Bind_Args>;
 
 			using Expand_Args_Check = S_Next<typename S_Expand_Args_Check<
-				is_convertible_from, Expand_Request_Args
+				convertible_from_C, Expand_Request_Args
 				, Bind_Args_List_Merge>::type,
 				S_Expand_Args_Check<std::is_constructible, Expand_Bind_Args
 				, T_Request_Args_List>>;
@@ -201,7 +201,7 @@ namespace N_Function
 		//仕様
 		//[T_Request_Args_Tuple::type]が[T_Bind_Args::type]から変換不可能な時、[S_Expand]により展開し再度、型の精査を行う
 		template<class T_Request_Args, class T_Bind_Args>
-			requires not_convertible_to<typename T_Bind_Args::type, typename T_Request_Args::type>
+			requires convertible_to_not<typename T_Bind_Args::type, typename T_Request_Args::type>
 		struct S_Args_Chack<T_Request_Args, T_Bind_Args, false>
 		{
 			using type = S_Expand_Args<T_Request_Args, T_Bind_Args>::type;	
@@ -318,7 +318,7 @@ namespace N_Function
 			class ...T_Bind_Args>
 		requires requires
 		{
-			requires not_is_invalid<typename T_Bind_Args_Tuple::type>;
+			requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, false, false, T_Bind_Args...>
 		{
@@ -333,7 +333,7 @@ namespace N_Function
 			class ...T_Bind_Args>
 			requires requires
 		{
-			requires not_is_invalid<typename T_Bind_Args_Tuple::type>;
+			requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple,T_Bind_Args_Tuple,true,t_Bind_Args_Expand,T_Bind_Args...>
 		{
@@ -349,7 +349,7 @@ namespace N_Function
 		//	class ...T_Bind_Args>
 		//requires requires
 		//{
-		//	requires not_is_invalid<typename T_Bind_Args_Tuple::type>;
+		//	requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
 		//}
 		//struct S_Function_Args_Chack<T_Request_Args_Tuple,T_Bind_Args_Tuple,false, true, //T_Front_Bind_Args,T_Bind_Args...>
 		//{

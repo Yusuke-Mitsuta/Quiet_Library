@@ -210,7 +210,7 @@ namespace N_Function
 
 		//仕様
 		//纏め作業が成功すれば、[T_Fn_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
-		using judge = U_Judge_t<front_t, not_is_invalid<type>>;
+		using judge = U_Judge_t<front_t, is_invalid_not<type>>;
 	};
 
 

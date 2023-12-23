@@ -3,7 +3,7 @@
 #include"Tuple.h"
 #include"Concept.h"
 
-template<not_is_invalid T_Front_Parts, class ...T_Parts>
+template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function;
 
 namespace N_Function
@@ -147,7 +147,15 @@ namespace N_Function
 			S_Function_Data<>
 		{
 			using function = tuple_t<T_Fns...>;
+		};
 
+		//仕様
+		//親となる関数オブジェクトの型をセットする
+		template<class T_Fn>
+		struct S_Function_Data<tuple_t<T_Fn>> :
+			S_Function_Data<>
+		{
+			using function = T_Fn;
 		};
 
 		//仕様
@@ -173,7 +181,7 @@ namespace N_Function
 				using type = T_Core;
 			};
 
-			template<class ...T_Parts, not_is_invalid T_Add>
+			template<class ...T_Parts, is_invalid_not T_Add>
 			struct S_Add_p<Function_Core<T_Parts...>, T_Add>
 			{
 				using type = Function_Core<T_Add*, T_Parts...>;
@@ -185,7 +193,7 @@ namespace N_Function
 				using type = T_Core;
 			};
 
-			template<class ...T_Parts, not_is_invalid T_Add>
+			template<class ...T_Parts, is_invalid_not T_Add>
 			struct S_Add_fn<Function_Core<T_Parts...>, T_Add>
 			{
 				using type = Function_Core<T_Add, T_Parts...>;

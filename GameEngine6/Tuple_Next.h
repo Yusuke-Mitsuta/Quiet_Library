@@ -25,7 +25,7 @@ namespace N_Tuple
 			using type = tuple_tp<tuple_t<T_Head_Types..., T>, T_Next_Type, tuple_t<T_Tail_Types...>>;
 		};
 
-		template<class ...T_Head_Types, not_is_invalid T>
+		template<class ...T_Head_Types, is_invalid_not T>
 		struct S_Next<tuple_tp<tuple_t<T_Head_Types...>, T, tuple_t<>>>
 		{
 			using type = tuple_tp<tuple_t<T_Head_Types..., T>, invalid_t, tuple_t<>>;

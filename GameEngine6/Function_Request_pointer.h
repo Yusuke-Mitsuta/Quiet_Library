@@ -18,7 +18,7 @@ namespace N_Function
 	{
 		using type =
 			U_Judge_t<T_Request_pointer,
-			not_convertible_to<T_Pointer, T_Request_pointer>>;
+			convertible_to_not<T_Pointer, T_Request_pointer>>;
 	};
 
 
