@@ -2,7 +2,6 @@
 
 #include"Tuple_Declare.h"
 #include"SwapType.h"
-#include"Tuple_Action.h"
 
 namespace N_Tuple
 {
@@ -68,9 +67,9 @@ namespace N_Tuple
 
 	public:
 
-		using type = S_Action_Tuple_t<S_Action, T_Tuple>::Return_not_p;
+		using type = S_Tuple_t_Convert_Action<S_Action, T_Tuple>::Return_not_p;
 		//using type = //T_Tuple;
-			//S_Action_Tuple_t<S_Action, T_Tuple>::type;
+			//S_Tuple_t_Convert_Action<S_Action, T_Tuple>::type;
 	};
 
 }

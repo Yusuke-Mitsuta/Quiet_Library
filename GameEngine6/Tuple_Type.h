@@ -11,8 +11,7 @@ template<N_Tuple::same_as_tuple_t T_Head, class T, N_Tuple::same_as_tuple_t T_Ta
 struct tuple_tp :
 	N_Tuple::Control_tp<T_Head, T, T_Tail>
 {
-}; 
-
+};
 
 template<class ...T_Types>
 struct tuple_t :

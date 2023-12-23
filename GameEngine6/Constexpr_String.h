@@ -56,11 +56,10 @@ namespace N_Constexpr
 			}
 		}
 
-
 		template<Size_Type t_StrSize>
 		constexpr bool operator==(String<t_StrSize> str2)
 		{
-			for (int i = 0;str[i] + str2.str[i]; i++)
+			for (int i = 0; str[i] + str2.str[i]; i++)
 			{
 				if (str[i] - str2.str[i])
 				{
@@ -70,11 +69,25 @@ namespace N_Constexpr
 			return true;
 		}
 
+		template<Size_Type t_StrSize>
+			requires Fg<(t_Size >= t_StrSize)>
+		constexpr bool operator==(const char(&initstr)[t_StrSize])
+		{
+			return this->operator==(String{ initstr });
+		}
+
+		template<class T>
+		constexpr bool operator==(T t)
+		{
+			return false;
+		}
+
 		template<class T>
 		constexpr bool operator!=(T t)
 		{
 			return !this->operator==(t);
 		}
+
 
 		constexpr std::string Change_stdString()
 		{
