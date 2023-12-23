@@ -28,6 +28,9 @@ public:
 		//N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
 		//N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
 
+	using function = N_Function::I_Function_Single_Data<T_Front_Parts, T_Parts...>::request_args;
+		//I_Function_Multiple_Helper
+		//function;
 };
 
 template<class T_Front_Parts, class ...T_Parts>
