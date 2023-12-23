@@ -32,16 +32,15 @@ namespace N_Function
 		template< class ...T_Request>
 		struct S_Request<tuple_t<T_Request... >>
 		{
-			using type = tuple_t<typename S_Request<T_Request>::type...>;
+			using return_t = tuple_t<typename S_Request<T_Request>::type...>;
+
+			using type = U_Judge_t<return_t, same_as_nand<invalid_t, typename S_Request<T_Request>::type...>>;
 		};
 
 		template< class ...T_Request>
 		struct S_Request<Request_Core<T_Request... >>
 		{
 			using type = 
-				//Request_Core<T_Request... >;
-				
-				//typename TT_Access<Request_Core<T_Request... >>::type;
 				typename S_Request<typename TT_Access<Request_Core<T_Request... >>::type>::type;
 		};
 
@@ -74,7 +73,7 @@ namespace N_Function
 		template< class ...T_Parts>
 		struct S_Function_Type<Function_Core<T_Parts...>>
 		{
-			using type = S_Request<typename I_Function_Single_Data<T_Parts...>::request>::type;
+			using type = S_Request<typename Function_Core<T_Parts...>::request>::type;
 		};
 
 		//Žd—l

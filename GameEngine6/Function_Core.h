@@ -1,6 +1,6 @@
 #pragma once
 
-#include"Function_Superficial_Data.h"
+#include"Function_Valid_Data.h"
 
 namespace N_Function
 {
@@ -8,7 +8,7 @@ namespace N_Function
 	//クラスメソッドとメソッドを同一方法で扱う為のクラス
 	template<class ...T_Parts>
 	struct Function_Core :
-		I_Function_Single_Data<T_Parts...>
+		I_Function_Valid_Data<T_Parts...>
 	{
 
 

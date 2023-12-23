@@ -35,12 +35,12 @@ namespace N_Core_Control
 
 		template<class T,Size_Type t_Level = Default_Level>
 			requires derived_from<T, Base>&&
-		not_same_as<T, Base>
+		same_as_not<T, Base>
 		T* Get_Child();
 
 		template<class T,Size_Type t_Level= Default_Level,Size_Type t_Max_HitNum =Default_Max_HitNum>
 			requires derived_from<T, Base> &&
-		not_same_as<T,Base>
+		same_as_not<T,Base>
 		std::vector<T*>& Get_Childs();
 	};
 
@@ -86,7 +86,7 @@ namespace N_Core_Control
 
 	template<class T, Size_Type t_Level>
 		requires derived_from<T, Base>&&
-	not_same_as<T, Base>
+	same_as_not<T, Base>
 	inline T* Get_Origin::Get_Child()
 	{
 		std::vector<T*>& hit = Search<T, t_Level, 1>();
@@ -101,7 +101,7 @@ namespace N_Core_Control
 
 	template<class T, Size_Type t_Level, Size_Type t_Max_HitNum>
 		requires derived_from<T, Base>&&
-	not_same_as<T, Base>
+	same_as_not<T, Base>
 	inline std::vector<T*>& Get_Origin::Get_Childs()
 	{
 		return Search<T,t_Level,t_Max_HitNum>();

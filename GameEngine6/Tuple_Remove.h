@@ -13,7 +13,7 @@ namespace N_Tuple
 		template<class T_Tuple_p>
 		struct S_Remove;
 
-		template<not_is_invalid T>
+		template<is_invalid_not T>
 		struct S_Remove<tuple_tp<tuple_t<>, T, tuple_t<>>>
 		{
 		private:
@@ -22,7 +22,7 @@ namespace N_Tuple
 			using type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
 		};
 
-		template<same_as_tuple_t T_Head, not_is_invalid T>
+		template<same_as_tuple_t T_Head, is_invalid_not T>
 		struct S_Remove<tuple_tp<T_Head, T, tuple_t<>>>
 		{
 		private:
@@ -32,7 +32,7 @@ namespace N_Tuple
 			using type = S_Remove<Tuple_Prev>::type;
 		};
 
-		template<same_as_tuple_t T_Head, not_is_invalid T, class T_Next_Type, class ...T_Tail_Types>
+		template<same_as_tuple_t T_Head, is_invalid_not T, class T_Next_Type, class ...T_Tail_Types>
 		struct S_Remove<tuple_tp<T_Head, T, tuple_t<T_Next_Type, T_Tail_Types...>>>
 		{
 			using type = tuple_tp<T_Head, T_Next_Type, tuple_t<T_Tail_Types...>>;

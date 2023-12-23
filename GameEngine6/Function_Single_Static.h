@@ -13,7 +13,7 @@
 //	//•â‘«
 //	//[t_Fn]‚É[Function_Single_Static]‚ğİ’è‚·‚éê‡[static constexpr]‚ÅCü‚·‚é–
 //	template<auto t_Fn, auto ...t_Args>
-//		requires not_same_as<typename N_Function::IS_Function_Single_Helper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, invalid_t>
+//		requires same_as_not<typename N_Function::IS_Function_Single_Helper<std::remove_const_t<decltype(t_Fn)>, decltype(t_Args)...>::Judge, invalid_t>
 //	class Function_Single_Static :
 //		public N_Function::IS_Function_Single_Static_Operator<t_Fn, t_Args...>::type
 //	{

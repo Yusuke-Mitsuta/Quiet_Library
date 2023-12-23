@@ -105,7 +105,7 @@ namespace N_Function
 				T_request_pointer, T_request_args,
 				N_Tuple::U_index_sequence<
 				N_Tuple::S_Parameter<T_request_args>::head_size
-				+not_is_invalid<typename T_request_args::type>
+				+is_invalid_not<typename T_request_args::type>
 				>,
 				invalid_t>;
 		};
@@ -156,7 +156,7 @@ namespace N_Function
 				tuple_v<t_access_number...>,
 				T_Front_request_pointer, T_Front_request_args,
 				N_Tuple::U_index_sequence<
-					N_Tuple::S_Parameter<T_Front_request_args>::head_size + not_is_invalid<typename T_Front_request_args::type>>,
+					N_Tuple::S_Parameter<T_Front_request_args>::head_size + is_invalid_not<typename T_Front_request_args::type>>,
 				next>;
 		};
 
@@ -221,7 +221,7 @@ namespace N_Function
 			using type = T_Result;
 		};
 
-		template<class ...T_Result, not_is_invalid T_Operator_Data>
+		template<class ...T_Result, is_invalid_not T_Operator_Data>
 		struct S_Function_Operator_Parameter<tuple_t<T_Result...>, T_Operator_Data>
 		{
 

@@ -13,7 +13,7 @@ namespace N_Tuple
 	};
 
 	template<auto ...t_Head_Value, auto _Value, auto...t_Tail_Value>
-		requires not_is_invalid<decltype(_Value)>
+		requires is_invalid_not<decltype(_Value)>
 	struct Tuple_v_To_t<tuple_vp<tuple_v<t_Head_Value...>,
 		_Value, tuple_v<t_Tail_Value...>>>
 	{

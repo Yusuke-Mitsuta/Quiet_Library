@@ -226,7 +226,7 @@ struct S_Zipa<int, 3>
 };
 
 
-template<template<class...>class T>
+template<class T>
 struct TESTa
 {
 	using type = int;
@@ -247,7 +247,7 @@ using t = tuple_t<>;
 
 int main()
 {
-
+	
 	//static constexpr auto st=tuple_n::name;
 	
 	//std::cout << st.str;
@@ -276,11 +276,12 @@ int main()
 
 	Function fn_test1(fn_test0,6);
 	Function fn_test2(fn_test1,5,fn_test0,fn_test1);
-	Function fn_test3(fn_test2,4);
+	Function fn_test3(fn_test2,4,4,3);
 	Function fn_test4(fn_test3,fn_test2);
+	Function fn_test5(fn_test4,3);
+	Function fn_test6(fn_test5,fn_test4);
 	//Function fn_test5(fn_test4,2);
 	//Function fn_test6(fn_test5,1);
-
 	//fn_test4()
 
 	//
@@ -293,11 +294,18 @@ int main()
 		
 		
 	//using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::function;
-	using Fn3 = decltype(fn_test4)::function;
+	using Fnr6 = decltype(fn_test6)::request_args;
+	using Fn6 = decltype(fn_test6)::function;
+	using Fn5 = decltype(fn_test5)::request_args;
+	using Fn4 = decltype(fn_test4)::request_args;
+		//N_Function::I_Function_Superficial_Data
+		//N_Function::I_Function_Helper<decltype(fn_test2),int,decltype(fn_test0),decltype(fn_test1)>::type;
+		//::function;
+	
 
+	C_OUT(Fn6::size);
+	C_OUT(Fnr6::size);
 
-
-	TYPE_ID(Fn3);
 	//TYPE_ID(Fn3::type);
 	//TYPE_ID(Fn3::next::type);
 	//TYPE_ID(Fn2::request_args);
@@ -754,7 +762,7 @@ int main()
 //	//using Tu = N_Function::IS_Function_Multiple_Helper<decltype(&H::Args_3), int, int, H*, decltype(&H::Args_3), int>::Pointer_Judge;
 //
 //
-//	//static constexpr bool Tuu = not_is_invalid<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
+//	//static constexpr bool Tuu = is_invalid_not<typename  N_Function::S_Function_Single_Data<H*, decltype(&H::Args_3),int, int>::Method>;
 //
 //	//using Tt = N_Function::I_Function_Args_Chack<S_Parameter<int>, S_Parameter<int>>::IS_Zip_Expand<1, S_Parameter<S_Zip<float>>, double>::Change;
 //

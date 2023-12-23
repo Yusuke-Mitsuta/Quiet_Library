@@ -30,7 +30,7 @@ template<class T_Zip, size_t number = 0>
 	requires
 {
 	requires number != 0;
-	requires not_is_invalid<typename S_Zip_Search<T_Zip, number>::type>;
+	requires is_invalid_not<typename S_Zip_Search<T_Zip, number>::type>;
 }
 struct S_Zipa
 {

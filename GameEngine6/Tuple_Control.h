@@ -23,8 +23,6 @@ namespace N_Tuple
 		//—v‘f”
 		static constexpr size_t size = S_Parameter<T_Tuple>::size;
 
-		static constexpr N_Constexpr::String name = S_Parameter<T_Tuple>::name;
-
 		//Œ»İ‘I‘ğ‚µ‚Ä‚¢‚é”Ô†
 		//static constexpr int select = S_Parameter<T_Tuple>::select;
 
