@@ -1,7 +1,6 @@
 #pragma once
 
-#include"Function_Single_Data.h"
-
+#include"Function_Superficial_Data.h"
 
 namespace N_Function
 {

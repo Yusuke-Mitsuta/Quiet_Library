@@ -82,7 +82,7 @@ namespace N_Tuple
 
 	public:
 
-		using type =S_Action_Tuple_t<S_Action, T_Tuple>::type;
+		using type =S_Tuple_t_Convert_Action<S_Action, T_Tuple>::type;
 
 	};
 

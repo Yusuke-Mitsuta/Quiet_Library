@@ -226,36 +226,48 @@ struct S_Zipa<int, 3>
 };
 
 
-template<class T,bool a=true>
+template<template<class...>class T>
 struct TESTa
 {
 	using type = int;
 };
 
-template<class T>
-	requires requires
+template<class a,class b,class c>
+struct TESTb
 {
-	std::tuple_size<T>::value;
-}
-struct TESTa<T,1>
-{
-	using type = float;
+	using type = int;
 };
+
 
 #include"Tuple_Convert.h"
 
 using t = tuple_t<>;
 //using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
-using FNTT = N_Function::Function_Core<decltype(&H::Static_Args_3), int>::request_args;
+//using FNTT = N_Function::Function_Core<decltype(&H::Static_Args_3), int>::request_args;
 
 int main()
 {
+	using tuple_n= tuple_name<"aiueo", tuple_t<int, float, double>>;
+	using tuple_n2 = tuple_t<int, float, double, short>;
 
-	TYPE_ID(t);
+	//static constexpr auto st=tuple_n::name;
+	
+	//std::cout << st.str;
+
+	using coapy_ta = tuple_n::next_t;
+		//N_Tuple::U_Copy_name<tuple_n2, tuple_n>;
+
+	TYPE_ID(coapy_ta);
+
+
+//	TYPE_ID(name_list);
 
 
 	//TYPE_ID(TESTa<tuple_t<>>::type);
 	
+	
+
+
 	Function fn_test0(&H::Static_Args_7,7);
 
 	//using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
@@ -283,11 +295,14 @@ int main()
 
 		
 		
-	using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::request_args;
+	//using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::function;
+	using Fn3 = decltype(fn_test4)::function;
 
 
 
 	TYPE_ID(Fn3);
+	//TYPE_ID(Fn3::type);
+	//TYPE_ID(Fn3::next::type);
 	//TYPE_ID(Fn2::request_args);
 	//TYPE_ID(Fn3::request_args);
 
@@ -653,7 +668,7 @@ int main()
 //		//typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
 //
 //
-//		//N_Tuple::S_Action_Tuple_t<TEST,
+//		//N_Tuple::S_Tuple_t_Convert_Action<TEST,
 //		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
 //
 //	//TYPE_ID(TEST<typename FF::back_t>::type);
