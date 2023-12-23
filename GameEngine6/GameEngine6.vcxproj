@@ -36,8 +36,6 @@
     <ClInclude Include="Function_Superficial_Data.h" />
     <ClInclude Include="Function_Valid_Data_Get.h" />
     <ClInclude Include="Invalid.h" />
-    <ClInclude Include="tuple_name_Copy.h" />
-    <ClInclude Include="Tuple_Remove_name.h" />
     <ClInclude Include="Select_Type.h" />
     <ClInclude Include="Template_Calculate.h" />
     <ClInclude Include="Component.h" />
@@ -93,7 +91,6 @@
     <ClInclude Include="Tuple_Extract.h" />
     <ClInclude Include="Tuple_Elements_Action.h" />
     <ClInclude Include="Tuple_ID.h" />
-    <ClInclude Include="Tuple_Name.h" />
     <ClInclude Include="Tuple_Range.h" />
     <ClInclude Include="Tuple_Size.h" />
     <ClInclude Include="Tuple_Test.h" />

@@ -140,13 +140,6 @@ namespace N_Tuple
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_VP;
 	};
 
-	template<auto t_name,is_Tuple T_Tuple>
-	struct S_Parameter<tuple_name<t_name, T_Tuple>>:
-		S_Parameter<T_Tuple>
-	{
-		static constexpr auto name = t_name;
-	};
-
 
 
 
