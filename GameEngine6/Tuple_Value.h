@@ -14,13 +14,13 @@ struct integral_constant
 
 template<N_Tuple::same_as_tuple_v T_Head, auto value, N_Tuple::same_as_tuple_v T_Tail>
 struct tuple_vp :
-	N_Tuple::Control_vp<T_Head, value, T_Tail>
+	N_Tuple::Control_v<tuple_vp<T_Head, value, T_Tail>>
 {
 };
 
 template<auto ...t_Value>
 struct tuple_v :
-	N_Tuple::Control_v<t_Value...>
+	N_Tuple::Control_v<tuple_v<t_Value...>>
 {
 
 };

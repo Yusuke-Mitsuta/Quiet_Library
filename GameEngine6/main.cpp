@@ -247,17 +247,14 @@ using t = tuple_t<>;
 
 int main()
 {
-	using tuple_n= tuple_name<"aiueo", tuple_t<int, float, double>>;
-	using tuple_n2 = tuple_t<int, float, double, short>;
 
 	//static constexpr auto st=tuple_n::name;
 	
 	//std::cout << st.str;
 
-	using coapy_ta = tuple_n::next_t;
 		//N_Tuple::U_Copy_name<tuple_n2, tuple_n>;
 
-	TYPE_ID(coapy_ta);
+	//TYPE_ID(coapy_ta);
 
 
 //	TYPE_ID(name_list);

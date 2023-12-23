@@ -25,15 +25,6 @@ struct tuple_v;
 template<N_Tuple::same_as_tuple_v T_Head, auto _value, N_Tuple::same_as_tuple_v T_Tail>
 struct tuple_vp;
 
-template<N_Constexpr::String t_name, N_Tuple::is_Tuple T_Tuple>
-struct tuple_name;
-
-template<N_Constexpr::String t_name, class ...T_Types>
-struct tuple_name_t;
-
-template<N_Constexpr::String t_name, auto ...t_value>
-struct tuple_name_v;
-
 namespace N_Tuple
 {
 	template<class ...T_Types>
@@ -70,15 +61,6 @@ namespace N_Tuple
 
 	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::head_size>
 	struct I_Remove;
-
-	template<class T_Tuple_name, size_t t_remove_lelve>
-	struct I_Remove_name;
-
-	template<class T_Tuple_name>
-	struct I_Name_List;
-
-	template<class T_Tuple_name_core, class T_Copy_Base_Tuple_name>
-	struct I_Copy_name;
 
 	template<class T_Tuple_t>
 	struct I_Reverse;

@@ -61,10 +61,7 @@ namespace N_Tuple
 
 		template<bool t_Action_break>
 		using Return_Tuple =
-
-			U_Copy_name<
-			S_Tuple_Convert_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Tuple>), I_Tuple_Start_Point_Set, U_Remove_name<T_Tuple>>,
-			T_Tuple>;
+			S_Tuple_Convert_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Tuple>), I_Tuple_Start_Point_Set, T_Tuple>;
 
 
 		

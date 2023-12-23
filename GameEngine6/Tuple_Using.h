@@ -69,23 +69,6 @@ namespace N_Tuple
 	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::head_size>
 	using U_Remove = typename I_Remove<T_Tuple_p, t_Remove_Point>::type;
 
-	//仕様
-	//[tuple_name]の名前を[t_remove_lelve]の数だけ外していく
-	template<class T_Tuple_name, size_t t_Remove_lelve=1>
-	using U_Remove_name = I_Remove_name<T_Tuple_name, t_Remove_lelve>::type;
-
-	//仕様
-	//[tuple_name]の名前を全て外す
-	template<class T_Tuple_name>
-	using U_Remove_name_All = I_Remove_name<T_Tuple_name,SIZE_MAX>::type;
-
-	//仕様
-	//[T_Copy_Base_Tuple_name]の名前を[T_Tuple_name_core]にもコピーする
-	template<class T_Tuple_name_core, class T_Copy_Base_Tuple_name>
-	using U_Copy_name = I_Copy_name<T_Tuple_name_core, T_Copy_Base_Tuple_name>::type;
-
-
-
 
 
 	template<class T_Tuple_v>

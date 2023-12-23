@@ -4,7 +4,6 @@
 
 #include"Tuple_Declare.h"
 #include"Tuple_Class_Declare.h"
-#include"Tuple_Name.h"
 #include"Tuple_Type.h"
 #include"Tuple_Next.h"
 #include"Tuple_Prev.h"
@@ -14,8 +13,6 @@
 #include"Tuple_Parameter.h"
 #include"Tuple_Convert_Action.h"
 #include"Tuple_Convert_Action_Helper.h"
-#include"Tuple_Remove_name.h"
-#include"tuple_name_Copy.h"
 #include"Tuple_Reverse.h"
 #include"Tuple_t_To_v.h"
 #include"Tuple_v_To_t.h"
