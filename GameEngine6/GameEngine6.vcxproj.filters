@@ -70,12 +70,6 @@
     <Filter Include="ヘッダー ファイル\Function\Function_Args">
       <UniqueIdentifier>{0ff4059a-8606-4bf3-9619-513bcc220d96}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\N_Tuple\Tuple_Convert_Action">
-      <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\N_Tuple\tuple_name">
-      <UniqueIdentifier>{c5beafce-0bc8-4751-a3b7-f7d671f64ff6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -309,7 +303,7 @@
     <ClInclude Include="Function_Request_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Superficial_Data.h">
+    <ClInclude Include="Function_Single_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
     <ClInclude Include="Function_Request_Args.h">
@@ -377,27 +371,6 @@
     </ClInclude>
     <ClInclude Include="Tuple_Convert.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Request_Data_Access.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Size.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Valid_Data_Get.h">
-      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Name.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Convert_Action_Helper.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Convert_Action</Filter>
-    </ClInclude>
-    <ClInclude Include="tuple_name_Copy.h">
-      <Filter>ヘッダー ファイル\N_Tuple\tuple_name</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Remove_name.h">
-      <Filter>ヘッダー ファイル\N_Tuple\tuple_name</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,6 +461,9 @@
     <ClCompile Include="Tuple_Declare.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClCompile>
+    <ClCompile Include="Tuple_Action.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClCompile>
     <ClCompile Include="Tuple_Test.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -496,12 +472,6 @@
     </ClCompile>
     <ClCompile Include="Tuple_Select.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
-    </ClCompile>
-    <ClCompile Include="Function_Valid_Data.h">
-      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Tuple_Convert_Action.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Convert_Action</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
