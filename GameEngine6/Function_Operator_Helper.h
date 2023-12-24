@@ -3,6 +3,9 @@
 #include"Tuple.h"
 #include"Function_Superficial_Data.h"
 
+template<is_invalid_not T_Front_Parts, class ...T_Parts>
+class Function;
+
 namespace N_Function
 {
 
@@ -21,9 +24,9 @@ namespace N_Function
 	template<class ...T_Parts>
 	struct I_Function_Operator_Helper
 	{
-		using fn_multi_data = I_Function_Multiple_Helper<T_Parts...>;
+		using fn_multi_data = I_Function_Helper<T_Parts...>;
 
-		using core = Function_Core<typename fn_multi_data::type>;
+		using core = Function_Core<Function<T_Parts...>>;
 
 
 		template<
@@ -76,12 +79,11 @@ namespace N_Function
 		//関数オブジェクト１つに対して、複数の関数が纏められている場合、それらを展開し処理をする
 		template<
 			class T_access_number = typename fn_multi_data::access_number,
-			class T_request_pointer = typename core::request_pointer,
-			class T_request_args = typename core::request_args>
+			class T_request_pointer = typename core::superficial::request_pointer,
+			class T_request_args = typename core::superficial::request_args>
 		struct S_Function_Operator_Helper
 		{
-			using type = 
-				S_Function_Operator_Helper;
+			using type = S_Function_Operator_Helper;
 		};
 		
 

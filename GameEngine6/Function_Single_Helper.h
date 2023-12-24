@@ -24,7 +24,7 @@ namespace N_Function
 		using Lapping_Fn = I_Function_Valid_Data<T_Parts...>;
 
 		template<class T_True>
-		using Fn_Judge = U_Judge_t<T_True, is_invalid_not<typename Lapping_Fn::request_args>>;
+		using Fn_Judge = U_Judge_t<T_True,is_invalid_not<typename Lapping_Fn::request_args>>;
 
 	public:
 
