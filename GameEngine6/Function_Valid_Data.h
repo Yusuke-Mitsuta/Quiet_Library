@@ -16,12 +16,12 @@ namespace N_Function
 	{
 	protected:
 
-		using superficial = I_Function_Superficial_Data<T_Parts...>;
 
 		using valid_data = I_Function_Valid_Data_Get<T_Parts...>::type;
 
 	public:
 
+		using superficial = I_Function_Superficial_Data<T_Parts...>;
 		using type = 
 			//valid_data::function;
 			I_Function_Base_Data<T_Parts...>::core;

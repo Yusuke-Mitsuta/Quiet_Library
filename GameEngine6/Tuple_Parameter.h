@@ -32,7 +32,6 @@ namespace N_Tuple
 	struct S_Parameter<tuple_t<T...>>
 	{
 		static constexpr size_t head_size = 0;
-		static constexpr size_t tail_size = 0;
 		static constexpr size_t size = sizeof...(T);
 		static constexpr int select = 0;
 
@@ -41,6 +40,8 @@ namespace N_Tuple
 		{
 			using type = invalid_t;
 			using tail = tuple_t<>;
+
+			static constexpr size_t tail_size = 0;
 		};
 
 		template<class T_Front, class ...T>
@@ -48,12 +49,16 @@ namespace N_Tuple
 		{
 			using type = T_Front;
 			using tail = tuple_t<T...>;
+
+			static constexpr size_t tail_size = sizeof...(T);
 		};
 
 		using type = S_Parameter_tuple_t<T...>::type;
 
 		using head = tuple_t<>;
 		using tail = S_Parameter_tuple_t<T...>::tail;
+
+		static constexpr size_t tail_size = S_Parameter_tuple_t<T...>::tail_size;
 
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_T;
 
@@ -65,7 +70,6 @@ namespace N_Tuple
 	{
 
 		static constexpr size_t head_size = 0;
-		static constexpr size_t tail_size = 0;
 		static constexpr size_t size = sizeof...(t_value);
 		static constexpr int select = 0;
 
@@ -74,6 +78,7 @@ namespace N_Tuple
 		{
 			static constexpr auto value = invalid;
 			using tail = tuple_v<>;
+			static constexpr size_t tail_size = 0;
 		};
 
 		template<auto t_front_value,auto ...t_value>
@@ -81,12 +86,17 @@ namespace N_Tuple
 		{
 			static constexpr auto value = t_front_value;
 			using tail = tuple_v<t_value...>;
+
+			static constexpr size_t tail_size = sizeof...(t_value);
 		};
 
 		static constexpr auto value = S_Parameter_tuple_v<t_value...>::value;
 
 		using head = tuple_v<>;
 		using tail = S_Parameter_tuple_v<t_value...>::tail;
+
+		static constexpr size_t tail_size = S_Parameter_tuple_v<t_value...>::tail_size;
+
 
 		static constexpr E_Tuple_ID ID = E_Tuple_ID::TUPLE_V;
 	};

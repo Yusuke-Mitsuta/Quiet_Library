@@ -28,8 +28,8 @@ namespace N_Function
 		//
 		//真ん中を超えた場合、格納処理を終了する。
 		template<class T_Result = tuple_t<>, 
-			class T_Operator_Parameters = T_Operator_Parameters
-			, class T_Reverse_Operator_Parameters = typename T_Operator_Parameters::reverse::remove_p>
+			class T_Operator_Parameters = T_Operator_Parameters,
+			class T_Reverse_Operator_Parameters = typename T_Operator_Parameters::reverse>
 		struct S_Function_Operator_Sort
 		{
 			using type = T_Result;
@@ -46,6 +46,8 @@ namespace N_Function
 		struct S_Function_Operator_Sort<tuple_t<T_Result...>,T_Operator_Parameters,T_Reverse_Operator_Parameters>
 		{
 			using type = tuple_t<T_Result...,typename T_Operator_Parameters::type>;
+			using type3 = tuple_t<T_Result...,typename T_Operator_Parameters::type>;
+			using type4 = T_Operator_Parameters::type;
 		};
 
 		//仕様
@@ -65,9 +67,14 @@ namespace N_Function
 			using type = S_Function_Operator_Sort<merge_tuple,
 				typename T_Operator_Parameters::next,
 				typename T_Reverse_Operator_Parameters::next>::type;
+
+			using type2 = S_Function_Operator_Sort<merge_tuple,
+				typename T_Operator_Parameters::next,
+				typename T_Reverse_Operator_Parameters::next>;
 		};
 		
 		using type = S_Function_Operator_Sort<>::type;
+		using type1 = S_Function_Operator_Sort<>;
 	};
 
 }

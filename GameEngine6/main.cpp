@@ -275,38 +275,61 @@ int main()
 	//TYPE_ID(FNTT);
 
 	Function fn_test1(fn_test0,6);
-	Function fn_test2(fn_test1,5,fn_test0,fn_test1);
-	Function fn_test3(fn_test2,4,4,3);
-	Function fn_test4(fn_test3,fn_test2);
-	Function fn_test5(fn_test4,3);
-	Function fn_test6(fn_test5,fn_test4);
+	Function fn_test2(fn_test1,5);
+	Function fn_test3(fn_test2,4);
+	Function fn_test4(fn_test3,3);
+	Function fn_test5(fn_test4,2);
+	Function fn_test6(fn_test5,1);
 	//Function fn_test5(fn_test4,2);
 	//Function fn_test6(fn_test5,1);
-	//fn_test4()
-
+	//fn_test4
+	//fn_test4
 	//
-	// 
-	//Function fn6(fn_test6, fn_test5, fn_test4, fn_test3, fn_test2, fn_test1);
+	
+	Function fn6(fn_test6, fn_test5, fn_test4);
 
+	Function fn7(fn6,fn_test3);
+	Function fn8(fn7,fn_test2,fn_test1);
+	Function fn9(fn8,fn_test0);
+
+		//, fn_test3, fn_test2, fn_test1
+	
+	//fn7()
 
 	//using Fn2 = N_Function::Function_Core<tuple_t<decltype(fn_test4),decltype(fn_test2)>>::function;
 
-		
+	//fn6
 		
 	//using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::function;
-	using Fnr6 = decltype(fn_test6)::request_args;
-	using Fn6 = decltype(fn_test6)::function;
-	using Fn5 = decltype(fn_test5)::request_args;
-	using Fn4 = decltype(fn_test4)::request_args;
+	using Fn6 = decltype(fn6);
+	using Fn7 = decltype(fn7);
 		//N_Function::I_Function_Superficial_Data
 		//N_Function::I_Function_Helper<decltype(fn_test2),int,decltype(fn_test0),decltype(fn_test1)>::type;
 		//::function;
 	
+	//TYPE_ID(Fn6::vaild::request_args);
+	//TYPE_ID(Fn6::vaild::superficial::request_args);
 
-	C_OUT(Fn6::size);
-	C_OUT(Fnr6::size);
+	//TYPE_ID(Fn6::vaild::superficial::request_pointer);
 
-	//TYPE_ID(Fn3::type);
+	
+	//TYPE_ID(Fn6::vaild::function);
+	//TYPE_ID(Fn6::vaild::superficial::function);
+	//TYPE_ID(Fn6::access::access_number);
+	//TYPE_ID(Fn6::function);
+	//TYPE_ID(Fn6::data);
+	TYPE_ID(Fn7::vaild::request_args::type);
+	TYPE_ID(Fn7::vaild::request_args::next_t);
+	TYPE_ID(Fn7::vaild::superficial::request_pointer);
+	TYPE_ID(Fn7::vaild::superficial::request_pointer::type);
+	TYPE_ID(Fn7::vaild::superficial::request_pointer::next_t);
+	static constexpr int a =
+		Fn7::vaild::request_args::size;
+
+	C_OUT(a);
+
+	//TYPE_ID(Fn6::vaild::request_pointer);
+
 	//TYPE_ID(Fn3::next::type);
 	//TYPE_ID(Fn2::request_args);
 	//TYPE_ID(Fn3::request_args);

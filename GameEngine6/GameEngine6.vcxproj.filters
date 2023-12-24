@@ -73,9 +73,6 @@
     <Filter Include="ヘッダー ファイル\N_Tuple\Tuple_Convert_Action">
       <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\N_Tuple\tuple_name">
-      <UniqueIdentifier>{c5beafce-0bc8-4751-a3b7-f7d671f64ff6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -387,17 +384,8 @@
     <ClInclude Include="Function_Valid_Data_Get.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Name.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Convert_Action_Helper.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Convert_Action</Filter>
-    </ClInclude>
-    <ClInclude Include="tuple_name_Copy.h">
-      <Filter>ヘッダー ファイル\N_Tuple\tuple_name</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Remove_name.h">
-      <Filter>ヘッダー ファイル\N_Tuple\tuple_name</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
