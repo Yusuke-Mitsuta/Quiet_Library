@@ -36,9 +36,15 @@ namespace N_Tuple
 	using U_Element_t = typename I_Element<_Index, T_Tuple_t>::type;
 
 	//仕様
-	//[T_Base_Tuple]の選択中の箇所に[T_Insert_Tuple]の要素を追加する
+	//[T_Base_Tuple]の選択中の箇所に[T_Add_Typee...]の要素を追加する
 	template<class T_Base_Tuple, class ...T_Add_Typee>
 	using U_Insert = typename I_Insert<T_Base_Tuple, T_Add_Typee...>::type;
+
+	//仕様
+	//[T_Base_Tuple]の選択中の箇所に[t_Add_value...]の要素を追加する
+	template<class T_Base_Tuple, auto ...t_Add_value>
+	using U_Insert_v = typename I_Insert<T_Base_Tuple,
+		integral_constant<t_Add_value>...>::type;
 
 	//仕様
 	//[T_Base_Tuple]の選択中の箇所に[T_Insert_Tuple]の要素を追加する
@@ -50,6 +56,12 @@ namespace N_Tuple
 	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
 	template<class T_Base_Tuple, class ...T_Add_Type>
 	using U_Merge = typename I_Merge<T_Base_Tuple, T_Add_Type...>::type;
+
+	//仕様
+	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
+	template<class T_Base_Tuple, auto ...t_Add_value>
+	using U_Merge_v = typename I_Merge<T_Base_Tuple, 
+		integral_constant< t_Add_value>...>::type;
 
 	//仕様
 	//[T_Base_Tuple]の後ろに[T_Add_Type...]の要素を追加する
@@ -68,7 +80,6 @@ namespace N_Tuple
 	//選択位置の値を削除する
 	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::head_size>
 	using U_Remove = typename I_Remove<T_Tuple_p, t_Remove_Point>::type;
-
 
 
 	template<class T_Tuple_v>
@@ -91,6 +102,15 @@ namespace N_Tuple
 	//[t_Change_Point]::[T_Tuple_p]の変更する要素番号、指定しない場合は、現在の選択位置が仕様される
 	template<class T_Tuple_p, class T_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::head_size>
 	using U_Change = typename I_Change<T_Tuple_p, T_Change, t_Change_Point>::type;
+
+	//仕様
+	//[T_Tuple_p]の[t_Change_Point]の値を[T_Change]に変更する
+	// 
+	//[t_Change_Point]::[T_Tuple_p]の変更する要素番号、指定しない場合は、現在の選択位置が仕様される
+	template<class T_Tuple_p, auto t_Change, size_t t_Change_Point = S_Parameter<T_Tuple_p>::head_size>
+	using U_Change_v = typename I_Change<T_Tuple_p, 
+		integral_constant<t_Change>, t_Change_Point>::type;
+
 
 	//仕様
 	//[T_Tuple_p]の[t_Change_Point]の値を[T_Change]に変更する
