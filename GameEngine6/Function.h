@@ -8,9 +8,9 @@
 
 template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function 
-//#if FUNCTION_FG
+#if FUNCTION_FG
 	:public N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
-//#endif // FUNCTION_FG
+#endif // FUNCTION_FG
 {
 public:
 
@@ -29,8 +29,8 @@ public:
 
 #if FUNCTION_FG
 	using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
-#endif // FUNCTION_FG
 	using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
+#endif // FUNCTION_FG
 	using data =
 		//N_Function::Function_Core<T_Front_Parts, T_Parts...>::request_args;
 		N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;

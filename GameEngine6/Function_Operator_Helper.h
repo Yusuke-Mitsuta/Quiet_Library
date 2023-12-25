@@ -66,9 +66,8 @@ namespace N_Function
 		{
 			using operator_data = tuple_t<
 				T_access_number,
-				T_request_pointer,
-				typename T_request_args::next::head
-			>;
+				typename T_request_args::next::head,
+				T_request_pointer>;
 
 			using type = tuple_t<T_Result...,operator_data>;
 		};
@@ -101,15 +100,11 @@ namespace N_Function
 				using type = T_Data;
 			};
 
-			template<class T_Tuple_Data>
-				requires requires
+			template<class T_Front_Data,class ...T_Data>
+			struct S_Data_Expand<tuple_t<T_Front_Data, T_Data...>>
 			{
-				requires N_Tuple::same_as_tuple_t<T_Tuple_Data>;
-			}
-			struct S_Data_Expand<T_Tuple_Data>
-			{
-				using remove = T_Tuple_Data::remove;
-				using type = T_Tuple_Data::type;
+				using remove = tuple_t<T_Data...>;
+				using type = T_Front_Data;
 			};
 
 			//Žd—l

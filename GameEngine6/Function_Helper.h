@@ -48,8 +48,9 @@ namespace N_Function
 			using type = I_Function_Multiple_Helper<T_Fn_Parts...>;
 		};
 
-		using function_helper = I_Function_Multiple_Helper<T_Fn_Parts...>;
-			//S_Function_Helper<>::type;
+		using function_helper =
+			//I_Function_Multiple_Helper<T_Fn_Parts...>;
+			S_Function_Helper<>::type;
 		
 	public:
 
