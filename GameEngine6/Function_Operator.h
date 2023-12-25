@@ -68,6 +68,8 @@ namespace N_Function
 				return Action_Operator(fn, p, args...);
 			};
 
+
+
 			constexpr S_Function_Operator(T_Parts&& ...args)
 				:data(std::forward<T_Parts>(args)...)
 			{}

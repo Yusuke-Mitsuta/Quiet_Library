@@ -29,39 +29,6 @@ namespace N_Function
 		using core = Function_Core<Function<T_Parts...>>;
 
 
-		template<
-			class T_access_number,
-			class T_request_pointer,
-			class T_request_args,
-			class T_request_args_number,
-			class T_Next>
-		struct S_Function_Operator_Helper_Core;
-
-
-		//仕様
-		// [S_Function_Operator_Helper]で纏められた、１通りのoperator()を呼び出すデータと、
-		//次以降のデータにアクセスする
-		template<
-			size_t ...t_access_number,
-			class T_request_pointer,
-			class T_request_args,
-			size_t ...t_request_args_number,
-			class T_Next>
-		struct S_Function_Operator_Helper_Core<tuple_v<t_access_number...>,
-			T_request_pointer, T_request_args, tuple_v<t_request_args_number...>, T_Next>
-		{
-			using type = tuple_t<tuple_v<t_access_number...>, T_request_pointer,
-				tuple_t<N_Tuple::U_Element_t<t_request_args_number, T_request_args>...>>;
-
-			using next = T_Next;
-
-			constexpr S_Function_Operator_Helper_Core(auto... args) :
-				T_Next(args...) {}
-		};
-
-
-
-
 		//仕様
 		//[T_Parts...]を元に全通りのoperator()にアクセスする為のデータを作成する。
 		//
@@ -69,188 +36,110 @@ namespace N_Function
 		//[T_access_number]::関数オブジェクト１つ１つの使用する引数の番号を纏めた型
 		//[T_request_pointer]::関数オブジェクト１つ１つの要求するポインターの型を纏めた型
 		//[T_request_args]::関数オブジェクト１つ１つの要求する引数の型を纏めた型
-		//
-		//using
-		//[::type] 1通りのoperator()にアクセスする為のデータと、次以降に処理をさせるデータを持たせた
-		// [S_Function_Operator_Helper_Core]を呼び出す。
-		// 次に処理するデータがない場合は、[invalid_t]を設定する
 		// 
 		//補足
 		//関数オブジェクト１つに対して、複数の関数が纏められている場合、それらを展開し処理をする
 		template<
-			class T_access_number = typename fn_multi_data::access_number,
-			class T_request_pointer = typename core::superficial::request_pointer,
-			class T_request_args = typename core::superficial::request_args>
+			class T_access_number_List = typename fn_multi_data::access_number,
+			class T_request_args_List = typename core::superficial::request_args,
+			class T_request_pointer_List = typename core::superficial::request_pointer,
+			class T_Result = tuple_t<>>
 		struct S_Function_Operator_Helper
-		{
-			using type = S_Function_Operator_Helper;
-		};
-		
-
-		//仕様
-		//[T_Parts...]に関数が1つしかない場合
-		template<
-			class T_access_number,
-			class T_request_pointer,
-			class T_request_args>
-			requires requires
-		{
-			requires T_access_number::size == 1;
-		}
-		struct S_Function_Operator_Helper<
-			T_access_number,
-			T_request_pointer,
-			T_request_args>
-		{
-			using type = S_Function_Operator_Helper_Core<
-				typename T_access_number::type,
-				T_request_pointer, T_request_args,
-				N_Tuple::U_index_sequence<
-				N_Tuple::S_Parameter<T_request_args>::head_size
-				+is_invalid_not<typename T_request_args::type>
-				>,
-				invalid_t>;
-		};
-
-		//仕様
-		//残りの関数が1つしかない場合
-		template<
-			size_t ...t_access_number,
-			class T_request_pointer,
-			class T_request_args>
-		struct S_Function_Operator_Helper<
-			tuple_t<tuple_v<t_access_number...>>,
-			tuple_t<T_request_pointer>,
-			tuple_t<T_request_args>> :
-			S_Function_Operator_Helper<tuple_t<tuple_v<t_access_number...>>,
-			T_request_pointer,T_request_args>{};
-
-		//仕様
-		//先頭の関数オブジェクトの使用する引数の番号を纏めた型を使用するデータを纏める
-		//
-		//補足
-		//関数オブジェクト１つに対して、複数の関数が纏められている場合、それらを展開し処理をする為、
-		//残りの「関数オブジェクトの使用する引数の番号を纏めた型」と「要求する引数の型」が等しくなるまでは、
-		//先頭の引数の番号を使用する関数のデータと見なして処理をする
-		template<
-			size_t ...t_access_number,
-			class ...T_access_number,
-			class T_Front_request_pointer,
-			class ...T_request_pointer,
-			class T_Front_request_args,
-			class ...T_request_args >
-			requires requires
-		{
-			requires (sizeof...(T_request_pointer) >= sizeof...(T_access_number));
-		}
-		struct S_Function_Operator_Helper<
-			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
-			tuple_t<T_Front_request_pointer, T_request_pointer...>,
-			tuple_t<T_Front_request_args, T_request_args...>>
-		{
-
-			using next = S_Function_Operator_Helper<
-				tuple_t<tuple_v<t_access_number...>, T_access_number...>,
-				tuple_t<T_request_pointer...>,
-				tuple_t<T_request_args...>>::type;
-
-			using type = S_Function_Operator_Helper_Core<
-				tuple_v<t_access_number...>,
-				T_Front_request_pointer, T_Front_request_args,
-				N_Tuple::U_index_sequence<
-					N_Tuple::S_Parameter<T_Front_request_args>::head_size + is_invalid_not<typename T_Front_request_args::type>>,
-				next>;
-		};
-
-		//仕様
-		//先頭の関数オブジェクトの使用する引数の番号を纏めたデータを使用しない、
-		//要求する引数、ポインターの型、の場合、先頭の関数オブジェクトの使用する引数の番号を次に進める
-		//
-		//補足
-		//関数オブジェクトの使用する引数の番号を纏めた型が、要求する引数の型の残り数より多い場合、
-		// 先頭の関数オブジェクトの使用する引数の番号を次に進める判定をする
-		template<
-			size_t ...t_access_number,
-			class ...T_access_number,
-			class ...T_request_pointer,
-			class ...T_request_args >
-			requires requires
-		{
-			requires (sizeof...(T_request_pointer) < sizeof...(T_access_number) + 1);
-		}
-		struct S_Function_Operator_Helper<
-			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
-			tuple_t<T_request_pointer...>,
-			tuple_t<T_request_args...>>
-		{
-			using type = S_Function_Operator_Helper<
-				tuple_t<T_access_number...>,
-				tuple_t<T_request_pointer...>,
-				tuple_t<T_request_args...>>::type;
-		};
-
-		//仕様
-		//関数オブジェクト１つに対して、複数の関数が纏められている場合、それらを展開する
-		template<
-			size_t ...t_access_number,
-			class ...T_access_number,
-			class ...T_request_pointer,
-			class ...T_Second_request_pointer,
-			class ...T_request_args,
-			class ...T_Second_request_args>
-			requires requires
-		{
-			requires (sizeof...(T_request_pointer) >= sizeof...(T_access_number));
-		}
-		struct S_Function_Operator_Helper<
-			tuple_t<tuple_v<t_access_number...>, T_access_number...>,
-			tuple_t<tuple_t<T_request_pointer...>, T_Second_request_pointer...>,
-			tuple_t<tuple_t<T_request_args...>, T_Second_request_args...>>
-		{
-			using type = S_Function_Operator_Helper<
-				tuple_t<tuple_v<t_access_number...>, T_access_number...>,
-				tuple_t<T_request_pointer..., T_Second_request_pointer...>,
-				tuple_t<T_request_args..., T_Second_request_args...>>::type;
-		};
-
-
-		//仕様
-		//[S_Function_Operator_Helper]から[S_Function_Operator_Helper_Core]を受け取り、
-		//１通りのoperator()のデータを[T_Result]に格納、及び次のデータを取得する
-		template<class T_Result=tuple_t<> ,class T_Operator_Data =typename S_Function_Operator_Helper<>::type>
-		struct S_Function_Operator_Parameter
 		{
 			using type = T_Result;
 		};
 
-		template<class ...T_Result, is_invalid_not T_Operator_Data>
-		struct S_Function_Operator_Parameter<tuple_t<T_Result...>, T_Operator_Data>
+		//仕様
+		// [T_access_number],[T_request_args],[T_request_pointer]の全てが[tuple_t]で纏められておらず、
+		// 要求する引数が有効な場合、[T_Rusult]にデータを追加する。
+		template<class T_access_number, class T_request_args,
+			class T_request_pointer, class ...T_Result>
+			requires requires
 		{
+			requires !N_Tuple::same_as_tuple_t<T_access_number>;
+			requires !N_Tuple::same_as_tuple_t<T_request_args>;
+			requires !N_Tuple::same_as_tuple_t<T_request_pointer>;
+			requires is_invalid_not<T_request_args>;
+		}
+		struct S_Function_Operator_Helper<T_access_number,
+			T_request_args, T_request_pointer,tuple_t<T_Result...>>
+		{
+			using operator_data = tuple_t<
+				T_access_number,
+				T_request_pointer,
+				typename T_request_args::next::head
+			>;
 
-			//仕様
-			//要求する引数の型が無効値なら、データの格納をスキップする
-			template<class T_Request_Args = N_Tuple::U_Element_t<2,typename T_Operator_Data::type>>
-			struct S_Request_Args_Chack
-			{
-				using type= S_Function_Operator_Parameter<
-					tuple_t<T_Result..., typename T_Operator_Data::type>,
-					typename T_Operator_Data::next>::type;
-			};
-
-			template<>
-			struct S_Request_Args_Chack<invalid_t>
-			{
-				using type= S_Function_Operator_Parameter<
-					tuple_t<T_Result...>,
-					typename T_Operator_Data::next>::type;
-			};
-
-			using type = S_Request_Args_Chack<>::type;
+			using type = tuple_t<T_Result...,operator_data>;
 		};
 
-		using type = S_Function_Operator_Parameter<>::type;
+		//仕様
+		//[T_access_number_List],[T_request_args_List],[T_request_pointer_List]のうち、いずれか1つ以上が
+		// [tuple_t]で纏められている場合、その値が取りうる全パターンを再起テンプレートにより取得する
+		//
+		//補足
+		//[T_access_number_List],[T_request_args_List],[T_request_pointer_List]のうち、
+		// いずれかの型が[tuple_t<>]となった時、再起処理を終了する
+		template<class T_access_number_List, class T_request_args_List,
+			class T_request_pointer_List, class T_Result>
+			requires requires
+		{
+			requires same_as_nor<tuple_t<>,T_access_number_List, T_request_args_List, T_request_pointer_List>;
+		}
+		struct S_Function_Operator_Helper<T_access_number_List,
+			T_request_args_List, T_request_pointer_List, T_Result>
+		{
+
+
+			//仕様
+			//[T_Data]が[tuple_t]で纏められている場合は、先頭の要素の取得、除去を実施、
+			//纏められていない場合は、そのままの値を返す
+			template<class T_Data>
+			struct S_Data_Expand
+			{
+				using remove = T_Data;
+				using type = T_Data;
+			};
+
+			template<class T_Tuple_Data>
+				requires requires
+			{
+				requires N_Tuple::same_as_tuple_t<T_Tuple_Data>;
+			}
+			struct S_Data_Expand<T_Tuple_Data>
+			{
+				using remove = T_Tuple_Data::remove;
+				using type = T_Tuple_Data::type;
+			};
+
+			//仕様
+			//[T_access_number_List],[T_request_args_List],[T_request_pointer_List]のうち、
+			// [tuple_t]で纏められている値は先頭の要素、
+			// 纏められていない場合は、[S_Function_Operator_Helper]と同じ型を用いり、
+			// その値で取りうる全パターンを[T_Result]に追加する
+			using result = S_Function_Operator_Helper<
+				typename S_Data_Expand<T_access_number_List>::type,
+				typename S_Data_Expand<T_request_args_List>::type,
+				typename S_Data_Expand<T_request_pointer_List>::type,
+				T_Result>::type;
+
+			//仕様
+			//[T_access_number_List],[T_request_args_List],[T_request_pointer_List]のうち、いずれか1つ以上が
+			// [tuple_t]で纏められている場合は、先頭の要素を排除し、纏められていない場合は、
+			// [S_Function_Operator_Helper]と同じ型を用いり次の判定を行う。
+			using type = S_Function_Operator_Helper<
+				typename S_Data_Expand<T_access_number_List>::remove,
+				typename S_Data_Expand<T_request_args_List>::remove,
+				typename S_Data_Expand<T_request_pointer_List>::remove,
+				result>::type;
+		};
+
+		using type = S_Function_Operator_Helper<>::type;
 
 	};
+
+
+
 
 
 }

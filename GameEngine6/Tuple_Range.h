@@ -20,7 +20,10 @@ namespace N_Tuple
 		static constexpr int max = Swap_v::_2;
 
 		template<class T_Base, int t_Count = 0, class T_Center = tuple_t<>>
-		struct S_Range;
+		struct S_Range
+		{
+			using type = T_Base;
+		};
 
 		//仕様
 		//[t_Swap_Num_1]番目と[t_Swap_Num_2]番目が同じ値を指すとき
@@ -68,8 +71,6 @@ namespace N_Tuple
 	public:
 
 		using type = S_Tuple_t_Convert_Action<S_Action, T_Tuple>::Return_not_p;
-		//using type = //T_Tuple;
-			//S_Tuple_t_Convert_Action<S_Action, T_Tuple>::type;
 	};
 
 }
