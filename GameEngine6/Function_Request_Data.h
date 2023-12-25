@@ -34,10 +34,10 @@ namespace N_Function
 		{
 			using return_t = tuple_t<typename S_Request<T_Request>::type...>;
 
-			using type = U_Judge_t<return_t, same_as_nand<invalid_t, typename S_Request<T_Request>::type...>>;
+			using type = U_Judge_t<return_t, same_as_nand<invalid_t,typename S_Request<T_Request>::type...>>;
 		};
 
-		template< class ...T_Request>
+		template<class ...T_Request>
 		struct S_Request<Request_Core<T_Request... >>
 		{
 			using type = 

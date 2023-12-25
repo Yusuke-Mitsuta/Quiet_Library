@@ -241,12 +241,15 @@ struct TESTb
 
 #include"Tuple_Convert.h"
 
-using t = tuple_t<>;
+using t = tuple_t<int,float,short>;
 //using FNT = N_Function::I_Function_Args_Chack<t, tuple_t<int>>::request_args;
 //using FNTT = N_Function::Function_Core<decltype(&H::Static_Args_3), int>::request_args;
 
 int main()
 {
+	
+	using a = N_Tuple::U_Range<t::prev,0>;
+	
 	
 	//static constexpr auto st=tuple_n::name;
 	
@@ -265,7 +268,7 @@ int main()
 	
 
 
-	Function fn_test0(&H::Static_Args_7,7);
+	Function fn_test0(&H::Args_7,7);
 
 	//using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
 ///	using fn_op_data=decltype(fn_test0)::data;
@@ -286,23 +289,34 @@ int main()
 	//fn_test4
 	//
 	
-	Function fn6(fn_test6, fn_test5, fn_test4);
 
-	Function fn7(fn6,fn_test3);
+	Function fn654(fn_test6,fn_test5,fn_test4);
+
+	using FN = N_Function::I_Function_Multiple_Helper<H*&,decltype(fn_test6)&
+		, decltype(fn_test5)&
+	>;
+
+	// TYPE_ID(FN::)
+
+	Function fn123(fn_test1, fn_test2, fn_test3);
+
+	Function fn654123(fn654,fn123);
+
+	Function fn7(fn654,fn_test3, fn654);
 	Function fn8(fn7,fn_test2,fn_test1);
-	Function fn9(fn8,fn_test0);
+	Function fn9(fn8,fn_test0,fn7);
 
 		//, fn_test3, fn_test2, fn_test1
 	
-	//fn7()
+	//fn654
 
 	//using Fn2 = N_Function::Function_Core<tuple_t<decltype(fn_test4),decltype(fn_test2)>>::function;
 
 	//fn6
 		
 	//using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::function;
-	using Fn6 = decltype(fn6);
-	using Fn7 = decltype(fn7);
+	using Fn6 = decltype(fn9);
+	//using Fn7 = decltype(fn7);
 		//N_Function::I_Function_Superficial_Data
 		//N_Function::I_Function_Helper<decltype(fn_test2),int,decltype(fn_test0),decltype(fn_test1)>::type;
 		//::function;
@@ -311,22 +325,37 @@ int main()
 	//TYPE_ID(Fn6::vaild::superficial::request_args);
 
 	//TYPE_ID(Fn6::vaild::superficial::request_pointer);
-
-	
-	//TYPE_ID(Fn6::vaild::function);
-	//TYPE_ID(Fn6::vaild::superficial::function);
+	//fn6()
 	//TYPE_ID(Fn6::access::access_number);
 	//TYPE_ID(Fn6::function);
+	//TYPE_ID( Fn6::data::type);
+	//TYPE_ID( Fn6::data::next::type);
+	//TYPE_ID( Fn6::data::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::next::next::next::next::next::next::type);
+	//TYPE_ID( Fn6::data::next::next::next::next::next::next::next::next::next::next::next::next::next::next::next::next::next::next::type);
 	//TYPE_ID(Fn6::data);
-	TYPE_ID(Fn7::vaild::request_args::type);
-	TYPE_ID(Fn7::vaild::request_args::next_t);
-	TYPE_ID(Fn7::vaild::superficial::request_pointer);
-	TYPE_ID(Fn7::vaild::superficial::request_pointer::type);
-	TYPE_ID(Fn7::vaild::superficial::request_pointer::next_t);
-	static constexpr int a =
-		Fn7::vaild::request_args::size;
+	//TYPE_ID(Fn7::vaild::request_args::type);
+	//TYPE_ID(Fn7::vaild::request_args::next_t);
+	//TYPE_ID(Fn7::vaild::superficial::request_pointer);
+	//TYPE_ID(Fn7::vaild::superficial::request_pointer::type);
+	//TYPE_ID(Fn7::vaild::superficial::request_pointer::next_t);
+	//static constexpr int a =
+		//Fn7::vaild::request_args::size;
 
-	C_OUT(a);
+	//C_OUT(a);
 
 	//TYPE_ID(Fn6::vaild::request_pointer);
 
