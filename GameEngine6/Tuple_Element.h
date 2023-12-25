@@ -54,16 +54,28 @@ namespace N_Tuple
 		template<class ...T_Types>
 		struct S_Element
 		{
-			using type= std::tuple_element_t<_Index, std::tuple<T_Types...>>;
+			using type= invalid_t;
 		};
 
 		template<class ...T_Types>
+			requires requires
+		{
+			requires sizeof...(T_Types) > _Index;
+		}
+		struct S_Element<T_Types...>
+		{
+			using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
+		};
+
+		template<class ...T_Types>
+			requires (sizeof...(T_Types)>_Index)
 		struct S_Element<tuple_t<T_Types...>>
 		{
 			using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
 		};
 
 		template<class T_Head,class T,class T_Tail>
+			requires (tuple_tp<T_Head, T, T_Tail>::size > _Index)
 		struct S_Element<tuple_tp<T_Head,T,T_Tail>>
 		{
 			using type = std::tuple_element_t<_Index, tuple_tp<T_Head, T, T_Tail>>;

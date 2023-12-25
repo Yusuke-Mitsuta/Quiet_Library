@@ -266,7 +266,7 @@ int main()
 	//TYPE_ID(TESTa<tuple_t<>>::type);
 	
 	
-
+	
 
 	Function fn_test0(&H::Args_7,7);
 
@@ -283,45 +283,50 @@ int main()
 	Function fn_test4(fn_test3,3);
 	Function fn_test5(fn_test4,2);
 	Function fn_test6(fn_test5,1);
+	
 	//Function fn_test5(fn_test4,2);
 	//Function fn_test6(fn_test5,1);
 	//fn_test4
 	//fn_test4
 	//
 	
+	Function fn65(fn_test6,fn_test5);
+	
 
-	Function fn654(fn_test6,fn_test5,fn_test4);
-
-	using FN = N_Function::I_Function_Multiple_Helper<H*&,decltype(fn_test6)&
-		, decltype(fn_test5)&
-	>;
+	//using FN = N_Function::I_Function_Multiple_Helper<H*&,decltype(fn_test6)&
+		//, decltype(fn_test5)&
+	//>;
 
 	// TYPE_ID(FN::)
 
-	Function fn123(fn_test1, fn_test2, fn_test3);
+	//Function fn123(fn_test1, fn_test2, fn_test3);
 
-	Function fn654123(fn654,fn123);
+	//Function fn654123(fn654,fn123);
 
-	Function fn7(fn654,fn_test3, fn654);
-	Function fn8(fn7,fn_test2,fn_test1);
-	Function fn9(fn8,fn_test0,fn7);
+	//Function fn7(fn654,fn_test3, fn654);
+	//Function fn8(fn7,fn_test2,fn_test1);
+	//Function fn9(fn8,fn_test0,fn7);
 
 		//, fn_test3, fn_test2, fn_test1
 	
-	//fn654
+	//fn_test6
+
+	
+
 
 	//using Fn2 = N_Function::Function_Core<tuple_t<decltype(fn_test4),decltype(fn_test2)>>::function;
 
 	//fn6
 		
 	//using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::function;
-	using Fn6 = decltype(fn9);
+	using Fn6 = decltype(fn_test5)::sort;
 	//using Fn7 = decltype(fn7);
 		//N_Function::I_Function_Superficial_Data
 		//N_Function::I_Function_Helper<decltype(fn_test2),int,decltype(fn_test0),decltype(fn_test1)>::type;
 		//::function;
 	
-	//TYPE_ID(Fn6::vaild::request_args);
+	TYPE_ID(Fn6);
+
 	//TYPE_ID(Fn6::vaild::superficial::request_args);
 
 	//TYPE_ID(Fn6::vaild::superficial::request_pointer);

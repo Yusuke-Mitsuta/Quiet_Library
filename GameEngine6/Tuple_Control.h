@@ -56,6 +56,10 @@ namespace N_Tuple
 		//	[tuple_t,v]‚Ìê‡‚Í‚»‚Ì‚Ü‚Ü‚Æ‚È‚é
 		using remove_p = U_Remove_p<T_Tuple>;
 
+		//[tuple_t,v]‚ğ[tuple_tp,vp]‚É•ÏX‚·‚é
+		//	[tuple_tp,vp]‚Ìê‡‚Í‚»‚Ì‚Ü‚Ü‚Æ‚È‚é
+		using create_p = U_Create_p<T_Tuple>;
+
 	};
 
 	template<class T_Tuple_t>

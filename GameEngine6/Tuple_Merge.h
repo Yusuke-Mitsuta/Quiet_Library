@@ -10,11 +10,10 @@ namespace N_Tuple
 	//
 	//using
 	//[tuple_expand]::[T_Add_type...]‚Ì’†‚Étuple‚ªŠÜ‚Ü‚ê‚éê‡Atuple‚ğ“WŠJ‚µAŠi”[‚·‚é
-	template<class T_Base_Tuple, class ...T_Add_Type>
+	template<class T_Base_Tuple,class ...T_Add_Type>
 	struct I_Merge
 	{
 	private:
-
 
 		template<class T_Base_Tuple, class T_Add_Types_Tuple = tuple_t<T_Add_Type...>>
 		struct S_Merge;
@@ -31,6 +30,8 @@ namespace N_Tuple
 			using type = tuple_t<T_Types..., T_Add_Type...>;
 		};
 
+
+
 		template<class T_Base_Tuple,class T_Add_Types_Tuple = tuple_t<T_Add_Type...>, 
 			class T_Merge_Tuple = U_Tuple_v_To_t<U_Remove_p<typename T_Add_Types_Tuple::type>>>
 		struct S_Merge_Tuple_Expand
@@ -46,7 +47,6 @@ namespace N_Tuple
 		{
 			using type = T_Base_Tuple;
 		};
-
 
 	public:
 
