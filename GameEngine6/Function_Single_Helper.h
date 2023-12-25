@@ -34,8 +34,12 @@ namespace N_Function
 
 		//仕様
 		//纏められた関数オブジェクトに対応した、使用した型の番号を[tupel_t<tuple_v<>>]に入れる
-		using access_number = tuple_t<Fn_Judge<N_Tuple::U_index_sequence<sizeof...(T_Parts)>>>;
-
+		using access_number = tuple_t<Fn_Judge<
+			N_Tuple::U_Select<
+			same_as<typename Lapping_Fn::function,
+			typename I_Function_Valid_Data<N_Tuple::U_Element_t<1,tuple_t<T_Parts...>>>::function>,
+			typename N_Tuple::U_index_sequence<sizeof...(T_Parts)>>>>;
+		
 		//仕様
 		//纏め作業が成功すれば、[T_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
 		using judge = Fn_Judge<typename tuple_t<T_Parts...>::front_t>;

@@ -115,7 +115,7 @@ namespace N_Function
 					using type =
 						Method_Bound<T_Method_Point,
 						T_Function, 
-						access_numbers<T_Method_Point>>;
+						typename access_numbers<T_Method_Point>::create_p>;
 				};
 
 				//仕様
@@ -131,7 +131,7 @@ namespace N_Function
 					using type =
 						Method_Bound<typename T_Method_Point::next,
 						T_Dedicated_Point_Check,
-						access_numbers<typename T_Method_Point::next>>;
+						typename access_numbers<typename T_Method_Point::next>::next>;
 				};
 
 				//仕様
@@ -149,7 +149,7 @@ namespace N_Function
 				{
 					using type = Method_Bound<T_Method_Point,
 						T_Commond_Point_Check,
-						N_Tuple::U_Insert_v<access_numbers<T_Method_Point>,0>>;
+						typename N_Tuple::U_Insert_v<access_numbers<T_Method_Point>,0>::next>;
 				};
 
 				//仕様

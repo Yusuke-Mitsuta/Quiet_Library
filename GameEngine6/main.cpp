@@ -188,6 +188,17 @@ void H::Static_Args_7(int a, int b, int c, int d, int e, int f, int g)
 	C_OUT(g);
 }
 
+void H::Static_Args_88(auto ...a)
+{
+
+}
+
+void H::Static_Args_88(auto a,auto ...b)
+{
+	C_OUT(a);
+	Static_Args_88(b...);
+}
+
 
 //template<class T>
 void Hogege(int t) {}
@@ -290,8 +301,10 @@ int main()
 	//fn_test4
 	//
 	
-	Function fn65(fn_test6,fn_test5);
-	
+	Function fn65(fn_test6,h,fn_test5);
+	fn65(3);
+	using Fn65= decltype(fn65);
+	TYPE_ID(Fn65::data);
 
 	//using FN = N_Function::I_Function_Multiple_Helper<H*&,decltype(fn_test6)&
 		//, decltype(fn_test5)&
@@ -319,13 +332,13 @@ int main()
 	//fn6
 		
 	//using Fn3 = N_Function::Function_Core<decltype(fn_test4)>::function;
-	using Fn6 = decltype(fn_test5)::sort;
+	//using Fn6 = decltype(fn_test5)::sort;
 	//using Fn7 = decltype(fn7);
 		//N_Function::I_Function_Superficial_Data
 		//N_Function::I_Function_Helper<decltype(fn_test2),int,decltype(fn_test0),decltype(fn_test1)>::type;
 		//::function;
 	
-	TYPE_ID(Fn6);
+	//TYPE_ID(Fn6);
 
 	//TYPE_ID(Fn6::vaild::superficial::request_args);
 

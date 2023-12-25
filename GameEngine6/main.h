@@ -58,6 +58,9 @@ struct H
 	static void Static_Args_5(int a, int b, int c, int d, int e);
 	static void Static_Args_6(int a, int b, int c, int d, int e, int f);
 	static void Static_Args_7(int a, int b, int c, int d, int e, int f, int g);
+
+	static void Static_Args_88(auto ...a);
+	static void Static_Args_88(auto a,auto ...b);
 };
 
 static H* h= new H();

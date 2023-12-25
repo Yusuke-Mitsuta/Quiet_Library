@@ -22,7 +22,10 @@ namespace N_Function
 	public:
 		using function_operator_data = typename I_Function_Operator_Helper<T_Parts...>::type;
 		using function_operator_sort = typename I_Function_Operator_Sort<function_operator_data>::type;
-		template<class T_Operator_Parameter = function_operator_sort>
+		template<class T_Operator_Parameter = function_operator_sort,
+		class T_Access_Number = N_Tuple::U_Element_t<0,typename T_Operator_Parameter::type>,
+		class T_Request_Args = N_Tuple::U_Element_t<1,typename T_Operator_Parameter::type>,
+		class T_Request_Pointer = N_Tuple::U_Element_t<2,typename T_Operator_Parameter::type>>
 		struct S_Function_Operator
 		{
 		protected:
@@ -41,7 +44,7 @@ namespace N_Function
 			{
 				requires std::is_member_function_pointer_v<T_Fn>;
 			}
-			constexpr auto Action_Operator(auto* p, T_Fn fn, auto ...args)
+			constexpr auto Action_Operator( T_Fn fn, auto* p, auto ...args)
 			{
 				return (p->*fn)(args...);
 			};
@@ -72,116 +75,140 @@ namespace N_Function
 
 			constexpr S_Function_Operator(T_Parts&& ...args)
 				:data(std::forward<T_Parts>(args)...)
-			{}
+			{
+			
+			}
 
 		};
 
+		using operator_core = S_Function_Operator<tuple_t<>>;
+
 		template<
-			size_t ...t_access_number,
+			class T_Operator_Parameter,
+			size_t ...t_pointer_access_number,
+			size_t t_fn_access_number,
+			size_t ...t_args_access_number,
 			class ...T_request_args>
+			requires (T_Operator_Parameter::size == 1)
 		struct S_Function_Operator<
-			tuple_t<
-			tuple_t<
-			tuple_v<t_access_number...>,
-			invalid_t,
-			tuple_t< T_request_args...>>
-			>> :
-		S_Function_Operator<tuple_t<>>
+			T_Operator_Parameter,
+			tuple_vp<tuple_v<t_pointer_access_number...>,t_fn_access_number,tuple_v<t_args_access_number...>>,
+			tuple_t<T_request_args...>,
+			invalid_t> :
+		S_Function_Operator<typename T_Operator_Parameter::remove>
 		{
 		protected:
+
 			constexpr auto operator()(T_request_args... args)
 			{
-				return S_Function_Operator<tuple_t<>>::Action_Operator(std::get<t_access_number>(S_Function_Operator<tuple_t<>>::data)..., args...);
+				return operator_core::Action_Operator(
+					std::get<t_fn_access_number>(operator_core::data),
+					std::get<t_pointer_access_number>(operator_core::data)...,
+					args...,
+					std::get<t_args_access_number>(operator_core::data)...);
 			}
 
 			constexpr S_Function_Operator(T_Parts&& ...args)
-				: S_Function_Operator<tuple_t<>>(std::forward<T_Parts>(args)...)
-			{}
+				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...){}
 
 		};
 
 		template<
-			size_t ...t_access_number,
-			class T_request_pointer,
-			class ...T_request_args>
+			class T_Operator_Parameter,
+			size_t ...t_pointer_access_number,
+			size_t t_fn_access_number,
+			size_t ...t_args_access_number,
+			class ...T_request_args,
+			class T_request_pointer>
+			requires (T_Operator_Parameter::size == 1)
 		struct S_Function_Operator<
-			tuple_t<
-			tuple_t<
-			tuple_v<t_access_number...>,
-			T_request_pointer,
-			tuple_t< T_request_args...>>
-			>> :
-		S_Function_Operator<tuple_t<>>
+			T_Operator_Parameter,
+			tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
+			tuple_t<T_request_args...>,
+			T_request_pointer> :
+			S_Function_Operator<typename T_Operator_Parameter::remove>
 		{
 		protected:
 
 			constexpr auto operator()(T_request_pointer* p,T_request_args... args)
 			{
-				return S_Function_Operator<tuple_t<>>::Action_Operator(p,std::get<t_access_number>(S_Function_Operator<tuple_t<>>::data)..., args...);
+				return operator_core::Action_Operator(
+					std::get<t_fn_access_number>(operator_core::data),
+					p,
+					args...,
+					std::get<t_args_access_number>(operator_core::data)...);
 			}
 
 			constexpr S_Function_Operator(T_Parts&& ...args)
-				: S_Function_Operator<tuple_t<>>(std::forward<T_Parts>(args)...)
-			{}
+				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...){}
 
 		};
 
 
 		template<
-			size_t ...t_access_number,
-			class ...T_request_args,
-			class ...T_Operator_Parameters>
+			class T_Operator_Parameter,
+			size_t ...t_pointer_access_number,
+			size_t t_fn_access_number,
+			size_t ...t_args_access_number,
+			class ...T_request_args>
+			requires (T_Operator_Parameter::size > 1)
 		struct S_Function_Operator<
-			tuple_t<
-				tuple_t<
-				tuple_v<t_access_number...>, 
-				invalid_t, 
-				tuple_t< T_request_args...>>,
-			T_Operator_Parameters...>> :
-		S_Function_Operator<tuple_t<T_Operator_Parameters...>>
+			T_Operator_Parameter,
+			tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
+			tuple_t<T_request_args...>,
+			invalid_t> :
+			S_Function_Operator<typename T_Operator_Parameter::remove>
 		{
 		protected:
+
 			constexpr auto operator()(T_request_args... args)
 			{
-				return S_Function_Operator<tuple_t<>>::Action_Operator(std::get<t_access_number>(S_Function_Operator<tuple_t<>>::data)..., args...);
+				return operator_core::Action_Operator(
+					std::get<t_fn_access_number>(operator_core::data),
+					std::get<t_pointer_access_number>(operator_core::data)...,
+					args...,
+					std::get<t_args_access_number>(operator_core::data)...);
 			}
 
-			using S_Function_Operator<tuple_t<T_Operator_Parameters...>>::operator();
+			using S_Function_Operator<typename T_Operator_Parameter::remove>::operator();
 
-			constexpr S_Function_Operator(T_Parts&& ...args) 
-				: S_Function_Operator<tuple_t<T_Operator_Parameters...>>(std::forward<T_Parts>(args)...)
-			{}
+			constexpr S_Function_Operator(T_Parts&& ...args)
+				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...) {}
 
 		};
 
 		template<
-			size_t ...t_access_number,
-			class T_request_pointer,
+			class T_Operator_Parameter,
+			size_t ...t_pointer_access_number,
+			size_t t_fn_access_number,
+			size_t ...t_args_access_number,
 			class ...T_request_args,
-			class ...T_Operator_Parameters>
+			class T_request_pointer>
+			requires (T_Operator_Parameter::size > 1)
 		struct S_Function_Operator<
-			tuple_t<
-			tuple_t<
-			tuple_v<t_access_number...>,
-			T_request_pointer,
-			tuple_t< T_request_args...>>,
-			T_Operator_Parameters...>> :
-		S_Function_Operator<tuple_t<T_Operator_Parameters...>>
+			T_Operator_Parameter,
+			tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
+			tuple_t<T_request_args...>,
+			T_request_pointer> :
+			S_Function_Operator<typename T_Operator_Parameter::remove>
 		{
 		protected:
 
-			constexpr auto operator()(T_request_pointer* p,T_request_args... args)
+			constexpr auto operator()(T_request_pointer* p, T_request_args... args)
 			{
-				return S_Function_Operator<tuple_t<>>::Action_Operator(p,std::get<t_access_number>(S_Function_Operator<tuple_t<>>::data)..., args...);
+				return operator_core::Action_Operator(
+					std::get<t_fn_access_number>(operator_core::data),
+					p,
+					args...,
+					std::get<t_args_access_number>(operator_core::data)...);
 			}
 
-			using S_Function_Operator<tuple_t<T_Operator_Parameters...>>::operator();
+			using S_Function_Operator<typename T_Operator_Parameter::remove>::operator();
 
 			constexpr S_Function_Operator(T_Parts&& ...args)
-				: S_Function_Operator<tuple_t<T_Operator_Parameters...>>(std::forward<T_Parts>(args)...)
-			{}
-
+				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...) {}
 		};
+		
 
 	public:
 
