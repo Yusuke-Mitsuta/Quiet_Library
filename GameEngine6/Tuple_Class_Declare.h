@@ -4,8 +4,6 @@
 
 #include"Tuple_Concept.h"
 
-#include"Tuple_ID.h"
-
 #include"Constexpr_String.h"
 
 
@@ -27,7 +25,7 @@ struct tuple_vp;
 
 namespace N_Tuple
 {
-	template<class ...T_Types>
+	template<class T_Types>
 	struct S_Parameter;
 
 	template<class T_Tuple>
@@ -43,9 +41,6 @@ namespace N_Tuple
 
 	template<class T_Tuple>
 	struct Control_p;
-
-	template<class T_Return_type>
-	struct Control_p_invalid;
 
 	template<class T_Tuple_t>
 	struct I_Next;

@@ -257,7 +257,17 @@ namespace N_Function
 	};
 
 	
-
+	//仕様
+	//[T_Request_Args]と[T_Bind_Args]を後ろから比較し、
+	//　互換性のある型か判定する。
+	//
+	// テンプレート
+	// [T_Request_Args]：要求する引数の型(tuple_tp)
+	// [T_Bind_Args]：セットする引数の型(tuple_t)
+	// 
+	//補足
+	// 互換性のある型の定義は、[N_Tuple::S_Parameter]の特殊化にて定義を行う
+	//
 	template<class T_Request_Args, class T_Bind_Args>
 		requires requires
 	{
@@ -282,7 +292,8 @@ namespace N_Function
 		template<class T_Request_Args_Tuple, class T_Bind_Args_Tuple, class ...T_Bind_Args>
 		using U_Function_Args_Chack_Next =
 			S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple,
-			std::constructible_from<typename T_Request_Args_Tuple::type, typename T_Bind_Args_Tuple::type, T_Bind_Args...>,false,
+			std::constructible_from<typename T_Request_Args_Tuple::type, typename T_Bind_Args_Tuple::type, T_Bind_Args...>,
+			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Bind_Args_Tuple::type>::tuple>,
 			typename T_Bind_Args_Tuple::type, T_Bind_Args...>::type;
 
 		template<class T_Request_Args_Tuple,
@@ -307,9 +318,7 @@ namespace N_Function
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, t_constructible_from, t_Bind_Args_Expand, invalid_t,T_Bind_Args...>
 		{
-			using type = 
-				//T_Request_Args;
-				invalid_t;
+			using type = invalid_t;
 		};
 
 
@@ -343,27 +352,26 @@ namespace N_Function
 		};
 
 		
-		//template<class T_Request_Args_Tuple,
-		//	class T_Bind_Args_Tuple,
-		//	class T_Front_Bind_Args,
-		//	class ...T_Bind_Args>
-		//requires requires
-		//{
-		//	requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
-		//}
-		//struct S_Function_Args_Chack<T_Request_Args_Tuple,T_Bind_Args_Tuple,false, true, //T_Front_Bind_Args,T_Bind_Args...>
-		//{
-		//	using convert = N_Tuple::U_Convert_tuple<T_Front_Bind_Args>::reverse;
-		//
-		//	using insert_bind_args = N_Tuple::U_Insert<T_Bind_Args_Tuple, convert>;
-		//
-		//	using type = U_Function_Args_Chack_Next<T_Request_Args_Tuple, insert_bind_args, T_Bind_Args...>;
-		//
-		//};
+		template<class T_Request_Args_Tuple,
+			class T_Bind_Args_Tuple,
+			class T_Front_Bind_Args,
+			class ...T_Bind_Args>
+		requires requires
+		{
+			requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
+		}
+		struct S_Function_Args_Chack<T_Request_Args_Tuple,T_Bind_Args_Tuple,false, true, T_Front_Bind_Args,T_Bind_Args...>
+		{
+			using convert = N_Tuple::S_Parameter<T_Front_Bind_Args>::tuple;
+		
+			using insert_bind_args = N_Tuple::U_Insert_tuple_expand<typename T_Bind_Args_Tuple::remove, convert>;
+		
+			using type = U_Function_Args_Chack_Next<T_Request_Args_Tuple, insert_bind_args, T_Bind_Args...>;
+		};
 
 	public:
 
-		using type = U_Function_Args_Chack_Next<typename T_Request_Args::reverse,
+		using type =U_Function_Args_Chack_Next<typename T_Request_Args::reverse,
 			typename T_Bind_Args::reverse>;
 
 	};

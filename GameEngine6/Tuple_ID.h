@@ -2,7 +2,6 @@
 
 namespace N_Tuple
 {
-
 	enum class E_Tuple_ID
 	{
 		NONE,
@@ -11,6 +10,5 @@ namespace N_Tuple
 		TUPLE_V,
 		TUPLE_VP
 	};
-	
 
 }

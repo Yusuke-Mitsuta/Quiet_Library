@@ -59,20 +59,6 @@ namespace N_Function
 				return fn->operator()(args...);
 			};
 
-
-			template<class T_p,class T_Fn>
-				requires requires
-			{
-				requires !same_as_template_type<T_p, Function>;
-				requires same_as_template_type<std::remove_pointer_t<T_Fn>, Function>;
-			}
-			constexpr auto Action_Operator(T_p* p,T_Fn fn, auto ...args)
-			{
-				return Action_Operator(fn, p, args...);
-			};
-
-
-
 			constexpr S_Function_Operator(T_Parts&& ...args)
 				:data(std::forward<T_Parts>(args)...)
 			{

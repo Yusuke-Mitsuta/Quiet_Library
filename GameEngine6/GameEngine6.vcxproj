@@ -84,13 +84,13 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
-    <ClInclude Include="Tuple_Convert.h" />
     <ClInclude Include="Tuple_Convert_Action_Helper.h" />
     <ClInclude Include="Tuple_Create_Pointer.h" />
     <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Extract.h" />
     <ClInclude Include="Tuple_Elements_Action.h" />
     <ClInclude Include="Tuple_ID.h" />
+    <ClInclude Include="Tuple_ID_Select.h" />
     <ClInclude Include="Tuple_Range.h" />
     <ClInclude Include="Tuple_Size.h" />
     <ClInclude Include="Tuple_Test.h" />

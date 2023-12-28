@@ -20,7 +20,8 @@ public:
 		:N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
 		(std::forward<MT_Front_Parts>(front_parts),std::forward<MT_Parts>(fn_Parts)...)
 #endif // FUNCTION_FG
-	{}
+	{
+	}
 
 	constexpr Function* operator->()
 	{

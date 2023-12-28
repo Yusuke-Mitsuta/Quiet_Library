@@ -5,21 +5,21 @@
 
 namespace N_Tuple
 {
-	template<class ...T_Types>
-	struct S_Parameter;
+	template<class T_Tuple>
+	struct S_ID_Select;
 
 
 	template<class T_Tuple>
-	concept same_as_tuple_t = (S_Parameter<T_Tuple>::ID == E_Tuple_ID::TUPLE_T);
+	concept same_as_tuple_t = (S_ID_Select<T_Tuple>::ID == E_Tuple_ID::TUPLE_T);
 
 	template<class T_Tuple>
-	concept same_as_tuple_tp = (S_Parameter<T_Tuple>::ID == E_Tuple_ID::TUPLE_TP);
+	concept same_as_tuple_tp = (S_ID_Select<T_Tuple>::ID == E_Tuple_ID::TUPLE_TP);
 
 	template<class T_Tuple>
-	concept same_as_tuple_v = (S_Parameter<T_Tuple>::ID == E_Tuple_ID::TUPLE_V);
+	concept same_as_tuple_v = (S_ID_Select<T_Tuple>::ID == E_Tuple_ID::TUPLE_V);
 
 	template<class T_Tuple>
-	concept same_as_tuple_vp = (S_Parameter<T_Tuple>::ID == E_Tuple_ID::TUPLE_VP);
+	concept same_as_tuple_vp = (S_ID_Select<T_Tuple>::ID == E_Tuple_ID::TUPLE_VP);
 
 
 	

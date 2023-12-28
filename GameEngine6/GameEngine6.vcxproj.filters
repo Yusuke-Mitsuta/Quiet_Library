@@ -372,13 +372,7 @@
     <ClInclude Include="Tuple_index_sequence.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Convert.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Request_Data_Access.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Size.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Function_Valid_Data_Get.h">
@@ -386,6 +380,12 @@
     </ClInclude>
     <ClInclude Include="Tuple_Convert_Action_Helper.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Convert_Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Size.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_ID_Select.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
