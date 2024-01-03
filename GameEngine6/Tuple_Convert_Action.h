@@ -34,32 +34,6 @@ namespace N_Tuple
 	{
 		using type = T_Action<T_Tuple>::type;
 	};
-	//
-	//template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, /template<class...>class/ T_Action, class T_Tuple>
-	//	requires requires
-	//{
-	//	requires T_Tuple::name == "";
-	//}
-	//struct S_Tuple_Convert_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, t_Action_break, T_Action, //T_Tuple>
-	//{
-	//	using return_type = S_Tuple_Convert_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, /t_Action_break, /T_Action, U_Remove_name_All<T_Tuple>>::type;
-	//
-	//	using type = U_Copy_name<return_type, T_Tuple>;
-	//};
-
-	//仕様
-	//名前を一度外し、再度付ける
-	//template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, /template<class...>class/ T_Action, class T_Tuple>
-	//	requires requires
-	//{
-	//	requires T_Tuple::name != "";
-	//}
-	//struct S_Tuple_Convert_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t,t_Action_break,T_Action,T_Tuple>
-	//{
-	//	using return_type = S_Tuple_Convert_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, /t_Action_break, /T_Action, U_Remove_name_All<T_Tuple>>::type;
-	//
-	//	using type = U_Copy_name<return_type, T_Tuple>;
-	//};
 
 	//t→v
 	//vp←tp

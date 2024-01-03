@@ -25,11 +25,7 @@ namespace N_Tuple
 		template<same_as_tuple_t T_Head, is_invalid_not T>
 		struct S_Remove<tuple_tp<T_Head, T, tuple_t<>>>
 		{
-		private:
-			using Tuple_Prev = U_Prev<tuple_tp<T_Head, T, tuple_t<>>>;
-
-		public:
-			using type = S_Remove<Tuple_Prev>::type;
+			using type = tuple_tp<T_Head,invalid_t, tuple_t<>>;
 		};
 
 		template<same_as_tuple_t T_Head, is_invalid_not T, class T_Next_Type, class ...T_Tail_Types>

@@ -133,6 +133,12 @@ namespace N_Tuple
 	template<class T_Tuple_v, auto number>
 	using U_Calculate_plus = typename I_Tuple_Calculate<T_Tuple_v, "+", number>::type;
 
+	template<class T_Tuple_v, auto number>
+	using U_Calculate_minus = typename I_Tuple_Calculate<T_Tuple_v, "-", number>::type;
+
+	template<class T_Tuple_v, auto number>
+	using U_Calculate_multiply = typename I_Tuple_Calculate<T_Tuple_v, "*", number>::type;
+
 	//d—l
 	//[T_Tuple]‚©‚ç[tuple_v< ... >]‚Ì‡”Ô‚ÅŒ^‚ğ‡”Ô‚É’Šo
 	template<class T_Tuple, class T_Extract_Number>

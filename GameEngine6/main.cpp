@@ -249,25 +249,48 @@ struct TESTb
 	using type = int;
 };
 
-
-#include"Tuple_Convert.h"
+#include"Function_Args_Convert.h"
 
 namespace N_Tuple
 {
-	template<>
-	struct S_Parameter<MyStruct> :
-		S_Parameter<tuple_t<int, int>> {};
+
 }
 
 
 int main()
 {
 	
-	using request_args = tuple_t<int,  float,float>::reverse;
+	using request_args = tuple_t<int,std::tuple<int,int>,int>::back;
 
-	using args_chack = N_Function::I_Function_Args_Chack<request_args, tuple_t<int,MyStruct>>::type;
 
-	TYPE_ID(args_chack);
+	using bind_args = tuple_t<int,int,int,int>; //std::tuple<int, int>>;
+//	using bind_args = tuple_t<tuple_t<int, int,int>,tuple_t<int,int,int,int>>; //std::tuple<int, int>>;
+
+
+
+	using bind_args1 = N_Tuple::U_Insert_tuple_expand<typename bind_args::remove, typename bind_args::type>;
+
+
+	//245
+
+		//N_Tuple::U_Insert_tuple_expand<
+		//,tuple_t<int> >;
+
+
+	N_Function::I_Function_Args_Convert<request_args, bind_args>::Convert(3,5,7,9);
+
+	//using expand_number = args_chack::expand_number;
+
+	//using expand_1 = N_Tuple::U_Range<expand_number, 0, 2>;
+	//using expand_2 = N_Tuple::U_Range<expand_number, 3, 5>;
+	///using expand_3 = N_Tuple::U_Range<expand_number, 6, 8>;
+
+
+	//TYPE_ID(args_chack);
+	//TYPE_ID(args_chack::expand_number);
+
+
+	//TYPE_ID(args_chack::zip_number);
 	
 	//static constexpr auto st=tuple_n::name;
 	

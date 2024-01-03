@@ -387,6 +387,9 @@
     <ClInclude Include="Tuple_ID_Select.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Function_Args_Convert.h">
+      <Filter>ヘッダー ファイル\Function\Function_Args</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
