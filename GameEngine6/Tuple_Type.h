@@ -15,11 +15,9 @@ struct tuple_tp :
 
 template<class ...T_Types>
 struct tuple_t :
-	N_Tuple::Control_t<tuple_t<T_Types...>>,
-	std::tuple<T_Types...>
+	N_Tuple::Control_t<tuple_t<T_Types...>>
 {
-	using std::tuple<T_Types...>::tuple;
-	
+
 };
 
 

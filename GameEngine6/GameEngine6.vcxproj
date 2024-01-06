@@ -90,7 +90,6 @@
     <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Extract.h" />
     <ClInclude Include="Tuple_Elements_Action.h" />
-    <ClInclude Include="Tuple_Get.h" />
     <ClInclude Include="Tuple_ID.h" />
     <ClInclude Include="Tuple_ID_Select.h" />
     <ClInclude Include="Tuple_Range.h" />
