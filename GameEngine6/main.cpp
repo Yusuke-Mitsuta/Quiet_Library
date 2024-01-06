@@ -265,8 +265,9 @@ int main()
 	MyStruct a(3, 2);
 
 
-	std::get<3>(a);
+
 	using bind_args1 = N_Tuple::U_Insert_tuple_expand<typename bind_args::remove, typename bind_args::type>;
+
 
 	//245
 
