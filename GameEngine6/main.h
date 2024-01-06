@@ -65,6 +65,9 @@ struct H
 
 static H* h= new H();
 
+template<class ...T_Types>
+struct tuple_t;
+
 struct MyStruct
 {
 
@@ -74,7 +77,18 @@ private:
 
 public:
 
-	int a = 1;
+	int a[2];
+	
+	using tuple = tuple_t<int, int>;
+
+	MyStruct(int aa, int bb) :
+		a{ aa , bb } {}
+
+	template<size_t I>
+	int get()
+	{
+		return a[I];
+	};
 
 };
 

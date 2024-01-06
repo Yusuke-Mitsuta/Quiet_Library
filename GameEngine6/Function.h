@@ -30,7 +30,7 @@ public:
 
 #if FUNCTION_FG
 	using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
-	using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
+	//using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
 #endif // FUNCTION_FG
 	using data =
 		//N_Function::Function_Core<T_Front_Parts, T_Parts...>::request_args;
