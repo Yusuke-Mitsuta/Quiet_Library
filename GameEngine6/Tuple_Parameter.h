@@ -13,6 +13,10 @@ namespace N_Tuple
 
 	//仕様
 	//[tuple_t]の各種Size、及び型を呼び出す
+	//
+	//補足
+	// [tuple_t,tp,v,vp]又は、[T_Types::tuple]の場合([S_Parameter]が無効値を返さない場合)に
+	//	[std::tuple_element,std::tuple_size,std::get<N>(t)]が特殊化される。
 	template<class T_Types>
 	struct S_Parameter
 	{
@@ -44,6 +48,9 @@ namespace N_Tuple
 		using tail = tuple_p_Parameter::tail;
 	};
 
+
+	//仕様
+	//[tuple_v]の各種Size、及び型を呼び出す
 	template<class T_Tuple_v>
 		requires requires
 	{
@@ -63,6 +70,9 @@ namespace N_Tuple
 		using tail = tuple_p_Parameter::tail;
 	};
 
+
+	//仕様
+	//[tuple_tp]の各種Size、及び型を呼び出す
 	template<class T_Head, class T, class T_Tail>
 	struct S_Parameter<tuple_tp<T_Head, T, T_Tail>> :
 		S_ID_Select<tuple_tp<T_Head, T, T_Tail>>,
@@ -76,6 +86,8 @@ namespace N_Tuple
 	};
 
 
+	//仕様
+	//[tuple_vp]の各種Size、及び型を呼び出す
 	template<class T_Head, auto t_value, class T_Tail>
 	struct S_Parameter<tuple_vp<T_Head, t_value, T_Tail>>:
 		S_ID_Select<tuple_vp<T_Head, t_value, T_Tail>>,
@@ -90,7 +102,17 @@ namespace N_Tuple
 	};
 
 
-	//static constexpr int select = head_size - static_cast<bool>(tail_size == size);
-
+	//仕様
+	//メンバーに[::tuple=tuple_t< _Ty1 , _Ty2 ...>]を持つ場合、そのタプルのパラメータを呼び出す
+	template<class T>
+		requires requires
+	{
+		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
+		typename T::tuple;
+		requires is_invalid_not<typename S_Parameter<typename T::tuple>::tuple>;
+		requires std::is_class_v<typename T::tuple>;
+	}
+	struct S_Parameter<T> :
+		S_Parameter<typename T::tuple> {};
 
 }
