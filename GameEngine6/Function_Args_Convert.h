@@ -10,20 +10,19 @@ namespace N_Function
 	struct I_Function_Args_Convert
 	{
 	public:
-		template<class T_Request_Args = invalid_t,
-			class T_Bind_Args_Normal_Order = invalid_t,
-			class T_Bind_Args_Zip_Number = invalid_t>
+		template<class T_Request_Args = invalid_t>
 		struct S_Result
 		{
-			using request_args = T_Request_Args;
-			using expand_number = T_Bind_Args_Normal_Order;
-			using zip_number = T_Bind_Args_Zip_Number;
+			using chack = T_Request_Args;
+
+			using convert = S_Result;
+
 
 			static constexpr auto Convert(auto... args)
 			{
-				std::tuple a(args...);
+				//std::tuple a(args...);
 
-				//H::Static_Args_88(args...);
+				H::Static_Args_88(args...);
 			}
 
 		};
@@ -33,8 +32,6 @@ namespace N_Function
 			class T_Bind_Args_Tuple,
 			bool t_constructible_from,
 			bool t_Bind_Args_Expand,
-			class T_Bind_Args_Normal_Order,
-			class T_Bind_Args_Zip_Number,
 			class ...T_Bind_Args>
 		struct S_Function_Args_Chack;
 
@@ -43,14 +40,11 @@ namespace N_Function
 		//判定成功とする
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,
-			class T_Bind_Args_Zip_Number, 
 			class ...T_Bind_Args>
 		using U_Function_Args_Chack_Next =
 			S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple,
 			std::constructible_from<typename T_Request_Args_Tuple::type, typename T_Bind_Args_Tuple::type, T_Bind_Args...>,
 			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Bind_Args_Tuple::type>::tuple>,
-			typename T_Bind_Args_Tuple::reverse,
-			T_Bind_Args_Zip_Number,
 			typename T_Bind_Args_Tuple::type, T_Bind_Args...>;
 
 
@@ -58,17 +52,13 @@ namespace N_Function
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,
 			bool t_constructible_from,
-			bool t_Bind_Args_Expand,
-			class T_Bind_Args_Normal_Order,
-			class T_Bind_Args_Zip_Number>
+			bool t_Bind_Args_Expand>
 			requires (is_invalid<typename T_Bind_Args_Tuple::type>)
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, t_constructible_from, t_Bind_Args_Expand,
-			T_Bind_Args_Normal_Order, T_Bind_Args_Zip_Number, invalid_t>
+			 invalid_t>
 		{
-			using convert = S_Result <
-				typename T_Request_Args_Tuple::reverse,
-				T_Bind_Args_Normal_Order,
-				T_Bind_Args_Zip_Number>;
+			using type = S_Result<
+				typename T_Request_Args_Tuple::reverse>;
 		};
 
 
@@ -79,8 +69,6 @@ namespace N_Function
 			class T_Bind_Args_Tuple,
 			bool t_constructible_from,
 			bool t_Bind_Args_Expand,
-			class T_Bind_Args_Normal_Order,
-			class T_Bind_Args_Zip_Number,
 			class ...T_Bind_Args>
 			requires requires
 		{
@@ -88,9 +76,9 @@ namespace N_Function
 			requires (sizeof...(T_Bind_Args) > 0);
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, t_constructible_from, t_Bind_Args_Expand,
-			T_Bind_Args_Normal_Order, T_Bind_Args_Zip_Number, invalid_t, T_Bind_Args...>
+			invalid_t, T_Bind_Args...>
 		{
-			using convert = S_Result<>;
+			using type = S_Result<>;
 
 		};
 
@@ -104,20 +92,17 @@ namespace N_Function
 		// [T_Bind_Args_Tuple]を次に進めた際の選択中の型を追加する。
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,
-			class T_Bind_Args_Normal_Order,
-			class T_Bind_Args_Zip_Number,
 			class ...T_Bind_Args>
 			requires requires
 		{
 			requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, false, false,
-			T_Bind_Args_Normal_Order, T_Bind_Args_Zip_Number,T_Bind_Args...>
+			T_Bind_Args...>
 		{
-			using convert = U_Function_Args_Chack_Next<T_Request_Args_Tuple,
+			using type = U_Function_Args_Chack_Next<T_Request_Args_Tuple,
 				typename T_Bind_Args_Tuple::next,
-				T_Bind_Args_Zip_Number,
-				T_Bind_Args...>::convert;
+				T_Bind_Args...>::type;
 		};
 
 		//仕様
@@ -126,49 +111,42 @@ namespace N_Function
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,
 			bool t_Bind_Args_Expand,
-			class ...T_Front_Args,
-			class T_Args,
-			class T_Back_Args,
-			class T_Bind_Args_Zip_Number,
 			class ...T_Bind_Args>
 			requires requires
 		{
 			requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, true, t_Bind_Args_Expand,
-			tuple_tp<tuple_t<T_Front_Args...>,T_Args,T_Back_Args>,
-			T_Bind_Args_Zip_Number, T_Bind_Args...>
+			T_Bind_Args...>
 		{
 
-			using type = U_Function_Args_Chack_Next<
+			using next = U_Function_Args_Chack_Next<
 				typename T_Request_Args_Tuple::next,
-				typename T_Bind_Args_Tuple::next,
-				N_Tuple::U_Insert_v<T_Bind_Args_Zip_Number, sizeof...(T_Bind_Args)>
-			>;
+				typename T_Bind_Args_Tuple::next>::type;
 
-			template<class ...T_Bind_Args>
+			using type = S_Function_Args_Chack;
+
+			using chack = next::chack;
+
+			template<class T_Converted = typename T_Bind_Args_Tuple::tail::reverse>
 			struct S_Convert
 			{
-				using convert =type::convert;
+				using convert = next::convert;
 			};
 
-			template<class ...T_Bind_Args>
-				requires requires
-			{
-				requires sizeof...(T_Bind_Args) > 1;
-			}
-			struct S_Convert<T_Bind_Args...>
+			template<class ...T_Converted>
+				requires (sizeof...(T_Bind_Args) > 1)
+			struct S_Convert<tuple_t<T_Converted...>>
 			{
 				using convert = S_Convert;
-
-				static constexpr auto Convert(T_Front_Args... front_args, T_Bind_Args... args, auto... back_args)
+				static constexpr auto Convert(T_Converted... converted_args, T_Bind_Args... args, auto... back_args)
 				{
-					type::convert::Convert(front_args..., T_Request_Args_Tuple::type(args...), back_args...);
+					next::convert::Convert(converted_args..., T_Request_Args_Tuple::type(args...), back_args...);
 				}
 
 			};
 
-			using convert = S_Convert<T_Bind_Args...>::convert;
+			using convert = S_Convert<>::convert;
 
 
 		};
@@ -180,10 +158,6 @@ namespace N_Function
 		// 互換性のある型の定義は、[N_Tuple::S_Parameter]の特殊化にて定義を行う
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,
-			class ...T_Front_Args,
-			class T_Args,
-			class T_Back_Args,
-			class T_Bind_Args_Zip_Number,
 			class T_Front_Bind_Args,
 			class ...T_Bind_Args>
 			requires requires
@@ -191,32 +165,33 @@ namespace N_Function
 			requires is_invalid_not<typename T_Bind_Args_Tuple::type>;
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, false, true,
-			tuple_tp<tuple_t<T_Front_Args...>,T_Args,T_Back_Args>,T_Bind_Args_Zip_Number,T_Front_Bind_Args, T_Bind_Args...>
+			T_Front_Bind_Args, T_Bind_Args...>
 		{
 
 			using expand = N_Tuple::S_Parameter<T_Front_Bind_Args>::tuple::reverse;
 
 			using insert_bind_args = N_Tuple::U_Insert_tuple_expand<typename T_Bind_Args_Tuple::remove, expand>;
 
-			template<class T_index_sequence = N_Tuple::U_index_sequence<expand::size>>
-			struct S_Convert
+			using next = U_Function_Args_Chack_Next<
+				T_Request_Args_Tuple,
+				insert_bind_args,
+				T_Bind_Args...>::type;
+
+			using type = S_Function_Args_Chack;
+
+			using chack = next::chack;
+
+			template<class T_Converted =typename T_Bind_Args_Tuple::tail::reverse,
+				class T_index_sequence = N_Tuple::U_index_sequence<expand::size>>
+			struct S_Convert;
+
+			template<class ...T_Converted,size_t ...t_expand_number>
+			struct S_Convert<tuple_t<T_Converted...>, tuple_v<t_expand_number...>>
 			{
 
-				using convert = T_index_sequence;
-			};
-
-			template<size_t ...t_expand_number>
-			struct S_Convert<tuple_v<t_expand_number...>>
-			{
-				using convert = U_Function_Args_Chack_Next<
-					T_Request_Args_Tuple,
-					insert_bind_args,
-					T_Bind_Args_Zip_Number,
-					T_Bind_Args...>::convert;
-
-				static constexpr auto Convert(T_Front_Args... front_args, T_Args args, auto... back_args)
+				static constexpr auto Convert(T_Converted... args, T_Front_Bind_Args change_args,auto... back_args)
 				{
-					convert::Convert(front_args...,std::get<t_expand_number>(args)...,back_args...);
+					next::convert::Convert(args..., std::get<t_expand_number>(change_args)...,back_args...);
 				}
 
 			};
@@ -227,13 +202,15 @@ namespace N_Function
 		};
 
 		
-	public:
-		using result = U_Function_Args_Chack_Next<typename T_Request_Args::reverse,
-			typename T_Bind_Args::reverse::create_p,tuple_v<>>::convert;
+	private:
+		using next = U_Function_Args_Chack_Next<typename T_Request_Args::reverse,
+			typename T_Bind_Args::reverse::create_p>::type;
+
+		using chack = next::chack;
 
 	public:
 		
-		//using type = result::request_args;
+		using type = chack;
 
 		//using expand_number = result::expand_number;
 
@@ -243,7 +220,7 @@ namespace N_Function
 
 		static constexpr auto Convert(auto... args)
 		{
-			result::Convert(args...);
+			next::convert::Convert(args...);
 		}
 
 

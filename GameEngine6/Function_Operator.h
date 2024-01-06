@@ -30,7 +30,7 @@ namespace N_Function
 		{
 		protected:
 
-			std::tuple<T_Parts...> data;
+			tuple_t<T_Parts...> data;
 
 			constexpr auto operator()() {}
 
