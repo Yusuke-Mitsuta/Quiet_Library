@@ -32,7 +32,6 @@
 #include"Tuple_v_Calculate.h"
 #include"Tuple_index_sequence.h"
 #include"Tuple_Size.h"
-#include"Tuple_Get.h"
 
 
 template<class ..._Types>

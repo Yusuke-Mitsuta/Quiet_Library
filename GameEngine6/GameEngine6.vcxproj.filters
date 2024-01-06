@@ -390,9 +390,6 @@
     <ClInclude Include="Function_Args_Convert.h">
       <Filter>ヘッダー ファイル\Function\Function_Args</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Get.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

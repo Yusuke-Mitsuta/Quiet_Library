@@ -41,16 +41,3 @@ namespace N_Tuple
 	};
 
 };
-
-
-namespace std
-{
-	template<class T>
-		requires requires
-	{
-		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
-	}
-	struct tuple_size<T> :
-		integral_constant<size_t, N_Tuple::S_Parameter<T>::tuple::size> {};
-
-}

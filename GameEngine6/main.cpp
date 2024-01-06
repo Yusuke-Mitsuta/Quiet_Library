@@ -249,23 +249,25 @@ struct TESTb
 	using type = int;
 };
 
-
 #include"Function_Args_Convert.h"
+
+namespace N_Tuple
+{
+
+}
 
 
 int main()
 {
-	using request_args = tuple_t<int, int,int,int>::back;
+	
+	using request_args = tuple_t<int,std::tuple<int,int>,int>::back;
 
 
-	using bind_args = tuple_t<int,int, MyStruct>; //std::tuple<int, int>>;
+	using bind_args = tuple_t<int,int,int,int>; //std::tuple<int, int>>;
 //	using bind_args = tuple_t<tuple_t<int, int,int>,tuple_t<int,int,int,int>>; //std::tuple<int, int>>;
 
 
-	MyStruct a(3, 2);
 
-
-	std::get<3>(a);
 	using bind_args1 = N_Tuple::U_Insert_tuple_expand<typename bind_args::remove, typename bind_args::type>;
 
 
@@ -275,7 +277,7 @@ int main()
 		//,tuple_t<int> >;
 
 
-	N_Function::I_Function_Args_Convert<request_args, bind_args>::Convert(3,5,MyStruct(5,10));
+	N_Function::I_Function_Args_Convert<request_args, bind_args>::Convert(3,5,7,9);
 
 	//using expand_number = args_chack::expand_number;
 
@@ -307,7 +309,7 @@ int main()
 	
 	
 
-	Function fn_test0(&H::Args_7,7);
+	//Function fn_test0(&H::Args_7,7);
 
 	//using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
 ///	using fn_op_data=decltype(fn_test0)::data;
@@ -316,10 +318,7 @@ int main()
 	//TYPE_ID(fn_op_data);
 	//TYPE_ID(FNTT);
 //MyStruct aa;
-Function fn_test1(fn_test0,6);
-
-fn_test1(h, 1, 2, 3, 4, 5);
-
+//Function fn_test1(fn_test0,6);
 //Function fn_test2(fn_test1,5);
 //Function fn_test3(fn_test1,4,aa);
 	//Function fn_test4(fn_test3,3);
