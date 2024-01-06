@@ -1,46 +1,21 @@
 #pragma once
 
 #include"Tuple_Declare.h"
+#include"Invalid.h"
 #include<tuple>
 
 namespace std
 {
 
-	template<size_t _Index, class ...T_Head_Types, class T, class ...T_Tail_Types>
-	struct std::tuple_element<_Index,
-		tuple_tp<tuple_t<T_Head_Types...>,
-		T, tuple_t<T_Tail_Types...>>>
+	template <size_t I, class T>
+		requires requires
 	{
-		using type = std::tuple_element_t<_Index, std::tuple<T_Head_Types..., T, T_Tail_Types...>>;
+		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
+	}
+	struct tuple_element<I, T> {
+		using type = N_Tuple::U_Element_t<I, T>;
 	};
 
-	template<size_t _Index, class ...T_Head_Types, class ...T_Tail_Types>
-	struct std::tuple_element<_Index,
-		tuple_tp<tuple_t<T_Head_Types...>,invalid_t,
-		tuple_t<T_Tail_Types...>>>
-	{
-		using type = std::tuple_element_t<_Index, std::tuple<T_Head_Types..., T_Tail_Types...>>;
-	};
-
-
-	template<size_t _Index,class ...T_Types>
-	struct std::tuple_element<_Index,
-		tuple_t<T_Types...>>
-	{
-		using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
-	};
-
-	template<size_t _Index, class T_Head_v, auto value, class T_Tail_v>
-	struct std::tuple_element<_Index, tuple_vp<T_Head_v, value, T_Tail_v>>
-	{
-		using type = std::tuple_element_t<_Index,typename N_Tuple::Tuple_v_To_t<tuple_vp<T_Head_v, value, T_Tail_v>>::type>;
-	};
-
-	template<size_t _Index,auto ...value>
-	struct std::tuple_element<_Index, tuple_v<value...>>
-	{
-		using type = std::tuple_element_t<_Index, typename N_Tuple::Tuple_v_To_t<tuple_v<value...>>::type>;
-	};
 
 }
 
@@ -74,11 +49,18 @@ namespace N_Tuple
 			using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
 		};
 
-		template<class T_Head,class T,class T_Tail>
-			requires (tuple_tp<T_Head, T, T_Tail>::size > _Index)
-		struct S_Element<tuple_tp<T_Head,T,T_Tail>>
+		template<class ...T_Head,class T,class ...T_Tail>
+			requires (tuple_tp<tuple_t<T_Head...>, T, tuple_t<T_Tail...>>::size > _Index)
+		struct S_Element<tuple_tp<tuple_t<T_Head...>, T, tuple_t<T_Tail...>>>
 		{
-			using type = std::tuple_element_t<_Index, tuple_tp<T_Head, T, T_Tail>>;
+			using type = std::tuple_element_t<_Index, std::tuple<T_Head..., T, T_Tail...>>;
+		};
+
+		template<class ...T_Head, class ...T_Tail>
+			requires (tuple_tp<tuple_t<T_Head...>, invalid_t, tuple_t<T_Tail...>>::size > _Index)
+		struct S_Element<tuple_tp<tuple_t<T_Head...>, invalid_t, tuple_t<T_Tail...>>>
+		{
+			using type = std::tuple_element_t<_Index, std::tuple<T_Head..., T_Tail...>>;
 		};
 
 		using type =typename S_Element<T_Types...>::type;
