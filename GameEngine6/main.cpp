@@ -236,22 +236,16 @@ struct S_Zipa<int, 3>
 	using type = double;
 };
 
-
-template<class T>
-struct TESTa
+class TEST_1
 {
-	using type = int;
+public:
+	template<class ..._Ty1,class ..._Ty2>
+	constexpr auto operator()(_Ty2 ... ty2)
+	{
+		TYPE_ID(tuple_t<_Ty1...>);
+		TYPE_ID(tuple_t<_Ty2...>);
+	}
 };
-
-template<class a,class b,class c>
-struct TESTb
-{
-	using type = int;
-};
-
-
-#include"Function_Args_Convert.h"
-
 
 int main()
 {
@@ -307,7 +301,13 @@ int main()
 	
 	
 
-	Function fn_test0(&H::Args_7,7);
+	Function fn_test0(&H::Static_Args_7,7);
+	
+
+	
+
+
+
 
 	//using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
 ///	using fn_op_data=decltype(fn_test0)::data;
@@ -332,10 +332,10 @@ int main()
 	//fn_test4
 	//
 	
-	Function fn54(fn_test5,h,fn_test4);
+	Function fn54(fn_test4,fn_test5);
 
-
-	fn54(aa);
+	
+	fn54()
 
 	//fn65(3);
 	//using Fn65= decltype(fn65);
@@ -359,7 +359,10 @@ int main()
 	
 	//fn_test6
 
-	
+	Function fn_test01(&H::Static_Args_3,0 );
+
+	//fn_test01(aa);
+
 
 
 	//using Fn2 = N_Function::Function_Core<tuple_t<decltype(fn_test4),decltype(fn_test2)>>::function;

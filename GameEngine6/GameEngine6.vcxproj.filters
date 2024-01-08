@@ -73,6 +73,9 @@
     <Filter Include="ヘッダー ファイル\N_Tuple\Tuple_Convert_Action">
       <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Function\Function_Operator">
+      <UniqueIdentifier>{c5858560-1092-44aa-83c0-2f2f9a9f34f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -225,9 +228,6 @@
     <ClInclude Include="Function_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Operator_Helper.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
@@ -297,9 +297,6 @@
     <ClInclude Include="Tuple_Expand.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Core.h">
       <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
     </ClInclude>
@@ -316,9 +313,6 @@
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
     <ClInclude Include="Function_Multiple_Helper.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Operator_Sort.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Elements_Action.h">
@@ -392,6 +386,15 @@
     </ClInclude>
     <ClInclude Include="Tuple_Get.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator.h">
+      <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator_Sort.h">
+      <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator_Helper.h">
+      <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

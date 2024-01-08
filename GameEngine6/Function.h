@@ -9,7 +9,7 @@
 template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function 
 #if FUNCTION_FG
-	:public N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
+	:protected N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
 #endif // FUNCTION_FG
 {
 public:

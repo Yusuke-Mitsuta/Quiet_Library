@@ -1,6 +1,8 @@
 #pragma once
 
 #include<utility>
+
+#include"Tuple.h"
 #include"Function_Operator_Helper.h"
 #include"Function_Operator_Sort.h"
 #include"Function_Args_Convert.h"
@@ -21,8 +23,67 @@ namespace N_Function
 	{
 	private:
 
-		template<class T_Request_Args, class T_Args>
-		using args_chack = I_Function_Args_Convert<typename T_Request_Args::back, T_Args>::type;
+
+		using function_operator_data_list = typename I_Function_Operator_Helper<T_Parts...>::type;
+		using function_operator_sort = typename I_Function_Operator_Sort<function_operator_data_list>::type;
+
+
+		//仕様
+		//ポインターを要求する場合、要求する引数の先頭に付け加える。
+		template<class T_Operator_data,
+			class T_Request_Args= N_Tuple::U_Element_t<1, T_Operator_data>,
+			class T_Request_Pointer= N_Tuple::U_Element_t<2, T_Operator_data>>
+		struct S_Merge_Pointer
+		{
+			using type = T_Request_Args;
+		};
+
+		template<class T_Operator_data, class ...T_Request_Args,class T_Request_Pointer>
+		requires requires
+		{
+			requires is_invalid_not<T_Request_Pointer>;
+		}
+		struct S_Merge_Pointer<T_Operator_data,tuple_t<T_Request_Args...>,T_Request_Pointer>
+		{
+			using type = tuple_t<T_Request_Pointer*, T_Request_Args...>;
+		};
+
+
+		//仕様
+		//[operator_data_list]から、[T_Args]と互換性のある引数を要求するデータを取得する
+		template<class T_Args, class T_Operator_Parameter = function_operator_data_list>
+		struct I_Function_Operator_Search
+		{
+			using merge_pointer =S_Merge_Pointer<typename T_Operator_Parameter::type>::type::back;
+
+			using args_chack = I_Function_Args_Convert<merge_pointer, T_Args>::type;
+			
+			template<bool t_detect_fg= (N_Tuple::S_Size<args_chack>::tail_size == merge_pointer::size)>
+			struct S_Next_Search
+			{
+				using type = I_Function_Operator_Search<T_Args,typename T_Operator_Parameter::remove>::type;
+			};
+			
+			template<>
+			struct S_Next_Search<true>
+			{
+				using type = T_Operator_Parameter::type;
+			};
+
+			using type = S_Next_Search<>::type;
+		};
+
+
+		template<class T_Args,class T_Operator_Parameter>
+			requires requires
+		{
+			requires is_invalid<typename T_Operator_Parameter::type>;
+		}
+		struct I_Function_Operator_Search<T_Args,T_Operator_Parameter>
+		{
+			using type = invalid_t;
+		};
+		
 
 		template<class T_request_args, class ...T_Args>
 		static constexpr auto Convert(T_Args... args)
@@ -31,19 +92,15 @@ namespace N_Function
 				tuple_t<T_Args...>>::Convert(args...);
 		}
 
-		using function_operator_data = typename I_Function_Operator_Helper<T_Parts...>::type;
-		using function_operator_sort = typename I_Function_Operator_Sort<function_operator_data>::type;
+
 		template<class T_Operator_Parameter = function_operator_sort,
 		class T_Access_Number = N_Tuple::U_Element_t<0,typename T_Operator_Parameter::type>,
 		class T_Request_Args = N_Tuple::U_Element_t<1,typename T_Operator_Parameter::type>,
 		class T_Request_Pointer = N_Tuple::U_Element_t<2,typename T_Operator_Parameter::type>>
 		struct S_Function_Operator
 		{
-		protected:
-
+		public:
 			tuple_t<T_Parts...> data;
-
-			constexpr auto operator()() {}
 
 			//仕様
 			//送られて来た変数から、第一引数が関数オブジェクトかつ、[Function]でなければ、
@@ -76,62 +133,24 @@ namespace N_Function
 			
 			}
 
+			//仕様
+			//バインド済みの関数オブジェクト全ての中から、
+			// [T_Args...]と互換性のある引数を有する関数オブジェクトを呼び出す。
+			template<class ...T_Args>
+				requires is_invalid_not<typename I_Function_Operator_Search<tuple_t<T_Args...>, function_operator_data_list>::type>
+			constexpr auto operator()(T_Args... args)
+			{
+				using hit_operator_data = I_Function_Operator_Search<tuple_t<T_Args...>>::type;
+
+				return S_Function_Operator<tuple_t<hit_operator_data>>::Action_Operator(this, args...);
+			}
+
+			using type = S_Function_Operator;
+
 		};
 
 		using operator_core = S_Function_Operator<tuple_t<>>;
-
-		template<
-			class T_Operator_Parameter,
-			size_t ...t_pointer_access_number,
-			size_t t_fn_access_number,
-			size_t ...t_args_access_number,
-			class ...T_request_args>
-			requires (T_Operator_Parameter::size == 1)
-		struct S_Function_Operator<
-			T_Operator_Parameter,
-			tuple_vp<tuple_v<t_pointer_access_number...>,t_fn_access_number,tuple_v<t_args_access_number...>>,
-			tuple_t<T_request_args...>,
-			invalid_t> :
-		S_Function_Operator<typename T_Operator_Parameter::remove>
-		{
-		private:
-
-			//仕様
-			//[data]から関数オブジェクト、バインド済み引数を取得し、
-			//[args...]と合わせて、[operator_core::Action_Operator]に変数を送る
-			constexpr auto Action_Operator(T_request_args... args)
-			{
-				return operator_core::Action_Operator(
-					std::get<t_fn_access_number>(operator_core::data),
-					std::get<t_pointer_access_number>(operator_core::data)...,
-					args...,
-					std::get<t_args_access_number>(operator_core::data)...);
-			}
-		protected:
-
-			//仕様
-			//[T_request_args...]型を要求する[operator()]
-			constexpr auto operator()(T_request_args... args)
-			{
-				return Action_Operator(args...);
-			}
-
-			//仕様
-			//[T_request_args...]型と互換性のある型を要求する[operator()]、
-			//	引数を[T_request_args...]型に変換する
-			template<class ...T_Args>
-				requires is_invalid_not<args_chack<tuple_t<T_request_args...>, tuple_t<T_Args...>>>
-			constexpr auto operator()(T_Args... args)
-			{
-				return Convert<tuple_t<T_request_args...>>(&S_Function_Operator::Action_Operator, this, args...);
-			}
-
-			constexpr S_Function_Operator(T_Parts&& ...args)
-				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...){}
-
-		};
-
-
+		
 		template<
 			class T_Operator_Parameter,
 			size_t ...t_pointer_access_number,
@@ -139,143 +158,68 @@ namespace N_Function
 			size_t ...t_args_access_number,
 			class ...T_request_args,
 			class T_request_pointer>
-			requires (T_Operator_Parameter::size == 1)
 		struct S_Function_Operator<
 			T_Operator_Parameter,
 			tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
 			tuple_t<T_request_args...>,
-			T_request_pointer> :
-			S_Function_Operator<typename T_Operator_Parameter::remove>
+			T_request_pointer>
 		{
-		private:
-			constexpr auto Action_Operator(T_request_pointer* p, T_request_args... args)
+			//仕様
+			//[data_storage_p]データの保管場所のポインターから、
+			// バインド済みの関数オブジェクト、ポインター、引数を取得し、適切にマージを行う。
+			static constexpr auto Action_Operator(operator_core* data_storage_p,auto ...args)
 			{
-				return operator_core::Action_Operator(
-					std::get<t_fn_access_number>(operator_core::data),
-					p,
+				return data_storage_p->Action_Operator(
+					std::get<t_fn_access_number>(data_storage_p->data),
+					std::get<t_pointer_access_number>(data_storage_p->data)...,
 					args...,
-					std::get<t_args_access_number>(operator_core::data)...);
+					std::get<t_args_access_number>(data_storage_p->data)...);
 			}
 
-		protected:
-		public:
+			using next = S_Function_Operator<typename T_Operator_Parameter::remove>::type;
 
-			constexpr auto operator()(T_request_pointer* p,T_request_args... args)
+			template<class T_request_pointer= T_request_pointer>
+			struct S_Function_Operator_Create :
+				next
 			{
-				return Action_Operator(p, args...);
-			}
+				//仕様
+				//[T_request_pointer*]ポインター、[T_request_args...]を要求する関数オブジェクトに引数を転送する
+				constexpr auto operator()(T_request_pointer* p, T_request_args... args)
+				{
+					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,args...);
+				}
 
-			template<class ...T_Args>
-				requires is_invalid_not<args_chack<tuple_t<T_request_args...>, tuple_t<T_Args...>>>
-			constexpr auto operator()(T_request_pointer* p, T_Args... args)
-			{
-				return Convert<tuple_t<T_request_args...>>(&S_Function_Operator::Action_Operator, this, p, args...);
-			}
+				using next::operator();
 
-			constexpr S_Function_Operator(T_Parts&& ...args)
-				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...){}
+				constexpr S_Function_Operator_Create(T_Parts&& ...args) :
+					next(std::forward<T_Parts>(args)...) {}
 
-		};
+			};
 
+			template<>
+			struct S_Function_Operator_Create<invalid_t> :
+				next
+			{	
+				//仕様
+				//[T_request_args...]を要求する関数オブジェクトに引数を転送する
+				constexpr auto operator()(T_request_args... args)
+				{
+					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,args...);
+				}
 
-		template<
-			class T_Operator_Parameter,
-			size_t ...t_pointer_access_number,
-			size_t t_fn_access_number,
-			size_t ...t_args_access_number,
-			class ...T_request_args>
-			requires (T_Operator_Parameter::size > 1)
-		struct S_Function_Operator<
-			T_Operator_Parameter,
-			tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
-			tuple_t<T_request_args...>,
-			invalid_t> :
-			S_Function_Operator<typename T_Operator_Parameter::remove>
-		{
-		private:
-			constexpr auto Action_Operator(T_request_args... args)
-			{
-				return operator_core::Action_Operator(
-					std::get<t_fn_access_number>(operator_core::data),
-					std::get<t_pointer_access_number>(operator_core::data)...,
-					args...,
-					std::get<t_args_access_number>(operator_core::data)...);
-			}
-		protected:
+				using next::operator();
 
-			constexpr auto operator()(T_request_args... args)
-			{
-				return Action_Operator(args...);
-			}
+				constexpr S_Function_Operator_Create(T_Parts&& ...args) :
+					next(std::forward<T_Parts>(args)...) {}
+			};
 
-			template<class ...T_Args>
-				requires requires
-			{
-				requires is_invalid_not<args_chack<tuple_t<T_request_args...>, tuple_t<T_Args...>>>;
-			}
-			constexpr auto operator()(T_Args... args)
-			{
-				return Convert<tuple_t<T_request_args...>>(&S_Function_Operator::Action_Operator, this, args...);
-			}
+			using type = S_Function_Operator_Create<>;
 
-			using S_Function_Operator<typename T_Operator_Parameter::remove>::operator();
-
-			constexpr S_Function_Operator(T_Parts&& ...args)
-				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...) {}
-
-		};
-
-		template<
-			class T_Operator_Parameter,
-			size_t ...t_pointer_access_number,
-			size_t t_fn_access_number,
-			size_t ...t_args_access_number,
-			class ...T_request_args,
-			class T_request_pointer>
-			requires (T_Operator_Parameter::size > 1)
-		struct S_Function_Operator<
-			T_Operator_Parameter,
-			tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
-			tuple_t<T_request_args...>,
-			T_request_pointer> :
-			S_Function_Operator<typename T_Operator_Parameter::remove>
-		{
-		private:
-			constexpr auto Action_Operator(T_request_pointer* p, T_request_args... args)
-			{
-				return operator_core::Action_Operator(
-					std::get<t_fn_access_number>(operator_core::data),
-					p,
-					args...,
-					std::get<t_args_access_number>(operator_core::data)...);
-			}
-
-		protected:
-
-			constexpr auto operator()(T_request_pointer* p, T_request_args... args)
-			{
-				return Action_Operator(p, args...);
-			}
-
-			template<class ...T_Args>
-				requires requires
-			{
-				requires is_invalid_not<args_chack<tuple_t<T_request_args...>, tuple_t<T_Args...>>>;
-			}
-			constexpr auto operator()(T_request_pointer* p, T_Args... args)
-			{
-				return Convert<tuple_t<T_request_args...>>(&S_Function_Operator::Action_Operator, this, p, args...);
-			}
-
-			using S_Function_Operator<typename T_Operator_Parameter::remove>::operator();
-
-			constexpr S_Function_Operator(T_Parts&& ...args)
-				: S_Function_Operator<typename T_Operator_Parameter::remove>(std::forward<T_Parts>(args)...) {}
 		};
 		
 	public:
 
-		using type = S_Function_Operator<>;
+		using type = S_Function_Operator<>::type;
 
 	};
 
