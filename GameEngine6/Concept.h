@@ -51,7 +51,6 @@ concept name##_nand = !name##_and<type_name_1,type_name_2...>;\
 
 
 
-
 template <bool t_Fg>
 concept Fg = t_Fg;
 

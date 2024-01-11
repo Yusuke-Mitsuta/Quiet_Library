@@ -118,6 +118,8 @@ namespace N_Function
 				typename S_Data_Expand<T_request_pointer_List>::type,
 				T_Result>::type;
 
+
+
 			//仕様
 			//[T_access_number_List],[T_request_args_List],[T_request_pointer_List]のうち、いずれか1つ以上が
 			// [tuple_t]で纏められている場合は、先頭の要素を排除し、纏められていない場合は、

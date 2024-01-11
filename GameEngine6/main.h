@@ -32,35 +32,49 @@ C_OUT(Type_id_delete_head_class_struct(Type_id_change_String(typeid(className).n
 #define type_id(className) \
 TYPE_ID(decltype(className))\
 
+#define name_change(name) #name\
+
+#define CONCEPT (type1,type2)\
+std::cout<<getLastPathComponent(__FILE__)<<" : "<<__LINE__<< " << " <<"same_as < "<<\
+ Type_id_delete_head_class_struct(Type_id_change_String(typeid(type1).name()))\
+<<" , "<< \
+Type_id_delete_head_class_struct(Type_id_change_String(typeid(type2).name())) \
+<<" > = "<<same_as<type1,type2>; \
+
 #define DONT_COPY(ClassName) \
 ClassName(ClassName&) = delete; \
 void operator=(auto) = delete; \
+
+
 
 #define Class_Core(Name)\
 using Name = Core<#Name>;\
 template<> \
 class Core<#Name> \
 
+
+
 struct H
 {
 	void Args_1(int a);
 	void Args_2(int a, int b);
 	void Args_3(int a, int b, int c);
-	void Args_4(int a, int b, int c, int d);
+	void Args_4(int a, int b, int* c, int* d);
 	void Args_5(int a, int b, int c, int d, int e);
 	void Args_6(int a, int b, int c, int d, int e, int f);
 	void Args_7(int a, int b, int c, int d, int e, int f, int g);
 
 	static void Static_Args_1(int a);
-	static void Static_Args_2(int a, int b);
+	static void Static_Args_2(int& a, int& b);
 	static void Static_Args_3(int a, int b, int c);
-	static void Static_Args_4(int a, int b, int c, int d);
+	static void Static_Args_4(int a, int b, int* c, int* d);
 	static void Static_Args_5(int a, int b, int c, int d, int e);
 	static void Static_Args_6(int a, int b, int c, int d, int e, int f);
 	static void Static_Args_7(int a, int b, int c, int d, int e, int f, int g);
 
 	static void Static_Args_88(auto ...a);
 	static void Static_Args_88(auto a,auto ...b);
+
 };
 
 static H* h= new H();
@@ -85,18 +99,26 @@ public:
 		a{ aa , bb } {}
 
 	template<size_t I>
-	int get()
+	int& get()
 	{
 		return a[I];
 	};
+										
+
+
 
 };
 
 
-template<class t>
 class TEST
 {
 public:
-	using type = t;
+	TEST(int* a,int& b) {}
 
+};
+
+template<class T_base,class ...T_Args>
+concept base_Ar = requires(T_base b, T_Args... args)
+{
+	T_base(args...);
 };

@@ -354,12 +354,6 @@
     <ClInclude Include="Vector.h">
       <Filter>ヘッダー ファイル\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Args_Compatible.h">
-      <Filter>ヘッダー ファイル\Function\Function_Args</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Request_Args_List.h">
-      <Filter>ヘッダー ファイル\Function\Function_Args</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Request_Core.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>

@@ -27,7 +27,6 @@
     <ClInclude Include="Array_Capacity.h" />
     <ClInclude Include="Function_Args_Convert.h" />
     <ClInclude Include="Function_Operator_Sort.h" />
-    <ClInclude Include="Function_Request_Args_List.h" />
     <ClInclude Include="Function_Request_Core.h" />
     <ClInclude Include="Function_Operator.h" />
     <ClInclude Include="Function_Request_Args.h" />
@@ -124,7 +123,6 @@
     <ClInclude Include="Using_Type.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="While_Type.h" />
-    <ClInclude Include="Function_Args_Compatible.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Add_Origin.cpp" />

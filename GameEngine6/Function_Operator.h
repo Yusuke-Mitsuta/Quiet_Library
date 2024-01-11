@@ -23,7 +23,6 @@ namespace N_Function
 	{
 	private:
 
-
 		using function_operator_data_list = typename I_Function_Operator_Helper<T_Parts...>::type;
 		using function_operator_sort = typename I_Function_Operator_Sort<function_operator_data_list>::type;
 
@@ -106,26 +105,64 @@ namespace N_Function
 			//送られて来た変数から、第一引数が関数オブジェクトかつ、[Function]でなければ、
 			//	引数を互換性のある型に変換し、[fn]を実行する
 			template<class T_Fn, class ...T_Args>
-			constexpr auto Action_Operator(T_Fn fn,T_Args ...args)
+			constexpr auto Action_Operator(T_Fn&& fn,T_Args&& ...args)
 			{				
-				return I_Function_Args_Convert<
-					typename Function_Core<T_Fn>::request_args,
-				tuple_t<T_Fn, T_Args...>>::Convert(fn,args...);
+				return
+
+					I_Function_Args_Convert<typename Function_Core<std::remove_reference_t<T_Fn>>::request_args, tuple_t<
+					//std::remove_reference_t<
+					T_Fn
+					//>
+					,
+
+					T_Args...>>::Convert(std::forward<T_Fn>(fn), std::forward<T_Args>(args)...);
+
+					//fn(std::forward<T_Args>(args)...);
+					//I_Function_Args_Convert<
+				//	typename Function_Core<T_Fn>::request_args,
+					//tuple_t<T_Fn, T_Args...>>::Convert(
+						//std::forward<T_Fn>(fn),
+						//std::forward<T_Args>(args)...);
+			};
+
+			template<class T_Fn, class ...T_Args>
+			constexpr auto Action_Operatora(T_Fn&& fn, T_Args&& ...args)
+			{
+				//Function_Core<>::superficial
+				bool b = same_as<std::remove_reference_t<T_Fn>, decltype(&H::Static_Args_2)>;
+				C_OUT(b);
+				TYPE_ID(std::remove_reference_t<T_Fn>);
+				//TYPE_ID(decltype(&H::Static_Args_2));
+
+				TYPE_ID(tuple_t<T_Args...>);
+
+
+
+				return
+					//fn(std::forward<T_Args>(args)...);
+					I_Function_Args_Convert<typename Function_Core<std::remove_reference_t<T_Fn>>::request_args,tuple_t<
+					//std::remove_reference_t<
+					T_Fn
+					//>
+					, 
+					
+					T_Args...>>::Convert(std::forward<T_Fn>(fn),std::forward<T_Args>(args)...);
 			};
 
 
 			//仕様
 			//送られて来た変数から、第一引数が関数オブジェクト[Function]であれば、
 			//	第二引数以降を新たな引数とし、[fn(args...)]を実行する
-			template<class T_Fn>
+			template<class T_Fn,class ...T_Args>
 				requires requires
 			{
 				requires same_as_template_type<std::remove_pointer_t<T_Fn>, Function>;
 			}
-			constexpr auto Action_Operator(T_Fn fn, auto ...args)
+			constexpr auto Action_Operator(T_Fn&& fn, T_Args&& ...args)
 			{
-				return fn->operator()(args...);
+				return fn->Relay_Forward(std::forward<T_Args>(args)...);
 			};
+
 
 			constexpr S_Function_Operator(T_Parts&& ...args)
 				:data(std::forward<T_Parts>(args)...)
@@ -133,18 +170,29 @@ namespace N_Function
 			
 			}
 
+			template<class ...T_Args>
+				requires is_invalid_not<typename I_Function_Operator_Search<tuple_t<T_Args...>>::type>
+			constexpr auto Relay_Forward(T_Args&&... args)
+			{
+				using hit_operator_data =
+					I_Function_Operator_Search<tuple_t<T_Args...>>::type;
+				return S_Function_Operator<tuple_t<hit_operator_data>>::Action_Operator(this,
+					std::forward<T_Args>(args)...);
+					
+
+			}
+
 			//仕様
 			//バインド済みの関数オブジェクト全ての中から、
 			// [T_Args...]と互換性のある引数を有する関数オブジェクトを呼び出す。
-			template<class ...T_Args>
-				requires is_invalid_not<typename I_Function_Operator_Search<tuple_t<T_Args...>, function_operator_data_list>::type>
+			template<class ...T_Args>				
+				requires is_invalid_not<typename I_Function_Operator_Search<tuple_t<T_Args...>>::type>
 			constexpr auto operator()(T_Args... args)
 			{
-				using hit_operator_data = I_Function_Operator_Search<tuple_t<T_Args...>>::type;
-
-				return S_Function_Operator<tuple_t<hit_operator_data>>::Action_Operator(this, args...);
+				return this->Relay_Forward(std::forward<T_Args>(args)...);
 			}
 
+			using hit_operator_dataa = I_Function_Operator_Search<tuple_t<MyStruct>>;
 			using type = S_Function_Operator;
 
 		};
@@ -167,14 +215,17 @@ namespace N_Function
 			//仕様
 			//[data_storage_p]データの保管場所のポインターから、
 			// バインド済みの関数オブジェクト、ポインター、引数を取得し、適切にマージを行う。
-			static constexpr auto Action_Operator(operator_core* data_storage_p,auto ...args)
+			template<class ...T_Args>
+			static constexpr auto Action_Operator(operator_core* data_storage_p,T_Args&&... args)
 			{
 				return data_storage_p->Action_Operator(
 					std::get<t_fn_access_number>(data_storage_p->data),
 					std::get<t_pointer_access_number>(data_storage_p->data)...,
-					args...,
+					std::forward<T_Args>(args)...,
 					std::get<t_args_access_number>(data_storage_p->data)...);
 			}
+
+
 
 			using next = S_Function_Operator<typename T_Operator_Parameter::remove>::type;
 
@@ -182,12 +233,23 @@ namespace N_Function
 			struct S_Function_Operator_Create :
 				next
 			{
+				template<class T_pointer,class ...T_Args>
+					requires (convertible_to<T_Args, T_request_args> &&... &&
+							  convertible_to< T_pointer ,T_request_pointer*>)
+				constexpr auto Relay_Forward(T_pointer&& p, T_Args&&... args)
+				{
+					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,
+						std::forward<T_pointer>(p),
+						std::forward<T_Args>(args)...);
+				}
+
 				//仕様
 				//[T_request_pointer*]ポインター、[T_request_args...]を要求する関数オブジェクトに引数を転送する
 				constexpr auto operator()(T_request_pointer* p, T_request_args... args)
 				{
-					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,args...);
+					return Relay_Forward(p, args...);
 				}
+
 
 				using next::operator();
 
@@ -200,11 +262,20 @@ namespace N_Function
 			struct S_Function_Operator_Create<invalid_t> :
 				next
 			{	
+				template<class ...T_Args>
+					requires (convertible_to<T_Args,T_request_args> &&...)
+				constexpr auto Relay_Forward(T_Args&&... args)
+				{
+
+					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,
+						std::forward<T_Args>(args)...);
+				}
+
 				//仕様
 				//[T_request_args...]を要求する関数オブジェクトに引数を転送する
 				constexpr auto operator()(T_request_args... args)
 				{
-					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,args...);
+					return Relay_Forward(args...);
 				}
 
 				using next::operator();

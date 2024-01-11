@@ -115,4 +115,33 @@ namespace N_Tuple
 	struct S_Parameter<T> :
 		S_Parameter<typename T::tuple> {};
 
+
+
+	template<class T>
+		requires requires
+	{
+		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
+	typename T::tuple;
+		requires is_invalid_not<typename S_Parameter<typename T::tuple>::tuple>;
+		requires std::is_class_v<typename T::tuple>;
+	}
+	struct S_Parameter<T&> :
+		S_Parameter<typename T::tuple>
+	{
+		using tuple = N_Tuple::U_Elements_Action<std::add_lvalue_reference, typename T::tuple>;
+	};
+
+	template<class T>
+		requires requires
+	{
+		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
+	typename T::tuple;
+		requires is_invalid_not<typename S_Parameter<typename T::tuple>::tuple>;
+		requires std::is_class_v<typename T::tuple>;
+	}
+	struct S_Parameter<T*> :
+		S_Parameter<typename T::tuple>
+	{
+		using tuple = N_Tuple::U_Elements_Action<std::add_pointer, typename T::tuple>;
+	};
 }

@@ -9,7 +9,7 @@
 template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function 
 #if FUNCTION_FG
-	:protected N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
+	:public N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type
 #endif // FUNCTION_FG
 {
 public:
@@ -32,10 +32,8 @@ public:
 	using N_Function::I_Function_Operator<T_Front_Parts,T_Parts...>::type::operator();
 	//using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
 #endif // FUNCTION_FG
-	using data =
-		//N_Function::Function_Core<T_Front_Parts, T_Parts...>::request_args;
-		N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
-		//N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_data;
+
+	using data =N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
 
 	using function = N_Function::I_Function_Helper<T_Front_Parts, T_Parts...>::type;
 

@@ -121,16 +121,18 @@ void H::Args_3(int a, int b, int c)
 	C_OUT(c);
 }
 
-void H::Args_4(int a, int b, int c, int d)
+void H::Args_4(int a, int b, int* c, int* d)
 {
-	Args_3(a, b, c);
-	C_OUT(d);
+	//Args_3(a, b, c);
+	Args_2(a, b);
+	C_OUT(*c);
+	C_OUT(*d);
 
 }
 
 void H::Args_5(int a, int b, int c, int d, int e)
 {
-	Args_4(a, b, c, d);
+	//Args_4(a, b, c, d);
 	C_OUT(e);
 }
 
@@ -149,11 +151,13 @@ void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
 void H::Static_Args_1(int a)
 {
 	C_OUT(a);
+	//a = 100;
 }
 
-void H::Static_Args_2(int a, int b)
+void H::Static_Args_2(int& a, int& b)
 {
 	C_OUT(a);
+	a = 1000;
 	C_OUT(b);
 }
 
@@ -163,16 +167,19 @@ void H::Static_Args_3(int a, int b, int c)
 	C_OUT(c);
 }
 
-void H::Static_Args_4(int a, int b, int c, int d)
+void H::Static_Args_4(int a, int b, int* c, int* d)
 {
-	Static_Args_3(a, b, c);
-	C_OUT(d);
+	Static_Args_2(a, b);
+	(*c) = 10000;
+	C_OUT((*c));
+	C_OUT((*d));
+	//C_OUT(d);
 
 }
 
 void H::Static_Args_5(int a, int b, int c, int d, int e)
 {
-	Static_Args_4(a, b, c, d);
+	//Static_Args_4(a, b, c, d);
 	C_OUT(e);
 }
 
@@ -200,8 +207,19 @@ void H::Static_Args_88(auto a,auto ...b)
 }
 
 
-//template<class T>
-void Hogege(int t) {}
+template<class T>
+void Hogege(T&& t) 
+
+{
+	TYPE_ID(decltype(t));
+}
+
+template<class T>
+void Hogegege(T t)
+
+{
+	Hogege(t);
+}
 
 #include"Tuple.h"
 #include"Tuple_Value.h"
@@ -211,41 +229,7 @@ void Hogege(int t) {}
 
 
 
-template<>
-struct S_Zipa<int>
-{
-	using type = float;
-};
 
-
-template<>
-struct S_Zipa<int,1>
-{
-	using type = double;
-};
-
-template<>
-struct S_Zipa<int, 2>
-{
-	using type = double;
-};
-
-template<>
-struct S_Zipa<int, 3>
-{
-	using type = double;
-};
-
-class TEST_1
-{
-public:
-	template<class ..._Ty1,class ..._Ty2>
-	constexpr auto operator()(_Ty2 ... ty2)
-	{
-		TYPE_ID(tuple_t<_Ty1...>);
-		TYPE_ID(tuple_t<_Ty2...>);
-	}
-};
 
 int main()
 {
@@ -261,9 +245,9 @@ int main()
 
 
 	using bind_args1 = N_Tuple::U_Insert_tuple_expand<typename bind_args::remove, typename bind_args::type>;
+	int nn = 20;
 
-
-	//245
+	//Hogegege();
 
 		//N_Tuple::U_Insert_tuple_expand<
 		//,tuple_t<int> >;
@@ -305,9 +289,13 @@ int main()
 	
 
 	
+	int oo = 20;
 
+	//constexpr bool b = std::is_nothrow_convertible_v<int&,int*>;
+	constexpr bool b = base_Ar<TEST, int&,int>;// , decltype(oo) > ;
 
-
+	TEST o(&oo,oo);
+	//TEST o(oo);
 
 	//using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
 ///	using fn_op_data=decltype(fn_test0)::data;
@@ -333,9 +321,27 @@ int main()
 	//
 	
 	Function fn54(fn_test4,fn_test5);
+	int n = 10;
+
+
+	//constexpr bool b = std::constructible_from<int*, int*>;
+	Function fn_test01(&H::Args_4);
+
+	fn_test01(h, n, 3, &aa);
 
 	
-	fn54()
+	C_OUT(aa.a[0]);
+
+	//decltype(fn_test01)::hit_operator_dataa::type::
+
+	using TTT = decltype(H::Static_Args_2);
+	using TTTT =N_Function::Function_Core< decltype(&H::Static_Args_2)>::request_args;
+
+	TYPE_ID(TTT);
+	TYPE_ID(TTTT);
+	C_OUT(n);
+
+	//fn54(n);
 
 	//fn65(3);
 	//using Fn65= decltype(fn65);
@@ -359,7 +365,7 @@ int main()
 	
 	//fn_test6
 
-	Function fn_test01(&H::Static_Args_3,0 );
+	//Function fn_test01(&H::Static_Args_3,0 );
 
 	//fn_test01(aa);
 

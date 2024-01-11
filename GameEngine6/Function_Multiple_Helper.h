@@ -98,6 +98,14 @@ namespace N_Function
 				using Function_Data =
 					typename N_Tuple::I_Expand_Set<I_Function_Superficial_Data, T_Tuple>::type;
 
+				template<class T_chack>
+				static constexpr bool pointer_chack =
+					std::is_pointer_v<std::remove_reference_t<T_chack>>
+						&& std::is_class_v<std::remove_pointer_t<std::remove_reference_t<T_chack>>>;
+
+
+					
+
 
 				//仕様
 				//指定されたポインターをが必要か判定する。
@@ -121,7 +129,7 @@ namespace N_Function
 				//仕様
 				//専用で設定されたポインターを判定する
 				template<class T_Function, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-					requires is_pointer<std::remove_reference_t<typename T_Method_Point::next_t>> &&
+					requires pointer_chack<typename T_Method_Point::next_t> &&
 					requires
 				{
 					requires same_as_not<typename T_Function::request_pointer, typename T_Dedicated_Point_Check::request_pointer>;
@@ -137,7 +145,7 @@ namespace N_Function
 				//仕様
 				//共通で設定されたポインターを判定する
 				template<class T_Function, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-					requires is_pointer<std::remove_reference_t<front_t>> &&
+					requires pointer_chack<front_t> &&
 					requires
 				{
 					requires is_invalid<typename T_Dedicated_Point_Check::function> ||

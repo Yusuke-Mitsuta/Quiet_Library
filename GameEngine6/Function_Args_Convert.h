@@ -9,7 +9,7 @@ namespace N_Function
 	template<class T_Request_Args, class T_Bind_Args>
 	struct I_Function_Args_Convert
 	{
-	public:
+	private:
 		template<class T_Request_Args = invalid_t>
 		struct S_Result
 		{
@@ -17,19 +17,20 @@ namespace N_Function
 
 			using convert = S_Result;
 
-			static constexpr auto Convert(auto fn,auto... args)
+			template<class T_Fn,class ...T_Args>
+			static constexpr auto Convert(T_Fn&& fn,T_Args&&... args)
 			{
-				return fn(args...);
+				return std::forward<T_Fn>(fn)(std::forward<T_Args>(args)...);
 			}
 
-			template<class T_Fn>
+			template<class T_Fn,class ...T_Args>
 			requires requires
 			{
-				requires std::is_member_function_pointer_v<T_Fn>;
+				requires std::is_member_function_pointer_v<std::remove_reference_t<T_Fn>> ;
 			}
-			static constexpr auto Convert(T_Fn fn,auto* p, auto... args)
+			static constexpr auto Convert(T_Fn&& fn,auto* p, T_Args&&... args)
 			{
-				return (p->*fn)(args...);
+				return (p->*std::forward<T_Fn>(fn))(std::forward<T_Args>(args)...);
 			}
 
 		};
@@ -146,9 +147,15 @@ namespace N_Function
 			struct S_Convert<tuple_t<T_Converted...>>
 			{
 				using convert = S_Convert;
-				static constexpr auto Convert(T_Converted... converted_args, T_Bind_Args... args, auto... back_args)
+
+
+				template<class ...T_back_args>
+				static constexpr auto Convert(T_Converted&&... converted_args, T_Bind_Args&&... args, T_back_args&&... back_args)
 				{
-					next::convert::Convert(converted_args..., T_Request_Args_Tuple::type(args...), back_args...);
+					return next::convert::Convert(
+						std::forward<T_Converted>(converted_args)...,
+						T_Request_Args_Tuple::type(std::forward<T_Bind_Args>(args)...),
+						std::forward<T_back_args>(back_args)...);
 				}
 
 			};
@@ -197,20 +204,20 @@ namespace N_Function
 			struct S_Convert<tuple_t<T_Converted...>, tuple_v<t_expand_number...>>
 			{
 
-				static constexpr auto Convert(T_Converted... args, T_Front_Bind_Args change_args,auto... back_args)
+				template<class ...T_back_args>
+				static constexpr auto Convert(T_Converted&&... args, T_Front_Bind_Args&& change_args, T_back_args&&... back_args)
 				{
-					next::convert::Convert(args..., std::get<t_expand_number>(change_args)...,back_args...);
+					return next::convert::Convert(
+						std::forward<T_Converted>(args)...,
+						std::get<t_expand_number>(std::forward<T_Front_Bind_Args>(change_args))...,
+						std::forward<T_back_args>(back_args)...);
 				}
 
 			};
 
 			using convert = S_Convert<>;
-
-
 		};
 
-		
-	//private:
 		using next = U_Function_Args_Chack_Next<typename T_Request_Args::reverse,
 			typename T_Bind_Args::reverse::create_p>::type;
 
@@ -220,9 +227,10 @@ namespace N_Function
 
 		using type = chack;
 
-		static constexpr auto Convert(auto... args)
+		template<class ...T_Args>
+		static constexpr auto Convert(T_Args&&... args)
 		{
-			return next::convert::Convert(args...);
+			return next::convert::Convert(std::forward<T_Args>(args)...);
 		}
 
 
