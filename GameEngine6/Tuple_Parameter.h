@@ -128,7 +128,7 @@ namespace N_Tuple
 	struct S_Parameter<T&> :
 		S_Parameter<typename T::tuple>
 	{
-		using tuple = N_Tuple::U_Elements_Action<std::add_lvalue_reference, typename T::tuple>;
+		//using tuple = N_Tuple::U_Elements_Action<std::add_lvalue_reference, typename T::tuple>;
 	};
 
 	template<class T>
@@ -142,6 +142,6 @@ namespace N_Tuple
 	struct S_Parameter<T*> :
 		S_Parameter<typename T::tuple>
 	{
-		using tuple = N_Tuple::U_Elements_Action<std::add_pointer, typename T::tuple>;
+		//using tuple = N_Tuple::U_Elements_Action<std::add_pointer, typename T::tuple>;
 	};
 }

@@ -121,12 +121,12 @@ void H::Args_3(int a, int b, int c)
 	C_OUT(c);
 }
 
-void H::Args_4(int a, int b, int* c, int* d)
+void H::Args_4(int a, int b, int* c, int& d)
 {
 	//Args_3(a, b, c);
 	Args_2(a, b);
 	C_OUT(*c);
-	C_OUT(*d);
+	C_OUT(d);
 
 }
 
@@ -214,11 +214,11 @@ void Hogege(T&& t)
 	TYPE_ID(decltype(t));
 }
 
-template<class T>
-void Hogegege(T t)
+
+void Hogegege(MyStruct* t)
 
 {
-	Hogege(t);
+	H::Static_Args_88(t->a[0], t->a[1]);
 }
 
 #include"Tuple.h"
@@ -245,7 +245,6 @@ int main()
 
 
 	using bind_args1 = N_Tuple::U_Insert_tuple_expand<typename bind_args::remove, typename bind_args::type>;
-	int nn = 20;
 
 	//Hogegege();
 
@@ -292,9 +291,8 @@ int main()
 	int oo = 20;
 
 	//constexpr bool b = std::is_nothrow_convertible_v<int&,int*>;
-	constexpr bool b = base_Ar<TEST, int&,int>;// , decltype(oo) > ;
+	constexpr bool b = base_Ar<TEST, int,int,int*>;// , decltype(oo) > ;
 
-	TEST o(&oo,oo);
 	//TEST o(oo);
 
 	//using fn_r = N_Function::Function_Core<decltype(&H::Args_2), int>::request_args;
@@ -327,9 +325,10 @@ int main()
 	//constexpr bool b = std::constructible_from<int*, int*>;
 	Function fn_test01(&H::Args_4);
 
-	fn_test01(h, n, 3, &aa);
+	Function fn_test02(&Hogegege);
 
-	
+	fn_test01(h, n, 3, aa);
+	fn_test02(n, n);
 	C_OUT(aa.a[0]);
 
 	//decltype(fn_test01)::hit_operator_dataa::type::

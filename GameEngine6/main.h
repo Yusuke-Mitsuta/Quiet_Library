@@ -59,7 +59,7 @@ struct H
 	void Args_1(int a);
 	void Args_2(int a, int b);
 	void Args_3(int a, int b, int c);
-	void Args_4(int a, int b, int* c, int* d);
+	void Args_4(int a, int b, int* c, int& d);
 	void Args_5(int a, int b, int c, int d, int e);
 	void Args_6(int a, int b, int c, int d, int e, int f);
 	void Args_7(int a, int b, int c, int d, int e, int f, int g);
@@ -93,7 +93,7 @@ public:
 
 	int a[2];
 	
-	using tuple = tuple_t<int, int>;
+	using tuple = tuple_t<int*, int&>;
 
 	MyStruct(int aa, int bb) :
 		a{ aa , bb } {}
@@ -106,19 +106,18 @@ public:
 										
 
 
-
 };
 
 
 class TEST
 {
 public:
-	TEST(int* a,int& b) {}
+	TEST(int a,int& b,int* c) {}
 
 };
 
 template<class T_base,class ...T_Args>
-concept base_Ar = requires(T_base b, T_Args... args)
+concept base_Ar = requires(T_base, T_Args... args)
 {
 	T_base(args...);
 };

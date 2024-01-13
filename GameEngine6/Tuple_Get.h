@@ -30,9 +30,9 @@ namespace std
 		requires N_Tuple::S_Parameter<T>::size >= I;
 		{t.get<I>()};
 	}
-	auto* get(T* t)
+	auto& get(T* t)
 	{
-		return &t->get<I>();
+		return t->get<I>();
 	}
 
 	//d—l
