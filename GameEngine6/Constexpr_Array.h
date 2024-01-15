@@ -20,10 +20,10 @@ namespace N_Constexpr::N_Array
 	//
 	//戻り値
 	//最上位のビットの指数
-	template<Size_Type t_Size>
-	constexpr Size_Type Get_Binary_Digit(Size_Type two_index = 1)
+	template<size_t t_Size>
+	constexpr size_t Get_Binary_Digit(size_t two_index = 1)
 	{
-		if (t_Size <= (1 << two_index))
+		if (t_Size <= (static_cast<size_t>(1) << two_index))
 		{
 			return two_index - 1;
 		}
@@ -50,7 +50,7 @@ namespace N_Constexpr::N_Array
 	//
 	//戻り値
 	//現在のステート
-	template<Size_Type t_Size, short t_Two_index, Size_Type t_SelectNum>
+	template<size_t t_Size, short t_Two_index, size_t t_SelectNum>
 		requires Fg<(t_Two_index >= 0)>
 	constexpr E_AccesState Get_State()
 	{
@@ -61,7 +61,7 @@ namespace N_Constexpr::N_Array
 		return E_AccesState::NORMAL;
 	}
 
-	template<Size_Type t_Size, short t_Two_index, Size_Type t_SelectNum>
+	template<size_t t_Size, short t_Two_index, size_t t_SelectNum>
 		requires Fg<(t_Two_index < 0)>
 	constexpr E_AccesState Get_State()
 	{
@@ -78,9 +78,9 @@ namespace N_Constexpr::N_Array
 	//t_Two_index::二進数で2の何乗にアクセスしているか
 	//t_SelectNum::現在選択している数字(辿っているルート)
 	//t_State::アクセスの状態管理
-	template<class T, Size_Type t_Size,
+	template<class T, size_t t_Size,
 		short t_Two_index,
-		Size_Type t_SelectNum = 0,
+		size_t t_SelectNum = 0,
 		E_AccesState t_State = Get_State<t_Size, t_Two_index, t_SelectNum>()>
 	class Access
 	{
@@ -93,7 +93,7 @@ namespace N_Constexpr::N_Array
 
 		//仕様
 		//二進数で[1]を選択する
-		Access< T, t_Size, t_Two_index - 1, t_SelectNum | (1 << t_Two_index)> _1;
+		Access< T, t_Size, t_Two_index - 1,( t_SelectNum | (size_t(1) << t_Two_index))> _1;
 
 		//仕様
 		//各要素にアクセスする
@@ -103,7 +103,7 @@ namespace N_Constexpr::N_Array
 		//
 		//戻り値
 		//アクセスした要素の参照
-		constexpr T& operator[](unsigned int selectNum)
+		constexpr T& operator[](size_t selectNum)
 		{
 			if (selectNum < (1 << t_Two_index))
 			{
@@ -116,13 +116,13 @@ namespace N_Constexpr::N_Array
 
 	//仕様
 	//次に[_1]を選択すると要素数を超えてしまうとき、[_1]を選択肢から外す
-	template<class T, Size_Type t_Size, short t_Two_index, Size_Type t_SelectNum>
+	template<class T, size_t t_Size, short t_Two_index, size_t t_SelectNum>
 	class Access<T, t_Size, t_Two_index, t_SelectNum, E_AccesState::NOT_Select_1>
 	{
 	public:
 		Access<T, t_Size, t_Two_index - 1, t_SelectNum> _0;
 
-		constexpr T& operator[](Size_Type selectNum)
+		constexpr T& operator[](size_t selectNum)
 		{
 			return _0.operator[](selectNum);
 		}
@@ -131,14 +131,14 @@ namespace N_Constexpr::N_Array
 
 	//仕様
 	//辿ってきたルートのアクセス先データ
-	template<class T, Size_Type t_Size, short t_Two_index, Size_Type t_SelectNum>
+	template<class T, size_t t_Size, short t_Two_index, size_t t_SelectNum>
 	class Access<T, t_Size, t_Two_index, t_SelectNum, E_AccesState::END>
 	{
 	public:
 
 		T Data = T();
 
-		constexpr T& operator[](Size_Type selectNum)
+		constexpr T& operator[](size_t selectNum)
 		{
 			return Data;
 		}
@@ -155,7 +155,7 @@ namespace N_Constexpr
 	//template
 	//T::要素の型
 	//t_Size::要素の合計
-	template<class T, Size_Type t_Size>
+	template<class T, size_t t_Size>
 	class Array
 	{
 	private:
@@ -164,14 +164,14 @@ namespace N_Constexpr
 		//
 		//template
 		//t_Number::保存する要素番号
-		template<Size_Type t_Number, class U, class ...V>
+		template<size_t t_Number, class U, class ...V>
 		constexpr void Set(U u, V ...v);
 
-		template<Size_Type t_Number, class U, Size_Type t_Array_Size, class ...V>
+		template<size_t t_Number, class U, size_t t_Array_Size, class ...V>
 		constexpr void Set(Array<U, t_Array_Size> u, V ...v);
 
 
-		template<Size_Type t_Number, class U, class ...V>
+		template<size_t t_Number, class U, class ...V>
 		constexpr void Set(invalid_t nullopt, V ...v) {}
 
 	public:
@@ -191,23 +191,19 @@ namespace N_Constexpr
 		//
 		//戻り値
 		//アクセスした要素の参照
-		constexpr T& operator[](Size_Type selectNum)
+		constexpr T& operator[](size_t selectNum)
 		{
 
-			if (selectNum < (1 << N_Array::Get_Binary_Digit<t_Size>()))
+			if (selectNum < (size_t(1) << N_Array::Get_Binary_Digit<t_Size>()))
 			{
 				return _0.operator[](selectNum);
 			}
-			return _1.operator[](selectNum - (1 << N_Array::Get_Binary_Digit<t_Size>()));
+			return _1.operator[](selectNum - (size_t(1)<< N_Array::Get_Binary_Digit<t_Size>()));
 		}
 
 
-		template<Size_Type ref_Size = t_Size, class Array_T = T, class U, class ...V >
-			requires std::same_as<std::true_type, typename N_Array::Capacity<Array_T, ref_Size, U, V...>::Bool_Type> &&
-			requires 
-		{
-			requires (N_Array::Capacity<Array_T, ref_Size, U, V...>::Size <= ref_Size);
-		}
+		template< class U, class ...V >
+			requires N_Array::chack_C<T, t_Size, U, V...>
 		constexpr Array(U u, V... v);
 
 		constexpr Array() {}
@@ -235,9 +231,9 @@ namespace N_Constexpr
 	public:
 		//仕様
 		//データの格納先で一回目に[_0]を選択する
-		N_Array::Access<T, 1, N_Array::Get_Binary_Digit<1>() - 1, 0> _0;
+		N_Array::Access<T, 1,static_cast<short>(N_Array::Get_Binary_Digit<1>() -1), 0> _0;
 
-		constexpr T& operator[](Size_Type selectNum)
+		constexpr T& operator[](size_t selectNum)
 		{
 			return _0.operator[](selectNum);
 		}
@@ -248,16 +244,16 @@ namespace N_Constexpr
 	Array(U, V...) -> Array<U, N_Array::Capacity<U, 0, U, V...>::Size>;
 
 
-	template<class T, Size_Type t_Size>
-	template<Size_Type t_Number, class U, class ...V>
+	template<class T, size_t t_Size>
+	template<size_t t_Number, class U, class ...V>
 	inline constexpr void Array<T, t_Size>::Set(U u, V ...v)
 	{
 		this->operator[](t_Number) = static_cast<T>(u);
 		Set<t_Number + 1, V...>(v...);
 	}
 
-	template<class T,Size_Type t_Size>
-	template<Size_Type t_Number, class U, Size_Type t_Array_Size, class ...V>
+	template<class T,size_t t_Size>
+	template<size_t t_Number, class U, size_t t_Array_Size, class ...V>
 	inline constexpr void Array<T, t_Size>::Set(Array<U, t_Array_Size> u, V ...v)
 	{
 		int i = 0;
@@ -268,13 +264,9 @@ namespace N_Constexpr
 		Set<t_Number + i, V...>(v...);
 	}
 
-	template<class T, Size_Type t_Size>
-	template<Size_Type ref_Size, class Array_T, class U, class ...V>
-		requires std::same_as<std::true_type, typename N_Array::Capacity<Array_T, ref_Size, U, V...>::Bool_Type>&&
-		requires
-	{
-		requires (N_Array::Capacity<Array_T, ref_Size, U, V...>::Size <= ref_Size);
-	}
+	template<class T, size_t t_Size>
+	template<class U, class ...V>
+		requires N_Array::chack_C<T, t_Size, U, V...>
 	inline constexpr Array<T, t_Size>::Array(U u, V ...v)
 	{
 		Set<0, U, V...>(u, v..., invalid);

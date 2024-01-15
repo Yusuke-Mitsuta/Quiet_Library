@@ -18,9 +18,11 @@
 
 namespace N_Constexpr
 {
-	template<class T, Size_Type t_Size>
+	template<class T, size_t t_Size>
 	class Array;
 };
+
+
 
 
 //仕様
@@ -37,7 +39,7 @@ namespace N_Constexpr
 //型TがArray型でなく、引数の型がArray型の時、Arrayが分解され、それぞれ一つの型として確認する
 namespace N_Constexpr::N_Array
 {
-	template<class T, Size_Type t_Initial_Capacity, class U, class ...V>
+	template<class T, size_t t_Initial_Capacity, class U, class ...V>
 	class Capacity
 	{
 	private:
@@ -70,12 +72,12 @@ namespace N_Constexpr::N_Array
 
 		}
 
-		template<Size_Type remaining_Capacity, E_State t_State, class U, class ...V>
+		template<size_t remaining_Capacity, E_State t_State, class U, class ...V>
 		class Calcu;
 
 		//仕様
 		//型[U]がArrayに格納な型か判定する
-		template<Size_Type remaining_Capacity, class U, class ...V>
+		template<size_t remaining_Capacity, class U, class ...V>
 		class Calcu<remaining_Capacity, E_State::T_CONVERTIBLE_U, U, V...>
 		{
 		public:
@@ -85,7 +87,7 @@ namespace N_Constexpr::N_Array
 
 		//仕様
 		//型[U]がArray型かつ、型[T]がArray型でないか判定する
-		template<Size_Type remaining_Capacity, class Array_T, Size_Type t_ArraySize, class ...V>
+		template<size_t remaining_Capacity, class Array_T, size_t t_ArraySize, class ...V>
 		class Calcu<remaining_Capacity, E_State::ARRAY_DISASSEMBLY, N_Constexpr::Array<Array_T, t_ArraySize>, V...>
 		{
 		public:
@@ -97,7 +99,7 @@ namespace N_Constexpr::N_Array
 		//
 		//補足
 		//[Array_Capacity::type]が判定の結果、可能なら[std::true_type],不可能なら[std::false_type]になる
-		template<Size_Type remaining_Capacity, E_State t_State, class U, class ...V>
+		template<size_t remaining_Capacity, E_State t_State, class U, class ...V>
 		class Calcu
 		{
 		private:
@@ -128,7 +130,7 @@ namespace N_Constexpr::N_Array
 
 			//仕様
 			//要素数を返す
-			static constexpr Size_Type Size = t_Initial_Capacity - remaining_Capacity;
+			static constexpr size_t Size = t_Initial_Capacity - remaining_Capacity;
 		};
 
 		//仕様
@@ -146,7 +148,19 @@ namespace N_Constexpr::N_Array
 
 		//仕様
 		//要素数を返す
-		static constexpr Size_Type Size = Type::Size;
+		static constexpr size_t Size = Type::Size;
 
 	};
+
+	//仕様
+	//型[T]に対して、[U,V...]が互換性があるか判定する、かつ
+	// その要素数の合計が[t_Initial_Capacity]以下であるか判定する
+	template<class T, size_t t_Initial_Capacity, class U, class ...V>
+	concept chack_C = requires
+	{
+		requires std::same_as<std::true_type, typename N_Array::Capacity<T, t_Initial_Capacity, U, V...>::Bool_Type>;
+		requires (N_Array::Capacity<T, t_Initial_Capacity, U, V...>::Size <= t_Initial_Capacity);
+	};
+
+
 };

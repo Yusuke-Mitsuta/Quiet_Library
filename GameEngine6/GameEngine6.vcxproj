@@ -122,6 +122,7 @@
     <ClInclude Include="Type_Nameh.h" />
     <ClInclude Include="Using_Type.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="Vector3.h" />
     <ClInclude Include="While_Type.h" />
   </ItemGroup>
   <ItemGroup>

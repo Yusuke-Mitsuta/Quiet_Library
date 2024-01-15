@@ -3,7 +3,7 @@
 #include"Constexpr_String.h"
 
 
-template<Size_Type className_Size>
+template<size_t className_Size>
 class Core_Name
 {
 private:

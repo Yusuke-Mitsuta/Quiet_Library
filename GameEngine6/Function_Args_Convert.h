@@ -163,62 +163,46 @@ namespace N_Function
 			{
 				using convert = S_Convert;
 
-				//using request_type = T_Request_Args_Tuple::type;
-
-				using create_type = T_Request_Args_Tuple::type;
 
 				//仕様
-				//[T_Request_Type]型を[args...]から作る
-				template<class T_Request_Type = T_Request_Args_Tuple::type>
-				static constexpr auto Constructor(T_Bind_Args&&... args)
+				//[T_Request_Type]型を[args...]から作り、その実体を返す
+				//
+				//補足
+				//ここで生成される変数は、変数[args...]を元に生成されるだけであり、、変数に[&][*]が付与されていた場合も、
+				// 生成するクラス内で個別に置換しない場合、生成されるクラスから、変数[args...]にはアクセスされない。
+				template<class ...T_back_args>
+				static constexpr auto Convert(T_Converted&&... converted_args, T_Bind_Args&&... args, T_back_args&&... back_args)
 				{
-					return T_Request_Type(args...);
+
+					return next::convert::Convert(
+						std::forward<T_Converted>(converted_args)...,
+						std::remove_reference_t<typename T_Request_Args_Tuple::type>(std::forward<T_Bind_Args>(args)...),
+						std::forward<T_back_args>(back_args)...);
 				}
+
 
 				//仕様
 				//[T_Request_Type]型を[args...]から作り、そのポインターを返す
 				//
 				//補足
-				// ここで生成される変数のポインターは見せかけの為、
-				// 生成するクラス内で[args...]との互換性を各自、定義を行う
+				//ここで生成される変数は、変数[args...]を元に生成されるだけであり、変数に[&][*]が付与されていた場合も、
+				// 生成するクラス内で個別に置換しない場合、生成されるクラスから、変数[args...]にはアクセスされない。
 				// 
-				//	行わない場合は、関数にポインターとして渡されるが[args...]には一切干渉出来ない
-				template<class T_Request_Type = T_Request_Args_Tuple::type>
-					requires requires
-				{
-					requires is_pointer<T_Request_Type>;
-				}
-				static constexpr auto* Constructor(T_Bind_Args&&... args)
-				{
-					std::remove_pointer_t<T_Request_Type> aba(args...);
-					return &aba;
-				}
-
-				//仕様
-				//[T_Request_Type]型を[args...]から作り、その参照を返す
-				//
-				//補足
-				// ここで生成される変数の参照は見せかけの為、
-				// 生成するクラス内で[args&...]との互換性を各自、定義を行う
-				// 
-				//	行わない場合は、関数に参照として渡されるが[args...]には一切干渉出来ない
-				template<class T_Request_Type = T_Request_Args_Tuple::type>
-					requires requires
-				{
-					requires is_reference<T_Request_Type>;
-				}
-				static constexpr auto Constructor(T_Bind_Args&&... args)
-				{
-					return std::remove_reference_t<T_Request_Type>(args...);
-				}
-
+				//[T_Request_Type]型を[args...]から作り、そのポインターを返す
 				template<class ...T_back_args>
+					requires requires
+				{
+					requires is_pointer<typename T_Request_Args_Tuple::type>;
+				}
 				static constexpr auto Convert(T_Converted&&... converted_args, T_Bind_Args&&... args, T_back_args&&... back_args)
 				{
+
+					//ポインターを返す為の一時オブジェクト
+					std::remove_pointer_t<typename T_Request_Args_Tuple::type> temp(std::forward<T_Bind_Args>(args)...);
+
 					return next::convert::Convert(
 						std::forward<T_Converted>(converted_args)...,
-						Constructor(std::forward<T_Bind_Args>(args)...),
-						//std::remove_reference_t<typename T_Request_Args_Tuple::type>(std::forward<T_Bind_Args>(args)...),
+						&temp,
 						std::forward<T_back_args>(back_args)...);
 				}
 
@@ -272,12 +256,12 @@ namespace N_Function
 			//仕様
 			//引数を互換性のある型に展開する
 			template<class T_Converted =typename T_Bind_Args_Tuple::tail::reverse,
-				class T_index_sequence = N_Tuple::U_index_sequence<expand::size>>
+				class T_index_sequence = typename N_Tuple::U_index_sequence<expand::size>::reverse>
 			struct S_Convert;
 
 
-			template<class ...T_Converted,size_t ...t_expand_number>
-			struct S_Convert<tuple_t<T_Converted...>, tuple_v<t_expand_number...>>
+			template<class ...T_Converted,class T_index_sequence>
+			struct S_Convert<tuple_t<T_Converted...>, T_index_sequence>
 			{
 				template<size_t t_select_number>
 				using select_type = N_Tuple::U_Element_t<t_select_number, expand>;
@@ -308,14 +292,32 @@ namespace N_Function
 					return &std::get<t_select_number>(std::forward<T_Front_Bind_Args>(change_args));
 				}
 
+
 				//仕様
-				//引数を互換性のある型に展開する
-				template<class ...T_back_args>
+				//引数[change_args]を後ろから順番に展開して行く
+				//
+				//テンプレート
+				//[T_expand_Numbers]：[change_args]の展開する要素数の番号を後ろから並べた物
+				//  
+				//補足
+				//[change_args]が、5つの要素数に展開される場合、[T_expand_Numbers = tuple_v<4,3,2,1,0> ]となる
+				template<class T_expand_Numbers= T_index_sequence,class ...T_back_args>
+				static constexpr auto Convert(T_Converted&&... args, T_Front_Bind_Args&& change_args, T_back_args&&... back_args)
+				{
+					return Convert<typename T_expand_Numbers::remove>(
+						std::forward<T_Converted>(args)...,
+						std::forward<T_Front_Bind_Args>(change_args),
+						get<T_expand_Numbers::value>(std::forward<T_Front_Bind_Args>(change_args)),
+						std::forward<T_back_args>(back_args)...);
+				}
+
+				//仕様
+				//引数[change_args]の展開が終わった場合、次の工程に進める
+				template<same_as<tuple_v<>> T_expand_Numbers = T_index_sequence, class ...T_back_args>
 				static constexpr auto Convert(T_Converted&&... args, T_Front_Bind_Args&& change_args, T_back_args&&... back_args)
 				{
 					return next::convert::Convert(
 						std::forward<T_Converted>(args)...,
-						get<t_expand_number>(std::forward<T_Front_Bind_Args>(change_args))...,
 						std::forward<T_back_args>(back_args)...);
 				}
 

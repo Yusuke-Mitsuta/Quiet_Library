@@ -229,7 +229,7 @@ void Hogegege(MyStruct* t)
 
 
 
-
+#include"Vector3.h"
 
 int main()
 {
@@ -242,6 +242,25 @@ int main()
 
 	MyStruct a(3, 2);
 
+	N_Constexpr::Array<float,3> aba(1, 0.1f);
+	Vector3 abaa(3,2,1);
+
+	abaa.x = 10;
+	
+	C_OUT(abaa.x);
+
+	int n1 = 1;
+	int& n2 = n1;
+
+	int& n3 = n2;
+
+	n3 = 5;
+	C_OUT(n1);
+
+	
+
+	type_id(aba[0]);
+	type_id(aba[1]);
 
 
 	using bind_args1 = N_Tuple::U_Insert_tuple_expand<typename bind_args::remove, typename bind_args::type>;
