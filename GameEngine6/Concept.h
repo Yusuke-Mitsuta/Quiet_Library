@@ -101,6 +101,10 @@ template<class _Ty1>
 struct is_invalid_C :
 	std::bool_constant<same_as<_Ty1,invalid_t>>{};
 
+template<class _Ty1>
+struct is_invalid_C<const _Ty1> :
+	is_invalid_C<_Ty1> {};
+
 CONCEPT_TYPE_1_DEFAULT(is_invalid)
 
 

@@ -215,10 +215,11 @@ void Hogege(T&& t)
 }
 
 
-void Hogegege(MyStruct* t)
+void Hogegege(MyStruct t)
 
 {
-	H::Static_Args_88(t->a[0], t->a[1]);
+	H::Static_Args_88(t.a[0], t.
+		a[1]);
 }
 
 #include"Tuple.h"
@@ -346,9 +347,17 @@ int main()
 
 	Function fn_test02(&Hogegege);
 
-	fn_test01(h, n, 3, aa);
+	//N_Function::Function_Core<typename decltype(fn_test01(h, n, 3, aa))::argsa>::
+
+
+	constexpr bool aaa= std::constructible_from<std::remove_reference_t<MyStruct>, int&, int&>;
+
+	//using typ= decltype(fn_test02(n, n))::type::;
+
+	//TYPE_ID(typ);
+	bool baaa = std::is_function_v<decltype(Hogegege)>;
+	C_OUT(baaa);
 	fn_test02(n, n);
-	C_OUT(aa.a[0]);
 
 	//decltype(fn_test01)::hit_operator_dataa::type::
 
@@ -805,7 +814,7 @@ int main()
 //		//typename N_Tuple::I_Range<tuple_tp<tuple_t<double,short,int>,float,tuple_t<double,short>>,0,1>::type;
 //
 //
-//		//N_Tuple::S_Tuple_t_Convert_Action<TEST,
+//		//N_Tuple::S_Tuple_t_Change_Action<TEST,
 //		//tuple_tp<tuple_t<double, short, int>, float, tuple_t<double, short>>>::type;
 //
 //	//TYPE_ID(TEST<typename FF::back_t>::type);

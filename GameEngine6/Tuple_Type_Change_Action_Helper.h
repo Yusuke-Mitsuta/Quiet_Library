@@ -27,7 +27,7 @@ namespace N_Tuple
 	//•â‘«
 	//•Ï”‚É¸”s‚µ‚½ê‡A–¢ˆ—‚Ì[T_Tuple]‚ª‚»‚Ì‚Ü‚Ü•Ô‚³‚ê‚é
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Tuple, size_t t_Start_Point>
-	struct S_Tuple_Convert_Action_Helper
+	struct S_Tuple_Type_Change_Action_Helper
 	{
 	private:
 
@@ -61,7 +61,7 @@ namespace N_Tuple
 
 		template<bool t_Action_break>
 		using Return_Tuple =
-			S_Tuple_Convert_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Tuple>), I_Tuple_Start_Point_Set, T_Tuple>;
+			S_Tuple_Type_Change_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Tuple>), I_Tuple_Start_Point_Set, T_Tuple>;
 
 
 		

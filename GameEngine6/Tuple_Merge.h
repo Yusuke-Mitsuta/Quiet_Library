@@ -50,8 +50,8 @@ namespace N_Tuple
 
 	public:
 
-		using tuple_expand= S_Tuple_t_Convert_Action<S_Merge_Tuple_Expand,T_Base_Tuple>::type;
+		using tuple_expand= S_Tuple_t_Change_Action<S_Merge_Tuple_Expand,T_Base_Tuple>::type;
 
-		using type = S_Tuple_t_Convert_Action<S_Merge, T_Base_Tuple>::type;
+		using type = S_Tuple_t_Change_Action<S_Merge, T_Base_Tuple>::type;
 	};
 }

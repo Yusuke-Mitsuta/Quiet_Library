@@ -70,7 +70,7 @@ namespace N_Tuple
 
 	public:
 
-		using type = S_Tuple_t_Convert_Action<S_Action, T_Tuple>::Return_not_p;
+		using type = S_Tuple_t_Change_Action<S_Action, T_Tuple>::Return_not_p;
 	};
 
 }

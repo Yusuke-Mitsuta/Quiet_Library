@@ -48,7 +48,7 @@ namespace N_Tuple
 			using type = S_Operator<>::type;
 		};
 
-		using type = S_Tuple_t_Convert_Action<S_Tuple_Calculate,T_Tuple_v>::type;
+		using type = S_Tuple_t_Change_Action<S_Tuple_Calculate,T_Tuple_v>::type;
 
 	};
 

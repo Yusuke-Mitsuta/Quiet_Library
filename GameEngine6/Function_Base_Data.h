@@ -159,6 +159,13 @@ namespace N_Function
 		};
 
 		//仕様
+		//参照が付いている場合、参照を外し再判定を実施する
+		template<class T_Fn>
+		struct S_Function_Data<T_Fn&> :
+			S_Function_Data<T_Fn>
+		{};
+
+		//仕様
 		//関数オブジェクトの型でない場合、セットしない
 		template<class T_Fn>
 		struct S_Function_Data<T_Fn> :

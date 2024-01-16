@@ -5,7 +5,10 @@
 #include"Tuple.h"
 #include"Function_Operator_Helper.h"
 #include"Function_Operator_Sort.h"
-#include"Function_Args_Convert.h"
+#include"Function_Operator_Search.h"
+
+template<is_invalid_not T_Front_Parts, class ...T_Parts>
+class Function;
 
 namespace N_Function
 {
@@ -26,70 +29,8 @@ namespace N_Function
 		using function_operator_data_list = typename I_Function_Operator_Helper<T_Parts...>::type;
 		using function_operator_sort = typename I_Function_Operator_Sort<function_operator_data_list>::type;
 
-
-		//仕様
-		//ポインターを要求する場合、要求する引数の先頭に付け加える。
-		template<class T_Operator_data,
-			class T_Request_Args= N_Tuple::U_Element_t<1, T_Operator_data>,
-			class T_Request_Pointer= N_Tuple::U_Element_t<2, T_Operator_data>>
-		struct S_Merge_Pointer
-		{
-			using type = T_Request_Args;
-		};
-
-		template<class T_Operator_data, class ...T_Request_Args,class T_Request_Pointer>
-		requires requires
-		{
-			requires is_invalid_not<T_Request_Pointer>;
-		}
-		struct S_Merge_Pointer<T_Operator_data,tuple_t<T_Request_Args...>,T_Request_Pointer>
-		{
-			using type = tuple_t<T_Request_Pointer*, T_Request_Args...>;
-		};
-
-
-		//仕様
-		//[operator_data_list]から、[T_Args]と互換性のある引数を要求するデータを取得する
-		template<class T_Args, class T_Operator_Parameter = function_operator_data_list>
-		struct I_Function_Operator_Search
-		{
-			using merge_pointer =S_Merge_Pointer<typename T_Operator_Parameter::type>::type::back;
-
-			using args_chack = I_Function_Args_Convert<merge_pointer, T_Args>::type;
-			
-			template<bool t_detect_fg= (N_Tuple::S_Size<args_chack>::tail_size == merge_pointer::size)>
-			struct S_Next_Search
-			{
-				using type = I_Function_Operator_Search<T_Args,typename T_Operator_Parameter::remove>::type;
-			};
-			
-			template<>
-			struct S_Next_Search<true>
-			{
-				using type = T_Operator_Parameter::type;
-			};
-
-			using type = S_Next_Search<>::type;
-		};
-
-
-		template<class T_Args,class T_Operator_Parameter>
-			requires requires
-		{
-			requires is_invalid<typename T_Operator_Parameter::type>;
-		}
-		struct I_Function_Operator_Search<T_Args,T_Operator_Parameter>
-		{
-			using type = invalid_t;
-		};
-		
-
-		template<class T_request_args, class ...T_Args>
-		static constexpr auto Convert(T_Args... args)
-		{
-			return I_Function_Args_Convert<T_request_args,
-				tuple_t<T_Args...>>::Convert(args...);
-		}
+		template<class ...T_Args>
+		using function_operator_search = I_Function_Operator_Search<Function<T_Parts...>, tuple_t<T_Args...>>::type;
 
 
 		template<class T_Operator_Parameter = function_operator_sort,
@@ -106,47 +47,8 @@ namespace N_Function
 			//	引数を互換性のある型に変換し、[fn]を実行する
 			template<class T_Fn, class ...T_Args>
 			constexpr auto Action_Operator(T_Fn&& fn,T_Args&& ...args)
-			{				
-				return
-
-					I_Function_Args_Convert<typename Function_Core<std::remove_reference_t<T_Fn>>::request_args, tuple_t<
-					//std::remove_reference_t<
-					T_Fn
-					//>
-					,
-
-					T_Args...>>::Convert(std::forward<T_Fn>(fn), std::forward<T_Args>(args)...);
-
-					//fn(std::forward<T_Args>(args)...);
-					//I_Function_Args_Convert<
-				//	typename Function_Core<T_Fn>::request_args,
-					//tuple_t<T_Fn, T_Args...>>::Convert(
-						//std::forward<T_Fn>(fn),
-						//std::forward<T_Args>(args)...);
-			};
-
-			template<class T_Fn, class ...T_Args>
-			constexpr auto Action_Operatora(T_Fn&& fn, T_Args&& ...args)
-			{
-				//Function_Core<>::superficial
-				bool b = same_as<std::remove_reference_t<T_Fn>, decltype(&H::Static_Args_2)>;
-				C_OUT(b);
-				TYPE_ID(std::remove_reference_t<T_Fn>);
-				//TYPE_ID(decltype(&H::Static_Args_2));
-
-				TYPE_ID(tuple_t<T_Args...>);
-
-
-
-				return
-					//fn(std::forward<T_Args>(args)...);
-					I_Function_Args_Convert<typename Function_Core<std::remove_reference_t<T_Fn>>::request_args,tuple_t<
-					//std::remove_reference_t<
-					T_Fn
-					//>
-					, 
-					
-					T_Args...>>::Convert(std::forward<T_Fn>(fn),std::forward<T_Args>(args)...);
+			{	
+				return N_Tuple::Convert_Action(std::forward<T_Fn>(fn), std::forward<T_Args>(args)...);
 			};
 
 
@@ -171,12 +73,10 @@ namespace N_Function
 			}
 
 			template<class ...T_Args>
-				requires is_invalid_not<typename I_Function_Operator_Search<tuple_t<T_Args...>>::type>
+				requires is_invalid_not< function_operator_search<T_Args...>>
 			constexpr auto Relay_Forward(T_Args&&... args)
 			{
-				using hit_operator_data =
-					I_Function_Operator_Search<tuple_t<T_Args...>>::type;
-				return S_Function_Operator<tuple_t<hit_operator_data>>::Action_Operator(this,
+				return S_Function_Operator<tuple_t<function_operator_search<T_Args...>>>::Action_Operator(this,
 					std::forward<T_Args>(args)...);
 					
 
@@ -186,13 +86,12 @@ namespace N_Function
 			//バインド済みの関数オブジェクト全ての中から、
 			// [T_Args...]と互換性のある引数を有する関数オブジェクトを呼び出す。
 			template<class ...T_Args>				
-				requires is_invalid_not<typename I_Function_Operator_Search<tuple_t<T_Args...>>::type>
+				requires is_invalid_not<function_operator_search<T_Args...>>
 			constexpr auto operator()(T_Args... args)
 			{
 				return this->Relay_Forward(std::forward<T_Args>(args)...);
 			}
 
-			using hit_operator_dataa = I_Function_Operator_Search<tuple_t<MyStruct>>;
 			using type = S_Function_Operator;
 
 		};

@@ -60,9 +60,9 @@ namespace N_Tuple
 
 	public:
 
-		using tuple_expand = S_Tuple_tp_Convert_Action<S_Insert_Tuple_Expand, T_Base_Tuple>::type;
+		using tuple_expand = S_Tuple_tp_Change_Action<S_Insert_Tuple_Expand, T_Base_Tuple>::type;
 
-		using type = S_Tuple_tp_Convert_Action<S_Insert, T_Base_Tuple>::type;
+		using type = S_Tuple_tp_Change_Action<S_Insert, T_Base_Tuple>::type;
 
 
 	};

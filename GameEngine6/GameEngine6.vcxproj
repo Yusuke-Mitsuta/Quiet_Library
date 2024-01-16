@@ -25,7 +25,7 @@
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
     <ClInclude Include="Array_Capacity.h" />
-    <ClInclude Include="Function_Args_Convert.h" />
+    <ClInclude Include="Function_Operator_Search.h" />
     <ClInclude Include="Function_Operator_Sort.h" />
     <ClInclude Include="Function_Request_Core.h" />
     <ClInclude Include="Function_Operator.h" />
@@ -84,7 +84,8 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
-    <ClInclude Include="Tuple_Convert_Action_Helper.h" />
+    <ClInclude Include="Tuple_Convert_Action.h" />
+    <ClInclude Include="Tuple_Type_Change_Action_Helper.h" />
     <ClInclude Include="Tuple_Create_Pointer.h" />
     <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Extract.h" />
@@ -141,7 +142,7 @@
     <ClCompile Include="Game_Engine.cpp" />
     <ClCompile Include="Game_Object.cpp" />
     <ClCompile Include="Get_Origin.cpp" />
-    <ClCompile Include="Tuple_Convert_Action.h" />
+    <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="Link.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager_Origin.cpp" />

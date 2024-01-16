@@ -33,7 +33,7 @@ namespace N_Tuple
 
 	public:
 
-		using type = S_Tuple_tp_Convert_Action<S_Prev, T_Tuple_t>::Return_p;
+		using type = S_Tuple_tp_Change_Action<S_Prev, T_Tuple_t>::Return_p;
 
 	};
 

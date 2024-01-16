@@ -87,10 +87,10 @@ namespace N_Tuple
 	struct Tuple_t_To_v;
 
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple>
-	struct S_Tuple_Convert_Action;
+	struct S_Tuple_Type_Change_Action;
 
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::head_size>
-	struct S_Tuple_Convert_Action_Helper;
+	struct S_Tuple_Type_Change_Action_Helper;
 
 
 	//仕様
@@ -111,7 +111,7 @@ namespace N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
-	using S_Tuple_tp_Convert_Action = S_Tuple_Convert_Action_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
+	using S_Tuple_tp_Change_Action = S_Tuple_Type_Change_Action_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様
 	//[T_Tuple]を[tuple_t]に変換し[T_Action]の[::type]を呼び出し
@@ -130,7 +130,7 @@ namespace N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Tuple_t_Convert_Action = S_Tuple_Convert_Action_Helper<false, true, T_Action, T_Tuple>;
+	using S_Tuple_t_Change_Action = S_Tuple_Type_Change_Action_Helper<false, true, T_Action, T_Tuple>;
 
 	//仕様
 	//[T_Tuple]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
@@ -150,7 +150,7 @@ namespace N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
-	using S_Tuple_vp_Convert_Action = S_Tuple_Convert_Action_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
+	using S_Tuple_vp_Change_Action = S_Tuple_Type_Change_Action_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様
 	//[T_Tuple]を[tuple_v]に変換し[T_Action]の[::type]を呼び出し
@@ -170,7 +170,7 @@ namespace N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Tuple_v_Convert_Action = S_Tuple_Convert_Action_Helper<false, false, T_Action, T_Tuple>;
+	using S_Tuple_v_Change_Action = S_Tuple_Type_Change_Action_Helper<false, false, T_Action, T_Tuple>;
 
 	template<class T_Tuple_v, N_Constexpr::String t_operator, auto number>
 	struct I_Tuple_Calculate;
@@ -189,5 +189,8 @@ namespace N_Tuple
 
 	template<class T_Convert_Type>
 	struct I_Convert;
+
+	template<class T_Fn, class ...T_Set_Types>
+	struct I_Convert_Action;
 
 }
