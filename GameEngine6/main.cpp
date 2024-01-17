@@ -228,23 +228,36 @@ void Hogegege(MyStruct t)
 #include"Tuple_index_sequence.h"
 #include"Vector.h"
 
+struct Size_Test
+{
+	int a=5;
+	int aa = 10;
 
+	//int& b = a;
+	//int& bb = aa;
+
+};
 
 #include"Vector3.h"
-
 int main()
 {
-	using request_args = tuple_t<int, int,int,int>::back;
 
+
+	using request_args = tuple_t<int, int,int,int>::back;
 
 	using bind_args = tuple_t<int,int, MyStruct>; //std::tuple<int, int>>;
 //	using bind_args = tuple_t<tuple_t<int, int,int>,tuple_t<int,int,int,int>>; //std::tuple<int, int>>;
 
+	C_OUT(sizeof(Size_Test));
 
 	MyStruct a(3, 2);
 
 	N_Constexpr::Array<float,3> aba(1, 0.1f);
 	Vector3 abaa(3,2,1);
+
+	auto* vec2= N_Tuple::Apply<MyStruct*>(2, 3);
+
+	vec2->a[0];
 
 	abaa.x = 10;
 	

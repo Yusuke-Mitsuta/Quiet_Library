@@ -2,9 +2,31 @@
 
 #include<initializer_list>
 #include<compare>
+#include"Tuple.h"
+
 #include"Concept.h"
 #include"Using_Type.h"
 #include"Array_Capacity.h"
+
+namespace N_Constexpr
+{
+	//d—l
+	//Constexpr_Array‚ÌŠe—v‘f‚ğ“ñi”‚ÅŠi”[‚·‚é
+	//template
+	//T::—v‘f‚ÌŒ^
+	//t_Size::—v‘f‚Ì‡Œv
+	template<class T, size_t t_Size>
+	class Array_1:
+		public std::array<T,t_Size>
+	{
+		using tuple = N_Tuple::U_Repeat_Multiple<T, t_Size>;
+
+
+
+	};
+}
+
+
 
 namespace N_Constexpr::N_Array
 {

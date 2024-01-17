@@ -31,11 +31,11 @@
     <ClInclude Include="Function_Operator.h" />
     <ClInclude Include="Function_Request_Args.h" />
     <ClInclude Include="Function_Request_Data.h" />
-    <ClInclude Include="Function_Request_Data_Access.h" />
     <ClInclude Include="Function_Request_pointer.h" />
     <ClInclude Include="Function_Superficial_Data.h" />
     <ClInclude Include="Function_Valid_Data_Get.h" />
     <ClInclude Include="Invalid.h" />
+    <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Select_Type.h" />
     <ClInclude Include="Template_Calculate.h" />
     <ClInclude Include="Component.h" />

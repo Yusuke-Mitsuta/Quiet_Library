@@ -53,8 +53,9 @@ namespace std
 		}
 		catch (std::exception& e) {
 			std::cout <<
-				"[" << Type_id_delete_head_class_struct(typeid(T).name()) << "::get<N>() ]範囲外の要素へのアクセスを実施"
+				"[" << Type_id_delete_head_class_struct(typeid(T).name()) << "::get<"<< I<<">() ]範囲外の要素へのアクセスを実施"
 				<< std::endl;
+			e.what();
 		}
 
 		return invalid;

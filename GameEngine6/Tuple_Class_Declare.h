@@ -193,4 +193,9 @@ namespace N_Tuple
 	template<class T_Fn, class ...T_Set_Types>
 	struct I_Convert_Action;
 
+	//仕様
+	//要素に型[T]を[N]個持つ、[tuple_t]を作る
+	template<class T, size_t N>
+	struct I_Repeat_Multiple;
+
 }

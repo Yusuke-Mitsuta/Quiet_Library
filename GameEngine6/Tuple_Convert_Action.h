@@ -154,7 +154,7 @@ namespace N_Tuple
 			constexpr S_Class_Create() {}
 
 			//クラスの生成
-			template<is_invalid MT_Fn = T_Fn,class... T_Args>
+			template<class MT_Fn = T_Fn,class... T_Args>
 			constexpr auto operator()(T_Args&&... args)
 			{
 				return T_Fn(args...);
@@ -168,7 +168,7 @@ namespace N_Tuple
 			}
 			constexpr auto operator()(T_Args&&... args)
 			{
-				return new T_Fn(args...);
+				return new std::remove_pointer_t<T_Fn>(args...);
 			}
 
 		};
@@ -186,9 +186,9 @@ namespace N_Tuple
 			template<class ...T_Args>
 			static constexpr auto Convert(auto* fn, T_Args&&... args)
 			{
-				
 				return fn->operator()(std::forward<T_Args>(args)...);
 			}
+
 		};
 
 		//仕様
@@ -505,7 +505,7 @@ namespace N_Tuple
 			requires class_create_fg
 		static constexpr auto Convert(T_Args&&... args)
 		{
-			S_Class_Create fn_action = {};
+			S_Class_Create<T_Create_class> fn_action = {};
 			return next::convert::Convert(&fn_action, std::forward<T_Args>(args)...);
 		}
 
@@ -533,22 +533,26 @@ namespace N_Tuple
 
 	};
 
+
 	//仕様
-	//関数[fn]に対して、要求するに[args...] を一対多、多対一の変換を行い、
-	// [fn]を実行する
+	//関数[fn]に対して、
+	// [args...]の中身を適切に展開し、実行する
 	template<class T_Fn, class ...T_Args>
-	static constexpr auto Convert_Action(T_Fn&& fn, T_Args&&... args)
+		requires is_invalid_not<typename I_Convert_Action<T_Fn, T_Args...>::type>
+	static constexpr auto Apply(T_Fn&& fn, T_Args&&... args)
 	{
 		return I_Convert_Action<T_Fn, T_Args...>::Convert(
 			std::forward<T_Fn>(fn),
 			std::forward<T_Args>(args)...);
 	}
 
+
 	//仕様
-	//関数[fn]に対して、要求するに[args...] を一対多、多対一の変換を行い、
-	// ポインターを用いて[fn]を実行する
+	//関数[fn]に対して、
+	//ポインタ[p]を用いて、[args...]の中身を適切に展開し、実行する
 	template<class T_Fn,class ...T_Args>
-	static constexpr auto Convert_Action(T_Fn&& fn, auto* p, T_Args&&... args)
+		requires is_invalid_not<typename I_Convert_Action<T_Fn, T_Args...>::type>
+	static constexpr auto Apply(T_Fn&& fn, auto* p, T_Args&&... args)
 	{
 		return I_Convert_Action<T_Fn, T_Args...>::Convert(
 			std::forward<T_Fn>(fn),
@@ -556,4 +560,36 @@ namespace N_Tuple
 			std::forward<T_Args>(args)...);
 	}
 
+
+	//仕様
+	//クラス[T]のコンストラクタに対して、
+	//[args...]の中身を適切に展開し、実行する
+	template<class T, class ...T_Args>
+		requires requires
+	{
+		requires std::is_class_v<T>;
+		requires is_invalid_not<typename I_Convert_Action<T, T_Args...>::type>;
+	}
+	static constexpr auto Apply(T_Args&&... args)
+	{
+		return I_Convert_Action<T, T_Args...>::Convert(
+			std::forward<T_Args>(args)...);
+	};
+
+
+	//仕様
+	//クラス[T]のコンストラクタに対して、
+	//[args...]の中身を適切に展開し、Newする
+	template<class T, class ...T_Args>
+		requires requires
+	{
+		requires is_pointer<T>;
+		requires std::is_class_v<std::remove_pointer_t<T>>;
+		requires is_invalid_not<typename I_Convert_Action<T, T_Args...>::type>;
+	}
+	static constexpr auto Apply(T_Args&&... args)
+	{
+		return I_Convert_Action<T, T_Args...>::Convert(
+			std::forward<T_Args>(args)...);
+	}
 }

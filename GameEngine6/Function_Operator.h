@@ -48,7 +48,7 @@ namespace N_Function
 			template<class T_Fn, class ...T_Args>
 			constexpr auto Action_Operator(T_Fn&& fn,T_Args&& ...args)
 			{	
-				return N_Tuple::Convert_Action(std::forward<T_Fn>(fn), std::forward<T_Args>(args)...);
+				return N_Tuple::Apply(std::forward<T_Fn>(fn), std::forward<T_Args>(args)...);
 			};
 
 

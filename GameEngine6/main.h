@@ -93,7 +93,7 @@ public:
 
 	int a[2];
 	
-	using tuple = tuple_t<int*, int&>;
+	using tuple = tuple_t<int, int>;
 
 	MyStruct(int aa, int bb) :
 		a{ aa , bb } {}

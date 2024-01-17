@@ -1,7 +1,6 @@
 #pragma once
 
 #include<tuple>
-#include<optional>
 
 #include"Tuple_Class_Declare.h"
 

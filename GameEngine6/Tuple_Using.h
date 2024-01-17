@@ -192,5 +192,10 @@ namespace N_Tuple
 	template<class T_Convert_Type>
 	using U_Convert_tuple = I_Convert<T_Convert_Type>::type;
 
+	//仕様
+	//要素に型[T]を[N]個持つ、[tuple_t]を作る
+	template<class T, size_t N>
+	using U_Repeat_Multiple = I_Repeat_Multiple<T, N>::type;
+
 }
 
