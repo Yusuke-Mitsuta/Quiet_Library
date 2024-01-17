@@ -1,7 +1,7 @@
 #pragma once
 
 #include"Tuple_Declare.h"
-
+#include"main.h"
 template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function;
 
@@ -33,11 +33,10 @@ namespace N_Tuple
 	//
 	// 一対多の変換時、変換後の[&],[*]は自動で補完されるが、
 	// 変換後の変数と変換に用いた変数の関係は個別に定義されない限りコピーである。
-	//
 	template<class T_Fn,class ...T_Set_Types>
 	struct I_Convert_Action
 	{
-	private:
+	//private:
 
 
 		//仕様
@@ -129,7 +128,7 @@ namespace N_Tuple
 			}
 			constexpr auto operator()(T_Args&&... args)
 			{
-				return (fn->*p)(args...);
+				return (p->*fn)(args...);
 			}
 
 			//ポインターを引数に追加し、[Function]にアクセスする
@@ -157,7 +156,7 @@ namespace N_Tuple
 			template<class MT_Fn = T_Fn,class... T_Args>
 			constexpr auto operator()(T_Args&&... args)
 			{
-				return T_Fn(args...);
+				return T_Fn{ args... };
 			}
 
 			//クラスのインスタンス生成
@@ -168,7 +167,7 @@ namespace N_Tuple
 			}
 			constexpr auto operator()(T_Args&&... args)
 			{
-				return new std::remove_pointer_t<T_Fn>(args...);
+				return new std::remove_pointer_t<T_Fn>{ args... };
 			}
 
 		};
@@ -176,7 +175,7 @@ namespace N_Tuple
 
 		//仕様
 		//型の判定が終了する際に呼び出される
-		template<class T_Request_Types = invalid_t>
+		template<class T_Request_Types = invalid_t,class ...Ts>
 		struct S_Result
 		{
 			using chack = T_Request_Types;
@@ -208,10 +207,10 @@ namespace N_Tuple
 			bool t_constructible_from,
 			bool T_Set_Types_Expand,
 			class ...T_Set_Types>
-		struct S_Function_Args_Chack;
-
-
-
+		struct S_Function_Args_Chack
+		{
+			using type = S_Result<>;
+		};
 
 		//仕様
 		// [T_Set_Types]が[invalid_t]のみで、[T_Set_Types_Tuple]が最後まで判定しきると、
@@ -236,30 +235,7 @@ namespace N_Tuple
 		struct S_Function_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, t_constructible_from, T_Set_Types_Expand,
 			invalid_t>
 		{
-			using type = S_Result<
-				typename T_Request_Types_Tuple::reverse>;
-		};
-
-
-		//仕様
-		// [T_Set_Types]が残っている状態で[T_Set_Types_Tuple]が最後まで判定しきると、
-		//判定失敗とする
-		template<class T_Request_Types_Tuple,
-			class T_Set_Types_Tuple,
-			bool t_constructible_from,
-			bool T_Set_Types_Expand,
-			class ...T_Set_Types>
-			requires requires
-		{
-			requires is_invalid<typename T_Set_Types_Tuple::type>;
-			requires (sizeof...(T_Set_Types) > 0);
-		}
-		struct S_Function_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, t_constructible_from, T_Set_Types_Expand,
-			invalid_t, T_Set_Types...>
-		{
-
-			using type = S_Result<>;
-
+			using type = S_Result<typename T_Request_Types_Tuple::reverse>;
 		};
 
 
@@ -295,18 +271,33 @@ namespace N_Tuple
 			requires requires
 		{
 			requires is_invalid_not<typename T_Set_Types_Tuple::type>;
+			
 		}
 		struct S_Function_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, true, T_Set_Types_Expand,
 			T_Set_Types...>
 		{
+			template<class T = typename S_Function_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, false, T_Set_Types_Expand,
+				T_Set_Types...>::type::chack>
+			struct S_last_args_chack
+			{
+				using type = typename S_Function_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, false, T_Set_Types_Expand,
+					T_Set_Types...>::type;
+			};
+
+			template<>
+			struct S_last_args_chack<invalid_t>
+			{
+				using type = S_Function_Args_Chack;
+			};
+
+			using type = S_last_args_chack<>::type;
 
 			using next = U_Function_Args_Chack_Next<
 				typename T_Request_Types_Tuple::next,
 				typename T_Set_Types_Tuple::next>::type;
 
-			using type = S_Function_Args_Chack;
-
 			using chack = next::chack;
+
 
 			template<class T_Converted = typename T_Set_Types_Tuple::tail::reverse>
 			struct S_Convert
@@ -332,7 +323,6 @@ namespace N_Tuple
 				template<class ...T_back_args>
 				static constexpr auto Convert(auto* fn, T_Converted&&... converted_args, T_Set_Types&&... args, T_back_args&&... back_args)
 				{
-
 					return next::convert::Convert(
 						fn,
 						std::forward<T_Converted>(converted_args)...,
@@ -465,6 +455,7 @@ namespace N_Tuple
 				static constexpr auto Convert(auto* fn,T_Converted&&... args, T_FronT_Set_Types&& change_args, T_back_args&&... back_args)
 				{
 					return Convert<typename T_expand_Numbers::remove>(
+						fn,
 						std::forward<T_Converted>(args)...,
 						std::forward<T_FronT_Set_Types>(change_args),
 						get<T_expand_Numbers::value>(std::forward<T_FronT_Set_Types>(change_args)),
@@ -513,6 +504,7 @@ namespace N_Tuple
 		//関数[fn]に対して、要求するに[args...] を一対多、多対一の変換を行い、
 		// [fn]を実行する
 		template<class ...T_Args>
+			requires !class_create_fg
 		static constexpr auto Convert(T_Fn&& fn,T_Args&&... args)
 		{
 			S_Fn_Action fn_action(fn, &invalid);
@@ -524,6 +516,7 @@ namespace N_Tuple
 		//関数[fn]に対して、要求するに[args...] を一対多、多対一の変換を行い、
 		// ポインターを用いて[fn]を実行する
 		template<class ...T_Args>
+			requires !class_create_fg
 		static constexpr auto Convert(T_Fn&& fn,S_Request<>::pointer* p,T_Args&&... args)
 		{
 			S_Fn_Action fn_action(fn, p);
@@ -531,14 +524,21 @@ namespace N_Tuple
 		}
 
 
+
 	};
+
+
 
 
 	//仕様
 	//関数[fn]に対して、
 	// [args...]の中身を適切に展開し、実行する
 	template<class T_Fn, class ...T_Args>
-		requires is_invalid_not<typename I_Convert_Action<T_Fn, T_Args...>::type>
+		requires requires
+	{
+		requires is_invalid_not<typename I_Convert_Action<T_Fn, T_Args...>::type>;
+		requires (!I_Convert_Action<T_Fn, T_Args...>::class_create_fg);
+	}
 	static constexpr auto Apply(T_Fn&& fn, T_Args&&... args)
 	{
 		return I_Convert_Action<T_Fn, T_Args...>::Convert(
@@ -551,7 +551,11 @@ namespace N_Tuple
 	//関数[fn]に対して、
 	//ポインタ[p]を用いて、[args...]の中身を適切に展開し、実行する
 	template<class T_Fn,class ...T_Args>
-		requires is_invalid_not<typename I_Convert_Action<T_Fn, T_Args...>::type>
+		requires requires
+	{
+		requires is_invalid_not<typename I_Convert_Action<T_Fn, T_Args...>::type>;
+		requires (!I_Convert_Action<T_Fn, T_Args...>::class_create_fg);
+	}
 	static constexpr auto Apply(T_Fn&& fn, auto* p, T_Args&&... args)
 	{
 		return I_Convert_Action<T_Fn, T_Args...>::Convert(
@@ -569,6 +573,7 @@ namespace N_Tuple
 	{
 		requires std::is_class_v<T>;
 		requires is_invalid_not<typename I_Convert_Action<T, T_Args...>::type>;
+		requires I_Convert_Action<T, T_Args...>::class_create_fg;
 	}
 	static constexpr auto Apply(T_Args&&... args)
 	{
@@ -586,6 +591,7 @@ namespace N_Tuple
 		requires is_pointer<T>;
 		requires std::is_class_v<std::remove_pointer_t<T>>;
 		requires is_invalid_not<typename I_Convert_Action<T, T_Args...>::type>;
+		requires I_Convert_Action<T, T_Args...>::class_create_fg;
 	}
 	static constexpr auto Apply(T_Args&&... args)
 	{

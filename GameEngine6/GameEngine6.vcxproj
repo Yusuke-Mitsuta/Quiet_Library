@@ -24,7 +24,6 @@
     <ClInclude Include="Add_Object.h" />
     <ClInclude Include="Add_Scene.h" />
     <ClInclude Include="Args_Type.h" />
-    <ClInclude Include="Array_Capacity.h" />
     <ClInclude Include="Function_Operator_Search.h" />
     <ClInclude Include="Function_Operator_Sort.h" />
     <ClInclude Include="Function_Request_Core.h" />
@@ -35,6 +34,7 @@
     <ClInclude Include="Function_Superficial_Data.h" />
     <ClInclude Include="Function_Valid_Data_Get.h" />
     <ClInclude Include="Invalid.h" />
+    <ClInclude Include="Time_Test.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Select_Type.h" />
     <ClInclude Include="Template_Calculate.h" />
@@ -142,6 +142,7 @@
     <ClCompile Include="Game_Engine.cpp" />
     <ClCompile Include="Game_Object.cpp" />
     <ClCompile Include="Get_Origin.cpp" />
+    <ClCompile Include="Time_Test.cpp" />
     <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="Link.cpp" />
     <ClCompile Include="main.cpp" />

@@ -22,8 +22,6 @@ struct tuple_t :
 	
 };
 
-
-
 namespace std
 {
 	template<class ...T_Type>

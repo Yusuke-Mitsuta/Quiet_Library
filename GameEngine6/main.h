@@ -77,7 +77,7 @@ struct H
 
 };
 
-static H* h= new H();
+static H* h = new H();
 
 template<class ...T_Types>
 struct tuple_t;
@@ -97,6 +97,8 @@ public:
 
 	MyStruct(int aa, int bb) :
 		a{ aa , bb } {}
+
+	//MyStruct(int aa) :	a{ aa , 5 } {}
 
 	template<size_t I>
 	int& get()

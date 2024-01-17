@@ -118,9 +118,25 @@ namespace N_Function
 		}
 		struct S_Function_Args_Chack<T_Request_Args_Tuple,T_Bind_Args_Tuple,true,t_Bind_Args_Expand,T_Bind_Args...>
 		{
-			using type = U_Function_Args_Chack_Next<
-				typename T_Request_Args_Tuple::next,
-				typename T_Bind_Args_Tuple::next>;
+
+			template<class T = typename S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, false, t_Bind_Args_Expand,
+				T_Bind_Args...>::type>
+			struct S_last_args_chack
+			{
+				using type = typename S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple, false, t_Bind_Args_Expand,
+					T_Bind_Args...>::type;
+			};
+
+			template<>
+			struct S_last_args_chack<invalid_t>
+			{
+				using type = U_Function_Args_Chack_Next<
+					typename T_Request_Args_Tuple::next,
+					typename T_Bind_Args_Tuple::next>;
+			};
+
+			using type = S_last_args_chack<>::type;
+
 		};
 
 		//Žd—l

@@ -187,9 +187,6 @@ namespace N_Tuple
 	template<template<class...>class TT_Action, class T_Tuple, class ...T_Extra>
 	struct I_Elements_Action;
 
-	template<class T_Convert_Type>
-	struct I_Convert;
-
 	template<class T_Fn, class ...T_Set_Types>
 	struct I_Convert_Action;
 

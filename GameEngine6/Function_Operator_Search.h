@@ -54,7 +54,7 @@ namespace N_Function
 			template<bool t_detect_fg = (N_Tuple::S_Size<args_chack>::tail_size == merge_pointer::size)>
 			struct S_Next_Search
 			{
-				using type = I_Function_Operator_Search<T_Args, typename T_Operator_Parameter::remove>::type;
+				using type = S_Function_Operator_Search<T_Args, typename T_Operator_Parameter::remove>::type;
 			};
 
 			template<>

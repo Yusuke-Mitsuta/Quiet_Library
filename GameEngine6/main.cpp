@@ -20,6 +20,8 @@
 #include<optional>
 #include<utility>
 
+#include"Time_Test.h"
+
 #include"Function.h"
 
 constexpr std::string getLastPathComponent(std::string path) {
@@ -202,16 +204,17 @@ void H::Static_Args_88(auto ...a)
 
 void H::Static_Args_88(auto a,auto ...b)
 {
-	C_OUT(a);
+	TYPE_ID(decltype(a));
+	//C_OUT(a);
 	Static_Args_88(b...);
 }
 
 
 template<class T>
-void Hogege(T&& t) 
-
+void Hogege(T t) 
 {
-	TYPE_ID(decltype(t));
+	t(10, 30);
+	//(t.*h)(10, 30);
 }
 
 
@@ -222,45 +225,59 @@ void Hogegege(MyStruct t)
 		a[1]);
 }
 
+
+
+
+
 #include"Tuple.h"
 #include"Tuple_Value.h"
 #include"Size_T.h"
 #include"Tuple_index_sequence.h"
 #include"Vector.h"
 
-struct Size_Test
-{
-	int a=5;
-	int aa = 10;
 
-	//int& b = a;
-	//int& bb = aa;
 
-};
-
+#include<array>
 #include"Vector3.h"
 int main()
 {
+	
+
+	//Hogege(&H::Args_2);
+
+	//Time_Test::Action();
+
+	//N_Constexpr::Array<int, 3> na = { 3 };
 
 
-	using request_args = tuple_t<int, int,int,int>::back;
 
-	using bind_args = tuple_t<int,int, MyStruct>; //std::tuple<int, int>>;
-//	using bind_args = tuple_t<tuple_t<int, int,int>,tuple_t<int,int,int,int>>; //std::tuple<int, int>>;
+	using request_args = tuple_t<int, int, int, int>::back;
 
-	C_OUT(sizeof(Size_Test));
+	using bind_args = tuple_t<int, int, MyStruct>; //std::tuple<int, int>>;
+	//	using bind_args = tuple_t<tuple_t<int, int,int>,tuple_t<int,int,int,int>>; //std::tuple<int, int>>;
+
+		//C_OUT(sizeof());
 
 	MyStruct a(3, 2);
 
-	N_Constexpr::Array<float,3> aba(1, 0.1f);
-	Vector3 abaa(3,2,1);
+	N_Constexpr::Array<float, 3> aba(1, 0.1f);
+	Vector3 abaa(3, 2, 1);
 
-	auto* vec2= N_Tuple::Apply<MyStruct*>(2, 3);
+	using ttt = N_Tuple::I_Convert_Action<MyStruct, int, int>::type;
+	TYPE_ID(ttt);
+	//auto vec2= 
 
-	vec2->a[0];
+	//auto vec2= N_Tuple::Apply<MyStruct>(2);
+
+
+	//>::class_crea
+
+	//C_OUT(vec2.a[1]);
+
+	//vec2->a[0];
 
 	abaa.x = 10;
-	
+
 	C_OUT(abaa.x);
 
 	int n1 = 1;
@@ -271,7 +288,7 @@ int main()
 	n3 = 5;
 	C_OUT(n1);
 
-	
+
 
 	type_id(aba[0]);
 	type_id(aba[1]);
@@ -299,9 +316,9 @@ int main()
 
 
 	//TYPE_ID(args_chack::zip_number);
-	
+
 	//static constexpr auto st=tuple_n::name;
-	
+
 	//std::cout << st.str;
 
 		//N_Tuple::U_Copy_name<tuple_n2, tuple_n>;
@@ -313,18 +330,18 @@ int main()
 
 
 	//TYPE_ID(TESTa<tuple_t<>>::type);
-	
-	
-	
 
-	Function fn_test0(&H::Static_Args_7,7);
-	
 
-	
+
+
+	Function fn_test0(&H::Static_Args_7, 7);
+
+
+
 	int oo = 20;
 
 	//constexpr bool b = std::is_nothrow_convertible_v<int&,int*>;
-	constexpr bool b = base_Ar<TEST, int,int,int*>;// , decltype(oo) > ;
+	constexpr bool b = base_Ar<TEST, int, int, int*>;// , decltype(oo) > ;
 
 	//TEST o(oo);
 
@@ -334,24 +351,24 @@ int main()
 //	TYPE_ID(fn_r);
 	//TYPE_ID(fn_op_data);
 	//TYPE_ID(FNTT);
-	MyStruct aa(110,119);
-	Function fn_test1(fn_test0,6);
+	MyStruct aa(110, 119);
+	Function fn_test1(fn_test0, 6);
 
 	Function fn_test2(fn_test1, 5);
 	Function fn_test3(fn_test2, 4);
 	Function fn_test4(fn_test3, 3);
 	Function fn_test5(fn_test4, 2);
 	//Function fn_test6(fn_test5, 1);
-	
-	
+
+
 
 	//Function fn_test5(fn_test4,2);
 	//Function fn_test6(fn_test5,1);
 	//fn_test4
 	//fn_test4
 	//
-	
-	Function fn54(fn_test4,fn_test5);
+
+	Function fn54(fn_test4, fn_test5);
 	int n = 10;
 
 
@@ -359,9 +376,33 @@ int main()
 	Function fn_test01(&H::Args_4);
 
 	Function fn_test02(&Hogegege);
+	Function fno(h,&H::Args_2, n, n);
+
+	fno();
+
+	N_Tuple::Apply(&H::Args_2,h, 3, n);
+
+	h->Args_2(n, n);
+
+	//auto e = &H::Args_2;
+
+	fn_test02(n, n);
 
 	//N_Function::Function_Core<typename decltype(fn_test01(h, n, 3, aa))::argsa>::
 
+	N_Constexpr::Array<int, 2> ary(a);
+	N_Constexpr::Array<int, 2> ary2(55,555);
+	N_Constexpr::Array ary3(2,ary,2,3,3);
+
+
+	C_OUT(std::get<0>(ary3));
+	C_OUT(std::get<1>(ary3));
+	C_OUT(std::get<2>(ary3));
+	C_OUT(std::get<3>(ary3));
+
+	auto* np= N_Tuple::Apply<MyStruct*>(n, 550);
+
+	C_OUT(np->get<1>());
 
 	constexpr bool aaa= std::constructible_from<std::remove_reference_t<MyStruct>, int&, int&>;
 
@@ -370,7 +411,6 @@ int main()
 	//TYPE_ID(typ);
 	bool baaa = std::is_function_v<decltype(Hogegege)>;
 	C_OUT(baaa);
-	fn_test02(n, n);
 
 	//decltype(fn_test01)::hit_operator_dataa::type::
 

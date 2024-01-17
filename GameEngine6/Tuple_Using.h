@@ -185,17 +185,30 @@ namespace N_Tuple
 	template<template<class...>class TT_Action, class T_Tuple, class ...T_Extra>
 	using U_Elements_Action = I_Elements_Action<TT_Action, T_Tuple, T_Extra...>::type;
 
-	
-	//仕様
-	//[std::tuple_size],[std::tuple_element]が特殊化されている場合、
-	//	[T_Convert_Type]から[tuple_t]を生成する
-	template<class T_Convert_Type>
-	using U_Convert_tuple = I_Convert<T_Convert_Type>::type;
-
 	//仕様
 	//要素に型[T]を[N]個持つ、[tuple_t]を作る
 	template<class T, size_t N>
 	using U_Repeat_Multiple = I_Repeat_Multiple<T, N>::type;
+
+
+	//仕様
+	//変数に対して、一対多、多対一、多対多の変換を行い、
+	// 関数オブジェクト、クラスコンストラクタを実行する
+	//
+	//テンプレート
+	// [T_Fn_Action]：変数を入れて実行する、[関数ポインター、Function、クラス]の型
+	//[T_Set_Types...]：一対多、多対一、多対多の変換を伴う変数
+	// 
+	//補足
+	//実行は[::Convert(args...)]を呼び出す事
+	//一対多の変換はコンストラクタを呼び出せる事、
+	//多対一の変換は展開する変数のクラスに
+	// [using tuple=tuple_t< ... >]、[auto& get<N>()]記述されている事。
+	//
+	// 一対多の変換時、変換後の[&],[*]は自動で補完されるが、
+	// 変換後の変数と変換に用いた変数の関係は個別に定義されない限りコピーである。
+	template<class T_Fn,class ...T_Set_Types>
+	using U_Apply_chack = I_Convert_Action<T_Fn, T_Set_Types...>;
 
 }
 
