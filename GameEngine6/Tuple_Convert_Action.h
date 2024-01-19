@@ -51,6 +51,14 @@ namespace N_Tuple
 			using pointer = invalid_t;
 		};
 		
+		template<class T_Array,size_t N>
+		struct S_Request<T_Array[N]>
+		{
+			static constexpr bool class_create_fg = false;
+			using args = U_Repeat_Multiple<T_Array,N>;
+			using pointer = invalid_t;
+		};
+
 		template<class T_Fn>
 		struct S_Request<T_Fn&>:
 			S_Request<T_Fn> 
@@ -156,7 +164,7 @@ namespace N_Tuple
 			template<class MT_Fn = T_Fn,class... T_Args>
 			constexpr auto operator()(T_Args&&... args)
 			{
-				return T_Fn{ args... };
+				return T_Fn{args... };
 			}
 
 			//クラスのインスタンス生成
@@ -170,6 +178,34 @@ namespace N_Tuple
 				return new std::remove_pointer_t<T_Fn>{ args... };
 			}
 
+		};
+
+		//仕様
+		//配列に要素を追加する。
+		template<class T,size_t t_dimension>
+		struct S_Array_Create
+		{
+			T* array_p ;
+
+			constexpr S_Array_Create(T* set_array_p) :
+				array_p(set_array_p){}
+
+
+			//配列への複数の要素を追加
+			template<class T_Flont_Args, class... T_Args>
+			constexpr void operator()(T_Flont_Args&& flont_Args, T_Args&&... args)
+			{
+				operator()(std::forward<T_Flont_Args>(flont_Args));
+				++array_p;
+				this->operator()(std::forward<T_Args>(args)...);
+			}
+
+			//配列への要素追加
+			template<class T_Flont_Args>
+			constexpr void operator()(T_Flont_Args&& flont_Args)
+			{
+				*array_p = static_cast<T>(flont_Args);
+			}
 		};
 
 
@@ -276,6 +312,15 @@ namespace N_Tuple
 		struct S_Function_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, true, T_Set_Types_Expand,
 			T_Set_Types...>
 		{
+
+			//仕様
+			//次以降の変数を[T_Set_Types...]追加しても[T_Request_Types_Tuple::type]が生成出来るか判定する
+			// その結果が
+			//　　有効値であれば、次以降の変数を追加する。
+			//　　無効値であれば、[T_Set_Types...]の変数で[T_Request_Types_Tuple::type]を生成する
+			//
+			//補足
+			//次以降の引数を加え、エラーになる場合、最後の引数を取得したと判定する。
 			template<class T = typename S_Function_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, false, T_Set_Types_Expand,
 				T_Set_Types...>::type::chack>
 			struct S_last_args_chack
@@ -305,7 +350,6 @@ namespace N_Tuple
 				using convert = next::convert;
 
 			};
-
 
 			template<class ...T_Converted>
 				requires (sizeof...(T_Set_Types) > 1) && (!class_create_fg)
@@ -501,6 +545,16 @@ namespace N_Tuple
 		}
 
 		//仕様
+		//配列型のポインター[array_p]に[T_Fn]の0次元目の要素数を追加する。
+		template<class T_Array, class ...T_Args>
+			requires !class_create_fg
+		static constexpr auto Convert(T_Array* array_p, T_Args&&... args)
+		{
+			S_Array_Create<T_Array, std::extent_v<T_Fn,0>> fn_action = { array_p };
+			return next::convert::Convert(&fn_action, std::forward<T_Args>(args)...);
+		}
+
+		//仕様
 		//関数[fn]に対して、要求するに[args...] を一対多、多対一の変換を行い、
 		// [fn]を実行する
 		template<class ...T_Args>
@@ -581,7 +635,6 @@ namespace N_Tuple
 			std::forward<T_Args>(args)...);
 	};
 
-
 	//仕様
 	//クラス[T]のコンストラクタに対して、
 	//[args...]の中身を適切に展開し、Newする
@@ -598,4 +651,50 @@ namespace N_Tuple
 		return I_Convert_Action<T, T_Args...>::Convert(
 			std::forward<T_Args>(args)...);
 	}
+
+
+	//仕様
+	//配列型の参照に[array_ref]に[args...]の中身を適切に展開し、追加する。
+	// 
+	// 引数
+	// [array_ref]：要素を格納する配列の参照
+	// [args...]：tupleにより適切に変換され、配列に格納する変数
+	template<class T_Array, size_t N, class ...T_Args>
+		requires requires
+	{
+		requires is_invalid_not<typename I_Convert_Action<T_Array, T_Args...>::type>;
+		requires !I_Convert_Action<T_Array, T_Args...>::class_create_fg;
+	}
+	static constexpr auto Apply(T_Array(&array_ref)[N], T_Args&&... args)
+	{
+		return I_Convert_Action<T_Array[N], T_Args...>::Convert(&array_ref,
+			std::forward<T_Args>(args)...);
+	}
+
+	//仕様
+	//特定の要素を指す、配列型のポインター[array_p]に[set_Num]の数だけ[args...]の中身を適切に展開し、追加する。
+	//
+	//テンプレート
+	//[set_Num]：要素を追加する総数
+	// 
+	// 引数
+	// [array_p]：配列の特定の要素を指すポインター
+	// [args...]：tupleにより適切に変換され、配列に格納する変数
+	// 
+	//補足
+	// [array_p] について
+	// [int n[5] ]という配列がある時
+	// [int* p = &n[2]; ]pが特定の要素数(二番目)を指す事になる。
+	template<size_t set_Num,class T_Array,class ...T_Args>
+		requires requires
+	{
+		requires is_invalid_not<typename I_Convert_Action<T_Array, T_Args...>::type>;
+		requires !I_Convert_Action<T_Array, T_Args...>::class_create_fg;
+	}
+	static constexpr void Apply(T_Array* array_p, T_Args&&... args)
+	{
+		return I_Convert_Action<T_Array[set_Num], T_Args...>::Convert(array_p ,
+			std::forward<T_Args>(args)...);
+	}
+
 }

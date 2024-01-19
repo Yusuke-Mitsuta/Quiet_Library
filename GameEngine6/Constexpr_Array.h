@@ -33,6 +33,7 @@ namespace N_Constexpr
 
 		using tuple = N_Tuple::U_Repeat_Multiple<_Ty1, N>;
 
+		
 		template<class ..._Ty2>
 			requires is_invalid_not<typename
 		N_Tuple::I_Convert_Action<std::array<_Ty1, N>, _Ty2...>::type>
@@ -60,7 +61,7 @@ namespace N_Constexpr
 	template<size_t I>
 	inline constexpr _Ty1& Array<_Ty1, N>::get()
 	{
-		return data[i];
+		return data[I];
 	}
 
 	template<class _Ty1, size_t N>

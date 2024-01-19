@@ -33,6 +33,7 @@
     <ClInclude Include="Function_Request_pointer.h" />
     <ClInclude Include="Function_Superficial_Data.h" />
     <ClInclude Include="Function_Valid_Data_Get.h" />
+    <ClInclude Include="Function_Variable_Length_Args.h" />
     <ClInclude Include="Invalid.h" />
     <ClInclude Include="Time_Test.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />

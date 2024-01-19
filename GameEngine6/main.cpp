@@ -229,6 +229,7 @@ void Hogegege(MyStruct t)
 
 
 
+
 #include"Tuple.h"
 #include"Tuple_Value.h"
 #include"Size_T.h"
@@ -242,11 +243,17 @@ void Hogegege(MyStruct t)
 int main()
 {
 	
+	//Test_Hoge<int[4]>;
+
+	TYPE_ID(int[4]);
 
 	//Hogege(&H::Args_2);
 
 	//Time_Test::Action();
-
+	int x = 5;
+	auto f = [=] { return x + 1; };
+	C_OUT(f());
+	//TYPE_ID(decltype(&f));
 	//N_Constexpr::Array<int, 3> na = { 3 };
 
 
@@ -260,8 +267,7 @@ int main()
 
 	MyStruct a(3, 2);
 
-	N_Constexpr::Array<float, 3> aba(1, 0.1f);
-	Vector3 abaa(3, 2, 1);
+	//N_Constexpr::Array<float, 3> aba(1, 0.1f);
 
 	using ttt = N_Tuple::I_Convert_Action<MyStruct, int, int>::type;
 	TYPE_ID(ttt);
@@ -276,9 +282,7 @@ int main()
 
 	//vec2->a[0];
 
-	abaa.x = 10;
 
-	C_OUT(abaa.x);
 
 	int n1 = 1;
 	int& n2 = n1;
@@ -290,8 +294,8 @@ int main()
 
 
 
-	type_id(aba[0]);
-	type_id(aba[1]);
+	//type_id(aba[0]);
+	//type_id(aba[1]);
 
 
 	using bind_args1 = N_Tuple::U_Insert_tuple_expand<typename bind_args::remove, typename bind_args::type>;
@@ -546,8 +550,6 @@ int main()
 //fn_test3()
 	//SIZE_OF(fn_test4);
 	//fn_test2(3, 2, 1);
-	
-
 
 	//Function fn_test1(fn_test,2,fn_test);
 	
