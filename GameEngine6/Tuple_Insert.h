@@ -64,6 +64,5 @@ namespace N_Tuple
 
 		using type = S_Tuple_tp_Change_Action<S_Insert, T_Base_Tuple>::type;
 
-
 	};
 }

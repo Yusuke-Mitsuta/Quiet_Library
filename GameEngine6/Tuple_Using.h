@@ -200,7 +200,7 @@ namespace N_Tuple
 	//[T_Set_Types...]：一対多、多対一、多対多の変換を伴う変数
 	// 
 	//補足
-	//実行は[::Convert(args...)]を呼び出す事
+	//実行は[::Apply(args...)]を呼び出す事
 	//一対多の変換はコンストラクタを呼び出せる事、
 	//多対一の変換は展開する変数のクラスに
 	// [using tuple=tuple_t< ... >]、[auto& get<N>()]記述されている事。
@@ -208,7 +208,7 @@ namespace N_Tuple
 	// 一対多の変換時、変換後の[&],[*]は自動で補完されるが、
 	// 変換後の変数と変換に用いた変数の関係は個別に定義されない限りコピーである。
 	template<class T_Fn,class ...T_Set_Types>
-	using U_Apply_chack = I_Convert_Action<T_Fn, T_Set_Types...>;
+	using U_Apply_chack = I_Apply_Action<T_Fn, T_Set_Types...>::type;
 
 }
 

@@ -17,7 +17,9 @@ namespace N_Tuple
 	// [tuple_t,tp,v,vp]–”‚ÍA[T_Types::tuple]‚Ìê‡([S_Parameter]‚ª–³Œø’l‚ğ•Ô‚³‚È‚¢ê‡)‚É
 	//	[std::tuple_element,std::tuple_size,std::get<N>(t)]‚ª“Áê‰»‚³‚ê‚éB
 	template<class T_Types>
-	struct S_Parameter
+	struct S_Parameter :
+		S_ID_Select<T_Types>,
+		S_Size<T_Types>
 	{
 		using tuple =invalid_t;
 		using type = invalid_t;

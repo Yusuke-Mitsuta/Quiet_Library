@@ -3,6 +3,7 @@
 #include<concepts>
 #include"Invalid.h"
 #include<tuple>
+#include"Remove_reference.h"
 
 #define CONCEPT_1(name,type_1,type_name_1) \
 template <type_1 type_name_1> \
@@ -168,7 +169,27 @@ struct is_reference_C :
 
 CONCEPT_TYPE_1_DEFAULT(is_reference)
 
+template<class _Ty1>
+struct is_class_C :
+	std::is_class<_Ty1> {};
 
-template <class T>
+CONCEPT_TYPE_1_DEFAULT(is_class)
+
+template<class T>
+struct is_static_function_pointer_C :
+	std::false_type
+{};
+
+template<class T>
+struct is_static_function_pointer_C<T*> :
+	std::is_function<T>
+{};
+
+template<class T>
+concept is_static_function_pointer = is_static_function_pointer_C<T>::value;
+
+template<class T>
 concept is_member_function_pointer = std::is_member_function_pointer_v<T>;
 
+template<class T>
+concept is_function_pointer = is_static_function_pointer<T> || is_member_function_pointer<T>;

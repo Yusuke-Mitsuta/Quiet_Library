@@ -33,9 +33,15 @@
     <ClInclude Include="Function_Request_pointer.h" />
     <ClInclude Include="Function_Superficial_Data.h" />
     <ClInclude Include="Function_Valid_Data_Get.h" />
-    <ClInclude Include="Function_Variable_Length_Args.h" />
     <ClInclude Include="Invalid.h" />
+    <ClInclude Include="Remove_reference.h" />
     <ClInclude Include="Time_Test.h" />
+    <ClInclude Include="Tuple_Apply.h" />
+    <ClInclude Include="Tuple_Apply_Request.h" />
+    <ClInclude Include="Tuple_Apply_Type.h" />
+    <ClInclude Include="Tuple_Apply_Array_Set.h" />
+    <ClInclude Include="Tuple_Apply_Fn.h" />
+    <ClInclude Include="Tuple_Apply_Class_Create.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Select_Type.h" />
     <ClInclude Include="Template_Calculate.h" />
@@ -85,7 +91,7 @@
     <ClInclude Include="TimeControl.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
-    <ClInclude Include="Tuple_Convert_Action.h" />
+    <ClInclude Include="Tuple_Apply_Action.h" />
     <ClInclude Include="Tuple_Type_Change_Action_Helper.h" />
     <ClInclude Include="Tuple_Create_Pointer.h" />
     <ClInclude Include="Tuple_Expand.h" />
