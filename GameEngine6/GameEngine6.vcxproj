@@ -59,8 +59,6 @@
     <ClInclude Include="Function_Operator_Helper.h" />
     <ClInclude Include="Function_Base_Data.h" />
     <ClInclude Include="Function_Helper.h" />
-    <ClInclude Include="Function_Multiple_Operator.h" />
-    <ClInclude Include="Function_Multiple_Static_Operator.h" />
     <ClInclude Include="Function_Multiple_Helper.h" />
     <ClInclude Include="If_Type.h" />
     <ClInclude Include="Link.h" />
@@ -144,7 +142,6 @@
     <ClCompile Include="Core_Storge.cpp" />
     <ClCompile Include="Core_Type.h" />
     <ClCompile Include="Function_Args_Chack.h" />
-    <ClCompile Include="Function_Single_Static.h" />
     <ClCompile Include="Function_Valid_Data.h" />
     <ClCompile Include="Game_Engine.cpp" />
     <ClCompile Include="Game_Object.cpp" />
@@ -264,6 +261,9 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ForcedIncludeFiles>DBG_NEW.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

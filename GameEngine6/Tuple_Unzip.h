@@ -1,4 +1,5 @@
 #pragma once
+
 #include<tuple>
 #include"Concept.h"
 #include"tuple_Helper.h"

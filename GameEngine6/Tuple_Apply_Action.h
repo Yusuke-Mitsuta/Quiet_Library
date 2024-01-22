@@ -87,8 +87,7 @@ namespace N_Tuple
 			class ...T_Set_Types>
 		using U_Function_Args_Chack_Next =
 			S_Apply_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple,
-			std::constructible_from<std::remove_reference_t<typename T_Request_Types_Tuple::type>, typename T_Set_Types_Tuple::type, T_Set_Types...> ||
-			std::constructible_from<std::remove_pointer_t<typename T_Request_Types_Tuple::type>, typename T_Set_Types_Tuple::type, T_Set_Types...>,
+			std::constructible_from<std::remove_pointer_t<std::remove_reference_t<typename T_Request_Types_Tuple::type>>, typename T_Set_Types_Tuple::type, T_Set_Types...> ,
 			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Set_Types_Tuple::type>::tuple>,
 			typename T_Set_Types_Tuple::type, T_Set_Types...>;
 

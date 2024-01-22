@@ -1,3 +1,4 @@
+#pragma once
 
 #include"Core_Base.h"
 #include"Concept.h"

@@ -3,26 +3,10 @@
 #include<initializer_list>
 #include<compare>
 
-#include"Constexpr_Array.h"
-#include"Constexpr_String.h"
-#include"Game_Engine.h"
-#include"Object.h"
-#include"Args_Type.h"
-#include"Game_Object.h"
-#include"Scene.h"
-#include"Manager_Scene.h"
-#include"Timer.h"
-#include"tuple_convertible_to.h"
-#include<list>
-#include<type_traits>
-
-#include<tuple>
-#include<optional>
-#include<utility>
-
-#include"Time_Test.h"
-
+#include"Tuple.h"
 #include"Function.h"
+#include"Constexpr_Array.h"
+
 
 constexpr std::string getLastPathComponent(std::string path) {
 	std::string r;
@@ -225,39 +209,30 @@ void Hogegege(MyStruct t)
 		a[1]);
 }
 
-template<class T,size_t n>
-void TEst(T(&ary)[n])
-{
-	C_OUT(ary[0]);
-	C_OUT(ary[1]);
-}
 
 
-
-#include"Tuple.h"
-#include"Tuple_Value.h"
-#include"Size_T.h"
-#include"Tuple_index_sequence.h"
-#include"Vector.h"
-
-
-
-#include<array>
-#include"Vector3.h"
 int main()
 {
 
+
+
+	//C_OUT(nn[0]);
+	//C_OUT(nn[1]);
+	//C_OUT(nn[2]);
+
 	//N_Tuple::Apply<std::array<int, 3>>
+
+	Array ary(3, 4, 4, 9, 20);
+
+
 
 	using r = N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<Array<int, 2>, 5>,
 
-		tuple_t<  Array<int, 2>, Array<int, 2>>>;
+		tuple_t< Array<int, 2>, Array<int, 2>>>;
 
 	TYPE_ID(r);
 
-	Function fn(&H::Args_2);
-
-	fn(h, 4, 5);
+	//fn(h, 4, 5);
 	using t = N_Tuple::U_Repeat_Multiple<Array<int, 3>, 10>;
 	TYPE_ID(t);
 

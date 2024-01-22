@@ -6,7 +6,6 @@
 namespace N_Function
 {
 
-
 	template<class T_Request_Args, class T_Bind_Args>
 	struct I_Function_Args_Chack
 	{
@@ -50,20 +49,9 @@ namespace N_Function
 			class ...T_Bind_Args>
 		using U_Function_Args_Chack_Next =
 			S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple,
-			std::constructible_from<std::remove_reference_t<typename T_Request_Args_Tuple::type>, typename T_Bind_Args_Tuple::type, T_Bind_Args...> ||
-			std::constructible_from<std::remove_pointer_t<typename T_Request_Args_Tuple::type>, typename T_Bind_Args_Tuple::type, T_Bind_Args...> ,
+			std::constructible_from<std::remove_pointer_t<std::remove_reference_t<typename T_Request_Args_Tuple::type>>, typename T_Bind_Args_Tuple::type, T_Bind_Args...> ,
 			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Bind_Args_Tuple::type>::tuple>,
 			typename T_Bind_Args_Tuple::type, T_Bind_Args...>::type;
-
-		template<class T_Request_Args_Tuple,
-			class T_Bind_Args_Tuple,
-			class ...T_Bind_Args>
-		using U_Function_Args_Chack_Next1 =
-			S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple,
-			std::constructible_from<std::remove_reference_t<typename T_Request_Args_Tuple::type>, typename T_Bind_Args_Tuple::type, T_Bind_Args...> ||
-			std::constructible_from<std::remove_pointer_t<typename T_Request_Args_Tuple::type>, typename T_Bind_Args_Tuple::type, T_Bind_Args...>,
-			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Bind_Args_Tuple::type>::tuple>,
-			typename T_Bind_Args_Tuple::type, T_Bind_Args...>;
 
 
 		template<class T_Request_Args_Tuple,
@@ -143,14 +131,9 @@ namespace N_Function
 				using type = U_Function_Args_Chack_Next<
 					typename T_Request_Args_Tuple::next,
 					typename T_Bind_Args_Tuple::next>;
-
-				using type3 = U_Function_Args_Chack_Next1<
-					typename T_Request_Args_Tuple::next,
-					typename T_Bind_Args_Tuple::next>;
 			};
 
 			using type = S_last_args_chack<>::type;
-			using type2 = S_last_args_chack<>;
 
 		};
 
@@ -181,8 +164,6 @@ namespace N_Function
 		using type =U_Function_Args_Chack_Next<typename T_Request_Args::reverse,
 			typename T_Bind_Args::reverse>;
 
-		using type1 = U_Function_Args_Chack_Next1<typename T_Request_Args::reverse,
-			typename T_Bind_Args::reverse>;
 	};
 
 }
