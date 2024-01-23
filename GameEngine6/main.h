@@ -77,7 +77,9 @@ struct H
 
 };
 
-static H* h = new H();
+static H h_r;
+
+static H* h = &h_r;
 
 template<class ...T_Types>
 struct tuple_t;

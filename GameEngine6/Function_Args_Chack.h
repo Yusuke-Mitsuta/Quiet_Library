@@ -33,6 +33,9 @@ namespace N_Function
 	{
 	private:
 
+	
+
+
 
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,
@@ -49,10 +52,13 @@ namespace N_Function
 			class ...T_Bind_Args>
 		using U_Function_Args_Chack_Next =
 			S_Function_Args_Chack<T_Request_Args_Tuple, T_Bind_Args_Tuple,
-			std::constructible_from<std::remove_pointer_t<std::remove_reference_t<typename T_Request_Args_Tuple::type>>, typename T_Bind_Args_Tuple::type, T_Bind_Args...> ,
-			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Bind_Args_Tuple::type>::tuple>,
-			typename T_Bind_Args_Tuple::type, T_Bind_Args...>::type;
 
+			std::constructible_from<std::remove_pointer_t<std::remove_reference_t<typename T_Request_Args_Tuple::type>>, typename T_Bind_Args_Tuple::type, T_Bind_Args...>,
+
+			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Bind_Args_Tuple::type>::tuple>,
+
+			typename T_Bind_Args_Tuple::type, T_Bind_Args...>::type;
+		
 
 		template<class T_Request_Args_Tuple,
 			class T_Bind_Args_Tuple,

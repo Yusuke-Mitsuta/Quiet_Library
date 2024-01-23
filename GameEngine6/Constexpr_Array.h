@@ -50,7 +50,7 @@ public:
 	N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::type>&&
 		convertible_to_nand<_Ty1, _Ty2...>
 		constexpr Array(_Ty2 ...ts) :
-		Array(N_Tuple::Apply<Array>(ts...)) {}
+		elems(N_Tuple::Apply<std::array<_Ty1, N>>(ts...)) {}
 
 	//仕様
 	//配列のポインタを取得する

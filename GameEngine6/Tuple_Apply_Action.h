@@ -35,6 +35,32 @@ namespace N_Tuple
 	{
 	//private:
 
+
+
+
+		template<class  _From, class ..._To>
+		struct S_convertible_chack :
+			std::bool_constant<is_invalid_not<typename I_Apply_Action<_From, _To...>::type>>
+		{};
+
+		template<class  _From, class _To>
+		struct S_convertible_chack<_From,_To> :
+			convertible_to_C<_From, _To> {};
+
+
+		template<class  _From, class ..._To>
+			requires requires
+		{
+			requires is_invalid_not<typename N_Tuple::S_Parameter<_From>::tuple>;
+		}
+		struct S_convertible_chack<_From, _To...> :
+			std::bool_constant<is_invalid_not<typename I_Apply_Action<_From, _To...>::type>>
+		{};
+
+
+
+
+
 		using S_Request= N_Apply::I_Request<T_Fn, T_Set_Types...>;
 
 		template<N_Apply::E_Type t_type>
@@ -87,7 +113,7 @@ namespace N_Tuple
 			class ...T_Set_Types>
 		using U_Function_Args_Chack_Next =
 			S_Apply_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple,
-			std::constructible_from<std::remove_pointer_t<std::remove_reference_t<typename T_Request_Types_Tuple::type>>, typename T_Set_Types_Tuple::type, T_Set_Types...> ,
+			S_convertible_chack<typename T_Request_Types_Tuple::type, typename T_Set_Types_Tuple::type, T_Set_Types...>::value,
 			is_invalid_not<typename N_Tuple::S_Parameter<typename T_Set_Types_Tuple::type>::tuple>,
 			typename T_Set_Types_Tuple::type, T_Set_Types...>;
 
@@ -143,29 +169,7 @@ namespace N_Tuple
 			T_Set_Types...>
 		{
 
-			//仕様
-			//次以降の変数を[T_Set_Types...]追加しても[T_Request_Types_Tuple::type]が生成出来るか判定する
-			// その結果が
-			//　　有効値であれば、次以降の変数を追加する。
-			//　　無効値であれば、[T_Set_Types...]の変数で[T_Request_Types_Tuple::type]を生成する
-			//
-			//補足
-			//次以降の引数を加え、エラーになる場合、最後の引数を取得したと判定する。
-			template<class T = typename S_Apply_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, false, T_Set_Types_Expand,
-				T_Set_Types...>::type::chack>
-			struct S_last_args_chack
-			{
-				using type = typename S_Apply_Args_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, false, T_Set_Types_Expand,
-					T_Set_Types...>::type;
-			};
-
-			template<>
-			struct S_last_args_chack<invalid_t>
-			{
-				using type = S_Apply_Args_Chack;
-			};
-
-			using type = S_last_args_chack<>::type;
+			using type = S_Apply_Args_Chack;
 
 			using next = U_Function_Args_Chack_Next<
 				typename T_Request_Types_Tuple::next,
@@ -174,21 +178,53 @@ namespace N_Tuple
 			using chack = next::chack;
 
 
-			template<class T_Converted = typename T_Set_Types_Tuple::tail::reverse>
+			template<class T_Converted = typename T_Set_Types_Tuple::tail::reverse,
+				class T_Request_Type= typename T_Request_Types_Tuple::type,
+			class ...T_Set_Types>
 			struct S_Convert
 			{
 				using convert = next::convert;
 
 			};
 
-			template<class ...T_Converted>
-				requires (sizeof...(T_Set_Types) > 1) &&
-				((!is_apply_type<N_Apply::E_Type::CLASS>) ||
-				(is_apply_type<N_Apply::E_Type::CLASS> &&
-				is_invalid_not <typename S_Parameter<T_Fn>::tuple >))
-			struct S_Convert<tuple_t<T_Converted...>>
+			template<class ...T_Converted,class T_Request_Type,class T_Set_Type>
+				requires (sizeof...(T_Set_Types) == 1) &&
+			(!std::convertible_to<T_Request_Type, T_Set_Type>)
+			struct S_Convert<tuple_t<T_Converted...>,T_Request_Type,T_Set_Type>
 			{
 				using convert = S_Convert;
+			
+			
+				//*->&
+				template<class ...T_back_args>
+				static constexpr auto Apply(auto* fn, T_Converted&&... converted_args, T_Set_Type* args, T_back_args&&... back_args)
+				{
+					return next::convert::Apply(
+						fn,
+						std::forward<T_Converted>(converted_args)...,
+						*args,
+						std::forward<T_back_args>(back_args)...);
+				}
+
+				//&->*
+				template<class ...T_back_args>
+				static constexpr auto Apply(auto* fn, T_Converted&&... converted_args, T_Set_Type& args, T_back_args&&... back_args)
+				{
+					return next::convert::Apply(
+						fn,
+						std::forward<T_Converted>(converted_args)...,
+						&args,
+						std::forward<T_back_args>(back_args)...);
+				}
+
+			};
+
+			template<class ...T_Converted, class T_Request_Type,class ...T_Set_Types>
+				requires (sizeof...(T_Set_Types) > 1) 
+			struct S_Convert<tuple_t<T_Converted...>,T_Request_Type,T_Set_Types...>
+			{
+				using convert = S_Convert;
+
 
 
 				//仕様
@@ -203,7 +239,7 @@ namespace N_Tuple
 					return next::convert::Apply(
 						fn,
 						std::forward<T_Converted>(converted_args)...,
-						std::remove_reference_t<typename T_Request_Types_Tuple::type>(std::forward<T_Set_Types>(args)...),
+						I_Apply_Action<std::remove_reference_t<T_Request_Type>, T_Set_Types...>::Apply(std::forward<T_Set_Types>(args)...),
 						std::forward<T_back_args>(back_args)...);
 				}
 
@@ -219,19 +255,22 @@ namespace N_Tuple
 				template<class ...T_back_args>
 					requires requires
 				{
-					requires is_pointer<typename T_Request_Types_Tuple::type>;
+					requires is_pointer<T_Request_Type>;
 				}
 				static constexpr auto Apply(auto* fn, T_Converted&&... converted_args, T_Set_Types&&... args, T_back_args&&... back_args)
 				{
 
 					//ポインターを返す為の一時オブジェクト
-					std::remove_pointer_t<typename T_Request_Types_Tuple::type> temp(std::forward<T_Set_Types>(args)...);
+					std::remove_pointer_t<T_Request_Type> temp =
+						I_Apply_Action<std::remove_pointer_t<T_Request_Type>, T_Set_Types...>
+							::Apply(std::forward<T_Set_Types>(args)...);
 
 					return next::convert::Apply(
 						fn,
 						std::forward<T_Converted>(converted_args)...,
 						&temp,
 						std::forward<T_back_args>(back_args)...);
+
 				}
 
 			};

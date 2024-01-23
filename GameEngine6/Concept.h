@@ -48,10 +48,6 @@ concept name##_nand = !name##_and<type_name_1,type_name_2...>;\
 
 
 
-
-
-
-
 template <bool t_Fg>
 concept Fg = t_Fg;
 
@@ -193,3 +189,4 @@ concept is_member_function_pointer = std::is_member_function_pointer_v<T>;
 
 template<class T>
 concept is_function_pointer = is_static_function_pointer<T> || is_member_function_pointer<T>;
+

@@ -194,19 +194,35 @@ void H::Static_Args_88(auto a,auto ...b)
 }
 
 
-template<class T>
-void Hogege(T t) 
+
+void Hogege(int* t) 
 {
-	t(10, 30);
+	C_OUT("ポインタ-");
 	//(t.*h)(10, 30);
 }
 
+void Hogege(int*& t)
+{
+	C_OUT("ポインター参照");
+	//(t.*h)(10, 30);
+}
 
-void Hogegege(MyStruct t)
+template<class T>
+void Hogegege1(T&& t)
 
 {
-	H::Static_Args_88(t.a[0], t.
-		a[1]);
+	type_id(t);
+	Hogege(std::forward<T>(t));
+	//H::Static_Args_88(t.a[0], t.a[1]);
+}
+
+template<class T>
+void Hogegege(T&& t)
+
+{
+	type_id(t);
+	Hogegege1(std::forward<T>(t));
+	//H::Static_Args_88(t.a[0], t.a[1]);
 }
 
 
@@ -214,49 +230,75 @@ void Hogegege(MyStruct t)
 int main()
 {
 
+	int n = 3;
+
+	int* np = &n;
+
+	int nr = *np;
 
 
+	nr = 5;
+
+	C_OUT(n);
+	//Hogegege(&np);
+	//return 0;
 	//C_OUT(nn[0]);
 	//C_OUT(nn[1]);
 	//C_OUT(nn[2]);
 
 	//N_Tuple::Apply<std::array<int, 3>>
 
-	Array ary(3, 4, 4, 9, 20);
+	//Array ary(3, 4, 4, 9, 20);
 
 
+	 bool b = std::convertible_to<int&, int>;
+	 bool c = 1;// std::convertible_to<int&, int*>;
+	 bool d = std::convertible_to<int&, int&>;
 
-	using r = N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<Array<int, 2>, 5>,
+	H::Static_Args_88(b, c,d);
+	b = 1;//std::convertible_to<int*, int>;
+	c = std::convertible_to<int*, int*>;
+	d = 1;//std::convertible_to<int*, int&>;
+	C_OUT("");
+	H::Static_Args_88(b, c,d);
 
-		tuple_t< Array<int, 2>, Array<int, 2>>>;
+	b = std::convertible_to<int, int>;
+	c = std::convertible_to<int, int*>;
+	d = std::convertible_to<int, int&>;
+	C_OUT("");
+	H::Static_Args_88(b, c,d);
 
-	TYPE_ID(r);
+	//using r = N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<Array<int, 2>, 5>,
+
+		//tuple_t< Array<int, 2>, Array<int, 2>>>;
+
+//	TYPE_ID(r);
 
 	//fn(h, 4, 5);
-	using t = N_Tuple::U_Repeat_Multiple<Array<int, 3>, 10>;
-	TYPE_ID(t);
+	//using t = N_Tuple::U_Repeat_Multiple<Array<int, 3>, 10>;
+	//TYPE_ID(t);
 
 
 
-	Array ary0(3, 5,  9);
+	//Array ary0(3, 5,  9);
 
-	Array ary1(0.3f, 4,3);
+	//Array ary1(0.3f, 4,3);
+	
 
-
-	Array ary2(ary0, ary1,ary0);
+	//Array ary2(ary0, ary1,ary0);
 
 	////std::array<Array<int, 3>, 3> aaa;
 //
-	H::Static_Args_88(
-		ary2[0][0],
-		ary2[0][1],
-		ary2[0][2],
-		ary2[1][0],
-		ary2[1][1],
-		ary2[1][2],
-		ary2[2][0],
-		ary2[2][1],
-		ary2[2][2]);
+	//H::Static_Args_88(
+	//	ary2[0][0],
+	//	ary2[0][1],
+	//	ary2[0][2],
+	//	ary2[1][0],
+	//	ary2[1][1],
+	//	ary2[1][2],
+	//	ary2[2][0],
+	//	ary2[2][1],
+	//	ary2[2][2]);
 
 //	N_Tuple::N_Apply::S_Select_Type<decltype(&H::Args_2)>::
 
@@ -264,9 +306,3 @@ int main()
 	return 0;
 
 }
-
-
-
-
-
-
