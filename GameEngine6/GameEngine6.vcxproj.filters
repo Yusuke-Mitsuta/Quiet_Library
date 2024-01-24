@@ -213,12 +213,6 @@
     <ClInclude Include="SwapType.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Function_Multiple_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function_Multiple_Static_Operator.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
@@ -423,6 +417,9 @@
     <ClInclude Include="Function_Operator_Search.h">
       <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple_Apply_Type_Chack.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -498,9 +495,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Function_Single_Helper.h">
-      <Filter>ヘッダー ファイル\Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Function_Single_Static.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Value.h">
