@@ -235,12 +235,27 @@ struct vec2
 
 struct vec3
 {
-	using tuple = tuple_t<int,int, int>;
+	using tuple = tuple_t<vec2, int>;
 };
 
 struct vec4
 {
-	using tuple = tuple_t<int,vec2,int>;
+	using tuple = tuple_t<vec3,int>;
+};
+
+struct vec2a
+{
+	using tuple = tuple_t<int, int>;
+};
+
+struct vec3a
+{
+	using tuple = tuple_t<vec2a, int>;
+};
+
+struct vec4a
+{
+	using tuple = tuple_t<vec3a, int>;
 };
 
 int main()
@@ -252,7 +267,7 @@ int main()
 
 	int nr = *np;
 
-	using req = N_Tuple::N_Apply::I_Apply_Type_Chack <tuple_t<vec4>, tuple_t<vec2,int,int>>::type::conversion;
+	using req = N_Tuple::N_Apply::I_Apply_Type_Chack <tuple_t<vec4>, tuple_t<vec3a,int>>::type::conversion;
 	TYPE_ID(req);
 	nr = 5;
 

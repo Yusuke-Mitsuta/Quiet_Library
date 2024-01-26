@@ -13,15 +13,16 @@ namespace N_Tuple::N_Apply
 
 
 	template<class T_Expand, size_t t_point>
-	struct S_Conversion_Expand
+	struct S_Conversion_Expand:
+		integral_constant<t_point>
 	{
 
 	};
 
 	template<class T_Zip, size_t t_point>
-	struct S_Conversion_Zip
+	struct S_Conversion_Zip :
+		integral_constant<t_point>
 	{
-
 	};
 
 	template<class T_Request_Types_Tuple,
@@ -33,12 +34,15 @@ namespace N_Tuple::N_Apply
 		//仕様
 		//型の判定が終了する際に呼び出される
 		template<class T_Request_Types_Tuple = invalid_t,
-			class T_Conversion_List = invalid_t>
+			class T_Conversion_Expand_List = tuple_t<>,
+			class T_Conversion_Zip_List = tuple_t<>>
 		struct S_Result
 		{
 			using request = T_Request_Types_Tuple;
 
-			using conversion = T_Conversion_List;
+			using conversion_expand_list = T_Conversion_Expand_List;
+
+			using conversion_zip_list = T_Conversion_Zip_List;
 
 		};
 
@@ -46,34 +50,43 @@ namespace N_Tuple::N_Apply
 		template<class T_Request_Types_Tuple,
 			class T_Set_Types_Tuple,
 			//class T_Set_Types_Convert = tuple_t<>,
-			class T_Conversion_List = tuple_t<>>
+			class T_Conversion_Expand_List = tuple_t<>,
+			class T_Conversion_Zip_List=tuple_t<>
+		>
 			struct S_Apply_Type_Chack
 		{
-			using type = S_Result<T_Request_Types_Tuple, T_Conversion_List>;
+			using type = S_Result<T_Request_Types_Tuple, T_Conversion_Expand_List, T_Conversion_Zip_List>;
 		};
 
 		template<class T_Request_Types_Tuple,
 			class T_Set_Types_Tuple,
-			class ...T_Conversion>
+			class ...T_Conversion_Expand,
+			class ...T_Conversion_Zip>
 			requires requires
 		{
 			requires is_invalid_not<typename T_Request_Types_Tuple::type>;
 			requires is_invalid_not<typename T_Set_Types_Tuple::type>;
 		}
-		struct S_Apply_Type_Chack< T_Request_Types_Tuple, T_Set_Types_Tuple, tuple_t<T_Conversion...>>
+		struct S_Apply_Type_Chack< T_Request_Types_Tuple, T_Set_Types_Tuple, 
+			tuple_t<T_Conversion_Expand...>,
+			tuple_t<T_Conversion_Zip...>>
 		{
 			using request_t = T_Request_Types_Tuple::type;
 
 			using set_t = T_Set_Types_Tuple::type;
 
-			template<class T_Add_cnversion>
-			using add_cnversion_list = tuple_t<T_Conversion..., T_Add_cnversion>;
+			template<class ...T_Add>
+			using expand_list = tuple_t<T_Conversion_Expand...,T_Add...>;
+
+			template<class ...T_Add>
+			using zip_list = tuple_t<T_Conversion_Zip..., T_Add...>;
 
 			//仕様
 			//互換性のある型に展開する
 			// [using tuple}にて定義される型
 			template<class T_Tuple>
 			using expand = N_Tuple::S_Parameter<T_Tuple>::tuple;
+
 
 			//仕様
 			//選択中のタイプを展開する
@@ -87,7 +100,7 @@ namespace N_Tuple::N_Apply
 				bool t_Set_Types_Expand= is_invalid_not<expand<set_t>> >
 			struct S_Apply_Control
 			{
-				using type = S_Result<T_Request_Types_Tuple, tuple_t<T_Conversion...>>;
+				using type = S_Result<T_Request_Types_Tuple, expand_list<>, zip_list<>>;
 			};
 
 
@@ -97,12 +110,12 @@ namespace N_Tuple::N_Apply
 				using type = S_Apply_Type_Chack<
 					typename T_Request_Types_Tuple::next,
 					typename T_Set_Types_Tuple::next,
-					tuple_t<T_Conversion...>>::type;
+					expand_list<>,zip_list<>>::type;
 
 				using type5 = S_Apply_Type_Chack<
 					typename T_Request_Types_Tuple::next,
 					typename T_Set_Types_Tuple::next,
-					tuple_t<T_Conversion...>>;
+					expand_list<>, zip_list<>>;
 			};
 
 
@@ -113,42 +126,17 @@ namespace N_Tuple::N_Apply
 				using type = S_Apply_Type_Chack<
 					T_Request_Types_Tuple,
 					select_type_expand<T_Set_Types_Tuple>,
-					add_cnversion_list<S_Conversion_Expand<set_t,T_Set_Types_Tuple::head_size>>
+					expand_list<S_Conversion_Expand<set_t,T_Set_Types_Tuple::head_size>>,
+					zip_list<>
 					>::type;
 
 				using type3 = S_Apply_Type_Chack<
 					T_Request_Types_Tuple,
-					select_type_expand<T_Set_Types_Tuple>,
-					add_cnversion_list<S_Conversion_Expand<set_t, T_Set_Types_Tuple::head_size>>
-				>;
-				/*
+					select_type_expand<T_Set_Types_Tuple>, 
+					expand_list<S_Conversion_Expand<set_t, T_Set_Types_Tuple::head_size>>,
+					zip_list<>
+					>;
 
-				template<class T_Unconverted = typename T_Set_Types_Tuple::tail::reverse,
-					class T_Converting = set_t>
-				struct S_Convert
-				{
-					using convert = next::convert;
-
-				};
-
-				template<class ...T_Unconverted, class T_Converting>
-				struct S_Convert<tuple_t<T_Unconverted...>, T_Converting>
-				{
-					using convert = S_Convert;
-
-
-					template<class ...T_Convert>
-					static constexpr auto Apply(auto* fn,
-						T_Unconverted&&... unconverted_args,
-						T_Converting&& converting_args,
-						T_Convert&&... convert_args)
-					{
-						next::
-
-					}
-
-				};
-				*/
 
 			};
 
@@ -160,22 +148,20 @@ namespace N_Tuple::N_Apply
 					S_Apply_Type_Chack <
 					select_type_expand<T_Request_Types_Tuple>,
 					T_Set_Types_Tuple,
-					add_cnversion_list<S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
+					expand_list<>,
+					zip_list<S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
 					>::type;
 
 				using type4 =
-
 					S_Apply_Type_Chack<
 					select_type_expand<T_Request_Types_Tuple>,
 					T_Set_Types_Tuple,
-					add_cnversion_list<S_Conversion_Zip<request_t, T_Set_Types_Tuple::head_size>>
+					expand_list<>,
+					zip_list<S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
 					>;
 			};
 
-
-
 			using type = S_Apply_Control<>::type;
-
 
 			using type2 = S_Apply_Control<>;
 
