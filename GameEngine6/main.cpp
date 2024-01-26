@@ -224,8 +224,24 @@ void Hogegege(T&& t)
 	Hogegege1(std::forward<T>(t));
 	//H::Static_Args_88(t.a[0], t.a[1]);
 }
+#include"Tuple_Apply_Type_Chack.h"
 
 
+
+struct vec2
+{
+	using tuple = tuple_t<int, int>;
+};
+
+struct vec3
+{
+	using tuple = tuple_t<int,int, int>;
+};
+
+struct vec4
+{
+	using tuple = tuple_t<int,vec2,int>;
+};
 
 int main()
 {
@@ -236,7 +252,8 @@ int main()
 
 	int nr = *np;
 
-
+	using req = N_Tuple::N_Apply::I_Apply_Type_Chack <tuple_t<vec4>, tuple_t<vec2,int,int>>::type::conversion;
+	TYPE_ID(req);
 	nr = 5;
 
 	C_OUT(n);
@@ -268,7 +285,9 @@ int main()
 	C_OUT("");
 	H::Static_Args_88(b, c,d);
 
-	//using r = N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<Array<int, 2>, 5>,
+	//using 
+	
+	//r = N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<Array<int, 2>, 5>,
 
 		//tuple_t< Array<int, 2>, Array<int, 2>>>;
 
