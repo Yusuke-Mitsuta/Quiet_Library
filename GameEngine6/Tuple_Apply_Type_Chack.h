@@ -14,15 +14,17 @@ namespace N_Tuple::N_Apply
 
 	template<class T_Expand, size_t t_point>
 	struct S_Conversion_Expand:
+
 		integral_constant<t_point>
 	{
-
+		using type = T_Expand;
 	};
 
 	template<class T_Zip, size_t t_point>
-	struct S_Conversion_Zip :
+	struct S_Conversion_Zip:
 		integral_constant<t_point>
 	{
+		using type = T_Zip;
 	};
 
 	template<class T_Request_Types_Tuple,
@@ -177,7 +179,7 @@ namespace N_Tuple::N_Apply
 			typename T_Request_Types_Tuple::reverse,
 			typename T_Set_Types_Tuple::reverse::create_p>;
 
-		using conversion = type::conversion;
+		using conversion = type;
 
 	};
 
