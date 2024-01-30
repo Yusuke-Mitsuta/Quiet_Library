@@ -6,6 +6,7 @@
 #include"Tuple_Apply_Array_Set.h"
 #include"Tuple_Apply_Request.h"
 #include"Tuple_Apply_Class_Create.h"
+#include"Tuple_Apply_Args_Convert_Action.h"
 
 #include"main.h"
 
@@ -44,15 +45,16 @@ namespace N_Tuple
 	//private:
 
 
-		using S_Request = N_Apply::I_Request<T_Fn, T_Set_Types...>;
+		using request = N_Apply::I_Request<T_Fn, T_Set_Types...>;
 
 
 
-		using next = N_Apply::I_Apply_Type_Chack<
-			typename S_Request::args,
+		using chack = N_Apply::I_Apply_Type_Chack<
+			typename request::args,
 			tuple_t<T_Set_Types...>>::type;
 
-		using chack = next::chack;
+		using apply = N_Apply::I_Args_Convert_Action<typename request::args,
+			tuple_t<T_Set_Types...>>::type;
 
 	public:
 
@@ -67,7 +69,7 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Args&&... args)
 		{
 			N_Apply::S_Class_Create<T_Create_class> fn_action = {};
-			return next::convert::Apply(&fn_action, std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action, std::forward<T_Args>(args)...);
 		}
 
 		//仕様
@@ -77,7 +79,7 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Array* array_p, T_Args&&... args)
 		{
 			N_Apply::S_Array_Create fn_action = { array_p };
-			return next::convert::Apply(&fn_action, std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action, std::forward<T_Args>(args)...);
 		}
 
 		//仕様
@@ -88,7 +90,7 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Fn&& fn,T_Args&&... args)
 		{
 			N_Apply::S_Fn_Action fn_action(fn, &invalid);
-			return next::convert::Apply(&fn_action,std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action,std::forward<T_Args>(args)...);
 		
 		}
 
@@ -97,10 +99,10 @@ namespace N_Tuple
 		// ポインターを用いて[fn]を実行する
 		template<class ...T_Args>
 			requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::FN>
-		static constexpr auto Apply(T_Fn&& fn,S_Request::pointer* p,T_Args&&... args)
+		static constexpr auto Apply(T_Fn&& fn,request::pointer* p,T_Args&&... args)
 		{
 			N_Apply::S_Fn_Action fn_action(fn, p);
-			return next::convert::Apply(&fn_action,std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action,std::forward<T_Args>(args)...);
 		}
 	};
 

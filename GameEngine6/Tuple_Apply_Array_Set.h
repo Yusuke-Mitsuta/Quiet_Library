@@ -17,21 +17,21 @@ namespace N_Tuple::N_Apply
 
 		//配列への複数の要素を追加
 		template<class T_Flont_Args, class... T_Args>
-		constexpr void operator()(T_Flont_Args&& flont_Args, T_Args&&... args)
+		constexpr void Apply(T_Flont_Args&& flont_Args, T_Args&&... args)
 		{
-			operator()(std::forward<T_Flont_Args>(flont_Args));
+			Apply(std::forward<T_Flont_Args>(flont_Args));
 			++array_p;
 			this->operator()(std::forward<T_Args>(args)...);
 		}
 
 		//配列への要素追加
 		template<class T_Flont_Args>
-		constexpr void operator()(T_Flont_Args&& flont_Args)
+		constexpr void Apply(T_Flont_Args&& flont_Args)
 		{
 			*array_p = static_cast<T>(flont_Args);
 		}
 
-		constexpr void operator()()
+		constexpr void Apply()
 		{
 			std::cout << "えらー";
 		}

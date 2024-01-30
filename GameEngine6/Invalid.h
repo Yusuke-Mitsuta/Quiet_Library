@@ -10,6 +10,10 @@ struct invalid_t
 
 	using type = invalid_t;
 
+
+	static constexpr size_t point = 0;
+	static constexpr size_t expand_size = 0;
+
 };
 
 

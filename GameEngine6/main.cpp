@@ -231,16 +231,38 @@ void Hogegege(T&& t)
 struct vec2
 {
 	using tuple = tuple_t<int, int>;
+
+
+	int n1;
+	int n;
+
+	constexpr vec2(int set_n1, int set_n2) :
+		n1(set_n1), n(set_n2) {}
 };
 
 struct vec3
 {
 	using tuple = tuple_t<vec2, int>;
+
+	vec2 vec3v;
+	int n;
+
+	constexpr vec3(vec2 set_vec3v, int set_n) :
+		vec3v(set_vec3v), n(set_n) {}
+
 };
 
 struct vec4
 {
 	using tuple = tuple_t<vec3,int>;
+
+	vec3 vec3v;
+	int n;
+
+	constexpr vec4(vec3 set_vec3v, int set_n) :
+		vec3v(set_vec3v), n(set_n) {}
+	
+
 };
 
 struct vec7
@@ -251,20 +273,92 @@ struct vec7
 struct vec2a
 {
 	using tuple = tuple_t<int, int>;
+
+	int n1;
+	int n;
+
+	template<int n>
+	constexpr int& get()
+	{
+		return n1;
+	}
+
+	template<>
+	constexpr int& get<1>()
+	{
+		return n;
+	}
+
+
+	constexpr vec2a(int set_n1, int set_n2) :
+		n1(set_n1), n(set_n2) {}
 };
 
 struct vec3a
 {
 	using tuple = tuple_t<vec2a, int>;
+
+
+	vec2a vec3v;
+	int n;
+	template<int n>
+	constexpr vec2a& get()
+	{
+		return vec3v;
+	}
+
+	template<int n>
+	constexpr int& get()
+	{
+		return n;
+	}
+
+	constexpr vec3a(vec2a set_vec3v, int set_n) :
+		vec3v(set_vec3v), n(set_n) {}
 };
 
 struct vec4a
 {
 	using tuple = tuple_t<vec3a, int>;
+
+
+	vec3a vec3v;
+	int n;
+	template<int n>
+	constexpr vec3a& get()
+	{
+		return vec3v;
+	}
+
+	template<int n>
+	constexpr int& get()
+	{
+		return n;
+	}
+
+	constexpr vec4a(vec3a set_vec3v, int set_n) :
+		vec3v(set_vec3v), n(set_n) {}
 };
+
+void Expand_zip_testa(vec4 vec)
+{
+	H::Static_Args_88(
+		vec.vec3v.vec3v.n1,
+		vec.vec3v.vec3v.n,
+		vec.vec3v.n,
+		vec.n);
+}
+
+
+void Expand_zip_test(int n1,int n2,int n3,int n4)
+{
+	H::Static_Args_88(n1, n2, n3, n4);
+}
 
 int main()
 {
+
+
 
 	int n = 3;
 
@@ -272,11 +366,17 @@ int main()
 
 	int nr = *np;
 
-	using req = N_Tuple::N_Apply::I_Apply_Type_Chack <tuple_t<vec3, vec7>, 
-		tuple_t<int, vec3a,vec3a,vec3a>>::conversion::conversion_zip_list;
-	TYPE_ID(req);
-	nr = 5;
+	vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
 
+	N_Tuple::Apply(&Expand_zip_test, vec4_test);
+
+	//N_Tuple::Apply(&Expand_zip_testa, 1,2,3,4);
+
+	//using req = N_Tuple::N_Apply::I_Apply_Type_Chack <tuple_t<vec4>, 
+		//tuple_t<int,int,int,int>>::conversion::conversion_zip_list;
+
+	//TYPE_ID(req::type);
+	//TYPE_ID(req::next::type);
 	C_OUT(n);
 	//Hogegege(&np);
 	//return 0;
@@ -289,22 +389,6 @@ int main()
 	//Array ary(3, 4, 4, 9, 20);
 
 
-	 bool b = std::convertible_to<int&, int>;
-	 bool c = 1;// std::convertible_to<int&, int*>;
-	 bool d = std::convertible_to<int&, int&>;
-
-	H::Static_Args_88(b, c,d);
-	b = 1;//std::convertible_to<int*, int>;
-	c = std::convertible_to<int*, int*>;
-	d = 1;//std::convertible_to<int*, int&>;
-	C_OUT("");
-	H::Static_Args_88(b, c,d);
-
-	b = std::convertible_to<int, int>;
-	c = std::convertible_to<int, int*>;
-	d = std::convertible_to<int, int&>;
-	C_OUT("");
-	H::Static_Args_88(b, c,d);
 
 	//using 
 	

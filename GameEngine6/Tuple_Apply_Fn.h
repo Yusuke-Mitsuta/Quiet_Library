@@ -31,7 +31,7 @@ namespace N_Tuple::N_Apply
 
 		//ポインターを使用せず関数オブジェクトにアクセスする
 		template<class MT_Fn = T_Fn_Action, is_invalid MT_pointer = T_pointer, class... T_Args>
-		constexpr auto operator()(T_Args&&... args)
+		constexpr auto Apply(T_Args&&... args)
 		{
 			return fn(args...);
 		}
@@ -42,7 +42,7 @@ namespace N_Tuple::N_Apply
 		{
 			requires std::is_member_function_pointer_v<MT_Fn>;
 		}
-		constexpr auto operator()(T_Args&&... args)
+		constexpr auto Apply(T_Args&&... args)
 		{
 			return (p->*fn)(args...);
 		}
@@ -53,7 +53,7 @@ namespace N_Tuple::N_Apply
 		{
 			requires same_as_template_type<MT_Fn, Function>;
 		}
-		constexpr auto operator()(T_Args&&... args)
+		constexpr auto Apply(T_Args&&... args)
 		{
 			return fn(p, args...);
 		}

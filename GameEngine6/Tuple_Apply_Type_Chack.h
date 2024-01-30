@@ -13,19 +13,10 @@ namespace N_Tuple::N_Apply
 
 
 	template<class T_Expand, size_t t_point>
-	struct S_Conversion_Expand:
-
-		integral_constant<t_point>
-	{
-		using type = T_Expand;
-	};
+	struct S_Conversion_Expand;
 
 	template<class T_Zip, size_t t_point>
-	struct S_Conversion_Zip:
-		integral_constant<t_point>
-	{
-		using type = T_Zip;
-	};
+	struct S_Conversion_Zip;
 
 	template<class T_Request_Types_Tuple,
 		class T_Set_Types_Tuple>
@@ -51,7 +42,6 @@ namespace N_Tuple::N_Apply
 
 		template<class T_Request_Types_Tuple,
 			class T_Set_Types_Tuple,
-			//class T_Set_Types_Convert = tuple_t<>,
 			class T_Conversion_Expand_List = tuple_t<>,
 			class T_Conversion_Zip_List=tuple_t<>
 		>
@@ -114,10 +104,6 @@ namespace N_Tuple::N_Apply
 					typename T_Set_Types_Tuple::next,
 					expand_list<>,zip_list<>>::type;
 
-				using type5 = S_Apply_Type_Chack<
-					typename T_Request_Types_Tuple::next,
-					typename T_Set_Types_Tuple::next,
-					expand_list<>, zip_list<>>;
 			};
 
 
@@ -132,14 +118,6 @@ namespace N_Tuple::N_Apply
 					zip_list<>
 					>::type;
 
-				using type3 = S_Apply_Type_Chack<
-					T_Request_Types_Tuple,
-					select_type_expand<T_Set_Types_Tuple>, 
-					expand_list<S_Conversion_Expand<set_t, T_Set_Types_Tuple::head_size>>,
-					zip_list<>
-					>;
-
-
 			};
 
 
@@ -153,19 +131,9 @@ namespace N_Tuple::N_Apply
 					expand_list<>,
 					zip_list<S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
 					>::type;
-
-				using type4 =
-					S_Apply_Type_Chack<
-					select_type_expand<T_Request_Types_Tuple>,
-					T_Set_Types_Tuple,
-					expand_list<>,
-					zip_list<S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
-					>;
 			};
 
 			using type = S_Apply_Control<>::type;
-
-			using type2 = S_Apply_Control<>;
 
 		};
 
@@ -173,11 +141,6 @@ namespace N_Tuple::N_Apply
 		using type = S_Apply_Type_Chack<
 			typename T_Request_Types_Tuple::reverse,
 			typename T_Set_Types_Tuple::reverse::create_p>::type;
-
-
-		using type1 = S_Apply_Type_Chack<
-			typename T_Request_Types_Tuple::reverse,
-			typename T_Set_Types_Tuple::reverse::create_p>;
 
 		using conversion = type;
 

@@ -81,6 +81,8 @@ static H h_r;
 
 static H* h = &h_r;
 
+static int static_n=0;
+
 template<class ...T_Types>
 struct tuple_t;
 

@@ -15,7 +15,7 @@ namespace N_Tuple::N_Apply
 
 		//ÉNÉâÉXÇÃê∂ê¨
 		template<class MT_Fn = T, class... T_Args>
-		constexpr auto operator()(T_Args&&... args)
+		constexpr auto Apply(T_Args&&... args)
 		{
 			return T {args... };
 		}
@@ -26,7 +26,7 @@ namespace N_Tuple::N_Apply
 		{
 			requires is_pointer<MT_Fn>;
 		}
-		constexpr auto operator()(T_Args&&... args)
+		constexpr auto Apply(T_Args&&... args)
 		{
 			return new std::remove_pointer_t<T>{ args... };
 		}
