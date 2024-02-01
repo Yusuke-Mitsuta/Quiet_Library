@@ -1,11 +1,11 @@
 #include"main.h"
-#include<iostream>
-#include<initializer_list>
 #include<compare>
+#include<initializer_list>
+#include<iostream>
 
-#include"Tuple.h"
-#include"Function.h"
 #include"Constexpr_Array.h"
+#include"Function.h"
+#include"Tuple.h"
 
 
 constexpr std::string getLastPathComponent(std::string path) {
@@ -236,6 +236,18 @@ struct vec2
 	int n1;
 	int n;
 
+	template<int N>
+	constexpr int& get()
+	{
+		return n1;
+	}
+
+	template<>
+	constexpr int& get<1>()
+	{
+		return n;
+	}
+
 	constexpr vec2(int set_n1, int set_n2) :
 		n1(set_n1), n(set_n2) {}
 };
@@ -246,6 +258,19 @@ struct vec3
 
 	vec2 vec3v;
 	int n;
+
+	template<int n>
+	constexpr vec2& get()
+	{
+		return vec3v;
+	}
+
+	template<int N>
+		requires(N != 0)
+	constexpr int& get()
+	{
+		return n;
+	}
 
 	constexpr vec3(vec2 set_vec3v, int set_n) :
 		vec3v(set_vec3v), n(set_n) {}
@@ -258,6 +283,21 @@ struct vec4
 
 	vec3 vec3v;
 	int n;
+
+
+	template<int n>
+	constexpr vec3& get()
+	{
+		return vec3v;
+	}
+
+	template<int N>
+		requires(N != 0)
+	constexpr int& get()
+	{
+		return n;
+	}
+
 
 	constexpr vec4(vec3 set_vec3v, int set_n) :
 		vec3v(set_vec3v), n(set_n) {}
@@ -277,7 +317,7 @@ struct vec2a
 	int n1;
 	int n;
 
-	template<int n>
+	template<int N>
 	constexpr int& get()
 	{
 		return n1;
@@ -301,13 +341,15 @@ struct vec3a
 
 	vec2a vec3v;
 	int n;
+
 	template<int n>
 	constexpr vec2a& get()
 	{
 		return vec3v;
 	}
 
-	template<int n>
+	template<int N>
+		requires(N != 0)
 	constexpr int& get()
 	{
 		return n;
@@ -324,13 +366,15 @@ struct vec4a
 
 	vec3a vec3v;
 	int n;
+
 	template<int n>
 	constexpr vec3a& get()
 	{
 		return vec3v;
 	}
 
-	template<int n>
+	template<int N>
+		requires(N != 0)
 	constexpr int& get()
 	{
 		return n;
@@ -368,7 +412,22 @@ int main()
 
 	vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
 
-	N_Tuple::Apply(&Expand_zip_test, vec4_test);
+	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
+	
+	//using u= N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<Array<Array<int, 3>, 2>>, tuple_t<Array<int, 3>, Array<float, 3>>>::type::request;
+	//TYPE_ID(u);
+	Array ary_0(1, 3, 5);
+
+	//Array ary_1(1.0f, 3, 5);
+
+	//Array ary_2(ary_0,ary_1,ary_0);
+
+	
+
+	//Array ary_1(1, 3, 5);
+
+
+
 
 	//N_Tuple::Apply(&Expand_zip_testa, 1,2,3,4);
 
@@ -377,7 +436,6 @@ int main()
 
 	//TYPE_ID(req::type);
 	//TYPE_ID(req::next::type);
-	C_OUT(n);
 	//Hogegege(&np);
 	//return 0;
 	//C_OUT(nn[0]);

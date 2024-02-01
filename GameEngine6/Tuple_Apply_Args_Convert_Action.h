@@ -1,11 +1,9 @@
 #pragma once
 
-#include"iostream"
 #include"Tuple_Declare.h"
 
 namespace N_Tuple::N_Apply
 {
-
 
 	template<class T_Expand, size_t t_point>
 	struct S_Conversion_Expand
@@ -66,11 +64,11 @@ namespace N_Tuple::N_Apply
 			template<class T_Types_Tuple>
 			using select_type_expand = N_Tuple::U_Insert_tuple_expand<
 				typename T_Types_Tuple::remove,
-				U_Reverse<expand<typename T_Types_Tuple::type>>>;
+				expand<typename T_Types_Tuple::type>>;
 
 			using convert_order=T_Args_Expand_Order_List::type;
 
-			using expand_type_select = U_Select<T_Args_Types_list::size - convert_order::point - 1, T_Args_Types_list>;
+			using expand_type_select = U_Select<T_Args_Types_list::size - convert_order::point-1, T_Args_Types_list>;
 
 			template<class T_expand_Numbers = U_index_sequence<convert_order::expand_size>,
 				class T_Expand_Type_Select = expand_type_select>
@@ -95,7 +93,7 @@ namespace N_Tuple::N_Apply
 				tuple_tp<tuple_t<T_Flont_Args_Types...>, T_Args, tuple_t<T_Back_Args_Types...>> >
 			{
 				using type = I_Args_Expand<
-					select_type_expand<expand_type_select> ,
+					select_type_expand<expand_type_select>,
 					typename T_Args_Expand_Order_List::remove>::type;
 
 				template<size_t t_select_number>
@@ -113,24 +111,28 @@ namespace N_Tuple::N_Apply
 				////[change_args]の[t_select_number]番目の変数を参照で取得する
 				//template<size_t t_select_number>
 				//	requires is_reference<select_type<t_select_number>>
-				//static constexpr auto& get(T_Args change_args)
+				//static constexpr auto& get(auto change_args)
 				//{
 				//	return std::get<t_select_number>(change_args);
 				//}
-				//
-				////仕様
-				////[change_args]の[t_select_number]番目の変数をポインターで取得する
-				//template<size_t t_select_number>
-				//	requires is_pointer<select_type<t_select_number>>
-				//static constexpr auto* get(T_Args change_args)
-				//{
-				//	return &std::get<t_select_number>(change_args);
-				//}
+				
+				//仕様
+				//[change_args]の[t_select_number]番目の変数をポインターで取得する
+				template<size_t t_select_number>
+					requires is_pointer<select_type<t_select_number>>
+				static constexpr auto* get(auto change_args)
+				{
+					return &std::get<t_select_number>(change_args);
+				}
+
+				using test = tuple_tp<tuple_t<T_Flont_Args_Types...>, T_Args, tuple_t< T_Back_Args_Types...>>;
+
+				using N = tuple_v<T_Args_Types_list::size, convert_order::point>;
 
 				static constexpr auto Apply(auto* fn,
 					T_Flont_Args_Types&&... front_args,
 					T_Args&& args,
-					T_Back_Args_Types&&...back_args)
+					T_Back_Args_Types&&... back_args)
 				{
 					return type::Apply(fn,
 						std::forward<T_Flont_Args_Types>(front_args)...,
@@ -174,6 +176,8 @@ namespace N_Tuple::N_Apply
 
 					using rest_order_part = T_Args_Zip_Order_List;
 
+					using test = first_order_part;
+
 				};
 				
 				template<class T_Front_Args_Zip_Order, class ...T_Args_Zip_Order, size_t t_end_back_args_point, class ...T_Division_Args_Zip_Order>
@@ -183,17 +187,35 @@ namespace N_Tuple::N_Apply
 				}
 				struct S_Zip_Order_Part_Division<tuple_t<T_Front_Args_Zip_Order,T_Args_Zip_Order...>, t_end_back_args_point, T_Division_Args_Zip_Order...>
 				{
-					using type = S_Zip_Order_Part_Division<tuple_t< T_Args_Zip_Order...>, t_end_back_args_point+ T_Front_Args_Zip_Order::zip_size -1, T_Front_Args_Zip_Order ,T_Division_Args_Zip_Order...>::type;
+					using type = S_Zip_Order_Part_Division<tuple_t<	T_Args_Zip_Order...>, 
+						t_end_back_args_point+ T_Front_Args_Zip_Order::zip_size -1, 
+						T_Front_Args_Zip_Order,
+						T_Division_Args_Zip_Order...>::type;
+
+					using test = S_Zip_Order_Part_Division<tuple_t<	T_Args_Zip_Order...>,
+						t_end_back_args_point + T_Front_Args_Zip_Order::zip_size - 1,
+						T_Front_Args_Zip_Order,
+						T_Division_Args_Zip_Order...>::test;
 				};
 
 				using zip_order = T_Args_Zip_Order_List::type;
 
 				using type = S_Zip_Order_Part_Division<typename T_Args_Zip_Order_List::remove,
-					zip_order::point + zip_order::zip_size - 1,zip_order>::type;
+					zip_order::point + zip_order::zip_size ,zip_order>::type;
+
+
+				using test = 
+					
+					//tuple_v< zip_order::point, zip_order::zip_size, zip_order::point + zip_order::zip_size >;
+					
+					S_Zip_Order_Part_Division<typename T_Args_Zip_Order_List::remove,
+					zip_order::point + zip_order::zip_size , zip_order>::test;
 
 			};
 
-			template<class T_First_Order_Part=typename I_Zip_Order_Part_Division<>::type::first_order_part>
+			template<
+				class T_Args_Types_list=T_Args_Types_list,
+				class T_First_Order_Part=typename I_Zip_Order_Part_Division<>::type::first_order_part>
 			struct S_Args_Zip
 			{
 
@@ -201,15 +223,24 @@ namespace N_Tuple::N_Apply
 
 				template<
 					class T_Flont_Args_Number = U_index_sequence<T_Args_Types_list::size - (first_order::point + first_order::zip_size)>,
-					class T_Zip_Args = typename S_Parameter<typename first_order::type>::tuple>
+					class T_Zip_Args = typename S_Parameter<typename first_order::type>::tuple,
+					class T_Back_Args_Number= U_Calculate_plus<U_index_sequence<first_order::point>,T_Args_Types_list::size- first_order::point>
+				>
 				struct S_Args_Zip_Core;
 
 				template<size_t ...t_Flont_Args_Number,
-						 class ...T_Zip_Args>
-				struct S_Args_Zip_Core<tuple_v<t_Flont_Args_Number...>,tuple_t<T_Zip_Args...>>
+						 class ...T_Zip_Args,
+						size_t ...t_Back_Args_Number>
+				struct S_Args_Zip_Core<tuple_v<t_Flont_Args_Number...>,tuple_t<T_Zip_Args...>,tuple_v<t_Back_Args_Number...>>
 				{
 
-					using type = S_Args_Zip<typename T_First_Order_Part::remove>::type;
+					using type = S_Args_Zip<
+						tuple_t<
+						U_Element_t<t_Flont_Args_Number, T_Args_Types_list>...,
+						typename first_order::type,
+						U_Element_t<t_Back_Args_Number, T_Args_Types_list>...>,
+						typename T_First_Order_Part::remove>::type;
+
 
 					//仕様
 					//[T_Request_Type]型を[args...]から作り、そのポインターを返す
@@ -218,46 +249,65 @@ namespace N_Tuple::N_Apply
 					//ここで生成される変数は、変数[args...]を元に生成されるだけであり、変数に[&][*]が付与されていた場合も、
 					// 生成するクラス内で個別に置換しない場合、生成されるクラスから、変数[args...]にはアクセスされない。
 					//[T_Request_Type]型を[args...]から作り、そのポインターを返す
-					template<class ...T_Back_Args>
+					template<class T_Order_Type= typename first_order::type>
 						requires requires
 					{
-						requires is_pointer<typename first_order::type>;
+						requires is_pointer<T_Order_Type>;
 					}
 					static constexpr auto Apply(auto* fn,
 						U_Element_t<t_Flont_Args_Number,T_Args_Types_list>&&... front_args,
 						T_Zip_Args&&... zip_args,
-						T_Back_Args&&... back_args)
+						U_Element_t<t_Back_Args_Number, T_Args_Types_list>&&... back_args)
 					{
+
+
 						//ポインターを返す為の一時オブジェクト
 						std::remove_pointer_t<typename first_order::type> temp(std::forward<T_Zip_Args>(zip_args)...);
 
 						return type::Apply(fn,
 							std::forward<U_Element_t<t_Flont_Args_Number, T_Args_Types_list>>(front_args)...,
 							&temp,
-							std::forward<T_Back_Args>(back_args)...);
+							std::forward<U_Element_t<t_Back_Args_Number, T_Args_Types_list>>(back_args)...);
 					}
 
 
 					//仕様
-					//[T_Request_Type]型を[args...]から作り、その実体を返す
+					//[T_Request_Type]型を[args...]から作り、その参照を返す
 					//
 					//補足
 					//ここで生成される変数は、変数[args...]を元に生成されるだけであり、変数に[&][*]が付与されていた場合も、
 					// 生成するクラス内で個別に置換しない場合、生成されるクラスから、変数[args...]にはアクセスされない。
 					//[T_Request_Type]型を[args...]から作り、その実体を返す
-					template<class ...T_Back_Args>
+					template<class T_Order_Type = typename first_order::type>
+						requires requires
+					{
+						requires is_reference<T_Order_Type>;
+					}
 					static constexpr auto Apply(auto* fn,
 						U_Element_t<t_Flont_Args_Number, T_Args_Types_list>&&... front_args,
 						T_Zip_Args&&... zip_args,
-						T_Back_Args&&... back_args)
+						U_Element_t<t_Back_Args_Number, T_Args_Types_list>&&... back_args)
 					{
-						//実体を返す為の一時オブジェクト
-						std::remove_reference_t<typename first_order::type> temp(std::forward<T_Zip_Args>(zip_args)...);
+						//参照を返す為の一時オブジェクト
+						std::remove_pointer_t<typename first_order::type> temp(std::forward<T_Zip_Args>(zip_args)...);
 
 						return type::Apply(fn,
 							std::forward<U_Element_t<t_Flont_Args_Number, T_Args_Types_list>>(front_args)...,
-							temp,
-							std::forward<T_Back_Args>(back_args)...);
+							&temp,
+							std::forward<U_Element_t<t_Back_Args_Number, T_Args_Types_list>>(back_args)...);
+					}
+
+					//仕様
+					//[T_Request_Type]型を[args...]から作り、その実体を返す
+					static constexpr auto Apply(auto* fn,
+						U_Element_t<t_Flont_Args_Number, T_Args_Types_list>&&... front_args,
+						T_Zip_Args&&... zip_args,
+						U_Element_t<t_Back_Args_Number, T_Args_Types_list>&&... back_args)
+					{
+						return type::Apply(fn,
+							std::forward<U_Element_t<t_Flont_Args_Number, T_Args_Types_list>>(front_args)...,
+							typename first_order::type(std::forward<T_Zip_Args>(zip_args)...),
+							std::forward<U_Element_t<t_Back_Args_Number, T_Args_Types_list>>(back_args)...);
 					}
 
 
@@ -267,8 +317,8 @@ namespace N_Tuple::N_Apply
 
 			};
 
-			template<>
-			struct S_Args_Zip<tuple_t<>>
+			template<class T_Args_Types_list>
+			struct S_Args_Zip<T_Args_Types_list,tuple_t<>>
 			{
 				using type = I_Args_Zip<T_Args_Types_list, typename I_Zip_Order_Part_Division<>::type::rest_order_part>::type;
 			};
@@ -287,7 +337,6 @@ namespace N_Tuple::N_Apply
 			{
 				return fn->Apply(std::forward<T_Args>(args)...);
 			}
-
 
 		};
 

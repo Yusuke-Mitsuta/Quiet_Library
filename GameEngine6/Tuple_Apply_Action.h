@@ -2,11 +2,9 @@
 
 #include"Tuple_Declare.h"
 #include"Tuple_Apply_Type.h"
-#include"Tuple_Apply_Fn.h"
-#include"Tuple_Apply_Array_Set.h"
-#include"Tuple_Apply_Request.h"
-#include"Tuple_Apply_Class_Create.h"
+#include"Tuple_Apply_Type_Chack.h"
 #include"Tuple_Apply_Args_Convert_Action.h"
+
 
 #include"main.h"
 

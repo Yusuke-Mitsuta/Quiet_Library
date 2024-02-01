@@ -1,12 +1,10 @@
 #pragma once
 
 #include"Tuple_Declare.h"
-#include"Tuple_Apply_Type.h"
 #include"Tuple_Apply_Action.h"
 
 namespace N_Tuple
 {
-
 
 	//d—l
 	//ŠÖ”[fn]‚É‘Î‚µ‚ÄA

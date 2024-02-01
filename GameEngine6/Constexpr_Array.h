@@ -20,7 +20,7 @@ namespace N_Array
 
 	template<class T_Base_Type, class ...T_Args>
 	using args_chack = typename
-		N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, 99>,
+		N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, 9>,
 		tuple_t<T_Args...>>::type;
 
 }
