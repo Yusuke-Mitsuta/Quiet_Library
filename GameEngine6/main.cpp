@@ -414,13 +414,14 @@ int main()
 
 	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	
-	//using u= N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<Array<Array<int, 3>, 2>>, tuple_t<Array<int, 3>, Array<float, 3>>>::type::request;
-	//TYPE_ID(u);
 	Array ary_0(1, 3, 5);
 
-	//Array ary_1(1.0f, 3, 5);
+	Array ary_1(1.0f, 3, 5);
 
-	//Array ary_2(ary_0,ary_1,ary_0);
+	using u= N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<int, int, int, int>, tuple_t<int, Array<int, 3>>>::type::request;
+	TYPE_ID(u);
+	
+	Array ary_2(3,ary_0);
 
 	
 

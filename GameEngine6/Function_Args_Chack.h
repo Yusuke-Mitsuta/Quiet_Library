@@ -33,7 +33,7 @@ namespace N_Function
 	{
 	public:
 
-		using type = N_Tuple::N_Apply::I_Apply_Type_Chack<T_Request_Args, T_Bind_Args>::type::request;
+		using type = typename N_Tuple::N_Apply::I_Apply_Type_Chack<T_Request_Args, T_Bind_Args>::type::request;
 
 	};
 
