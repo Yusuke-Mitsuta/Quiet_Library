@@ -39,16 +39,16 @@ public:
 
 	using tuple = N_Tuple::U_Repeat_Multiple<_Ty1, N>;
 
-	//template<convertible_to<_Ty1> ..._Ty2>
-	//	requires (sizeof...(_Ty2) <= N)
-	//constexpr Array(_Ty2 ...ts) :
-	//	elems({static_cast<_Ty1>(ts)...})
-	//{}
+	template<convertible_to<_Ty1> ..._Ty2>
+		requires (sizeof...(_Ty2) <= N)
+	constexpr Array(_Ty2 ...ts) :
+		elems({static_cast<_Ty1>(ts)...})
+	{}
 
 	template<class _Ty2, class ..._Ty3>
 
-		//requires is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::type>&&
-		//convertible_to_nand<_Ty1, _Ty2...>
+		requires is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::type>&&
+		convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 		constexpr Array(_Ty2 t, _Ty3 ...ts) 
 			//:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
 		{}
@@ -74,7 +74,7 @@ Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, N_Array::args_chack<_Ty2, _Ty2, _Ty3...>:
 
 template<class _Ty2, class ..._Ty3>
 	requires is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>> 
-	&& convertible_to_nand<_Ty2, _Ty2, _Ty3...>
+	&& convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
 
 
