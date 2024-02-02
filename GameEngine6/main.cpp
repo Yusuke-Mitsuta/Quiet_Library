@@ -421,15 +421,12 @@ int main()
 
 	Array ary_1(1.0f, 3, 5);
 
-	auto ary= N_Tuple::Apply<Array<Array<int, 3>, 2>>(ary_0, 1, 3, 4);
+	auto ary= N_Tuple::Apply<Array<Array<int, 3>, 2>>(ary_0, 1,2, 3);
 
 	H::Static_Args_88(ary[0][0],ary[0][1],ary[0][2]);
 
 	//Array ary_2(ary_0, 1,2,3);
 
-	using b = std::bool_constant<convertible_to<Array<int, 3>, int>>::type;
-
-	using b = std::bool_constant<convertible_to<int, Array<int, 3>>>::type;
 
 	//using u = N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<decltype(ary_0), decltype(ary_0), decltype(ary_0), decltype(ary_0)>, tuple_t<decltype(ary_0), int, int, int>>;
 	//TYPE_ID(u);

@@ -37,6 +37,7 @@ template<class _Ty1, size_t N>
 class Array
 {
 	std::array<_Ty1, N> elems;
+
 public:
 
 	using tuple = N_Tuple::U_Repeat_Multiple<_Ty1, N>;

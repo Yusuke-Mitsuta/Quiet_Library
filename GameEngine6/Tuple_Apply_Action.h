@@ -49,14 +49,15 @@ namespace N_Tuple
 
 		using chack = N_Apply::I_Apply_Type_Chack<
 			typename request::args,
-			tuple_t<T_Set_Types...>>::type;
+			tuple_t<T_Set_Types...>>::type::request;
 
 		using apply = N_Apply::I_Args_Convert_Action<typename request::args,
 			tuple_t<T_Set_Types...>>::type;
 
 	public:
 
-		using type = chack;
+		using type =std::bool_constant< N_Tuple::is_Tuple_t<chack>&& 
+				is_invalid<typename chack::type>>;
 
 		//仕様
 		//型[fn]に対して、要求するに[args...] を一対多、多対一の変換を行い、
@@ -67,7 +68,6 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Args&&... args)
 		{
 			N_Apply::S_Class_Create<T_Create_class> fn_action = {};
-			TYPE_ID(tuple_t<T_Args...>);
 			return apply::Apply(&fn_action, std::forward<T_Args>(args)...);
 		}
 
