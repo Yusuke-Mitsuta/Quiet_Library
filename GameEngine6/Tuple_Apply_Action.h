@@ -67,6 +67,7 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Args&&... args)
 		{
 			N_Apply::S_Class_Create<T_Create_class> fn_action = {};
+			TYPE_ID(tuple_t<T_Args...>);
 			return apply::Apply(&fn_action, std::forward<T_Args>(args)...);
 		}
 

@@ -62,8 +62,7 @@ namespace N_Tuple::N_Apply
 			class ...T_Conversion_Zip>
 			requires requires
 		{
-			requires is_invalid_not<typename T_Request_Types_Tuple::type>;
-			requires is_invalid_not<typename T_Set_Types_Tuple::type>;
+			requires is_invalid_nor<typename T_Request_Types_Tuple::type,typename T_Set_Types_Tuple::type>;
 		}
 		struct S_Apply_Type_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, 
 			tuple_t<T_Conversion_Expand...>,
@@ -115,7 +114,7 @@ namespace N_Tuple::N_Apply
 			struct S_Apply_Control
 			{
 				//エラーの場合は無効値を返す
-				using type = S_Result<>;
+				using type = S_Result<int>;
 			};
 
 			//仕様

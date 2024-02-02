@@ -4,6 +4,8 @@
 #include"Tuple.h"
 #include"Function_Args_Chack.h"
 
+#define ARRAY_MAX_SIZE 9
+
 namespace N_Tuple
 {
 	template<class T, size_t N>
@@ -20,7 +22,7 @@ namespace N_Array
 
 	template<class T_Base_Type, class ...T_Args>
 	using args_chack = typename
-		N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, 9>,
+		N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, ARRAY_MAX_SIZE>,
 		tuple_t<T_Args...>>::type;
 
 }
@@ -40,17 +42,17 @@ public:
 	using tuple = N_Tuple::U_Repeat_Multiple<_Ty1, N>;
 
 	template<convertible_to<_Ty1> ..._Ty2>
-		requires (sizeof...(_Ty2) <= N)
+		requires (sizeof...(_Ty2) == N)
 	constexpr Array(_Ty2 ...ts) :
 		elems({static_cast<_Ty1>(ts)...})
 	{}
 
 	template<class _Ty2, class ..._Ty3>
 
-		requires is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::type>&&
+		requires is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2, _Ty3...>::type>&&
 		convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 		constexpr Array(_Ty2 t, _Ty3 ...ts) 
-			//:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
+			:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
 		{}
 
 	//Žd—l
@@ -70,12 +72,12 @@ public:
 
 
 template<class _Ty2, convertible_to<_Ty2>..._Ty3>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
+Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,  N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
 
 template<class _Ty2, class ..._Ty3>
-	requires is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>> 
-	&& convertible_from_nand<_Ty2, _Ty2, _Ty3...>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
+	requires //is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>> && 
+convertible_from_nand<_Ty2, _Ty2, _Ty3...>
+Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,  N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
 
 
 

@@ -399,10 +399,11 @@ void Expand_zip_test(int n1,int n2,int n3,int n4)
 	H::Static_Args_88(n1, n2, n3, n4);
 }
 
+
+
+
 int main()
 {
-
-
 
 	int n = 3;
 
@@ -410,20 +411,30 @@ int main()
 
 	int nr = *np;
 
+
 	vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
 
-	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
+	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	
 	Array ary_0(1, 3, 5);
 
 
 	Array ary_1(1.0f, 3, 5);
 
+	auto ary= N_Tuple::Apply<Array<Array<int, 3>, 2>>(ary_0, 1, 3, 4);
 
-	using u= N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<int, int, int, int>, tuple_t<int, Array<int, 3>>>::type::request;
-	TYPE_ID(u);
-	
-	Array ary_2(ary_0,ary_1);
+	H::Static_Args_88(ary[0][0],ary[0][1],ary[0][2]);
+
+	//Array ary_2(ary_0, 1,2,3);
+
+	using b = std::bool_constant<convertible_to<Array<int, 3>, int>>::type;
+
+	using b = std::bool_constant<convertible_to<int, Array<int, 3>>>::type;
+
+	//using u = N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<decltype(ary_0), decltype(ary_0), decltype(ary_0), decltype(ary_0)>, tuple_t<decltype(ary_0), int, int, int>>;
+	//TYPE_ID(u);
+	//type_id(ary_2);
+	//Array ary_2(ary_0,ary_1);
 
 
 	//using t=std::bool_constant<convertible_to<decltype(ary_0), decltype(ary_1)>>::
