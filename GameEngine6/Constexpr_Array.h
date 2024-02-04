@@ -20,10 +20,10 @@ namespace N_Tuple
 namespace N_Array
 {
 
-	//template<class T_Base_Type, class ...T_Args>
-//	using args_chack = typename
-	//	N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, 9>,
-		//tuple_t<T_Args...>>::type;
+	template<class T_Base_Type, class ...T_Args>
+	using args_chack = typename
+		N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, 9>,
+		tuple_t<T_Args...>>::type;
 }
 
 
@@ -59,7 +59,7 @@ public:
 
 	template<class _Ty2, class ..._Ty3>
 
-		requires same_as<_Ty2, Array<int, 3>>
+		//requires same_as<_Ty2, Array<int, 3>>
 		//requires 
 	//is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2, _Ty3...>::type>&&
 		//convertible_from_nand<_Ty2, _Ty2, _Ty3...>
@@ -89,12 +89,10 @@ public:
 //Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,  N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
 
 template<class _Ty2, class ..._Ty3>
-	requires 
+	//requires 
 //is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>> &&
-convertible_from_nand<_Ty2, _Ty2, _Ty3...>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,
-	3
-	//N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size
+//convertible_from_nand<_Ty2, _Ty2, _Ty3...>
+Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size-1
 >;
 
 

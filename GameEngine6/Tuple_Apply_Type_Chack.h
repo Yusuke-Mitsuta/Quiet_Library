@@ -51,10 +51,11 @@ namespace N_Tuple::N_Apply
 			class T_Conversion_Expand_List = tuple_t<>,
 			class T_Conversion_Zip_List=tuple_t<>
 		>
-			struct S_Apply_Type_Chack
+		struct S_Apply_Type_Chack
 		{
 			using type = S_Result<typename T_Request_Types_Tuple::reverse, T_Conversion_Expand_List, T_Conversion_Zip_List>;
 		};
+
 
 		template<class T_Request_Types_Tuple,
 			class T_Set_Types_Tuple,
@@ -77,16 +78,6 @@ namespace N_Tuple::N_Apply
 			//仕様
 			//供給する型リストが選択している型
 			using set_t = T_Set_Types_Tuple::type;
-
-			//仕様
-			//供給する型を展開した履歴
-			template<class ...T_Add>
-			using expand_list = tuple_t<T_Conversion_Expand...,T_Add...>;
-
-			//仕様
-			//要求する型を展開した履歴
-			template<class ...T_Add>
-			using zip_list = tuple_t<T_Conversion_Zip..., T_Add...>;
 
 			//仕様
 			//互換性のある型に展開する
@@ -115,7 +106,10 @@ namespace N_Tuple::N_Apply
 			struct S_Apply_Control
 			{
 				//エラーの場合は無効値を返す
-				using type = S_Result<>;
+				//using type = S_Result<>;
+
+				using type = S_Result<typename T_Request_Types_Tuple::reverse, tuple_t<T_Conversion_Expand...>, tuple_t<T_Conversion_Zip...>
+				>;
 			};
 
 			//仕様
@@ -127,7 +121,9 @@ namespace N_Tuple::N_Apply
 				using type = S_Apply_Type_Chack<
 					typename T_Request_Types_Tuple::remove,
 					typename T_Set_Types_Tuple::remove,
-					expand_list<>,zip_list<>>::type;
+					tuple_t<T_Conversion_Expand...>,
+					tuple_t<T_Conversion_Zip...>
+				>::type;
 
 			};
 
@@ -142,8 +138,9 @@ namespace N_Tuple::N_Apply
 				using type = S_Apply_Type_Chack<
 					T_Request_Types_Tuple,
 					select_type_expand<T_Set_Types_Tuple>,
-					expand_list<S_Conversion_Expand<set_t,T_Set_Types_Tuple::head_size>>,
-					zip_list<>
+					tuple_t<T_Conversion_Expand...,
+						S_Conversion_Expand<set_t,T_Set_Types_Tuple::head_size>>,
+					tuple_t<T_Conversion_Zip...>
 					>::type;
 
 			};
@@ -159,8 +156,8 @@ namespace N_Tuple::N_Apply
 					S_Apply_Type_Chack<
 					select_type_expand<T_Request_Types_Tuple>,
 					T_Set_Types_Tuple,
-					expand_list<>,
-					zip_list<S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
+					tuple_t<T_Conversion_Expand...>,
+					tuple_t<T_Conversion_Zip...,S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
 					>::type;
 			};
 

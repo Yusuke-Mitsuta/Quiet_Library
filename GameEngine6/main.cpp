@@ -394,7 +394,7 @@ void Expand_zip_testa(vec4 vec)
 }
 
 
-void Expand_zip_test(int&& n1,auto&& n2,int n3,int n4)
+void Expand_zip_test(int n1,int n2,int n3,int n4)
 {
 	H::Static_Args_88(n1, n2, n3, n4);
 }
@@ -404,14 +404,8 @@ void Expand_zip_test(int&& n1,auto&& n2,int n3,int n4)
 
 int main()
 {
-	float f = 2.0f;
-	
-
 
 	int n = 3;
-
-	Expand_zip_test(f, n, 5.0f, 6.0f);
-
 
 	int* np = &n;
 
@@ -428,11 +422,13 @@ int main()
 	Array<float,3> ary_1(1.0f, 3.0f, 5.0f);
 
 	
-	//Array ary_2(ary_0, ary_1);
+	convertible_from_C<Array<int,4> , Array<float,5>>::
+	//Array ary_2(ary_0,ary_1);
 	
-	
+	//using na=tuple_v>
 
-//using na = N_Tuple::N_Apply::I_Apply_Type_Chack<N_Tuple::U_Repeat_Multiple<decltype(ary_0), 10>, tuple_t<decltype(ary_0), decltype(ary_1)>>::type::request;
+	//using na = N_Tuple::N_Apply::I_Apply_Type_Chack<N_Tuple::U_Repeat_Multiple<decltype(ary_0),5 >,
+		//tuple_t<decltype(ary_0), decltype(ary_1)> >::type::conversion_expand_list;
 
 		//N_Array::args_chack<decltype(ary_0), decltype(ary_0), decltype(ary_1), decltype(ary_0)>;
 

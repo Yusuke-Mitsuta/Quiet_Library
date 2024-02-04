@@ -175,7 +175,7 @@ namespace N_Tuple::N_Apply
 				{
 					requires T_Front_Args_Zip_Order::point < t_end_back_args_point;
 				}
-					struct S_Zip_Order_Part_Division<tuple_t<T_Front_Args_Zip_Order, T_Args_Zip_Order...>, t_end_back_args_point, T_Division_Args_Zip_Order...>
+				struct S_Zip_Order_Part_Division<tuple_t<T_Front_Args_Zip_Order, T_Args_Zip_Order...>, t_end_back_args_point, T_Division_Args_Zip_Order...>
 				{
 					using type = S_Zip_Order_Part_Division<tuple_t<	T_Args_Zip_Order...>,
 						t_end_back_args_point + T_Front_Args_Zip_Order::zip_size - 1,
