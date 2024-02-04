@@ -420,6 +420,9 @@
     <ClInclude Include="Tuple_Apply_Type_Chack.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple_Apply_Args_Convert_Action.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

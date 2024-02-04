@@ -20,11 +20,10 @@ namespace N_Tuple
 namespace N_Array
 {
 
-	template<class T_Base_Type, class ...T_Args>
-	using args_chack = typename
-		N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, ARRAY_MAX_SIZE>,
-		tuple_t<T_Args...>>::type;
-
+	//template<class T_Base_Type, class ...T_Args>
+//	using args_chack = typename
+	//	N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, 9>,
+		//tuple_t<T_Args...>>::type;
 }
 
 
@@ -42,19 +41,33 @@ public:
 
 	using tuple = N_Tuple::U_Repeat_Multiple<_Ty1, N>;
 
-	template<convertible_to<_Ty1> ..._Ty2>
-		requires (sizeof...(_Ty2) == N)
+	//template<convertible_to<_Ty1> ..._Ty2>
+	//	requires (sizeof...(_Ty2) == N) 
+	//constexpr Array(_Ty2 ...ts) :
+	//	elems({static_cast<_Ty1>(ts)...})
+	//{}
+	template<same_as<int> ..._Ty2>
+		requires (sizeof...(_Ty2) == N) 
+	constexpr Array(_Ty2 ...ts) :
+		elems({static_cast<_Ty1>(ts)...})
+	{}
+	template<same_as<float> ..._Ty2>
+		requires (sizeof...(_Ty2) == N) 
 	constexpr Array(_Ty2 ...ts) :
 		elems({static_cast<_Ty1>(ts)...})
 	{}
 
 	template<class _Ty2, class ..._Ty3>
 
-		requires is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2, _Ty3...>::type>&&
-		convertible_from_nand<_Ty2, _Ty2, _Ty3...>
+		requires same_as<_Ty2, Array<int, 3>>
+		//requires 
+	//is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2, _Ty3...>::type>&&
+		//convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 		constexpr Array(_Ty2 t, _Ty3 ...ts) 
 			:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
-		{}
+		{
+			//N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...);
+		}
 
 	//仕様
 	//配列のポインタを取得する
@@ -68,17 +81,21 @@ public:
 	//仕様
 	//[i]番目の配列の要素を参照で取得する
 	constexpr auto& operator[](size_t i);
-
+							
 };
 
 
-template<class _Ty2, convertible_to<_Ty2>..._Ty3>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,  N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
+//template<class _Ty2, convertible_to<_Ty2>..._Ty3>
+//Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,  N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
 
 template<class _Ty2, class ..._Ty3>
-	requires //is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>> && 
+	requires 
+//is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>> &&
 convertible_from_nand<_Ty2, _Ty2, _Ty3...>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,  N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
+Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,
+	3
+	//N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size
+>;
 
 
 

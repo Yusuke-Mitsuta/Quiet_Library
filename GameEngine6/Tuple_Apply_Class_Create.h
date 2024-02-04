@@ -17,7 +17,7 @@ namespace N_Tuple::N_Apply
 		template<class MT_Fn = T, class... T_Args>
 		constexpr auto Apply(T_Args&&... args)
 		{
-			return T {args... };
+			return T{args... };
 		}
 
 		//クラスのインスタンス生成
