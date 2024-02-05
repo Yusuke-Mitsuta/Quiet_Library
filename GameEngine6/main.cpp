@@ -421,8 +421,11 @@ int main()
 
 	Array<float,3> ary_1(1.0f, 3.0f, 5.0f);
 
+	Array ary_2(2,ary_0,ary_1);
 	
-	convertible_from_C<Array<int,4> , Array<float,5>>::
+	
+
+	//convertible_from_C<Array<int,4> , Array<float,5>>::
 	//Array ary_2(ary_0,ary_1);
 	
 	//using na=tuple_v>
@@ -441,8 +444,8 @@ int main()
 
 	//auto ary= N_Tuple::Apply<std::array<std::array<int, 3>,2>>(ary_0, ary_1);
 
-	//H::Static_Args_88(ary[0][0],ary[0][1],ary[0][2]);
-	//H::Static_Args_88(ary[1][0],ary[1][1],ary[1][2]);
+	H::Static_Args_88(ary_2[0][0],ary_2[0][1],ary_2[0][2]);
+	H::Static_Args_88(ary_2[1][0],ary_2[1][1],ary_2[1][2]);
 
 	//Array ary_2(ary_0, 1,2,3);
 

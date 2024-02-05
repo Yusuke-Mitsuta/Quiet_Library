@@ -6,7 +6,7 @@
 #include"Tuple_Apply_Array_Set.h"
 #include"Tuple_Apply_Request.h"
 #include"Tuple_Apply_Class_Create.h"
-
+#include"Tuple_Infinite.h"
 
 namespace N_Tuple::N_Apply
 {
@@ -106,10 +106,8 @@ namespace N_Tuple::N_Apply
 			struct S_Apply_Control
 			{
 				//エラーの場合は無効値を返す
-				//using type = S_Result<>;
+				using type = S_Result<>;
 
-				using type = S_Result<typename T_Request_Types_Tuple::reverse, tuple_t<T_Conversion_Expand...>, tuple_t<T_Conversion_Zip...>
-				>;
 			};
 
 			//仕様

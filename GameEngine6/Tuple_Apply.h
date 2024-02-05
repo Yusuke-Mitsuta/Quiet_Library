@@ -35,8 +35,7 @@ namespace N_Tuple
 	static constexpr auto Apply(T_Fn&& fn, auto* p, T_Args&&... args)
 	{
 		return I_Apply_Action<T_Fn, T_Args...>::Apply(
-			std::forward<T_Fn>(fn),
-			p,
+			std::forward<T_Fn>(fn),p,
 			std::forward<T_Args>(args)...);
 	}
 
@@ -86,8 +85,7 @@ namespace N_Tuple
 	}
 	static constexpr void Apply(T_Array(&array_ref)[N], T_Args&&... args)
 	{
-		I_Apply_Action<T_Array[N], T_Args...>::Apply(&array_ref,
-			std::forward<T_Args>(args)...);
+		I_Apply_Action<T_Array[N],T_Args...>::Apply(&array_ref,std::forward<T_Args>(args)...);
 	}
 
 	//Žd—l

@@ -173,9 +173,9 @@ namespace N_Tuple::N_Apply
 				template<class T_Front_Args_Zip_Order, class ...T_Args_Zip_Order, size_t t_end_back_args_point, class ...T_Division_Args_Zip_Order>
 				requires requires
 				{
-					requires T_Front_Args_Zip_Order::point < t_end_back_args_point;
+					requires T_Front_Args_Zip_Order::point <t_end_back_args_point;
 				}
-				struct S_Zip_Order_Part_Division<tuple_t<T_Front_Args_Zip_Order, T_Args_Zip_Order...>, t_end_back_args_point, T_Division_Args_Zip_Order...>
+				struct S_Zip_Order_Part_Division<tuple_t<T_Front_Args_Zip_Order,T_Args_Zip_Order...>, t_end_back_args_point, T_Division_Args_Zip_Order...>
 				{
 					using type = S_Zip_Order_Part_Division<tuple_t<	T_Args_Zip_Order...>,
 						t_end_back_args_point + T_Front_Args_Zip_Order::zip_size - 1,
@@ -187,8 +187,8 @@ namespace N_Tuple::N_Apply
 
 				using type = S_Zip_Order_Part_Division<typename T_Args_Zip_Order_List::remove,
 					zip_order::point + zip_order::zip_size, zip_order>::type;
-
 			};
+
 
 			template<
 				class T_Args_Types_list = T_Args_Types_list,
@@ -280,7 +280,7 @@ namespace N_Tuple::N_Apply
 					//[T_Request_Type]Œ^‚ð[args...]‚©‚çì‚èA‚»‚ÌŽÀ‘Ì‚ð•Ô‚·
 					static constexpr auto Apply(auto* fn,
 						U_Element_t<t_Flont_Args_Number, T_Args_Types_list>&&... front_args,
-						U_Element_t<t_Zip_Args_Number,T_Args_Types_list> &&... zip_args,
+						U_Element_t<t_Zip_Args_Number,T_Args_Types_list>&& ... zip_args,
 						U_Element_t<t_Back_Args_Number, T_Args_Types_list>&&... back_args)
 					{
 						return type::Apply(fn,

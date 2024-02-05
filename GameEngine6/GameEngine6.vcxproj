@@ -44,6 +44,7 @@
     <ClInclude Include="Tuple_Apply_Array_Set.h" />
     <ClInclude Include="Tuple_Apply_Fn.h" />
     <ClInclude Include="Tuple_Apply_Class_Create.h" />
+    <ClInclude Include="Tuple_Infinite.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Select_Type.h" />
     <ClInclude Include="Template_Calculate.h" />

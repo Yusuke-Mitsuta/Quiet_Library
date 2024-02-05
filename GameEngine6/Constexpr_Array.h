@@ -12,6 +12,8 @@ namespace N_Tuple
 	struct S_Parameter<std::array<T, N>> :
 		S_Parameter<U_Repeat_Multiple<T, N>>
 	{};
+
+	
 }
 
 
@@ -58,10 +60,8 @@ public:
 	{}
 
 	template<class _Ty2, class ..._Ty3>
-
-		//requires same_as<_Ty2, Array<int, 3>>
-		//requires 
-	//is_invalid_not<typename N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2, _Ty3...>::type>&&
+		requires (N_Tuple::U_Apply_chack<std::array<_Ty1, N>, _Ty2, _Ty3...>::value)
+		//&&
 		//convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 		constexpr Array(_Ty2 t, _Ty3 ...ts) 
 			:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
@@ -89,8 +89,8 @@ public:
 //Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,  N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size>;
 
 template<class _Ty2, class ..._Ty3>
-	//requires 
-//is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>> &&
+	requires is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>>
+// &&
 //convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::tail_size-1
 >;
