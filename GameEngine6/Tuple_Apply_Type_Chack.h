@@ -53,7 +53,7 @@ namespace N_Tuple::N_Apply
 		>
 		struct S_Apply_Type_Chack
 		{
-			using type = S_Result<typename T_Request_Types_Tuple::reverse, T_Conversion_Expand_List, T_Conversion_Zip_List>;
+			using type = S_Result<T_Request_Types_Tuple, T_Conversion_Expand_List, T_Conversion_Zip_List>;
 		};
 
 
@@ -63,8 +63,8 @@ namespace N_Tuple::N_Apply
 			class ...T_Conversion_Zip>
 			requires requires
 		{
-			requires is_invalid_not<typename T_Request_Types_Tuple::type>;
-			requires is_invalid_not<typename T_Set_Types_Tuple::type>;
+			requires same_as_not<tuple_t<>, T_Request_Types_Tuple>;
+			requires same_as_not<tuple_t<>, T_Set_Types_Tuple>;
 		}
 		struct S_Apply_Type_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple, 
 			tuple_t<T_Conversion_Expand...>,
@@ -91,7 +91,7 @@ namespace N_Tuple::N_Apply
 			template<class T_Types_Tuple>
 			using select_type_expand = N_Tuple::U_Insert_tuple_expand<
 				typename T_Types_Tuple::remove,
-				U_Reverse<expand<typename T_Types_Tuple::type>>>;
+				expand<typename T_Types_Tuple::type>>;
 
 
 			//仕様
@@ -106,7 +106,12 @@ namespace N_Tuple::N_Apply
 			struct S_Apply_Control
 			{
 				//エラーの場合は無効値を返す
-				using type = S_Result<>;
+				//using type = S_Result<>;
+				using true_result = S_Result<T_Request_Types_Tuple, tuple_t<T_Conversion_Expand...>, tuple_t<T_Conversion_Zip...>>;
+				using false_result = S_Result<>;
+
+
+				using type = U_if_t1<true_result, false_result, (T_Set_Types_Tuple::size == 0)>;
 
 			};
 
@@ -136,8 +141,7 @@ namespace N_Tuple::N_Apply
 				using type = S_Apply_Type_Chack<
 					T_Request_Types_Tuple,
 					select_type_expand<T_Set_Types_Tuple>,
-					tuple_t<T_Conversion_Expand...,
-						S_Conversion_Expand<set_t,T_Set_Types_Tuple::head_size>>,
+					tuple_t<S_Conversion_Expand<set_t, T_Set_Types_Tuple::size>,T_Conversion_Expand...>,
 					tuple_t<T_Conversion_Zip...>
 					>::type;
 
@@ -155,7 +159,8 @@ namespace N_Tuple::N_Apply
 					select_type_expand<T_Request_Types_Tuple>,
 					T_Set_Types_Tuple,
 					tuple_t<T_Conversion_Expand...>,
-					tuple_t<T_Conversion_Zip...,S_Conversion_Zip<request_t, T_Request_Types_Tuple::head_size>>
+					//tuple_t<T_Conversion_Zip...,S_Conversion_Zip<request_t, T_Request_Types_Tuple::size>>
+					tuple_t<S_Conversion_Zip<T_Request_Types_Tuple, T_Request_Types_Tuple::size>,T_Conversion_Zip...>
 					>::type;
 			};
 
@@ -166,12 +171,16 @@ namespace N_Tuple::N_Apply
 		//型の判定は後ろから実施する為、
 		//型リストの並びを反転する
 		using type = S_Apply_Type_Chack<
-			typename T_Request_Types_Tuple::reverse,
-			typename T_Set_Types_Tuple::reverse::create_p>::type;
+			T_Request_Types_Tuple,
+			T_Set_Types_Tuple>::type;
 
 		using conversion = type;
 
 	};
 
 
+
 }
+tuple_t< N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< Array<int, 3>, Array<int, 3> >, 2>,
+	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< Array<int, 3>, Array<int, 3>, Array<int, 3> >, 3>, 
+	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< std::array< Array<int, 3>, 3> >, 1> >

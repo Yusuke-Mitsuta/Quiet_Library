@@ -419,23 +419,31 @@ int main()
 	Array<int,3> ary_0(1, 3, 5);
 
 
-	Array<float,3> ary_1(1.0f, 3.0f, 5.0f);
+	Array ary_1(1.0f, 3.0f, 5.0f);
 
-	Array ary_2(2,ary_0,ary_1);
-	
-	
-
-	//convertible_from_C<Array<int,4> , Array<float,5>>::
 	//Array ary_2(ary_0,ary_1);
 	
-	//using na=tuple_v>
+	
 
-	//using na = N_Tuple::N_Apply::I_Apply_Type_Chack<N_Tuple::U_Repeat_Multiple<decltype(ary_0),5 >,
-		//tuple_t<decltype(ary_0), decltype(ary_1)> >::type::conversion_expand_list;
+	//convertible_from_C<Array<int,3> , int>::
+	//Array ary_2(ary_0,ary_1);
+	
+
+	using na = N_Tuple::N_Apply::I_Apply_Type_Chack<
+		tuple_t<std::array<decltype(ary_0),3>>,
+		//N_Tuple::U_Repeat_Multiple<decltype(ary_0), 5 >,
+		tuple_t<decltype(ary_0), decltype(ary_1)> >::type::conversion_zip_list;
+
+
+	using nb = N_Tuple::N_Apply::I_Apply_Type_Chack<
+		tuple_t<std::array<decltype(ary_0), 3>>,
+		//N_Tuple::U_Repeat_Multiple<decltype(ary_0), 5 >,
+		tuple_t<decltype(ary_0), decltype(ary_1)> >::type::request;
 
 		//N_Array::args_chack<decltype(ary_0), decltype(ary_0), decltype(ary_1), decltype(ary_0)>;
 
-	//TYPE_ID(na);
+	TYPE_ID(na);
+	TYPE_ID(nb);
 	//std::array<int, 3> ary_t = { 2, 4, 6 };
 	//H::Static_Args_88(std::get<0>(ary_t), std::get<1>(ary_t), std::get<2>(ary_t));
 
@@ -444,8 +452,8 @@ int main()
 
 	//auto ary= N_Tuple::Apply<std::array<std::array<int, 3>,2>>(ary_0, ary_1);
 
-	H::Static_Args_88(ary_2[0][0],ary_2[0][1],ary_2[0][2]);
-	H::Static_Args_88(ary_2[1][0],ary_2[1][1],ary_2[1][2]);
+	//H::Static_Args_88(ary_2[0][0],ary_2[0][1],ary_2[0][2]);
+	//H::Static_Args_88(ary_2[1][0],ary_2[1][1],ary_2[1][2]);
 
 	//Array ary_2(ary_0, 1,2,3);
 

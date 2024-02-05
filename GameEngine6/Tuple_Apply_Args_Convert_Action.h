@@ -68,7 +68,7 @@ namespace N_Tuple::N_Apply
 
 			using convert_order = T_Args_Expand_Order_List::type;
 
-			using expand_type_select = U_Select<T_Args_Types_list::size - convert_order::point - 1, T_Args_Types_list>;
+			using expand_type_select = U_Select<T_Args_Types_list::size - convert_order::point, T_Args_Types_list>;
 
 			template<class T_expand_Numbers = U_index_sequence<convert_order::expand_size>,
 				class T_Expand_Type_Select = expand_type_select>
@@ -166,8 +166,6 @@ namespace N_Tuple::N_Apply
 
 					using rest_order_part = T_Args_Zip_Order_List;
 
-					using test = first_order_part;
-
 				};
 
 				template<class T_Front_Args_Zip_Order, class ...T_Args_Zip_Order, size_t t_end_back_args_point, class ...T_Division_Args_Zip_Order>
@@ -199,12 +197,14 @@ namespace N_Tuple::N_Apply
 				using first_order = T_First_Order_Part::type;
 
 				template<
-					class T_Flont_Args_Number = U_index_sequence<T_Args_Types_list::size - (first_order::point + first_order::zip_size)>,
-					class T_Zip_Args_Numebr =U_Calculate_plus<U_index_sequence<first_order::zip_size>, T_Args_Types_list::size - (first_order::point + first_order::zip_size)>,
-					class T_Back_Args_Number = U_Calculate_plus<U_index_sequence<first_order::point>, T_Args_Types_list::size - first_order::point>,
+					class T_Flont_Args_Number = U_index_sequence<T_Args_Types_list::size - first_order::point>,
+					class T_Zip_Args_Numebr = U_Calculate_plus<U_index_sequence<first_order::zip_size>, T_Args_Types_list::size - first_order::point>,
+					class T_Back_Args_Number = U_Calculate_plus<U_index_sequence<first_order::point - first_order::zip_size>
+					, T_Args_Types_list::size - first_order::point + first_order::zip_size>,
 					class T_Zip_Args=typename S_Parameter<typename first_order::type>::tuple
 				>
 				struct S_Args_Zip_Core;
+
 
 				template<size_t ...t_Flont_Args_Number,
 					size_t ...t_Zip_Args_Number,

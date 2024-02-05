@@ -120,8 +120,8 @@ namespace N_Function
 				return data_storage_p->Action_Operator(
 					std::get<t_fn_access_number>(data_storage_p->data),
 					std::get<t_pointer_access_number>(data_storage_p->data)...,
-					std::forward<T_Args>(args)...,
-					std::get<t_args_access_number>(data_storage_p->data)...);
+					std::get<t_args_access_number>(data_storage_p->data)...,
+					std::forward<T_Args>(args)...);
 			}
 
 

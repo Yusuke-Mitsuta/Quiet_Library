@@ -20,6 +20,9 @@ namespace N_Tuple::N_Apply
 		template<class MT_Fn = T, class... T_Args>
 		constexpr auto Apply(T_Args&&... args)
 		{
+			TYPE_ID(T);
+			TYPE_ID(tuple_t< T_Request_Args...>);
+			TYPE_ID(tuple_t<T_Args...>);
 			return T{static_cast<T_Request_Args>(args)... };
 
 		}
