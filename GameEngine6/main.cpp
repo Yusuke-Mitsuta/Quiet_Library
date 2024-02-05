@@ -416,10 +416,12 @@ int main()
 
 	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	
-	Array<int,3> ary_0(1, 3, 5);
+	//Array<int,3> ary_0(1, 3, 5);
 
+	using ary_0t = Array<int, 3>;
+	using ary_1t = Array<float, 3>;
 
-	Array ary_1(1.0f, 3.0f, 5.0f);
+	//Array ary_1(1.0f, 3.0f, 5.0f);
 
 	//Array ary_2(ary_0,ary_1);
 	
@@ -429,105 +431,81 @@ int main()
 	//Array ary_2(ary_0,ary_1);
 	
 
+
 	using na = N_Tuple::N_Apply::I_Apply_Type_Chack<
-		tuple_t<std::array<decltype(ary_0),3>>,
+		tuple_t<std::array<ary_0t, 2>
+		//,std::array<ary_1t, 2>
+		>,
 		//N_Tuple::U_Repeat_Multiple<decltype(ary_0), 5 >,
-		tuple_t<decltype(ary_0), decltype(ary_1)> >::type::conversion_zip_list;
-
-
+		tuple_t<ary_0t, ary_1t
+		//, ary_1t, ary_0t
+		>
+	>::type::conversion_expand_list;
 	using nb = N_Tuple::N_Apply::I_Apply_Type_Chack<
-		tuple_t<std::array<decltype(ary_0), 3>>,
+		tuple_t<std::array<ary_0t, 2>
+		//,std::array<ary_1t, 2>
+		>,
 		//N_Tuple::U_Repeat_Multiple<decltype(ary_0), 5 >,
-		tuple_t<decltype(ary_0), decltype(ary_1)> >::type::request;
+		tuple_t<ary_0t, ary_1t
+		//, ary_1t, ary_0t
+		>
+	>::type::conversion_zip_list;
 
-		//N_Array::args_chack<decltype(ary_0), decltype(ary_0), decltype(ary_1), decltype(ary_0)>;
 
 	TYPE_ID(na);
 	TYPE_ID(nb);
-	//std::array<int, 3> ary_t = { 2, 4, 6 };
-	//H::Static_Args_88(std::get<0>(ary_t), std::get<1>(ary_t), std::get<2>(ary_t));
-
-	//using t=std::bool_constant<convertible_to<float&,int&>>::
-
-
-	//auto ary= N_Tuple::Apply<std::array<std::array<int, 3>,2>>(ary_0, ary_1);
-
-	//H::Static_Args_88(ary_2[0][0],ary_2[0][1],ary_2[0][2]);
-	//H::Static_Args_88(ary_2[1][0],ary_2[1][1],ary_2[1][2]);
-
-	//Array ary_2(ary_0, 1,2,3);
-
-
-	//using u = N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<std::array<std::array<int, 3>, 2>>, tuple_t<decltype(ary_0), int, int, int>>;
-	//TYPE_ID(u::type::request);
-	//TYPE_ID(u::type::conversion_expand_list);
-	//TYPE_ID(u::type::conversion_zip_list);
-	//type_id(ary_2);
-	//Array ary_2(ary_0,ary_1);
-
-
-	//using t=std::bool_constant<convertible_to<decltype(ary_0), decltype(ary_1)>>::
-
-	//Array ary_1(1, 3, 5);
-
-
-
-
-	//N_Tuple::Apply(&Expand_zip_testa, 1,2,3,4);
-
-	//using req = N_Tuple::N_Apply::I_Apply_Type_Chack <tuple_t<vec4>, 
-		//tuple_t<int,int,int,int>>::conversion::conversion_zip_list;
-
-	//TYPE_ID(req::type);
-	//TYPE_ID(req::next::type);
-	//Hogegege(&np);
-	//return 0;
-	//C_OUT(nn[0]);
-	//C_OUT(nn[1]);
-	//C_OUT(nn[2]);
-
-	//N_Tuple::Apply<std::array<int, 3>>
-
-	//Array ary(3, 4, 4, 9, 20);
-
-
-
-	//using 
-	
-	//r = N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<Array<int, 2>, 5>,
-
-		//tuple_t< Array<int, 2>, Array<int, 2>>>;
-
-//	TYPE_ID(r);
-
-	//fn(h, 4, 5);
-	//using t = N_Tuple::U_Repeat_Multiple<Array<int, 3>, 10>;
-	//TYPE_ID(t);
-
-
-	//Array ary0(3, 5,  9);
-
-	//Array ary1(0.3f, 4,3);
-	
-
-	//Array ary2(ary0, ary1,ary0);
-
-	////std::array<Array<int, 3>, 3> aaa;
-//
-	//H::Static_Args_88(
-	//	ary2[0][0],
-	//	ary2[0][1],
-	//	ary2[0][2],
-	//	ary2[1][0],
-	//	ary2[1][1],
-	//	ary2[1][2],
-	//	ary2[2][0],
-	//	ary2[2][1],
-	//	ary2[2][2]);
-
-//	N_Tuple::N_Apply::S_Select_Type<decltype(&H::Args_2)>::
-
 	_CrtDumpMemoryLeaks();
 	return 0;
+	size-(3-1)
+		12345
+		123 4 5
 
 }
+
+//tuple_t< 
+//	N_Tuple::N_Apply::S_Conversion_Zip< Array<int, 3>, 1>,
+//	N_Tuple::N_Apply::S_Conversion_Zip< Array<int, 3>, 2>,
+//	N_Tuple::N_Apply::S_Conversion_Zip< std::array< Array<int, 3>, 2>, 1> >
+//
+//	tuple_t<
+//	N_Tuple::N_Apply::S_Conversion_Expand<Array<int, 3>, 2>,
+//	N_Tuple::N_Apply::S_Conversion_Expand<Array<float, 3>, 1>>
+
+
+//tuple_t< N_Tuple::N_Apply::S_Conversion_Zip< Array<int, 3>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<float, 3>, 1>,
+//	N_Tuple::N_Apply::S_Conversion_Zip<Array<int, 3>, 2>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip<std::array< Array<int, 3>, 2>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<int, 3>, 1> >
+
+//tuple_t< N_Tuple::N_Apply::S_Conversion_Zip< Array<int, 3>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<float, 3>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< Array<int, 3>, 2>,
+//	N_Tuple::N_Apply::S_Conversion_Zip< std::array< Array<int, 3>, 2>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<int, 3>, 2> >
+//
+//tuple_t< 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<int, 3>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<float, 3>, 2>, 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<float, 3>, 3>, 
+//	N_Tuple::N_Apply::S_Conversion_Expand< Array<int, 3>, 4> >
+
+
+
+//tuple_t< 
+//			 N_Apply::S_Conversion_Zip< Array<float, 3>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< Array<float, 3>, 2>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< std::array< Array<float, 3>, 2>, 1>,
+//
+//	N_Tuple::N_Apply::S_Conversion_Zip< Array<int, 3>, 2>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< Array<int, 3>, 3>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< std::array< Array<int, 3>, 2>, 2> >
+
+
+//tuple_t< N_Tuple::N_Apply::S_Conversion_Zip< tuple_t<Array<float, 3>>, 1>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< Array<float, 3>, Array<float, 3> >, 2>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< std::array< Array<float, 3>, 2> >, 1>, 
+//
+//	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< Array<int, 3>, std::array< Array<float, 3>, 2> >, 2>,
+//	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< Array<int, 3>, Array<int, 3>, std::array< Array<float, 3>, 2> >, 3>, 
+//	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< std::array< Array<int, 3>, 2>, std::array< Array<float, 3>, 2> >, 2> >

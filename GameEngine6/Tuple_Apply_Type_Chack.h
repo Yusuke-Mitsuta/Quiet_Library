@@ -141,7 +141,7 @@ namespace N_Tuple::N_Apply
 				using type = S_Apply_Type_Chack<
 					T_Request_Types_Tuple,
 					select_type_expand<T_Set_Types_Tuple>,
-					tuple_t<S_Conversion_Expand<set_t, T_Set_Types_Tuple::size>,T_Conversion_Expand...>,
+					tuple_t<T_Conversion_Expand...,S_Conversion_Expand<set_t, T_Set_Types_Tuple::size>>,
 					tuple_t<T_Conversion_Zip...>
 					>::type;
 
@@ -159,8 +159,7 @@ namespace N_Tuple::N_Apply
 					select_type_expand<T_Request_Types_Tuple>,
 					T_Set_Types_Tuple,
 					tuple_t<T_Conversion_Expand...>,
-					//tuple_t<T_Conversion_Zip...,S_Conversion_Zip<request_t, T_Request_Types_Tuple::size>>
-					tuple_t<S_Conversion_Zip<T_Request_Types_Tuple, T_Request_Types_Tuple::size>,T_Conversion_Zip...>
+					tuple_t<S_Conversion_Zip<request_t, T_Request_Types_Tuple::size>,T_Conversion_Zip...>
 					>::type;
 			};
 
@@ -181,6 +180,3 @@ namespace N_Tuple::N_Apply
 
 
 }
-tuple_t< N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< Array<int, 3>, Array<int, 3> >, 2>,
-	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< Array<int, 3>, Array<int, 3>, Array<int, 3> >, 3>, 
-	N_Tuple::N_Apply::S_Conversion_Zip< tuple_t< std::array< Array<int, 3>, 3> >, 1> >

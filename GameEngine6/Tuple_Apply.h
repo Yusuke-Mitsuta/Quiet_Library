@@ -46,7 +46,7 @@ namespace N_Tuple
 	template<class T, class ...T_Args>
 		requires requires
 	{
-		requires N_Apply::is_apply_type<T, N_Apply::E_Type::CLASS>;
+		requires N_Apply::is_apply_type<T,N_Apply::E_Type::CLASS>;
 		requires U_Apply_chack<T, T_Args...>::value;
 	}
 	static constexpr auto Apply(T_Args&&... args)

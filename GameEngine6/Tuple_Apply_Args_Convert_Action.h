@@ -198,9 +198,9 @@ namespace N_Tuple::N_Apply
 
 				template<
 					class T_Flont_Args_Number = U_index_sequence<T_Args_Types_list::size - first_order::point>,
-					class T_Zip_Args_Numebr = U_Calculate_plus<U_index_sequence<first_order::zip_size>, T_Args_Types_list::size - first_order::point>,
-					class T_Back_Args_Number = U_Calculate_plus<U_index_sequence<first_order::point - first_order::zip_size>
-					, T_Args_Types_list::size - first_order::point + first_order::zip_size>,
+					class T_Zip_Args_Numebr = U_Calculate_plus<U_index_sequence<first_order::zip_size>, T_Args_Types_list::size - first_order::point - first_order::zip_size>,
+					class T_Back_Args_Number = U_Calculate_plus < U_index_sequence <first_order::point - 1>
+					, T_Args_Types_list::size - first_order::point>,
 					class T_Zip_Args=typename S_Parameter<typename first_order::type>::tuple
 				>
 				struct S_Args_Zip_Core;
@@ -319,8 +319,8 @@ namespace N_Tuple::N_Apply
 			}
 
 		};
-
-		using type = I_Args_Expand<>::type;
+		
+		using type = I_Args_Zip<>::type;
 
 	};
 
