@@ -23,6 +23,7 @@
     <ClInclude Include="Add_Origin.h" />
     <ClInclude Include="Add_Object.h" />
     <ClInclude Include="Add_Scene.h" />
+    <ClInclude Include="Output_Message.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Type_Chack.h" />
     <ClInclude Include="Args_Type.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Game_Engine.cpp" />
     <ClCompile Include="Game_Object.cpp" />
     <ClCompile Include="Get_Origin.cpp" />
+    <ClCompile Include="Output_Message.cpp" />
     <ClCompile Include="Time_Test.cpp" />
     <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="Link.cpp" />
