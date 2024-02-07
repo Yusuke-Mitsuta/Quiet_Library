@@ -4,12 +4,15 @@
 #include<typeinfo>
 #include<iostream>
 #include<string>
+#include<vector>
 
-constexpr std::string getLastPathComponent(std::string path);
+std::string getLastPathComponent(std::string path);
 
 std::string Type_id_change_String(std::string path);
 
 std::string Type_id_delete_head_class_struct(std::string path);
+
+std::vector<std::string> Type_id_template_separate(std::string path);
 
 #define Constant static constexpr auto \
 
@@ -25,47 +28,142 @@ C_OUT(Name) \
 #define SIZE_OF(className) \
 C_OUT(sizeof(className));\
 
-#define TYPE_ID(...) \
-C_OUT(Type_id_delete_head_class_struct(Type_id_change_String(typeid(__VA_ARGS__).name()))); \
-
-#define type_id(className) \
-TYPE_ID(decltype(className))\
-
-#define name_change(name) #name\
-
-#define CONCEPT (type1,type2)\
-std::cout<<getLastPathComponent(__FILE__)<<" : "<<__LINE__<< " << " <<"same_as < "<<\
- Type_id_delete_head_class_struct(Type_id_change_String(typeid(type1).name()))\
-<<" , "<< \
-Type_id_delete_head_class_struct(Type_id_change_String(typeid(type2).name())) \
-<<" > = "<<same_as<type1,type2>; \
+//#define TYPE_ID(...) \
+//Type_id_delete_head_class_struct(Type_id_change_String(typeid(__VA_ARGS__).name())); \
 
 
-struct H
+namespace OUTPUT_MESSAGE
 {
-	void Args_1(int a);
-	void Args_2(int a, int b);
-	void Args_3(int a, int b, int c);
-	void Args_4(int a, int b, int* c, int& d);
-	void Args_5(int a, int b, int c, int d, int e);
-	void Args_6(int a, int b, int c, int d, int e, int f);
-	void Args_7(int a, int b, int c, int d, int e, int f, int g);
+	template<class ...Ts>
+		requires(sizeof...(Ts) == 0)
+	static void Type_Name_Single() {}
 
-	static void Static_Args_1(int a);
-	static void Static_Args_2(int& a, int& b);
-	static void Static_Args_3(int a, int b, int c);
-	static void Static_Args_4(int a, int b, int* c, int* d);
-	static void Static_Args_5(int a, int b, int c, int d, int e);
-	static void Static_Args_6(int a, int b, int c, int d, int e, int f);
-	static void Static_Args_7(int a, int b, int c, int d, int e, int f, int g);
-
-	static void Static_Args_88() {}
-	static void Static_Args_88(auto a, auto ...b)
+	template<class T, class ...Ts>
+	static std::string Type_Name_Single()
 	{
-		TYPE_ID(decltype(a));
-		C_OUT(a);
-		Static_Args_88(b...);
-		
-	}
+		return Type_id_delete_head_class_struct(Type_id_change_String(typeid(T).name()));
+	};
 
-};
+	template<class ...Ts>
+		requires(sizeof...(Ts) == 0)
+	static void Type_Name_Output()
+	{};
+
+	template<class ...Ts>
+	static void Type_Name_Output()
+	{
+		std::cout << Type_Name_Single<Ts...>();
+	};
+
+	struct S_Directory_Tree
+	{
+		enum class Tree_Type
+		{
+			VERTICAL,// [ „  ]
+			VERTICAL_RIGHT,// [ „¥ ]
+			LEFT_UNDER// [ „¤ ]
+		};
+
+		std::vector<Tree_Type> directory_tree = {};
+
+		S_Directory_Tree() {}
+
+		void Add(Tree_Type type);
+
+		void Change(Tree_Type type);
+
+		void Remove();
+
+		void Output();
+
+	};
+
+	template<size_t dimension_Limit, class ...Ts>
+	struct I_Type_Name
+	{
+		static void Action(S_Directory_Tree& directory_tree, int& dimension_Num, std::string& type_name)
+		{
+			std::vector<std::string> type_name_list = Type_id_template_separate(type_name);
+
+			if (dimension_Num < dimension_Limit-1 && !type_name_list.empty())
+			{
+				std::cout << type_name_list[0] << std::endl;
+				type_name_list.erase(type_name_list.begin());
+				dimension_Num++;
+				Action(directory_tree,dimension_Num, type_name_list);
+			}
+			else
+			{
+				std::cout << type_name << std::endl;
+			}
+		}
+
+		static void Action(
+			S_Directory_Tree& directory_tree,
+			int& dimension_Num,
+			std::vector<std::string>& type_name_list)
+		{
+			if (dimension_Num)
+			{
+				directory_tree.Add(S_Directory_Tree::Tree_Type::VERTICAL_RIGHT);
+			}
+
+			for (int i = 0; i < type_name_list.size(); i++)
+			{
+				if ((i == type_name_list.size() - 1) && dimension_Num)
+				{
+					directory_tree.Change(S_Directory_Tree::Tree_Type::LEFT_UNDER);
+				}
+
+				directory_tree.Output();
+				std::cout << i << " : ";
+				Action(directory_tree,dimension_Num, type_name_list[i]);
+			}
+
+			directory_tree.Remove();
+			dimension_Num--;
+		};
+
+		static void Action()
+		{
+			S_Directory_Tree directory_tree = {};
+			int dimension_Number = 0;
+			std::vector<std::string> type_name_list = { Type_Name_Single<Ts>()... };
+
+			Action(directory_tree, dimension_Number, type_name_list);
+		}
+
+	};
+
+
+
+	template<size_t dimension_Limit,class ...Ts>
+	static void Action()
+	{
+		switch (static_cast<int>(sizeof...(Ts)) * dimension_Limit)
+		{
+		case 0:
+			std::cout << std::endl;
+			break;
+		case 1:
+			std::cout << " << ";
+			Type_Name_Output<Ts...>();
+			std::cout << std::endl;
+			break;
+		default:
+			std::cout << std::endl;
+			I_Type_Name<dimension_Limit, Ts...>::Action();
+			break;
+		}
+	};
+	template<class ...Ts>
+	static void Action()
+	{
+		Action<1, Ts...>();
+	};
+
+}
+
+#define TYPE_ID(...) \
+std::cout<<getLastPathComponent(__FILE__)<<" : "<<__LINE__;OUTPUT_MESSAGE::Action<__VA_ARGS__>();\
+

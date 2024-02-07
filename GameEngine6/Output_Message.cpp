@@ -8,7 +8,7 @@
 #include"Function.h"
 #include"Tuple.h"
 
-constexpr std::string getLastPathComponent(std::string path) {
+std::string getLastPathComponent(std::string path) {
 	std::string r;
 	size_t p = 0;
 	for (size_t i = path.size() - 1; i > 0; i--)
@@ -73,7 +73,7 @@ std::string Type_id_delete_head_class_struct(std::string path)
 
 	while (delete_p != std::string::npos)
 	{
-		path = path.erase(delete_p, 5);
+		path = path.erase(delete_p, 6);
 		delete_p = path.find("class ");
 	}
 
@@ -81,112 +81,115 @@ std::string Type_id_delete_head_class_struct(std::string path)
 
 	while (delete_p != std::string::npos)
 	{
-		path = path.erase(delete_p, 6);
+		path = path.erase(delete_p, 7);
 		delete_p = path.find("struct ");
 	}
 
 	return path;
 }
 
-void H::Args_1(int a)
+
+
+std::vector<std::string> Type_id_template_separate(std::string path)
 {
-	C_OUT(a);
+	int template_not_separate_fg = 0;
+
+	size_t separate_start_point = path.find("<");
+
+	std::vector<std::string> template_type_name_separate;
+
+	if (separate_start_point != std::string::npos)
+	{
+		template_type_name_separate.push_back(
+			(path.substr(0, separate_start_point) + "< ... >"));
+	}
+
+	for (size_t i = separate_start_point+1; i < path.size(); i++)
+	{
+		switch (path[i])
+		{
+		case ',':
+			if (!template_not_separate_fg)
+			{
+				template_type_name_separate.push_back(
+					path.substr(separate_start_point+1,i- separate_start_point - 1));
+				separate_start_point =i;
+			}
+			break;
+		case '<':
+			template_not_separate_fg += 1;
+			break;
+		case '>':
+
+			if (!template_not_separate_fg)
+			{
+				template_type_name_separate.push_back(
+					path.substr(separate_start_point + 1,i- separate_start_point-1));
+				separate_start_point = path.find("<");
+				break;
+			}
+
+			template_not_separate_fg -= 1;
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	return template_type_name_separate;
 }
 
-void H::Args_2(int a, int b)
+void OUTPUT_MESSAGE::S_Directory_Tree::Add(Tree_Type type)
 {
-	C_OUT(a);
-	C_OUT(b);
+	directory_tree.push_back(type);
 }
 
-void H::Args_3(int a, int b, int c)
+void OUTPUT_MESSAGE::S_Directory_Tree::Change(Tree_Type type)
 {
-	Args_2(a, b);
-	C_OUT(c);
+	directory_tree.back() = type;
 }
 
-void H::Args_4(int a, int b, int* c, int& d)
+void OUTPUT_MESSAGE::S_Directory_Tree::Remove()
 {
-	//Args_3(a, b, c);
-	Args_2(a, b);
-	C_OUT(*c);
-	C_OUT(d);
-
+	if (directory_tree.size() > 1)
+	{
+		directory_tree.pop_back();
+	}
+	else
+	{
+		directory_tree.clear();
+	}
 }
 
-void H::Args_5(int a, int b, int c, int d, int e)
+void OUTPUT_MESSAGE::S_Directory_Tree::Output()
 {
-	//Args_4(a, b, c, d);
-	C_OUT(e);
-}
+	std::string result = {"  "};
 
-void H::Args_6(int a, int b, int c, int d, int e, int f)
-{
-	Args_5(a, b, c, d, e);
-	C_OUT(f);
-}
+	if (directory_tree.empty())
+	{
+		result += " ";
+	}
+	else
+	{
+		for (int i = 0; i < directory_tree.size() - 1; i++)
+		{
+			if (Tree_Type::VERTICAL == directory_tree[i])
+			{
+				result += "„ ";
+			}
+			result += "  ";
+		}
 
-void H::Args_7(int a, int b, int c, int d, int e, int f, int g)
-{
-	Args_6(a, b, c, d, e, f);
-	C_OUT(g);
-}
+		if (directory_tree.back() == Tree_Type::VERTICAL_RIGHT)
+		{
+			result += "„¥  ";
+		}
+		else if (directory_tree.back() == Tree_Type::LEFT_UNDER)
+		{
+			result += "„¤  ";
+		}
+	}
+	std::cout << result;
 
-void H::Static_Args_1(int a)
-{
-	C_OUT(a);
-	//a = 100;
-}
-
-void H::Static_Args_2(int& a, int& b)
-{
-	C_OUT(a);
-	a = 1000;
-	C_OUT(b);
-}
-
-void H::Static_Args_3(int a, int b, int c)
-{
-	Static_Args_2(a, b);
-	C_OUT(c);
-}
-
-void H::Static_Args_4(int a, int b, int* c, int* d)
-{
-	Static_Args_2(a, b);
-	(*c) = 10000;
-	C_OUT((*c));
-	C_OUT((*d));
-	//C_OUT(d);
-
-}
-
-void H::Static_Args_5(int a, int b, int c, int d, int e)
-{
-	//Static_Args_4(a, b, c, d);
-	C_OUT(e);
-}
-
-void H::Static_Args_6(int a, int b, int c, int d, int e, int f)
-{
-	Static_Args_5(a, b, c, d, e);
-	C_OUT(f);
-}
-
-void H::Static_Args_7(int a, int b, int c, int d, int e, int f, int g)
-{
-	Static_Args_6(a, b, c, d, e, f);
-	C_OUT(g);
-}
-
-void H::Static_Args_88(auto ...a)
-{
-
-}
-
-void H::Static_Args_88(auto a, auto ...b)
-{
-	//TYPE_ID(decltype(a));
-	//C_OUT(a);
-	//Static_Args_88(b...);
 }

@@ -63,7 +63,7 @@ public:
 		requires (N_Tuple::U_Apply_chack<std::array<_Ty1, N>, _Ty2, _Ty3...>::value)
 		&&convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 		constexpr Array(_Ty2 t, _Ty3 ...ts) 
-			:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
+			//:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
 		{
 			//N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...);
 		}
@@ -84,13 +84,16 @@ public:
 };
 
 
-template<class _Ty2, convertible_to<_Ty2>..._Ty3>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::size>;
+//template<class _Ty2, class... _Ty3>
+	//requires (convertible_to_and<_Ty2,_Ty3...>)
+//Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::size>;
 
 template<class _Ty2, class ..._Ty3>
-	requires is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>>
- && convertible_from_nand<_Ty2, _Ty2, _Ty3...>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::size
+	//requires 
+//is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>>
+// && convertible_from_nand<_Ty2, _Ty2, _Ty3...>
+Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,2
+	//9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::size
 >;
 
 

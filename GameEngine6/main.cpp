@@ -207,14 +207,18 @@ struct vec4a
 
 void Expand_zip_testa(vec4 vec)
 {
-	C_OUT(vec.n);
+	//C_OUT(vec.n);
 	
-	H::Static_Args_88(
-		vec.vec3v.vec3v.n1
-		//vec.vec3v.vec3v.n,
-		//vec.vec3v.n,
-	//vec.n
-	);
+	C_OUT(
+		vec.vec3v.vec3v.n1);
+	C_OUT(
+
+		vec.vec3v.vec3v.n);
+	C_OUT(
+		vec.vec3v.n);
+	C_OUT(
+		vec.n);
+	
 }
 
 
@@ -234,23 +238,28 @@ int main()
 	int* np = &n;
 
 	int nr = *np;
-
+	//static int n = __LINE__;
 
 	vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
 
-	//TYPE_ID(tuple_v<1,2,3,4,5>);
+	C_OUT("a");
+
+	TYPE_ID();
 
 
-	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
+	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	
-	//Array<int,3> ary_0(1, 3, 5);
+	Array<int,3> ary_0(1, 3, 5);
 
-	using ary_0t = Array<int, 3>;
-	using ary_1t = Array<float, 3>;
+	//using ary_0t = Array<int, 3>;
+	//using ary_1t = Array<float, 3>;
 
-	//Array ary_1(1.0f, 3.0f, 5.0f);
 
-	//Array ary_2(ary_0,ary_1);
+	Array<float, 3> ary_1(1.0f, 3.0f, 5.0f);
+
+	//N_Tuple::Apply<std::array<Array<int, 3>, 2>>(ary_0, ary_1);
+
+	Array ary_2(ary_0,ary_1);
 	
 	
 
@@ -259,7 +268,7 @@ int main()
 	
 	
 
-	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
+	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	//using n_ = N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<std::array<ary_0t, 2>, std::array<ary_1t, 2>>, tuple_t<ary_0t, ary_1t,ary_1t, ary_0t>>::type;
 	//using na = n_::conversion_expand_list;TYPE_ID(na);
 	//using nb = n_::conversion_zip_list;TYPE_ID(nb);
