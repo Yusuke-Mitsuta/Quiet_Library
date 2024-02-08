@@ -59,9 +59,9 @@ namespace OUTPUT_MESSAGE
 	{
 		enum class Tree_Type
 		{
-			VERTICAL,// [ „  ]
-			VERTICAL_RIGHT,// [ „¥ ]
-			LEFT_UNDER// [ „¤ ]
+			VERTICAL,// [    ]
+			VERTICAL_RIGHT,// [    ]
+			LEFT_UNDER// [    ]
 		};
 
 		std::vector<Tree_Type> directory_tree = {};
@@ -156,6 +156,7 @@ namespace OUTPUT_MESSAGE
 			break;
 		}
 	};
+
 	template<class ...Ts>
 	static void Action()
 	{

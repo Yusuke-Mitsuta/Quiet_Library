@@ -227,9 +227,6 @@ void Expand_zip_test(int n1,int n2,int n3,int n4)
 	//H::Static_Args_88(n1, n2, n3, n4);
 }
 
-
-
-
 int main()
 {
 
@@ -240,28 +237,40 @@ int main()
 	int nr = *np;
 	//static int n = __LINE__;
 
-	vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
+	//vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
 
-	C_OUT("a");
+	//C_OUT("a");
 
-	TYPE_ID();
+	//TYPE_ID();
 
 
-	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
+	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	
 	Array<int,3> ary_0(1, 3, 5);
 
-	//using ary_0t = Array<int, 3>;
-	//using ary_1t = Array<float, 3>;
+	using ary_0t = Array<int, 3>;
+	using ary_1t = Array<float, 3>;
 
 
 	Array<float, 3> ary_1(1.0f, 3.0f, 5.0f);
 
 	//N_Tuple::Apply<std::array<Array<int, 3>, 2>>(ary_0, ary_1);
 
-	Array ary_2(ary_0,ary_1);
 	
+
+	Array ary_2(3,3,ary_0,ary_1);
+
 	
+	//TYPE_ID(
+
+	//using tu= N_Tuple::N_Apply::S_Infinite_Args<int>;
+
+	//TYPE_ID(tu);
+
+	//using t_test = N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<N_Tuple::N_Apply::S_Infinite_Args<int>>, tuple_t<ary_0t,ary_1t>>::type::request::
+
+	//TYPE_ID(t_test);
+	//std::cout<< typeid(t_test).name();
 
 	//convertible_from_C<Array<int,3> , int>::
 	//Array ary_2(ary_0,ary_1);

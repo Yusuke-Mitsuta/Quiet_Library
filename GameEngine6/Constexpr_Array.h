@@ -16,16 +16,14 @@ namespace N_Tuple
 	
 }
 
-
-
-
 namespace N_Array
 {
 
 	template<class T_Base_Type, class ...T_Args>
 	using args_chack = typename
-		N_Function::I_Function_Args_Chack<N_Tuple::U_Repeat_Multiple<T_Base_Type, 9>,
-		tuple_t<T_Args...>>::type;
+		N_Tuple::N_Apply::I_Apply_Type_Chack<
+		tuple_t<N_Tuple::N_Apply::S_Infinite_Args<T_Base_Type,10>>,
+		tuple_t<T_Args...>>::type::request::type;
 }
 
 
@@ -53,15 +51,25 @@ public:
 	constexpr Array(_Ty2 ...ts) :
 		elems({static_cast<_Ty1>(ts)...})
 	{}
+
 	template<same_as<float> ..._Ty2>
 		requires (sizeof...(_Ty2) == N) 
 	constexpr Array(_Ty2 ...ts) :
 		elems({static_cast<_Ty1>(ts)...})
 	{}
 
+	template<class _Ty2>
+		requires convertible_to<_Ty1, _Ty2>
+	constexpr Array(Array<_Ty2,N> array_data)
+		//:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
+	{
+		
+	}
+
 	template<class _Ty2, class ..._Ty3>
-		requires (N_Tuple::U_Apply_chack<std::array<_Ty1, N>, _Ty2, _Ty3...>::value)
-		&&convertible_from_nand<_Ty2, _Ty2, _Ty3...>
+		requires 
+//	(N_Tuple::U_Apply_chack<std::array<_Ty1, N>, _Ty2, _Ty3...>::value)
+		convertible_from_nand<_Ty2, _Ty2, _Ty3...>
 		constexpr Array(_Ty2 t, _Ty3 ...ts) 
 			//:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
 		{
@@ -92,9 +100,8 @@ template<class _Ty2, class ..._Ty3>
 	//requires 
 //is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>>
 // && convertible_from_nand<_Ty2, _Ty2, _Ty3...>
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,2
-	//9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::size
->;
+Array(_Ty2 t, _Ty3 ...ts) -> Array<_Ty2,10 - N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::value>;
+
 
 
 

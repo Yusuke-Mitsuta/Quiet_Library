@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include<string>
 #include"Using_Type.h"
@@ -6,11 +6,11 @@
 
 namespace N_Constexpr
 {
-	//d—l
-	//Ã“I‚É•¶š—ñ‚ğˆµ‚¤
+	//ä»•æ§˜
+	//é™çš„ã«æ–‡å­—åˆ—ã‚’æ‰±ã†
 	//
 	//template
-	//t_Size::•¶š—ñ‚Ì’·‚³
+	//t_Size::æ–‡å­—åˆ—ã®é•·ã•
 	template<size_t t_Size>
 	class String
 	{

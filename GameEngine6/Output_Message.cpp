@@ -176,19 +176,21 @@ void OUTPUT_MESSAGE::S_Directory_Tree::Output()
 		{
 			if (Tree_Type::VERTICAL == directory_tree[i])
 			{
-				result += "„ ";
+				result += "  ";
 			}
 			result += "  ";
 		}
 
 		if (directory_tree.back() == Tree_Type::VERTICAL_RIGHT)
 		{
-			result += "„¥  ";
+			result += "  ";
 		}
 		else if (directory_tree.back() == Tree_Type::LEFT_UNDER)
 		{
-			result += "„¤  ";
+			result += "  ";
 		}
+
+		result += "  ";
 	}
 	std::cout << result;
 

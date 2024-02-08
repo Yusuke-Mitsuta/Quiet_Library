@@ -378,9 +378,6 @@
     <ClInclude Include="Tuple_Type_Change_Action_Helper.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Apply_Type.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
-    </ClInclude>
     <ClInclude Include="Remove_reference.h">
       <Filter>ヘッダー ファイル\Type_Remove</Filter>
     </ClInclude>
@@ -423,11 +420,17 @@
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
     </ClInclude>
+    <ClInclude Include="Output_Message.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Array_Type_Chack.h">
+      <Filter>ヘッダー ファイル\Array</Filter>
+    </ClInclude>
     <ClInclude Include="Tuple_Infinite.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
     </ClInclude>
-    <ClInclude Include="Output_Message.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Tuple_Apply_Type.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

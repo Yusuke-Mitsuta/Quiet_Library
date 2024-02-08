@@ -4,10 +4,24 @@
 
 namespace N_Tuple::N_Apply
 {
-	template<class T,size_t number=0>
+	template<class T,size_t N=10>
 	struct S_Infinite_Args
 	{
-		using tuple = tuple_t<S_Infinite_Args<T,number+1>,T>;
+		static constexpr size_t value = N;
 	};
 
+	template<class T>
+	struct is_Infinite_Args_C
+	{
+		static constexpr bool value = false;
+	};
+
+	template<class T, size_t N>
+	struct is_Infinite_Args_C<S_Infinite_Args<T,N>>
+	{
+		static constexpr bool value = true;
+	};
+
+	template<class T>
+	concept is_Infinite_Args = is_Infinite_Args_C<T>::value;
 }

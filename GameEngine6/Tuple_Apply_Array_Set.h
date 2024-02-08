@@ -33,7 +33,6 @@ namespace N_Tuple::N_Apply
 
 		constexpr void Apply()
 		{
-			std::cout << "‚¦‚ç[";
 		}
 	};
 }
