@@ -1,49 +1,74 @@
 #pragma once
 
-#include"Tuple_Class_Declare.h"
+#include"Tuple_Declare.h"
 
 namespace N_Tuple
 {
 
+
 	//仕様
-	//[T_Tuple]の中身を[T_Outer_class]のテンプレートにセットする
-	//[T_Tuple]がtupleでない場合その型のまま実行される
+	//タプル内の要素の中から、タプルと互換性を持つ型を全て展開する
 	//
-	//テンプレート
-	//[T_Tuple]::中身を展開するTuple
-	//[T_Outer_class]::展開した中身とそれに続く型[T_Types...]をセットする
-	//[T_Types...]::展開した中身に続いて設定する型
-	//
+	// テンプレート
+	//[T_Tuple]::展開する[Tuple_t]の型
 	//補足
-	//[T_Tuple<types...>]->[T_Outer_class<types... , T_Types...>]とする
-	template<template<class...>class T_Outer_class,class ...T_Types>
-	struct I_Expand_Set
+	//[T_Tuple]が[tuple]ではなかった場合[T_Tuple]型を返す
+	template<class T_Tuple, size_t t_expand_lelve >
+	struct I_Expand
 	{
-		template<class ...T_Types>
-		struct S_Expand_Set
+		template<class T_Result, class T_Tuple, size_t t_expand_lelve>
+		struct S_Expand
 		{
-			using type = T_Outer_class<T_Types...>;
+			using type = T_Tuple;
 		};
 
-		template<class ...T_Tuple_types, class ...T_Types>
-		struct S_Expand_Set<tuple_t<T_Tuple_types...>, T_Types...>
+		template<class T_Result,class T_Expand_Tuple,size_t t_expand_lelve>
+		struct I_Element_Expand;
+
+		template<class ...T_Result, class T_Expand_Type, size_t t_expand_lelve>
+		struct I_Element_Expand<tuple_t<T_Result...>,T_Expand_Type,t_expand_lelve>
 		{
-			using type = T_Outer_class<T_Tuple_types..., T_Types...>;
+			template<class T_Expand_Tuple>
+			struct S_Element_Expand
+			{
+				using type = tuple_t<T_Result..., T_Expand_Type>;
+			};
+
+			template<class ...T_Expand_Tuple>
+			struct S_Element_Expand<tuple_t<T_Expand_Tuple...>>
+			{
+				using type = S_Expand <T_Result, T_Expand_Type, t_expand_lelve - 1>::type;
+			};
+
+			using type = S_Element_Expand<T_Expand_Type>::type;
 		};
 
-		template<class ...T_Head, class T, class ...T_Tail, class ...T_Types>
-		struct S_Expand_Set<tuple_tp<tuple_t<T_Head...>, T, tuple_t<T_Tail...>>, T_Types...>
+
+		template<class T_Result, class T_Front, class ...Ts, size_t t_expand_lelve>
+			requires (static_cast<bool>(t_expand_lelve))
+		struct S_Expand<T_Result,tuple_t<T_Front,Ts...>, t_expand_lelve>
 		{
-			using type = T_Outer_class<T_Head... , T , T_Tail... ,T_Types...>;
+			using result = I_Element_Expand<T_Result,T_Front, t_expand_lelve>::type;
+
+			using type = S_Expand<result, Ts..., t_expand_lelve>::type;
 		};
 
-		template<class ...T_Head, class ...T_Tail, class ...T_Types>
-		struct S_Expand_Set<tuple_tp<tuple_t<T_Head...>, invalid_t, tuple_t<T_Tail...>>, T_Types...>
+		template<class ...T_Result, class ...Ts>
+			requires (static_cast<bool>(sizeof...(Ts)))
+		struct S_Expand<tuple_t<T_Result...>, tuple_t<Ts...>, 0>
 		{
-			using type = T_Outer_class<T_Head..., T_Tail..., T_Types...>;
+			using type = tuple_t<T_Result..., Ts...>;
+
 		};
 
-		using type =typename S_Expand_Set<T_Types...>::type;
+		template<class ...T_Result, size_t t_expand_lelve>
+		struct S_Expand<tuple_t<T_Result...>, tuple_t<>, t_expand_lelve>
+		{
+			using type = tuple_t<T_Result...>;
+
+		};
+
+		using type = S_Expand<tuple_t<>, T_Tuple, t_expand_lelve - 1>::type;
 
 	};
 }

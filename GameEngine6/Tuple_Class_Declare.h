@@ -176,7 +176,7 @@ namespace N_Tuple
 	struct I_Tuple_Calculate;
 
 	template<template<class...>class T_Outer_class, class ...T_Types>
-	struct I_Expand_Set;
+	struct I_Move_Template;
 
 	template<size_t N>
 	struct I_index_sequence;
@@ -194,5 +194,29 @@ namespace N_Tuple
 	//要素に型[T]を[N]個持つ、[tuple_t]を作る
 	template<class T, size_t N>
 	struct I_Repeat_Multiple;
+
+	//仕様
+	//指定した回数までタプル内の要素を展開する
+	//
+	// テンプレート
+	//[T_Tuple]::展開する[Tuple_t]の型
+	//[t_expand_lelve]::展開する階層の上限
+	template<class T_Tuple, size_t t_expand_lelve = 1>
+	struct I_Expand;
+
+	//仕様
+	//圧縮されているTupleを示す
+	template<class _Ty1, size_t N>
+	struct tuple_zip;
+
+	//仕様
+	//パラメータパック[Ts...]から連続する型を{tuple_zip< T, N >}に圧縮する
+	template<class ...Ts>
+	struct I_Zip;
+
+	//仕様
+	//タプル内の要素から連続する型を{tuple_zip< T, N >}に圧縮する
+	template<class T_Tuple>
+	struct I_Zip_Tuple;
 
 }

@@ -23,7 +23,7 @@
 #include"Tuple_Swap.h"
 #include"Tuple_Range.h"
 #include"Tuple_Extract.h"
-#include"Tuple_Expand.h"
+#include"Tuple_Move_Template.h"
 #include"Tuple_Elements_Action.h"
 
 #include"Tuple_Remove_Pointer.h"
@@ -35,6 +35,8 @@
 #include"Tuple_Get.h"
 #include"Tuple_Apply.h"
 #include"Tuple_Repeat_Multiple.h"
+#include"Tuple_Zip.h"
+
 
 template<class ..._Types>
 struct Tuple :

@@ -250,15 +250,15 @@ int main()
 
 	using ary_0t = Array<int, 3>;
 	using ary_1t = Array<float, 3>;
-
+	
 
 	Array<float, 3> ary_1(1.0f, 3.0f, 5.0f);
 
 	//N_Tuple::Apply<std::array<Array<int, 3>, 2>>(ary_0, ary_1);
 
-	
+	N_Tuple::I_Zip<int, int, int, int, int, double, float, float, float, float, float>;
 
-	Array ary_2(3,3,ary_0,ary_1);
+	//Array ary_2(3,3,ary_0,ary_1);
 
 	
 	//TYPE_ID(

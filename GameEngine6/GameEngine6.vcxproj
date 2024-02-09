@@ -26,6 +26,7 @@
     <ClInclude Include="Array_Type_Chack.h" />
     <ClInclude Include="Output_Message.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
+    <ClInclude Include="Tuple_Apply_Convert_Order.h" />
     <ClInclude Include="Tuple_Apply_Type.h" />
     <ClInclude Include="Tuple_Apply_Type_Chack.h" />
     <ClInclude Include="Args_Type.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Tuple_Apply_Array_Set.h" />
     <ClInclude Include="Tuple_Apply_Fn.h" />
     <ClInclude Include="Tuple_Apply_Class_Create.h" />
+    <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Select_Type.h" />
     <ClInclude Include="Template_Calculate.h" />
@@ -96,7 +98,8 @@
     <ClInclude Include="Tuple_Apply_Action.h" />
     <ClInclude Include="Tuple_Type_Change_Action_Helper.h" />
     <ClInclude Include="Tuple_Create_Pointer.h" />
-    <ClInclude Include="Tuple_Expand.h" />
+    <ClInclude Include="Tuple_Zip.h" />
+    <ClInclude Include="Tuple_Move_Template.h" />
     <ClInclude Include="Tuple_Extract.h" />
     <ClInclude Include="Tuple_Elements_Action.h" />
     <ClInclude Include="Tuple_Get.h" />

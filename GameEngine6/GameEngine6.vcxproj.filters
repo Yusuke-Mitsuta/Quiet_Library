@@ -273,7 +273,7 @@
     <ClInclude Include="Function_Base_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Expand.h">
+    <ClInclude Include="Tuple_Move_Template.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Function_Core.h">
@@ -431,6 +431,15 @@
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Type.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Convert_Order.h">
+      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Expand.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Zip.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

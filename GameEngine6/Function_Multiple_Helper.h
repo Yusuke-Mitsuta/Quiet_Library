@@ -96,7 +96,7 @@ namespace N_Function
 
 				template<class T_Tuple>
 				using Function_Data =
-					typename N_Tuple::I_Expand_Set<I_Function_Superficial_Data, T_Tuple>::type;
+					typename N_Tuple::I_Move_Template<I_Function_Superficial_Data, T_Tuple>::type;
 
 				template<class T_chack>
 				static constexpr bool pointer_chack =

@@ -157,7 +157,7 @@ namespace N_Tuple
 	//補足
 	//[T_Tuple<types...>]->[T_Outer_class<types... , T_Types...>]とする
 	template<template<class...>class T_Outer_class, class T_Tuple, class ...T_Types>
-	using U_Expand_Set = typename I_Expand_Set<T_Outer_class, T_Tuple, T_Types...>::type;
+	using U_Move_Template = typename I_Move_Template<T_Outer_class, T_Tuple, T_Types...>::type;
 
 	//仕様
 	//[0 ... (N-1)]の値を[tuple_v]に入れて返す
@@ -209,6 +209,38 @@ namespace N_Tuple
 	// 変換後の変数と変換に用いた変数の関係は個別に定義されない限りコピーである。
 	template<class T_Fn,class ...T_Set_Types>
 	using U_Apply_chack = I_Apply_Action<T_Fn, T_Set_Types...>::type;
+
+	//仕様
+	//指定した階層までタプル内の要素の中から、タプルと互換性を持つ型を展開する
+	//
+	// テンプレート
+	//[T_Tuple]::展開する[Tuple_t]の型
+	//[t_expand_lelve]::展開する階層の上限
+	//補足
+	//[T_Tuple]が[tuple]ではなかった場合[T_Tuple]型を返す
+	template<class T_Tuple, size_t t_expand_lelve >
+	using U_Expand = I_Expand<T_Tuple, t_expand_lelve>::type;
+
+	//仕様
+	//タプル内の要素の中から、タプルと互換性を持つ型を全て展開する
+	//
+	// テンプレート
+	//[T_Tuple]::展開する[Tuple_t]の型
+	//補足
+	//[T_Tuple]が[tuple]ではなかった場合[T_Tuple]型を返す
+	template<class T_Tuple>
+	using U_Expand_All = I_Expand<T_Tuple, SIZE_MAX>::type;
+
+	//仕様
+	//パラメータパック[Ts...]から連続する型を{tuple_zip< T, N >}に圧縮する
+	template<class ...Ts>
+	using U_Zip = I_Zip<Ts...>::type;
+
+	//仕様
+	//タプル内の要素から連続する型を{tuple_zip< T, N >}に圧縮する
+	template<class T_Tuple>
+	using U_Zip_Tuple = I_Zip_Tuple<T_Tuple>::type;
+
 
 }
 
