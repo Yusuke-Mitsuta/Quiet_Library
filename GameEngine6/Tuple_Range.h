@@ -31,7 +31,7 @@ namespace N_Tuple
 			requires (min == max)
 		struct S_Range< tuple_t<T_Types...>, t_Count,tuple_t<>>
 		{
-			using type = tuple_t<U_Element_t<min, tuple_t<T_Types...>>>;
+			using type = tuple_t<>;
 		};
 
 		//仕様
@@ -46,7 +46,7 @@ namespace N_Tuple
 		//仕様
 		//[mix]~[max]の場合値を抜き出す
 		template< class T_Next_Type, class ...T_Types, int t_Count,  class ...T_Center_Types>
-			requires (min <= t_Count) && (max >= t_Count) && (min != max)
+			requires (min <= t_Count) && (max > t_Count) && (min != max)
 		struct S_Range<tuple_t<T_Next_Type, T_Types...>, t_Count
 			, tuple_t<T_Center_Types...>>
 		{

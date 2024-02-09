@@ -7,6 +7,7 @@ namespace N_Tuple::N_Apply
 	template<class T,size_t N=10>
 	struct S_Infinite_Args
 	{
+		using type = T;
 		static constexpr size_t value = N;
 	};
 

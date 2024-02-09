@@ -230,6 +230,8 @@ void Expand_zip_test(int n1,int n2,int n3,int n4)
 int main()
 {
 
+	using t1 = tuple_t<int, float, double>;
+
 	int n = 3;
 
 	int* np = &n;
@@ -256,7 +258,7 @@ int main()
 
 	//N_Tuple::Apply<std::array<Array<int, 3>, 2>>(ary_0, ary_1);
 
-	N_Tuple::I_Zip<int, int, int, int, int, double, float, float, float, float, float>;
+	N_Tuple::I_Zip<int, int, int, int, int, double, float, float, float, float, float>::;
 
 	//Array ary_2(3,3,ary_0,ary_1);
 
