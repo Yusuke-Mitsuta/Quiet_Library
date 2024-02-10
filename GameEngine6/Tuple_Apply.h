@@ -13,7 +13,7 @@ namespace N_Tuple
 		requires requires
 	{
 		requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::FN>;
-		requires U_Apply_chack<T_Fn, T_Args...>::value;
+		//requires N_Apply::Chack<T_Fn, T_Args...>();
 	}
 	static constexpr auto Apply(T_Fn&& fn, T_Args&&... args)
 	{
@@ -30,7 +30,7 @@ namespace N_Tuple
 		requires requires
 	{
 		requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::FN>;
-		requires U_Apply_chack<T_Fn, T_Args...>::value;
+		requires N_Apply::Chack<T_Fn, T_Args...>();
 	}
 	static constexpr auto Apply(T_Fn&& fn, auto* p, T_Args&&... args)
 	{
@@ -47,7 +47,7 @@ namespace N_Tuple
 		requires requires
 	{
 		requires N_Apply::is_apply_type<T,N_Apply::E_Type::CLASS>;
-		requires U_Apply_chack<T, T_Args...>::value;
+		requires N_Apply::Chack<T, T_Args...>();
 	}
 	static constexpr auto Apply(T_Args&&... args)
 	{
@@ -62,7 +62,7 @@ namespace N_Tuple
 		requires requires
 	{
 		requires N_Apply::is_apply_type<T, N_Apply::E_Type::CLASS_NEW>;
-		requires U_Apply_chack<T, T_Args...>::value;
+		requires N_Apply::Chack<T, T_Args...>();
 	}
 	static constexpr auto Apply(T_Args&&... args)
 	{
@@ -81,7 +81,7 @@ namespace N_Tuple
 		requires requires
 	{
 		requires N_Apply::is_apply_type<T_Array[N], N_Apply::E_Type::ARRAY>;
-		requires U_Apply_chack<T_Array, T_Args...>::value;
+		requires N_Apply::Chack<T_Array, T_Args...>();
 	}
 	static constexpr void Apply(T_Array(&array_ref)[N], T_Args&&... args)
 	{
@@ -106,7 +106,7 @@ namespace N_Tuple
 		requires requires
 	{
 		requires N_Apply::is_apply_type<T_Array[set_Num], N_Apply::E_Type::ARRAY>;
-		requires U_Apply_chack<T_Array[set_Num], T_Args...>::value;
+		requires N_Apply::Chack<T_Array[set_Num], T_Args...>();
 	}
 	static constexpr void Apply(T_Array* array_p, T_Args&&... args)
 	{

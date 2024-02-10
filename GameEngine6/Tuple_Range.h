@@ -9,7 +9,6 @@ namespace N_Tuple
 	//[T_Tuple]の[t_Point_1]と[t_Point_2]の間の要素を取得する
 	//[t_Point2]が設定されない場合、現在の選択位置を指定する
 	template<class T_Tuple,size_t t_Point_1, size_t t_Point_2= S_Parameter<T_Tuple>::head_size>
-		requires is_Element<T_Tuple, t_Point_1>&& is_Element<T_Tuple, t_Point_2>
 	struct I_Range
 	{
 	private:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include"Tuple_Declare.h"
+#include"Tuple_Apply_Type_Chack.h"
 
 namespace N_Tuple::N_Apply
 {
@@ -27,15 +28,20 @@ namespace N_Tuple::N_Apply
 
 	template<class T_Request_Types_Tuple,
 		class T_Set_Types_Tuple>
-	struct I_Apply_Type_Chack;
+	struct I_Convert_Order;
 
-
+	//仕様
+	//供給する型のリストから、要求する型のリストに、型の展開を伴い変換を出来るか判定する。
+	//
+	//補足
+	// 型の判定は後ろから実施する。
 	template<class T_Request_Types_Tuple,
 		class T_Args_Types_Tuple>
 	struct I_Args_Convert_Action
 	{
 
-		using conversion = I_Apply_Type_Chack<T_Request_Types_Tuple, T_Args_Types_Tuple>::type;
+		using conversion = I_Convert_Order<
+			typename S_Infinite_Args_Conversion<T_Request_Types_Tuple, T_Args_Types_Tuple>::type,			T_Args_Types_Tuple>::type;
 
 		using conversion_expand_list = conversion::conversion_expand_list;
 
@@ -208,10 +214,6 @@ namespace N_Tuple::N_Apply
 			>
 			struct S_Args_Zip<tuple_v<t_Flont_Args_Number...>, tuple_v<t_Zip_Args_Number...>, tuple_v<t_Back_Args_Number...>, tuple_t<T_Zip_Args...>>
 			{
-
-
-
-
 				using type = I_Args_Zip<
 					tuple_t<
 					U_Element_t<t_Flont_Args_Number, T_Args_Types_list>...,
@@ -219,30 +221,6 @@ namespace N_Tuple::N_Apply
 					U_Element_t<t_Back_Args_Number, T_Args_Types_list>...>,
 					typename T_Args_Zip_Order_List::remove>::type;
 
-
-				template<class ...T_Args>
-				static constexpr auto Apply(auto* fn, T_Args... args)
-				{
-					return;
-				}
-
-				template<class ...T_Args>
-					requires (T_Args_Zip_Order_List::size > 0)
-				static constexpr auto Apply(auto* fn, T_Args... args)
-				{
-					TYPE_ID(tuple_v< t_Flont_Args_Number...>);
-					C_OUT(T_Args_Types_list::size);
-					C_OUT(first_order::point);
-					TYPE_ID(tuple_v< t_Zip_Args_Number...>);
-					TYPE_ID(tuple_v< t_Back_Args_Number...>);
-					TYPE_ID(first_order::type);
-					TYPE_ID(tuple_t<T_Args...>);
-					type::Apply(fn, args...);
-					return;
-
-				}
-
-	
 				//仕様
 				//[T_Request_Type]型を[args...]から作り、そのポインターを返す
 				//
@@ -328,7 +306,6 @@ namespace N_Tuple::N_Apply
 			template<class ...T_Args>
 			static constexpr auto Apply(auto* fn, T_Args&&... args)
 			{
-
 				return fn->Apply(std::forward<T_Args>(args)...);
 			}
 
@@ -337,7 +314,6 @@ namespace N_Tuple::N_Apply
 		using type = I_Args_Expand<>::type;
 
 	};
-
 
 }
 

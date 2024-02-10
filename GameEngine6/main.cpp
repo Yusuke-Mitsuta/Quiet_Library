@@ -239,14 +239,13 @@ int main()
 	int nr = *np;
 	//static int n = __LINE__;
 
-	//vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
+	vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
 
 	//C_OUT("a");
 
 	//TYPE_ID();
 
-
-	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
+	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	
 	Array<int,3> ary_0(1, 3, 5);
 
@@ -255,21 +254,40 @@ int main()
 	
 
 	Array<float, 3> ary_1(1.0f, 3.0f, 5.0f);
+	using vec_4 = decltype(vec4_test);
+	//N_Tuple::U_Expand_All<ary_0t>;
 
 	//N_Tuple::Apply<std::array<Array<int, 3>, 2>>(ary_0, ary_1);
+	//static constexpr int a =
+	//N_Tuple::N_Apply::I_Type_Chack<tuple_t<
+		//vec_4, vec_4, vec_4, ary_0t>,
+		//N_Tuple::N_Apply::S_Infinite_Args<ary_0t>>, 
+		//tuple_t<ary_0t, vec_4, vec_4, vec_4>>::type::value;
 
-	N_Tuple::I_Zip<int, int, int, int, int, double, float, float, float, float, float>::;
+	//>::type::value;
 
-	//Array ary_2(3,3,ary_0,ary_1);
+	//N_Tuple::I_Zip<int, int, int, int, int, double, float, float, float, float, float>::;
 
-	
+	Array ary_2(ary_0, ary_1, vec4_test, vec4_test, vec4_test);
+
+	std::cout << std::endl;
+	for (int i = 0; i < 2; i++)
+	{
+
+		for (int j = 0; j < 3; j++)
+		{
+			C_OUT(ary_2[i][j]);
+		}
+		std::cout << std::endl;
+	}
+
 	//TYPE_ID(
 
 	//using tu= N_Tuple::N_Apply::S_Infinite_Args<int>;
 
 	//TYPE_ID(tu);
 
-	//using t_test = N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<N_Tuple::N_Apply::S_Infinite_Args<int>>, tuple_t<ary_0t,ary_1t>>::type::request::
+	//using t_test = N_Tuple::N_Apply::I_Convert_Order<tuple_t<N_Tuple::N_Apply::S_Infinite_Args<int>>, tuple_t<ary_0t,ary_1t>>::type::request::
 
 	//TYPE_ID(t_test);
 	//std::cout<< typeid(t_test).name();
@@ -280,7 +298,7 @@ int main()
 	
 
 	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
-	//using n_ = N_Tuple::N_Apply::I_Apply_Type_Chack<tuple_t<std::array<ary_0t, 2>, std::array<ary_1t, 2>>, tuple_t<ary_0t, ary_1t,ary_1t, ary_0t>>::type;
+	//using n_ = N_Tuple::N_Apply::I_Convert_Order<tuple_t<std::array<ary_0t, 2>, std::array<ary_1t, 2>>, tuple_t<ary_0t, ary_1t,ary_1t, ary_0t>>::type;
 	//using na = n_::conversion_expand_list;TYPE_ID(na);
 	//using nb = n_::conversion_zip_list;TYPE_ID(nb);
 	_CrtDumpMemoryLeaks();

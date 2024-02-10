@@ -26,7 +26,7 @@ namespace N_Tuple::N_Apply
 	// Œ^‚Ì”»’è‚ÍŒã‚ë‚©‚çÀ{‚·‚éB
 	template<class T_Request_Types_Tuple,
 		class T_Set_Types_Tuple>
-	struct I_Apply_Type_Chack
+	struct I_Convert_Order
 	{
 
 		//d—l
@@ -53,7 +53,7 @@ namespace N_Tuple::N_Apply
 			class T_Conversion_Expand_List = tuple_t<>,
 			class T_Conversion_Zip_List = tuple_t<>
 		>
-		struct S_Apply_Type_Chack
+		struct S_Convert_Order
 		{
 			using type = S_Result<T_Request_Types_Tuple, T_Set_Types_Tuple, T_Conversion_Expand_List, T_Conversion_Zip_List>::type;
 		};
@@ -67,7 +67,7 @@ namespace N_Tuple::N_Apply
 			requires same_as_not<tuple_t<>, T_Request_Types_Tuple>;
 			requires same_as_not<tuple_t<>, T_Set_Types_Tuple>;
 		}
-		struct S_Apply_Type_Chack<T_Request_Types_Tuple, T_Set_Types_Tuple,
+		struct S_Convert_Order<T_Request_Types_Tuple, T_Set_Types_Tuple,
 			tuple_t<T_Conversion_Expand...>,
 			tuple_t<T_Conversion_Zip...>>
 		{
@@ -118,7 +118,7 @@ namespace N_Tuple::N_Apply
 			struct S_Apply_Control<true, t_Request_Types_Expand, t_Set_Types_Expand>
 			{
 				//—v‹‚·‚éŒ^A‹Ÿ‹‹‚·‚éŒ^‚ÌƒŠƒXƒg‚ğŸ‚Éi‚ßAŸ‚ÌŒ^‚Ì”»’è‚ÉˆÚ‚éB
-				using type = S_Apply_Type_Chack<
+				using type = S_Convert_Order<
 					typename T_Request_Types_Tuple::remove,
 					typename T_Set_Types_Tuple::remove,
 					tuple_t<T_Conversion_Expand...>,
@@ -135,7 +135,7 @@ namespace N_Tuple::N_Apply
 
 				//‹Ÿ‹‹‚·‚éŒ^‚ğ“WŠJ‚µA
 				// “WŠJ‚µ‚½Œ^‚Ìî•ñ‚ğ•Ê“r•Û‘¶‚·‚é
-				using type = S_Apply_Type_Chack<
+				using type = S_Convert_Order<
 					T_Request_Types_Tuple,
 					select_type_expand<T_Set_Types_Tuple>,
 					tuple_t<T_Conversion_Expand..., S_Conversion_Expand<set_t, T_Set_Types_Tuple::size>>,
@@ -152,7 +152,7 @@ namespace N_Tuple::N_Apply
 				//—v‹‚·‚éŒ^‚ğ“WŠJ‚µA
 				// “WŠJ‚µ‚½Œ^‚Ìî•ñ‚ğ•Ê“r•Û‘¶‚·‚é
 				using type =
-					S_Apply_Type_Chack<
+					S_Convert_Order<
 					select_type_expand<T_Request_Types_Tuple>,
 					T_Set_Types_Tuple,
 					tuple_t<T_Conversion_Expand...>,
@@ -168,25 +168,11 @@ namespace N_Tuple::N_Apply
 
 		};
 
-		template<class T_Infinite_Args,
-			size_t t_Limit,
-			class ...T_Set_Types,
-			class T_Conversion_Expand_List,
-			class T_Conversion_Zip_List>
-			requires requires
-		{
-			requires static_cast<bool>(t_Limit);
-			requires static_cast<bool>(sizeof...(T_Set_Types));
-		}
-		struct S_Result<tuple_t<S_Infinite_Args<T_Infinite_Args, t_Limit>>, tuple_t<T_Set_Types...>, T_Conversion_Expand_List, T_Conversion_Zip_List>
-		{
-			using type =
-				S_Apply_Type_Chack< tuple_t<T_Infinite_Args, S_Infinite_Args<T_Infinite_Args, t_Limit - 1>>, tuple_t<T_Set_Types...>, T_Conversion_Expand_List, T_Conversion_Zip_List>::type;
-		};
+
 
 
 		//Œ^‚Ì”»’è‚ğ‘O‚©‚çÀ{‚·‚é
-		using type = S_Apply_Type_Chack<
+		using type = S_Convert_Order<
 			T_Request_Types_Tuple,
 			T_Set_Types_Tuple>::type;
 

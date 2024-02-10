@@ -74,7 +74,6 @@ namespace N_Tuple
 	struct I_Swap;
 
 	template<class T_Tuple, size_t t_Point_1, size_t t_Point_2>
-		requires is_Element<T_Tuple, t_Point_1>&& is_Element<T_Tuple, t_Point_2>
 	struct I_Range;
 
 	template<class T_Tuple, class T_Extract_Number>

@@ -2,12 +2,28 @@
 
 #include"Tuple_Declare.h"
 
+
 namespace N_Tuple::N_Apply
 {
+
+
 	template<class T,size_t N=10>
 	struct S_Infinite_Args
 	{
 		using type = T;
+		using constructor_args = tuple_t<T>;
+		static constexpr size_t value = N;
+	};
+
+	template<class T, size_t N >
+		requires requires
+	{
+		requires is_invalid_not<typename S_Parameter<T>::tuple>;
+	}
+	struct S_Infinite_Args<T,N>
+	{
+		using type = T;
+		using constructor_args = S_Parameter<T>::tuple;
 		static constexpr size_t value = N;
 	};
 

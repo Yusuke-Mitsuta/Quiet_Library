@@ -4,7 +4,7 @@
 #include"Tuple_Apply_Type.h"
 #include"Tuple_Apply_Convert_Order.h"
 #include"Tuple_Apply_Args_Convert_Action.h"
-
+#include"Tuple_Apply_Type_Chack.h"
 
 #include"main.h"
 
@@ -15,7 +15,17 @@ namespace N_Tuple
 	{
 		template<class T_Request_Types_Tuple,
 			class T_Set_Types_Tuple>
-		struct I_Apply_Type_Chack;
+		struct I_Convert_Order;
+
+
+		template<class T_Fn, class ...T_Set_Types>
+		static constexpr bool Chack()
+		{
+			return static_cast<bool>(N_Apply::I_Type_Chack<
+				typename  N_Apply::I_Request<T_Fn, T_Set_Types...>::args,
+				tuple_t<T_Set_Types...>>::value+1);
+		}
+
 	}
 
 
@@ -45,19 +55,10 @@ namespace N_Tuple
 
 		using request = N_Apply::I_Request<T_Fn, T_Set_Types...>;
 
-
-
-		using chack = N_Apply::I_Apply_Type_Chack<
-			typename request::args,
-			tuple_t<T_Set_Types...>>::type::request;
-
 		using apply = N_Apply::I_Args_Convert_Action<typename request::args,
 			tuple_t<T_Set_Types...>>::type;
 
 	public:
-
-		using type =std::bool_constant< N_Tuple::is_Tuple_t<chack>&& 
-				is_invalid<typename chack::type>>;
 
 		//仕様
 		//型[fn]に対して、要求するに[args...] を一対多、多対一の変換を行い、
@@ -104,6 +105,7 @@ namespace N_Tuple
 			return apply::Apply(&fn_action,std::forward<T_Args>(args)...);
 		}
 	};
+
 
 }
 

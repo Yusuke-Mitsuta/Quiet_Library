@@ -20,10 +20,10 @@ namespace N_Array
 {
 
 	template<class T_Base_Type, class ...T_Args>
-	using args_chack = typename
-		N_Tuple::N_Apply::I_Apply_Type_Chack<
-		tuple_t<N_Tuple::N_Apply::S_Infinite_Args<T_Base_Type,10>>,
-		tuple_t<T_Args...>>::type::request::type;
+	static constexpr int args_size = 
+		N_Tuple::N_Apply::I_Type_Chack<
+		tuple_t<N_Tuple::N_Apply::S_Infinite_Args<T_Base_Type>>,
+		tuple_t<T_Base_Type,T_Args...>>::value;
 }
 
 
@@ -58,23 +58,15 @@ public:
 		elems({static_cast<_Ty1>(ts)...})
 	{}
 
-	template<class _Ty2>
-		requires convertible_to<_Ty1, _Ty2>
-	constexpr Array(Array<_Ty2,N> array_data)
-		//:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
+	template<class _Ty2, class ..._Ty3>
+		requires (N_Tuple::N_Apply::Chack<std::array<_Ty1, N>, _Ty2, _Ty3...>())
+	Array(_Ty2 t, _Ty3 ...ts)
+		: elems(N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...))
 	{
-		
+		//elems = N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...);
 	}
 
-	template<class _Ty2, class ..._Ty3>
-		requires 
-//	(N_Tuple::U_Apply_chack<std::array<_Ty1, N>, _Ty2, _Ty3...>::value)
-		convertible_from_nand<_Ty2, _Ty2, _Ty3...>
-		constexpr Array(_Ty2 t, _Ty3 ...ts) 
-			//:elems(N_Tuple::Apply<std::array<_Ty1, N>>(t,ts...)) 
-		{
-			//N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...);
-		}
+
 
 	//仕様
 	//配列のポインタを取得する
@@ -97,10 +89,7 @@ public:
 //Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::size>;
 
 template<class _Ty2, class ..._Ty3>
-	//requires 
-//is_invalid_not<N_Array::args_chack<_Ty2, _Ty2, _Ty3...>>
-// && convertible_from_nand<_Ty2, _Ty2, _Ty3...>
-Array(_Ty2 t, _Ty3 ...ts) -> Array<_Ty2,10 - N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::value>;
+Array(_Ty2 t, _Ty3 ...ts) -> Array<_Ty2,N_Array::args_size<_Ty2,_Ty3...>>;
 
 
 

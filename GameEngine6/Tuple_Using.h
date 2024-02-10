@@ -72,7 +72,7 @@ namespace N_Tuple
 	//[T_Tuple]の[t_Point_1]と[t_Point_2]の間の要素を取得する
 	//[t_Point2]が設定されない場合、現在の選択位置を指定する
 	template<class T_Tuple, size_t t_Point_1, size_t t_Point_2 = S_Parameter<T_Tuple>::head_size>
-		requires is_Element<T_Tuple, t_Point_1>&& is_Element<T_Tuple, t_Point_2>
+		//requires is_Element<T_Tuple, t_Point_1>&& is_Element<T_Tuple, t_Point_2>
 	using U_Range = typename I_Range<T_Tuple, t_Point_1, t_Point_2>::type;
 
 	//仕様
@@ -190,26 +190,6 @@ namespace N_Tuple
 	template<class T, size_t N>
 	using U_Repeat_Multiple = I_Repeat_Multiple<T, N>::type;
 
-
-	//仕様
-	//変数に対して、一対多、多対一、多対多の変換を行い、
-	// 関数オブジェクト、クラスコンストラクタを実行する
-	//
-	//テンプレート
-	// [T_Fn_Action]：変数を入れて実行する、[関数ポインター、Function、クラス]の型
-	//[T_Set_Types...]：一対多、多対一、多対多の変換を伴う変数
-	// 
-	//補足
-	//実行は[::Apply(args...)]を呼び出す事
-	//一対多の変換はコンストラクタを呼び出せる事、
-	//多対一の変換は展開する変数のクラスに
-	// [using tuple=tuple_t< ... >]、[auto& get<N>()]記述されている事。
-	//
-	// 一対多の変換時、変換後の[&],[*]は自動で補完されるが、
-	// 変換後の変数と変換に用いた変数の関係は個別に定義されない限りコピーである。
-	template<class T_Fn,class ...T_Set_Types>
-	using U_Apply_chack = I_Apply_Action<T_Fn, T_Set_Types...>::type;
-
 	//仕様
 	//指定した階層までタプル内の要素の中から、タプルと互換性を持つ型を展開する
 	//
@@ -218,7 +198,7 @@ namespace N_Tuple
 	//[t_expand_lelve]::展開する階層の上限
 	//補足
 	//[T_Tuple]が[tuple]ではなかった場合[T_Tuple]型を返す
-	template<class T_Tuple, size_t t_expand_lelve >
+	template<class T_Tuple, size_t t_expand_lelve = 1 >
 	using U_Expand = I_Expand<T_Tuple, t_expand_lelve>::type;
 
 	//仕様
@@ -229,7 +209,7 @@ namespace N_Tuple
 	//補足
 	//[T_Tuple]が[tuple]ではなかった場合[T_Tuple]型を返す
 	template<class T_Tuple>
-	using U_Expand_All = I_Expand<T_Tuple, SIZE_MAX>::type;
+	using U_Expand_All = I_Expand<T_Tuple, static_cast<size_t>(0-1)>::type;
 
 	//仕様
 	//パラメータパック[Ts...]から連続する型を{tuple_zip< T, N >}に圧縮する
