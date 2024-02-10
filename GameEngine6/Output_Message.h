@@ -16,9 +16,6 @@ std::vector<std::string> Type_id_template_separate(std::string path);
 
 #define Constant static constexpr auto \
 
-#define C_OUT(message) \
-std::cout<<getLastPathComponent(__FILE__)<<" : "<<__LINE__<< " << " <<message<<std::endl; \
-
 #define HOGE(Name)\
 void Hoge() \
 { \
@@ -34,10 +31,49 @@ C_OUT(sizeof(className));\
 
 namespace OUTPUT_MESSAGE
 {
+	static void C_Out_Single(auto front,auto ...ts) 
+	{
+		std::cout << front << std::endl;
+	}
+
+	template<size_t N = 0>
+	static void C_Out()
+	{}
+
+	template<size_t N = 0>
+	static void C_Out(auto t,auto... ts)
+	{
+		std::cout << "  " << N << " : " << t << std::endl;
+		C_Out<N + 1>(ts...);
+	}
+
+	
+	static void Action_C_Out(auto... ts)
+	{
+		switch (sizeof...(ts))
+		{
+		case 0:
+			std::cout<< std::endl;
+			break;
+		case 1:
+			std::cout << " << ";
+			C_Out_Single(ts...);
+			break;
+		default:
+			std::cout << std::endl;
+			C_Out<0>(ts...);
+			break;
+		}
+	}
+
+
+
+
 	template<class ...Ts>
 		requires(sizeof...(Ts) == 0)
 	static void Type_Name_Single() {}
 
+	//êÊì™ÇÃå^ÇÃñºëOÇèoóÕÇ∑ÇÈ
 	template<class T, class ...Ts>
 	static std::string Type_Name_Single()
 	{
@@ -135,10 +171,8 @@ namespace OUTPUT_MESSAGE
 
 	};
 
-
-
 	template<size_t dimension_Limit,class ...Ts>
-	static void Action()
+	static void Action_Type_Name()
 	{
 		switch (static_cast<int>(sizeof...(Ts)) * dimension_Limit)
 		{
@@ -158,13 +192,20 @@ namespace OUTPUT_MESSAGE
 	};
 
 	template<class ...Ts>
-	static void Action()
+	static void Action_Type_Name()
 	{
 		Action<1, Ts...>();
 	};
 
 }
+#define HEADER \
+std::cout << getLastPathComponent(__FILE__) << " : " << __LINE__;\
+
+
+#define C_OUT(...) \
+HEADER;OUTPUT_MESSAGE::Action_C_Out(__VA_ARGS__);
+
 
 #define TYPE_ID(...) \
-std::cout<<getLastPathComponent(__FILE__)<<" : "<<__LINE__;OUTPUT_MESSAGE::Action<__VA_ARGS__>();\
+HEADER;OUTPUT_MESSAGE::Action_Type_Name<__VA_ARGS__>();\
 

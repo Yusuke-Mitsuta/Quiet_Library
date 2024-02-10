@@ -268,18 +268,20 @@ int main()
 
 	//N_Tuple::I_Zip<int, int, int, int, int, double, float, float, float, float, float>::;
 
-	Array ary_2(ary_0, ary_1, vec4_test, vec4_test, vec4_test);
+	//Array ary_2(ary_0, ary_1, vec4_test, vec4_test, vec4_test);
 
-	std::cout << std::endl;
+	//std::cout << std::endl;
 	for (int i = 0; i < 2; i++)
 	{
 
 		for (int j = 0; j < 3; j++)
 		{
-			C_OUT(ary_2[i][j]);
+		//	C_OUT(ary_2[i][j]);
 		}
 		std::cout << std::endl;
 	}
+
+	C_OUT(1, 3, 5, 7, 9);
 
 	//TYPE_ID(
 
