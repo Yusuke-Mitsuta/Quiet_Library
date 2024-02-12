@@ -268,6 +268,8 @@ int main()
 
 	//N_Tuple::I_Zip<int, int, int, int, int, double, float, float, float, float, float>::;
 
+	N_Tuple::Apply<Array<Array<int,3>,6>>(ary_0, ary_1, vec4_test, vec4_test, vec4_test);
+
 	//Array ary_2(ary_0, ary_1, vec4_test, vec4_test, vec4_test);
 
 	//std::cout << std::endl;
@@ -276,12 +278,16 @@ int main()
 
 		for (int j = 0; j < 3; j++)
 		{
-		//	C_OUT(ary_2[i][j]);
+			//C_OUT(ary_2[i][j]);
 		}
 		std::cout << std::endl;
 	}
 
-	C_OUT(1, 3, 5, 7, 9);
+	C_OUT(
+		N_Tuple::N_Apply::Chack<std::array<int, 1>, vec_4>()
+	);
+
+	//C_OUT(1, 3, 5, 7, 9);
 
 	//TYPE_ID(
 

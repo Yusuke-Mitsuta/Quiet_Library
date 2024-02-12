@@ -21,7 +21,8 @@ namespace N_Tuple::N_Apply
 		template<class MT_Fn = T, class... T_Args>
 		constexpr auto Apply(T_Args&&... args)
 		{
-			return T{static_cast<T_Request_Args>(args)... };
+			TYPE_ID(T_Args...);
+			//return T{static_cast<T_Request_Args>(args)... };
 		}
 
 

@@ -194,7 +194,7 @@ namespace OUTPUT_MESSAGE
 	template<class ...Ts>
 	static void Action_Type_Name()
 	{
-		Action<1, Ts...>();
+		Action_Type_Name<1, Ts...>();
 	};
 
 }

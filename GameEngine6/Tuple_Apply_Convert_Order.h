@@ -101,10 +101,9 @@ namespace N_Tuple::N_Apply
 			// 判定２：判定１が失敗した場合、供給する引数の型を展開出来るか判定する
 			// 判定３：判定２が失敗した場合、要求する引数の型を展開出来るか判定する
 			// 判定３が失敗した場合、エラーとして無効値を返す
-			template<bool t_constructible_from = convertible_to<set_t, request_t>,
-				bool t_Request_Types_Expand = is_invalid_not<expand<request_t>>,
-				bool t_Set_Types_Expand = is_invalid_not<expand<set_t>>
-			>
+			template<
+				class T_Request=typename T_Request_Types_Tuple::type,
+				class T_Set = typename T_Set_Types_Tuple::type>
 			struct S_Apply_Control
 			{
 				//エラーの場合は無効値を返す
@@ -114,8 +113,12 @@ namespace N_Tuple::N_Apply
 
 			//仕様
 			//供給する型から、要求する型に変換できる場合
-			template<bool t_Request_Types_Expand, bool t_Set_Types_Expand>
-			struct S_Apply_Control<true, t_Request_Types_Expand, t_Set_Types_Expand>
+			template<class T_Request,class T_Set>
+				requires requires
+			{
+				requires convertible_to<T_Set, T_Request>;
+			}
+			struct S_Apply_Control< T_Request, T_Set>
 			{
 				//要求する型、供給する型のリストを次に進め、次の型の判定に移る。
 				using type = S_Convert_Order<
@@ -129,8 +132,13 @@ namespace N_Tuple::N_Apply
 
 			//仕様
 			//供給する引数の型を展開出来る場合
-			template<bool t_Request_Types_Expand>
-			struct S_Apply_Control<false, t_Request_Types_Expand, true>
+			template<class T_Request, class T_Set>
+				requires requires
+			{
+				requires !convertible_to<T_Set, T_Request>;
+				requires is_invalid_not<expand<T_Set>>;
+			}
+			struct S_Apply_Control< T_Request, T_Set>
 			{
 
 				//供給する型を展開し、
@@ -146,8 +154,14 @@ namespace N_Tuple::N_Apply
 
 			//仕様
 			//要求する引数の型を展開出来る場合
-			template<>
-			struct S_Apply_Control<false, true, false>
+			template<class T_Request, class T_Set>
+				requires requires
+			{
+				requires !convertible_to<T_Set, T_Request>;
+				requires is_invalid_not<expand<T_Request>>;
+				requires !is_invalid_not<expand<T_Set>>;
+			}
+			struct S_Apply_Control< T_Request, T_Set>
 			{
 				//要求する型を展開し、
 				// 展開した型の情報を別途保存する

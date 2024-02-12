@@ -61,7 +61,7 @@ public:
 	template<class _Ty2, class ..._Ty3>
 		requires (N_Tuple::N_Apply::Chack<std::array<_Ty1, N>, _Ty2, _Ty3...>())
 	Array(_Ty2 t, _Ty3 ...ts)
-		: elems(N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...))
+		//: elems(N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...))
 	{
 		//elems = N_Tuple::Apply<std::array<_Ty1, N>>(t, ts...);
 	}
