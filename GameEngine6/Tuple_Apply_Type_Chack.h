@@ -68,7 +68,8 @@ namespace N_Tuple::N_Apply
 			requires ((convertible_to<
 				U_Element_t<t_Expand_Number, set_expand>,
 				U_Element_t<t_Expand_Number, request_expand>> && ...) &&
-				(request_expand::size == sizeof...(t_Expand_Number)))
+				(request_expand::size == sizeof...(t_Expand_Number)) &&
+				(set_expand::size== sizeof...(t_Expand_Number)))
 		struct S_Type_Chack<tuple_v<t_Expand_Number...>>
 		{
 			using type = S_Type_Chack;
@@ -81,7 +82,8 @@ namespace N_Tuple::N_Apply
 			requires ((convertible_to<
 				U_Element_t<t_Expand_Number, set_expand>,
 				U_Element_t<t_Expand_Number, request_expand>> && ...) &&
-				(request_expand::size != sizeof...(t_Expand_Number)))
+				(request_expand::size != sizeof...(t_Expand_Number)) &&
+				(set_expand::size >= sizeof...(t_Expand_Number)))
 		struct S_Type_Chack<tuple_v<t_Expand_Number...>>
 		{
 			//‰Â•Ï’·ˆø”‚ª’è‹`‚³‚ê‚Ä‚¢‚éŒ^‚É‘Î‚µ‚ÄA[tuple]‚ÆŒİŠ·«‚ª‚ ‚éŒ^‚ğ‘S‚Ä“WŠJ‚µ‚½Œ^

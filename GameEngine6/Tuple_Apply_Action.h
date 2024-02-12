@@ -13,10 +13,6 @@ namespace N_Tuple
 
 	namespace N_Apply
 	{
-		template<class T_Request_Types_Tuple,
-			class T_Set_Types_Tuple>
-		struct I_Convert_Order;
-
 
 		template<class T_Fn, class ...T_Set_Types>
 		static constexpr bool Chack()
