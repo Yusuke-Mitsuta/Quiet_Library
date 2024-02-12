@@ -41,22 +41,7 @@ public:
 
 	using tuple = N_Tuple::U_Repeat_Multiple<_Ty1, N>;
 
-	//template<convertible_to<_Ty1> ..._Ty2>
-	//	requires (sizeof...(_Ty2) == N) 
-	//constexpr Array(_Ty2 ...ts) :
-	//	elems({static_cast<_Ty1>(ts)...})
-	//{}
-	template<same_as<int> ..._Ty2>
-		requires (sizeof...(_Ty2) == N) 
-	constexpr Array(_Ty2 ...ts) :
-		elems({static_cast<_Ty1>(ts)...})
-	{}
 
-	template<same_as<float> ..._Ty2>
-		requires (sizeof...(_Ty2) == N) 
-	constexpr Array(_Ty2 ...ts) :
-		elems({static_cast<_Ty1>(ts)...})
-	{}
 
 	template<class _Ty2, class ..._Ty3>
 		requires (N_Tuple::N_Apply::Chack<std::array<_Ty1, N>, _Ty2, _Ty3...>())
@@ -83,15 +68,9 @@ public:
 							
 };
 
-
-//template<class _Ty2, class... _Ty3>
-	//requires (convertible_to_and<_Ty2,_Ty3...>)
-//Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2,9- N_Array::args_chack<_Ty2, _Ty2, _Ty3...>::size>;
-
 template<class _Ty2, class ..._Ty3>
+	requires (N_Array::args_size<_Ty2, _Ty3...> >= 0)
 Array(_Ty2 t, _Ty3 ...ts) -> Array<_Ty2,N_Array::args_size<_Ty2,_Ty3...>>;
-
-
 
 
 template<class _Ty1, size_t N>

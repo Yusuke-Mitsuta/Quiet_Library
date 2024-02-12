@@ -20,8 +20,6 @@ namespace N_Tuple
 		struct S_Expand
 		{
 			using type = T_Tuple;
-
-			using type1 = T_Result;//integral_constant<static_cast<bool>( t_expand_lelve)>;
 		};
 
 

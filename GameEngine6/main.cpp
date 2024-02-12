@@ -230,6 +230,9 @@ void Expand_zip_test(int n1,int n2,int n3,int n4)
 int main()
 {
 
+
+	//Function fn(&Expand_zip_test, 1,3,3,4);
+
 	using t1 = tuple_t<int, float, double>;
 
 	int n = 3;
