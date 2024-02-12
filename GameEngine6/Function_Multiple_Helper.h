@@ -103,10 +103,6 @@ namespace N_Function
 					std::is_pointer_v<std::remove_reference_t<T_chack>>
 						&& std::is_class_v<std::remove_pointer_t<std::remove_reference_t<T_chack>>>;
 
-
-					
-
-
 				//仕様
 				//指定されたポインターをが必要か判定する。
 				// 

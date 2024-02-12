@@ -66,7 +66,7 @@ namespace N_Function
 		{
 			using operator_data = tuple_t<
 				T_access_number,
-				T_request_args,
+				typename T_request_args::remove_p,
 				T_request_pointer>;
 
 			using type = tuple_t<T_Result...,operator_data>;

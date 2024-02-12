@@ -222,7 +222,7 @@ void Expand_zip_testa(vec4 vec)
 }
 
 
-void Expand_zip_test(int n1,int n2,int n3,int n4)
+void Expand_zip_test(int n1,int n2,int n3,double n4)
 {
 	//H::Static_Args_88(n1, n2, n3, n4);
 }
@@ -231,10 +231,17 @@ int main()
 {
 
 
-	//Function fn(&Expand_zip_test, 1,3,3,4);
-
+	Function fn_1(&Expand_zip_test, 1);
+	Function fn_2(&Expand_zip_test, 1,2);
+	Function fn(fn_1, fn_2);
+	TYPE_ID(
+		N_Function::I_Function_Valid_Data<decltype(fn_1), decltype(fn_2)>::request_args);
+		//N_Function::Function_Core<decltype(fn_1), decltype(fn_2)>::function);
+		//N_Function::I_Function_Single_Helper<decltype(fn_1), decltype(fn_2)>::judge);
 	using t1 = tuple_t<int, float, double>;
 
+	TYPE_ID(
+	N_Function::Function_Core<decltype(&Expand_zip_test), int>::superficial::function);
 	int n = 3;
 
 	int* np = &n;

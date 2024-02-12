@@ -32,8 +32,8 @@ namespace N_Function
 	struct I_Function_Args_Chack<T_Request_Args,T_Bind_Args>
 	{
 	public:
-
-		using type = typename N_Tuple::N_Apply::I_Convert_Order<T_Request_Args, T_Bind_Args>::type::request;
+		
+		using type = typename N_Tuple::N_Apply::I_Convert_Order<typename T_Request_Args::remove_p, T_Bind_Args>::type::request::create_p;
 
 	};
 
