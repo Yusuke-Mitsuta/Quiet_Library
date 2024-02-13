@@ -220,22 +220,40 @@ void Expand_zip_testa(vec4 vec)
 		vec.n);
 	
 }
-
+void Expand_zip_testf(float n1, int n2, int n3, double n4)
+{
+	C_OUT(n1, n2, n3, n4);
+	//H::Static_Args_88(n1, n2, n3, n4);
+}
 
 void Expand_zip_test(int n1,int n2,int n3,double n4)
 {
+	C_OUT(n1, n2, n3, n4);
 	//H::Static_Args_88(n1, n2, n3, n4);
 }
 
 int main()
 {
+	//TYPE_ID(
+		//N_Function::I_Function_Args_Chack<tuple_t<int, int, float>, tuple_t<int, float,int>>::type
+	//);
 
+	Function a(&Expand_zip_test, &Expand_zip_testa);
+
+	TYPE_ID(
+	decltype(a)::vaild::function);
+		//N_Function::I_Function_Base_Data<
+		//decltype(&Expand_zip_test),
+		//decltype(&Expand_zip_test)>::type;
 
 	Function fn_1(&Expand_zip_test, 1);
-	Function fn_2(&Expand_zip_test, 1,2);
+	Function fn_2(&Expand_zip_testf, 2,4);
+	
 	Function fn(fn_1, fn_2);
-	TYPE_ID(
-		N_Function::I_Function_Valid_Data<decltype(fn_1), decltype(fn_2)>::request_args);
+	//fn(11, 22, 33);
+	//fn(11, 22);
+	//TYPE_ID(
+	//	N_Function::I_Function_Valid_Data<decltype(fn_1), decltype(fn_2)>::request_args);
 		//N_Function::Function_Core<decltype(fn_1), decltype(fn_2)>::function);
 		//N_Function::I_Function_Single_Helper<decltype(fn_1), decltype(fn_2)>::judge);
 	using t1 = tuple_t<int, float, double>;
@@ -290,7 +308,7 @@ int main()
 
 		for (int j = 0; j < 3; j++)
 		{
-			C_OUT(ary_2[i][j]);
+			//C_OUT(ary_2[i][j]);
 		}
 		std::cout << std::endl;
 	}

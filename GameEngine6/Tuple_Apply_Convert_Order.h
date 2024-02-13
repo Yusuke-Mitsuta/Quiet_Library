@@ -20,8 +20,15 @@ namespace N_Tuple::N_Apply
 
 
 	//仕様
-	//供給する型のリストから、要求する型のリストに、型の展開を伴い変換を出来るか判定する。
-	//
+	//供給する型のリストから、要求する型のリストに、型の展開を伴い変換を出来るか判定し、
+	// その過程、結果を返す
+	// 
+	// using 
+	//[type::request]::供給する型リストとの照合の結果、使用しなかった要求する型リスト
+	//[type::set]::要求する型リストとの照合の結果、使用しなかった供給する型リスト
+	//[type::conversion_expand_list]::供給する型リストの展開命令
+	//[type::conversion_zip_list]::供給する型リストの圧縮命令
+	// 
 	//補足
 	// 型の判定は後ろから実施する。
 	template<class T_Request_Types_Tuple,
@@ -39,10 +46,16 @@ namespace N_Tuple::N_Apply
 		{
 			using type = S_Result;
 
+			//供給する型リストとの照合の結果、使用しなかった要求する型リスト
 			using request = T_Request_Types_Tuple;
 
+			//要求する型リストとの照合の結果、使用しなかった供給する型リスト
+			using set = T_Set_Types_Tuple;
+
+			//供給する型リストの展開命令
 			using conversion_expand_list = T_Conversion_Expand_List;
 
+			//供給する型リストの圧縮命令
 			using conversion_zip_list = T_Conversion_Zip_List;
 
 		};
@@ -175,9 +188,6 @@ namespace N_Tuple::N_Apply
 			};
 
 
-
-
-
 			using type = S_Apply_Control<>::type;
 
 		};
@@ -189,8 +199,6 @@ namespace N_Tuple::N_Apply
 		using type = S_Convert_Order<
 			T_Request_Types_Tuple,
 			T_Set_Types_Tuple>::type;
-
-		using conversion = type;
 
 	};
 

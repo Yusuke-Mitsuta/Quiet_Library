@@ -39,8 +39,6 @@ public:
 
 	using vaild= N_Function::I_Function_Valid_Data<Function>;
 
-	using access = N_Function::I_Function_Helper<T_Front_Parts,T_Parts...>;
-
 };
 
 template<class T_Front_Parts, class ...T_Parts>

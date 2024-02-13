@@ -118,6 +118,7 @@ namespace N_Tuple::N_Apply
 					U_Element_t<t_Infinite_Args_Expand_Number, infinite_args_expand>> && ...)
 			struct S_Infinite_Args_Chack<tuple_v<t_Infinite_Args_Expand_Number...>, t_infinite_args_Num>
 			{
+
 				using type = S_Infinite_Args_Chack<
 					tuple_v<t_Infinite_Args_Expand_Number...>, t_infinite_args_Num + 1>::type;
 			};
@@ -195,8 +196,6 @@ namespace N_Tuple::N_Apply
 			>::remove_p;
 
 	};
-
-
 
 
 }

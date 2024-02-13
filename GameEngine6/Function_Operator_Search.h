@@ -49,9 +49,9 @@ namespace N_Function
 		{
 			using merge_pointer = S_Merge_Pointer<typename T_Operator_Parameter::type>::type::back;
 
-			using args_chack = I_Function_Args_Chack<merge_pointer, T_Args>::type;
+			static constexpr bool args_chack = N_Tuple::N_Apply::I_Type_Chack<merge_pointer, T_Args>::value;
 
-			template<bool t_detect_fg = (N_Tuple::S_Size<args_chack>::tail_size == merge_pointer::size)>
+			template<bool t_detect_fg = args_chack>
 			struct S_Next_Search
 			{
 				using type = S_Function_Operator_Search<T_Args, typename T_Operator_Parameter::remove>::type;

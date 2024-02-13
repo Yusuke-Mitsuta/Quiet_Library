@@ -28,6 +28,7 @@ namespace N_Function
 	private:
 
 		using function_operator_data_list = typename I_Function_Operator_Helper<T_Parts...>::type;
+
 		using function_operator_sort = typename I_Function_Operator_Sort<function_operator_data_list>::type;
 
 		template<class ...T_Args>
@@ -69,9 +70,7 @@ namespace N_Function
 
 			constexpr S_Function_Operator(T_Parts&& ...args)
 				:data(std::forward<T_Parts>(args)...)
-			{
-			
-			}
+			{}
 
 			template<class ...T_Args>
 				requires is_invalid_not< function_operator_search<T_Args...>>
@@ -79,8 +78,7 @@ namespace N_Function
 			{
 				return S_Function_Operator<tuple_t<function_operator_search<T_Args...>>>::Action_Operator(this,
 					std::forward<T_Args>(args)...);
-					
-
+				
 			}
 
 			//Žd—l
