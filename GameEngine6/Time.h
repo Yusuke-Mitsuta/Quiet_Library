@@ -10,6 +10,8 @@
 //YUSUKE
 //=================================================================
 
+#include"Concept.h"
+
 class MicroTime;
 
 //仕様
@@ -36,15 +38,8 @@ public:
 	
 	//仕様
 	//単位(秒)の時間セットする
-	Time(int setTime);
-	
-	//仕様
-	//単位(秒)の時間セットする
-	Time(float setTime);
-	
-	//仕様
-	//単位(秒)の時間セットする
-	Time(double setTime);
+	Time(std::integral auto setTime);
+
 
 	//仕様
 	//単位(μ秒)の時間セットする
@@ -64,22 +59,16 @@ public:
 	//単位(μ秒)の時間:
 	operator MicroTime();
 
-	Time operator +(const int time2);
-	Time operator +(const float time2);
-	Time operator +(const double time2);
+	Time operator +(const std::integral auto  time2);
 	Time operator +(const Time time2);
 	Time operator +(MicroTime time2);
 
-	Time operator -(const int time2);
-	Time operator -(const float time2);
-	Time operator -(const double time2);
+	Time operator -(const std::integral auto time2);
 	Time operator -(const Time time2);
 	Time operator -(MicroTime time2);
 
 
-	void operator =(const int time2);
-	void operator =(const float time2);
-	void operator =(const double time2);
+	void operator =(const std::integral auto time2);
 	void operator =(MicroTime time2);
 
 
@@ -90,6 +79,31 @@ public:
 	void operator /=(const Time &time2);
 
 };
+
+inline Time Time::operator+(const std::integral auto time2)
+{
+	Time sumTime;
+	sumTime.time = time + static_cast<long long>(time2) * 1000000;
+	return  sumTime;
+}
+
+inline Time Time::operator-(const std::integral auto time2)
+{
+	Time differenceTime;
+	differenceTime.time = time - static_cast<long long>(time2) * 1000000;
+	return  differenceTime;
+}
+
+inline void Time::operator=(const std::integral auto time2)
+{
+	time = static_cast<long long>(time2) * 1000000;
+}
+
+inline Time::Time(std::integral auto setTime)
+{
+	time = static_cast<long long>(setTime) * 1000000;
+}
+
 
 //仕様
 //μ秒で計算する
@@ -109,7 +123,7 @@ public:
 	MicroTime(){}
 	//仕様
 	//単位(μ秒)で時間をセットする
-	MicroTime(long long setTime);
+	MicroTime(std::integral auto setTime);
 
 	operator long long();
 	operator Time();
@@ -124,3 +138,8 @@ public:
 	void operator /=(const MicroTime &time2);
 
 };
+
+MicroTime::MicroTime(std::integral auto setTime)
+{
+	time = static_cast<long long>(setTime);
+}

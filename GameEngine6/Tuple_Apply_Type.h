@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include"Tuple_Declare.h"
 
 template<is_invalid_not T_Front_Parts, class ...T_Parts>

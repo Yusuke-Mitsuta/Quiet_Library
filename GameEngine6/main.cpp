@@ -232,34 +232,51 @@ void Expand_zip_test(int n1,int n2,int n3,double n4)
 	//H::Static_Args_88(n1, n2, n3, n4);
 }
 
+#include"Time.h"
+
 int main()
 {
+
+	MicroTime m_time = 1000;
+
+	Time time(5);
+
+	Time timea(m_time);
+
+	C_OUT(time, timea);
+	
+
 	//TYPE_ID(
 		//N_Function::I_Function_Args_Chack<tuple_t<int, int, float>, tuple_t<int, float,int>>::type
 	//);
 
-	Function a(&Expand_zip_test, &Expand_zip_testa);
+	//Function a(&Expand_zip_test, &Expand_zip_testa);
 
-	TYPE_ID(
-	decltype(a)::vaild::function);
+	//TYPE_ID(decltype(a)::vaild::function);
 		//N_Function::I_Function_Base_Data<
 		//decltype(&Expand_zip_test),
 		//decltype(&Expand_zip_test)>::type;
 
-	Function fn_1(&Expand_zip_test, 1);
-	Function fn_2(&Expand_zip_testf, 2,4);
+	//Function fn_1(&Expand_zip_test, 1);
+	//Function fn_2(&Expand_zip_testf, 2,4);
+
+	//Function fn_3(&MyStruct::get<0>);
 	
-	Function fn(fn_1, fn_2);
+	//MyStruct te(90, 10);
+
+	//fn_3(&te);
+
+	//Function fn(fn_1, fn_2);
 	//fn(11, 22, 33);
 	//fn(11, 22);
 	//TYPE_ID(
 	//	N_Function::I_Function_Valid_Data<decltype(fn_1), decltype(fn_2)>::request_args);
 		//N_Function::Function_Core<decltype(fn_1), decltype(fn_2)>::function);
 		//N_Function::I_Function_Single_Helper<decltype(fn_1), decltype(fn_2)>::judge);
-	using t1 = tuple_t<int, float, double>;
+	//using t1 = tuple_t<int, float, double>;
 
-	TYPE_ID(
-	N_Function::Function_Core<decltype(&Expand_zip_test), int>::superficial::function);
+	//TYPE_ID(
+	//N_Function::Function_Core<decltype(&Expand_zip_test), int>::superficial::function);
 	int n = 3;
 
 	int* np = &n;
@@ -267,22 +284,22 @@ int main()
 	int nr = *np;
 	//static int n = __LINE__;
 
-	vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
+	//vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);
 
 	//C_OUT("a");
 
 	//TYPE_ID();
 
-	N_Tuple::Apply(&Expand_zip_testa, vec4_test);
+	//N_Tuple::Apply(&Expand_zip_testa, vec4_test);
 	
-	Array<int,3> ary_0(1, 3, 5);
+	//Array<int,3> ary_0(1, 3, 5);
 
-	using ary_0t = Array<int, 3>;
-	using ary_1t = Array<float, 3>;
+//	using ary_0t = Array<int, 3>;
+//	using ary_1t = Array<float, 3>;
 	
 
-	Array<float, 3> ary_1(1.0f, 3.0f, 5.0f);
-	using vec_4 = decltype(vec4_test);
+	//Array<float, 3> ary_1(1.0f, 3.0f, 5.0f);
+	//using vec_4 = decltype(vec4_test);
 	//N_Tuple::U_Expand_All<ary_0t>;
 
 	//N_Tuple::Apply<std::array<Array<int, 3>, 2>>(ary_0, ary_1);
@@ -298,21 +315,11 @@ int main()
 
 	//N_Tuple::Apply<Array<Array<int,3>,6>>(ary_0, ary_1, vec4_test, vec4_test, vec4_test);
 
-	Array ary_2(ary_0, vec4_test, ary_1, vec4_test, 3,vec4_test,3,0);
+	//Array ary_2(ary_0, vec4_test, ary_1, vec4_test, 3,vec4_test,3,0);
 	//Array ary_2(ary_0, ary_1, vec4_test, vec4_test, vec4_test);
 
 
-	//std::cout << std::endl;
-	for (int i = 0; i < 7; i++)
-	{
-
-		for (int j = 0; j < 3; j++)
-		{
-			//C_OUT(ary_2[i][j]);
-		}
-		std::cout << std::endl;
-	}
-
+	//std::cout << std::en
 
 
 	//C_OUT(1, 3, 5, 7, 9);

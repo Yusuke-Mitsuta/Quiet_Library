@@ -11,21 +11,6 @@
 
 #include "Time.h"
 
-Time::Time(int setTime)
-{
-	time = setTime * 1000000;
-}
-
-Time::Time(float setTime)
-{
-	time = setTime * 1000000;
-}
-
-Time::Time(double setTime)
-{
-	time = setTime * 1000000;
-}
-
 Time::Time(MicroTime setTime)
 {
 	time = setTime;
@@ -33,7 +18,7 @@ Time::Time(MicroTime setTime)
 
 Time::operator double()
 {
-	double douleTime = time;
+	double douleTime = static_cast<double>(time);
 	return douleTime/= 1000000;
 }
 
@@ -43,22 +28,7 @@ Time::operator MicroTime()
 }
 
 
-Time Time::operator+(const int time2)
-{
-	return operator+((double)time2);
-}
 
-Time Time::operator+(const float time2)
-{
-	return operator+((double)time2);
-}
-
-Time Time::operator+(const double time2)
-{
-	Time sumTime;
-	sumTime.time = time + time2 * 1000000;
-	return  sumTime;
-}
 
 Time Time::operator+(const Time time2)
 {
@@ -72,26 +42,6 @@ Time Time::operator+(MicroTime time2)
 	Time sumTime;
 	sumTime.time = time + time2;
 	return  sumTime;
-}
-
-
-Time Time::operator-(const int time2)
-{
-
-	return operator-((double)time2);
-}
-
-Time Time::operator-(const float time2)
-{
-	return operator-((double)time2);
-}
-
-Time Time::operator-(const double time2)
-{
-	Time differenceTime;
-	differenceTime.time = time - time2 * 1000000;
-	return  differenceTime;
-
 }
 
 Time Time::operator-(const Time time2)
@@ -109,20 +59,6 @@ Time Time::operator-(MicroTime time2)
 }
 
 
-void Time::operator=(const int time2)
-{
-	time = time2 * 1000000;
-}
-
-void Time::operator=(const float time2)
-{
-	time = time2 * 1000000;
-}
-
-void Time::operator=(const double time2)
-{
-	time = time2 * 1000000;
-}
 
 void Time::operator=(MicroTime time2)
 {
@@ -143,20 +79,15 @@ void Time::operator-=(const Time &time2)
 
 void Time::operator*=(const Time &time2)
 {
-	double product = time * time2.time;
-	time = product / 1000000;
+	double product = static_cast<double>(time) * time2.time;
+	time = static_cast<long long>(product) / 1000000;
 }
 
 void Time::operator/=(const Time &time2)
 {
-	double quotient = time / time2.time;
-	time = quotient * 1000000;
+	double quotient = static_cast<double>(time) / time2.time;
+	time = static_cast<long long>(quotient) * 1000000;
 
-}
-
-MicroTime::MicroTime(long long setTime)
-{
-	time = setTime;
 }
 
 MicroTime::operator long long()
