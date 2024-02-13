@@ -43,17 +43,11 @@
     <Filter Include="ヘッダー ファイル\Function">
       <UniqueIdentifier>{d80d7c99-db8f-4eba-9366-bf0c706e949b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Tuple">
-      <UniqueIdentifier>{9c7b0b27-3408-436a-b360-6cb5eece5889}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Parameter">
       <UniqueIdentifier>{b9e8e00c-e0a7-40a6-abbe-cddb542c4ed1}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\N_Tuple">
       <UniqueIdentifier>{d1606bf9-2038-4b16-9846-1c3d4ad472c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Tuple_New">
-      <UniqueIdentifier>{12123ce8-54db-44f0-b786-ba5d3f28a5d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Function\Function_Single_Data">
       <UniqueIdentifier>{55f58fc5-f54b-4652-b4bb-82ddf348b2c7}</UniqueIdentifier>
@@ -122,12 +116,6 @@
     </ClInclude>
     <ClInclude Include="Message_Router.h">
       <Filter>ヘッダー ファイル\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="Type_Nameh.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Using_Type.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Core_Control_Tower.h">
       <Filter>ヘッダー ファイル\Core_Control</Filter>
@@ -201,15 +189,6 @@
     <ClInclude Include="Message_Receive.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="tuple_convertible_to.h">
-      <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="tuple_Helper.h">
-      <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Unzip.h">
-      <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="SwapType.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -217,9 +196,6 @@
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="DBG_NEW.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Expand.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Function_Helper.h">
@@ -257,9 +233,6 @@
     </ClInclude>
     <ClInclude Include="Tuple_v_Calculate.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Template_Calculate.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Invalid.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -354,9 +327,6 @@
     <ClInclude Include="Time_Test.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Apply_Action.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
     </ClInclude>
@@ -441,6 +411,9 @@
     <ClInclude Include="Tuple_Zip.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>ヘッダー ファイル\Vector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -520,9 +493,6 @@
     </ClCompile>
     <ClCompile Include="Tuple_Value.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClCompile>
-    <ClCompile Include="Using_Type.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Declare.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>

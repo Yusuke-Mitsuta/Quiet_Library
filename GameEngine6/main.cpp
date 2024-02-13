@@ -8,7 +8,7 @@
 #include"Tuple.h"
 
 #include "Output_Message.h"
-
+#include"Vector3.h"
 
 
 constexpr int a = '"';
@@ -236,6 +236,14 @@ void Expand_zip_test(int n1,int n2,int n3,double n4)
 
 int main()
 {
+
+	Vector3 ve(1, 4, 8);
+	ve.b
+	//Vector3_b ve(1, 4, 8);
+
+	ve.x = 10;
+
+	C_OUT(ve.x);
 
 	MicroTime m_time = 1000;
 

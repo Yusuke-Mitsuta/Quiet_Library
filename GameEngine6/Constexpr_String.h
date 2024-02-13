@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include<string>
-#include"Using_Type.h"
 #include"Concept.h"
 
 namespace N_Constexpr

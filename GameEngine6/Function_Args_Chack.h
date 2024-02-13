@@ -1,7 +1,6 @@
 #pragma once
 
 #include"Tuple.h"
-#include"Expand.h"
 
 namespace N_Function
 {

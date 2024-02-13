@@ -50,7 +50,6 @@
     <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Select_Type.h" />
-    <ClInclude Include="Template_Calculate.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Concept.h" />
     <ClInclude Include="Constexpr_Array.h" />
@@ -59,7 +58,6 @@
     <ClInclude Include="Core_Control_Tower.h" />
     <ClInclude Include="Core_Base.h" />
     <ClInclude Include="DBG_NEW.h" />
-    <ClInclude Include="Expand.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Function_Core.h" />
     <ClInclude Include="Function_Operator_Helper.h" />
@@ -113,7 +111,6 @@
     <ClInclude Include="Tuple_Change.h" />
     <ClInclude Include="Tuple_Class_Declare.h" />
     <ClInclude Include="Tuple_Element.h" />
-    <ClInclude Include="tuple_Helper.h" />
     <ClInclude Include="Tuple_Control.h" />
     <ClInclude Include="Tuple_Concept.h" />
     <ClInclude Include="Tuple_Insert.h" />
@@ -126,14 +123,10 @@
     <ClInclude Include="Tuple_Reverse.h" />
     <ClInclude Include="Tuple_Swap.h" />
     <ClInclude Include="Tuple_Type.h" />
-    <ClInclude Include="Tuple_Unzip.h" />
-    <ClInclude Include="tuple_convertible_to.h" />
     <ClInclude Include="Tuple_Using.h" />
     <ClInclude Include="Tuple_v_Calculate.h" />
     <ClInclude Include="Tuple_index_sequence.h" />
     <ClInclude Include="Tuple_v_To_t.h" />
-    <ClInclude Include="Type_Nameh.h" />
-    <ClInclude Include="Using_Type.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Tuple_Infinite.h" />
@@ -174,7 +167,6 @@
     <ClCompile Include="Tuple_Agrs.cpp" />
     <ClCompile Include="Tuple_Test.cpp" />
     <ClCompile Include="Tuple_Value.h" />
-    <ClCompile Include="Using_Type.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HTMLPage.htm">
