@@ -393,9 +393,6 @@
     <ClInclude Include="Output_Message.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Array_Type_Chack.h">
-      <Filter>ヘッダー ファイル\Array</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Infinite.h">
       <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
     </ClInclude>
@@ -411,7 +408,10 @@
     <ClInclude Include="Tuple_Zip.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
+    <ClInclude Include="Vector_Core.h">
+      <Filter>ヘッダー ファイル\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector_Storge.h">
       <Filter>ヘッダー ファイル\Vector</Filter>
     </ClInclude>
   </ItemGroup>

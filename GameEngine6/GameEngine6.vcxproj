@@ -23,7 +23,6 @@
     <ClInclude Include="Add_Origin.h" />
     <ClInclude Include="Add_Object.h" />
     <ClInclude Include="Add_Scene.h" />
-    <ClInclude Include="Array_Type_Chack.h" />
     <ClInclude Include="Output_Message.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />
@@ -128,8 +127,9 @@
     <ClInclude Include="Tuple_index_sequence.h" />
     <ClInclude Include="Tuple_v_To_t.h" />
     <ClInclude Include="Vector.h" />
-    <ClInclude Include="Vector3.h" />
     <ClInclude Include="Tuple_Infinite.h" />
+    <ClInclude Include="Vector_Core.h" />
+    <ClInclude Include="Vector_Storge.h" />
     <ClInclude Include="While_Type.h" />
   </ItemGroup>
   <ItemGroup>

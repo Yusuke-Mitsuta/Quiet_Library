@@ -8,7 +8,6 @@
 #include"Tuple.h"
 
 #include "Output_Message.h"
-#include"Vector3.h"
 
 
 constexpr int a = '"';
@@ -220,38 +219,116 @@ void Expand_zip_testa(vec4 vec)
 		vec.n);
 	
 }
-void Expand_zip_testf(float n1, int n2, int n3, double n4)
+void Expand_zip_testf(float n1, int n2, int n3, int n4)
 {
 	C_OUT(n1, n2, n3, n4);
 	//H::Static_Args_88(n1, n2, n3, n4);
 }
 
-void Expand_zip_test(int n1,int n2,int n3,double n4)
+void Expand_zip_test(int n1,int n2,int n3,int n4)
 {
 	C_OUT(n1, n2, n3, n4);
 	//H::Static_Args_88(n1, n2, n3, n4);
 }
 
-#include"Time.h"
+struct H
+{
+
+	H(int, int) {}
+
+};
+
+union MyUnion
+{
+	int n=0;
+	float f;
+};
+
+#include"Vector.h"
 
 int main()
 {
+	Array<int, 4> aa;
+	Vector3 ve;
 
-	Vector3 ve(1, 4, 8);
-	ve.b
+	
+	C_OUT(ve[0],
+		ve[1],
+		ve[2
+		]);
+
+	C_OUT(aa[0],
+		aa[1],
+		aa[2
+		],
+		  aa[3]);
+
+	//Function fn(&Expand_zip_test, aa);
+
+	//C_OUT(n,n2);
+
+	//std::bool_constant< std::convertible_to<Vector3, int>>::value;
+
+
+	//std::bool_constant< std::convertible_to<Array<int,2>,Vector3>>::value;
+	//std::bool_constant< std::convertible_to<int,Vector3>>::value;
+	//Array<int, 3> ary(3);
+
+
+	
+	//Array<int, 3> ary(3);
+
+	//Vector3 ve{};
+	//N_Vector::S_Core<int, 2> ve2(3, 4);
+	
+	
+
+
+	//SIZE_OF(ve);
+	
+	//C_OUT(ve.x, ve.y, ve.z);
+
 	//Vector3_b ve(1, 4, 8);
 
-	ve.x = 10;
+	//std::array<int, 4> ary({ 3, 4 });
 
-	C_OUT(ve.x);
 
-	MicroTime m_time = 1000;
+	//Array<MyUnion, 3> ary(y,z);
 
-	Time time(5);
+	//Vector3 ve(3);
 
-	Time timea(m_time);
+	//Vector3 ary(3);
 
-	C_OUT(time, timea);
+	//ary.elems._Elems
+
+	//C_OUT(ary[0],ary[1],ary[2]);
+
+	//ary = 4;
+
+	//C_OUT(ary[0],ary[1],ary[2]);
+
+
+	//C_OUT(ve.x,ve.y,ve.z);
+
+	
+	//H h(3, 4);
+
+	//N_Vector::S_Core<H, 3> core(h,h);
+
+	//Vector3 ary(3, 4);
+
+
+	//C_OUT(ary[0],ary[1],ary[2]);
+
+	//C_OUT(ve.x);
+
+	//MicroTime m_time = 1000;
+	//
+	//Time time(5);
+	//
+	//Time timea(m_time);
+
+	//C_OUT(time, timea);
 	
 
 	//TYPE_ID(
@@ -285,11 +362,8 @@ int main()
 
 	//TYPE_ID(
 	//N_Function::Function_Core<decltype(&Expand_zip_test), int>::superficial::function);
-	int n = 3;
 
-	int* np = &n;
 
-	int nr = *np;
 	//static int n = __LINE__;
 
 	//vec4a vec4_test(vec3a(vec2a(1, 2), 3), 4);

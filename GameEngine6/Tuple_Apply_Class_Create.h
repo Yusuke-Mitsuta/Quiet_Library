@@ -16,12 +16,40 @@ namespace N_Tuple::N_Apply
 	{
 		constexpr S_Class_Create() {}
 
+		
+		template<size_t N,
+			class T_Args_Number = N_Tuple::U_index_sequence<N>>
+			struct S_Apply {};
 
-		//クラスの生成
+		//仕様
+		//要求する引数の数と供給する引数の数が一致しない場合、
+		// 供給する型の数に合わせて、キャストする
+		template<size_t N,size_t ...t_Args_Number>
+		struct S_Apply<N, tuple_v<t_Args_Number...>>
+		{
+			template<class... T_Args>
+			static constexpr auto Apply(T_Args... args)
+			{
+				return T{ static_cast<U_Element_t<t_Args_Number,tuple_t<T_Request_Args...>>>(args)... };
+			}
+		};
+
+		//要求する引数の数と供給する引数の数が一致しない場合、
+		template<class MT_Fn = T, class... T_Args>
+			requires requires
+		{
+			requires sizeof...(T_Args) != sizeof...(T_Request_Args);
+		}
+		constexpr auto Apply(T_Args&&... args)
+		{
+			return S_Apply<sizeof...(T_Args)>::Apply(std::forward<T_Args>(args)...);
+		}
+
+		//クラスを作成
 		template<class MT_Fn = T, class... T_Args>
 		constexpr auto Apply(T_Args&&... args)
 		{
-			return T{static_cast<T_Request_Args>(args)... };
+			return T{ static_cast<T_Request_Args>(args)... };
 		}
 
 
