@@ -28,7 +28,7 @@ namespace N_Tuple::N_Apply
 		struct S_Apply<N, tuple_v<t_Args_Number...>>
 		{
 			template<class... T_Args>
-			static constexpr auto Apply(T_Args... args)
+			static constexpr auto Apply(T_Args&&... args)
 			{
 				return T{ static_cast<U_Element_t<t_Args_Number,tuple_t<T_Request_Args...>>>(args)... };
 			}

@@ -248,21 +248,31 @@ union MyUnion
 
 int main()
 {
-	Array<int, 4> aa;
-	Vector3 ve;
-
+	//Array<int, 4> aa;
+	int i = 4;
 	
-	C_OUT(ve[0],
-		ve[1],
-		ve[2
-		]);
+	Array ary_1(2, 4, 6);
+	Array<int,7> ary_2(i,ary_1,ary_1);
 
-	C_OUT(aa[0],
-		aa[1],
-		aa[2
-		],
-		  aa[3]);
+	//N_Tuple::N_Apply::I_Args_Convert_Action<tuple_t<int, int, int, int, int, int, int>, tuple_t<int, Array<int, 3>, Array<int, 3> > >
+	//	::I_Args_Expand<tuple_t<int, Array<int, 3>, Array<int, 3> >, tuple_t<N_Tuple::N_Apply::S_Conversion_Expand<Array<int, 3>, 2>, N_Tuple::N_Apply::S_Conversion_Expand<Array<int, 3>, 1> > >
+	//	::S_Args_Expand<>::Apply();
+		//S_Args_Expand<tuple_v<0, 1, 2>, tuple_tp<tuple_t<int>, Array<int, 3>, tuple_t<Array<int, 3> > > >::Apply(&c, i, ary_1, ary_1);
 
+		
+
+	//auto sum = N_Tuple::I_Calculation<Vector3, Vector3>::type::Plus(ve_3, ve_3);
+	//auto sum = ary_1 + ary_2;
+
+	//for (int i = 0; i < 7; i++)
+		//C_OUT(ary_2[i]);
+	//C_OUT(sum[0],
+	//	sum[1],
+	//	sum[2],
+	//	sum[3],
+	//	sum[4],
+	//	sum[5]);
+	
 	//Function fn(&Expand_zip_test, aa);
 
 	//C_OUT(n,n2);

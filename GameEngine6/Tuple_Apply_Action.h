@@ -62,10 +62,10 @@ namespace N_Tuple
 		template<class T_Create_class = T_Fn, class ...T_Args>
 			requires (N_Apply::is_apply_type<T_Create_class, N_Apply::E_Type::CLASS> ||
 					  N_Apply::is_apply_type<T_Create_class, N_Apply::E_Type::CLASS_NEW>)
-		static constexpr auto Apply(T_Args&&... args)
+		static auto Apply(T_Args&&... args)
 		{
 			N_Apply::S_Class_Create<T_Create_class> fn_action = {};
-			return apply::Apply(&fn_action, std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action, std::forward<T_Set_Types>(args)...);
 		}
 
 		//仕様
@@ -75,7 +75,7 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Array* array_p, T_Args&&... args)
 		{
 			N_Apply::S_Array_Create fn_action = { array_p };
-			return apply::Apply(&fn_action, std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action, std::forward<T_Set_Types>(args)...);
 		}
 
 		//仕様
@@ -86,7 +86,7 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Fn&& fn,T_Args&&... args)
 		{
 			N_Apply::S_Fn_Action fn_action(fn, &invalid);
-			return apply::Apply(&fn_action,std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action,std::forward<T_Set_Types>(args)...);
 		
 		}
 
@@ -98,7 +98,7 @@ namespace N_Tuple
 		static constexpr auto Apply(T_Fn&& fn,request::pointer* p,T_Args&&... args)
 		{
 			N_Apply::S_Fn_Action fn_action(fn, p);
-			return apply::Apply(&fn_action,std::forward<T_Args>(args)...);
+			return apply::Apply(&fn_action,std::forward<T_Set_Types>(args)...);
 		}
 	};
 

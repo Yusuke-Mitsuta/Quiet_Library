@@ -23,6 +23,8 @@
     <ClInclude Include="Add_Origin.h" />
     <ClInclude Include="Add_Object.h" />
     <ClInclude Include="Add_Scene.h" />
+    <ClInclude Include="Array_Calculation.h" />
+    <ClInclude Include="Calculation.h" />
     <ClInclude Include="Output_Message.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />
@@ -46,6 +48,7 @@
     <ClInclude Include="Tuple_Apply_Array_Set.h" />
     <ClInclude Include="Tuple_Apply_Fn.h" />
     <ClInclude Include="Tuple_Apply_Class_Create.h" />
+    <ClInclude Include="Tuple_Calculation.h" />
     <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Select_Type.h" />

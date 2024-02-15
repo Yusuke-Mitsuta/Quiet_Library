@@ -138,7 +138,6 @@ namespace N_Tuple::N_Apply
 						std::forward<T_Back_Args_Types>(back_args)...);
 				}
 
-
 			};
 
 			using type = S_Args_Expand<>;

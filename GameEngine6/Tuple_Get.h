@@ -63,5 +63,7 @@ namespace std
 		return invalid;
 	}
 
+	template<class T>
+	concept is_compatible_tuple = is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
 
 }
