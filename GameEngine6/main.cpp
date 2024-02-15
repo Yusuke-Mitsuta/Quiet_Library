@@ -233,6 +233,7 @@ void Expand_zip_test(int n1,int n2,int n3,int n4)
 
 struct H
 {
+	std::vector<int> v;
 
 	H(int, int) {}
 
@@ -260,18 +261,25 @@ int main()
 		//S_Args_Expand<tuple_v<0, 1, 2>, tuple_tp<tuple_t<int>, Array<int, 3>, tuple_t<Array<int, 3> > > >::Apply(&c, i, ary_1, ary_1);
 
 		
-
+	Vector3 v3(3, 6, 9);
 	//auto sum = N_Tuple::I_Calculation<Vector3, Vector3>::type::Plus(ve_3, ve_3);
-	//auto sum = ary_1 + ary_2;
+	//H h(2, 4);
+	//ary_1 *= h;
+	
+	//v3 = ary_1;
+
+	C_OUT(v3[0], v3[1], v3[2]);
 
 	//for (int i = 0; i < 7; i++)
 		//C_OUT(ary_2[i]);
 	//C_OUT(sum[0],
 	//	sum[1],
-	//	sum[2],
-	//	sum[3],
-	//	sum[4],
-	//	sum[5]);
+	//	sum[2]
+		//sum[3],
+		//sum[4],
+//		//sum[5],
+//		//sum[6]
+	//) ;
 	
 	//Function fn(&Expand_zip_test, aa);
 
