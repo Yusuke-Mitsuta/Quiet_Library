@@ -12,7 +12,8 @@ namespace std
 	{
 		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
 	}
-	struct tuple_element<I, T> {
+	struct tuple_element<I, T> 
+	{
 		using type = N_Tuple::U_Element_t<I, T>;
 	};
 
@@ -41,6 +42,18 @@ namespace N_Tuple
 		{
 			using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
 		};
+
+		template<class T>
+			requires requires
+		{
+			requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
+			requires !is_Tuple<T>;
+		}
+		struct S_Element<T>
+		{
+			using type = S_Element<typename N_Tuple::S_Parameter<T>::tuple>::type;
+		};
+
 
 		template<class ...T_Types>
 			requires (sizeof...(T_Types)>_Index)

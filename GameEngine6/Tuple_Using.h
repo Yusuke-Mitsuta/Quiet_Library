@@ -31,8 +31,8 @@ namespace N_Tuple
 
 	//仕様
 	//[T_Tuple]の[_Index]番目の型を取得する
-	template<int _Index, class T_Tuple_t>
-	using U_Element_t = typename I_Element<_Index, T_Tuple_t>::type;
+	template<int _Index, class ...T>
+	using U_Element_t = typename I_Element<_Index, T...>::type;
 
 	//仕様
 	//[T_Base_Tuple]の選択中の箇所に[T_Add_Typee...]の要素を追加する
