@@ -13,7 +13,7 @@ namespace N_Tuple
 	template<size_t N>
 	struct I_index_sequence
 	{
-
+	private:
 		template<class T>
 		struct S_index_sequence
 		{
@@ -25,6 +25,7 @@ namespace N_Tuple
 		{
 			using type = tuple_v<N...>;
 		};
+	public:
 
 		using type = typename S_index_sequence<std::make_index_sequence<N>>::type;
 	};

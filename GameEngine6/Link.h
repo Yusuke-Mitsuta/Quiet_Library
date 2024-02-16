@@ -5,7 +5,7 @@
 namespace Link
 {
 
-	Time GetNowTime();
+	//Time GetNowTime();
 
 
 

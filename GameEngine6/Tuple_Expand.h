@@ -16,15 +16,12 @@ namespace N_Tuple
 	template<class T_Tuple, size_t t_expand_lelve >
 	struct I_Expand
 	{
+	private:
 		template<class T_Result, class T_Tuple, size_t t_expand_lelve>
 		struct S_Expand
 		{
 			using type = T_Tuple;
 		};
-
-
-
-
 
 		template<class T_Result,class T_Expand_Tuple,size_t t_expand_lelve>
 		struct I_Element_Expand
@@ -74,7 +71,7 @@ namespace N_Tuple
 
 		};
 
-
+	public:
 		using type = I_Element_Expand<tuple_t<>, T_Tuple, t_expand_lelve>::type;
 
 	};

@@ -2,7 +2,6 @@
 
 #include"Tuple.h"
 #include"SwapType.h"
-#include"Select_Type.h"
 
 namespace N_Function
 {

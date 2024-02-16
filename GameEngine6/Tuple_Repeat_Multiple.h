@@ -10,6 +10,7 @@ namespace N_Tuple
 	template<class T,size_t N>
 	struct I_Repeat_Multiple
 	{
+	private:
 		template<size_t N,class ...Ts>
 		struct S_Repeat_Multiple
 		{
@@ -21,7 +22,7 @@ namespace N_Tuple
 		{
 			using type = tuple_t<Ts...>;
 		};
-
+	public:
 		using type = S_Repeat_Multiple<N>::type;
 
 	};

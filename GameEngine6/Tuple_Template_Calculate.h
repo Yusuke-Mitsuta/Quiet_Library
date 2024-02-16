@@ -25,6 +25,7 @@ namespace N_Tuple
 	template<class T_Tuple_v, N_Constexpr::String t_operator,auto number>
 	struct I_Template_Calculate
 	{
+	private:
 		template<class T_Tuple_v>
 		struct S_Tuple_Calculate
 		{
@@ -47,7 +48,7 @@ namespace N_Tuple
 
 			using type = S_Operator<>::type;
 		};
-
+	public:
 		using type = S_Tuple_t_Change_Action<S_Tuple_Calculate,T_Tuple_v>::type;
 
 	};

@@ -46,7 +46,7 @@ namespace N_Tuple
 	template<class T_Fn,class ...T_Set_Types>
 	struct I_Apply_Action
 	{
-	//private:
+	private:
 
 
 		using request = N_Apply::I_Request<T_Fn, T_Set_Types...>;

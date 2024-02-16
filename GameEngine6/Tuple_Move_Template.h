@@ -18,6 +18,7 @@ namespace N_Tuple
 	template<template<class...>class T_Outer_class,class ...T_Types>
 	struct I_Move_Template
 	{
+	private:
 		template<class ...T_Types>
 		struct S_Move_Template
 		{
@@ -41,7 +42,7 @@ namespace N_Tuple
 		{
 			using type = T_Outer_class<T_Head..., T_Tail..., T_Types...>;
 		};
-
+	public:
 		using type =typename S_Move_Template<T_Types...>::type;
 
 	};

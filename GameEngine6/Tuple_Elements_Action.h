@@ -18,6 +18,7 @@ namespace N_Tuple
 	template<template<class...>class TT_Action,class T_Tuple,class ...T_Extra>
 	struct I_Elements_Action
 	{
+	private:
 		template<class T_Tuple>
 		struct S_Elements_Action
 		{
@@ -29,7 +30,7 @@ namespace N_Tuple
 		{
 			using type = tuple_t<typename TT_Action<T, T_Extra...>::type...>;
 		};
-
+	public:
 		using type = S_Tuple_t_Change_Action<S_Elements_Action, T_Tuple>::Return_not_p;
 
 	};

@@ -69,10 +69,11 @@ namespace N_Tuple
 		template<int t_Point, size_t t_Tuple_Size, class ...T_Head_Types, class T, class ...T_Tail_Types>
 		struct Select_Range_Judge<t_Point,t_Tuple_Size, tuple_tp<tuple_t<T_Head_Types...>, T, tuple_t<T_Tail_Types...>>,true>
 		{
-			using Swap_Null = U_Swap_t1<tuple_t<T_Head_Types..., T_Tail_Types...>, tuple_t<T_Head_Types..., T, T_Tail_Types...>, is_invalid_not<T>>;
+			using Swap_Null =U_if_t1< tuple_t<T_Head_Types..., T, T_Tail_Types...>, tuple_t<T_Head_Types..., T_Tail_Types...>, is_invalid_not<T>>;
 
-			using Swap_Head = U_Swap_t1<tuple_t<>,Swap_Null, (t_Point > 0) >;
-			using Swap_Tail = U_Swap_t1< U_Change_Outer<tuple_t, Swap_Null>, tuple_t<>, (t_Point > 0)>;
+			using Swap_Head = U_if_t1<Swap_Null, tuple_t<>, (t_Point > 0)>;
+
+			using Swap_Tail = U_if_t1<tuple_t<>, U_Change_Outer<tuple_t, Swap_Null>, (t_Point > 0)>;
 
 			using type = tuple_tp<Swap_Head, invalid_t, Swap_Tail>;
 

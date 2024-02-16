@@ -18,6 +18,7 @@ namespace N_Tuple
 	template<class ...Ts>
 	struct I_Zip
 	{
+	private:
 		template<size_t N>
 		using element = I_Element<N, tuple_t<Ts...>>::type;
 
@@ -66,9 +67,8 @@ namespace N_Tuple
 		{
 			using type = S_Zip<tuple_t<T_Result..., element<t_select_point>>, t_select_point + 1>::type;
 		};
-
+	public:
 		using type = S_Zip<>::type;
-
 
 	};
 
@@ -78,12 +78,13 @@ namespace N_Tuple
 	template<class T_Tuple>
 	struct I_Zip_Tuple
 	{
+	private:
 		template<class T_Tuple>
 		struct S_Zip_Action
 		{
 			using type = I_Move_Template<I_Zip, T_Tuple>::type::type;
 		};
-
+	public:
 		using type = S_Tuple_t_Change_Action<S_Zip_Action, T_Tuple>::Return_not_p;
 	};
 

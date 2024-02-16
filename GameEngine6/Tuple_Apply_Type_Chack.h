@@ -38,6 +38,7 @@ namespace N_Tuple::N_Apply
 		class T_Set_Types_Tuple>
 	struct I_Type_Chack
 	{
+	private:
 		using request_expand = U_Expand_All<T_Request_Types_Tuple>;
 
 		using set_expand = U_Expand_All<T_Set_Types_Tuple>;
@@ -156,7 +157,8 @@ namespace N_Tuple::N_Apply
 			using type = S_Infinite_Args_Size_Chack<>::type;
 
 		};
-		
+	public:
+
 		using type = S_Type_Chack<>::type;
 
 		static constexpr int value = type::value;

@@ -41,9 +41,10 @@ namespace N_Tuple::N_Apply
 		class T_Args_Types_Tuple>
 	struct I_Args_Convert_Action
 	{
+	private:
 
 		using conversion = I_Convert_Order<
-			typename S_Infinite_Args_Conversion<T_Request_Types_Tuple, T_Args_Types_Tuple>::type,			T_Args_Types_Tuple>::type;
+			typename S_Infinite_Args_Conversion<T_Request_Types_Tuple, T_Args_Types_Tuple>::type,T_Args_Types_Tuple>::type;
 
 		using conversion_expand_list = conversion::conversion_expand_list;
 
@@ -309,6 +310,8 @@ namespace N_Tuple::N_Apply
 			}
 
 		};
+
+	public:
 
 		using type = I_Args_Expand<>::type;
 

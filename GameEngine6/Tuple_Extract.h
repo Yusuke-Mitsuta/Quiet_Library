@@ -11,6 +11,7 @@ namespace N_Tuple
 	template<class T_Tuple,class T_Extract_Number>
 	struct I_Extract
 	{
+	private:
 		using Extract_Number = U_Tuple_t_To_v<U_Remove_p<T_Extract_Number>>;
 
 		template<class T_Extract_Number = T_Extract_Number>
@@ -21,7 +22,7 @@ namespace N_Tuple
 		{
 			using type = tuple_t<std::tuple_element_t<_Index,T_Tuple>...>;
 		};
-
+	public:
 		using type = S_Extract<>::type;
 
 	};

@@ -123,6 +123,7 @@ namespace N_Tuple
 	template<class T_Left,class T_Right>
 	struct I_Calculation
 	{
+	private:
 		template<class T>
 		struct S_Size_Chack
 		{
@@ -167,10 +168,11 @@ namespace N_Tuple
 			TUPLE_CALCULATION_ASSIGNMENT(Assignment_Quotient, /=)
 
 		};
-
+	public:
 		using type = S_Calculation<>;
 
 	};
+
 
 }
 
