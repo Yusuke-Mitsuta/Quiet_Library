@@ -126,7 +126,7 @@
     <ClInclude Include="Tuple_Swap.h" />
     <ClInclude Include="Tuple_Type.h" />
     <ClInclude Include="Tuple_Using.h" />
-    <ClInclude Include="Tuple_v_Calculate.h" />
+    <ClInclude Include="Tuple_Template_Calculate.h" />
     <ClInclude Include="Tuple_index_sequence.h" />
     <ClInclude Include="Tuple_v_To_t.h" />
     <ClInclude Include="Vector.h" />

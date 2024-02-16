@@ -231,7 +231,7 @@
     <ClInclude Include="Tuple_Test.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_v_Calculate.h">
+    <ClInclude Include="Tuple_Template_Calculate.h">
       <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Invalid.h">
@@ -413,6 +413,15 @@
     </ClInclude>
     <ClInclude Include="Vector_Storge.h">
       <Filter>ヘッダー ファイル\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Array_Calculation.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Calculation.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Calculation.h">
+      <Filter>ヘッダー ファイル\N_Tuple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

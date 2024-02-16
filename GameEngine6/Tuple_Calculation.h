@@ -108,7 +108,18 @@ static constexpr auto operator+(const T_Left& l, const T_Right& r)\
 
 namespace N_Tuple
 {
-
+	//仕様
+	//構造化束縛に対応してる型同士の計算、
+	//構造化束縛に対応してる型の要素全てと、単一の要素の計算
+	// の為の補助クラス
+	// 
+	//戻り値
+	// 左辺値の型で返される
+	// ※左辺値が構造化束縛に対応していない場合は、右辺値の型で返される
+	// 
+	//補足
+	// 左辺値のサイズの方が大きい場合、右辺値と計算されない値はそのままとなる
+	// 右辺値のサイズの方が大きい場合は無視される
 	template<class T_Left,class T_Right>
 	struct I_Calculation
 	{
@@ -138,7 +149,7 @@ namespace N_Tuple
 		static constexpr size_t max = std::max(l_size, r_size);
 		
 		template<class T_Calculation_Element_Number = U_index_sequence<min>,
-			class T_Copy_Element_Number =U_Calculate_plus<U_index_sequence<max - min>,min>>
+			class T_Copy_Element_Number =U_Template_Calculate_plus<U_index_sequence<max - min>,min>>
 		struct S_Calculation {};
 
 		template<size_t... t_Calculation_Element_Number, size_t... t_Copy_Element_Number>
@@ -154,8 +165,6 @@ namespace N_Tuple
 			TUPLE_CALCULATION_ASSIGNMENT(Assignment_Difference, -=)
 			TUPLE_CALCULATION_ASSIGNMENT(Assignment_Product, *=)
 			TUPLE_CALCULATION_ASSIGNMENT(Assignment_Quotient, /=)
-
-			//TUPLE_COMPARE(Compare,<=>)
 
 		};
 
@@ -245,14 +254,3 @@ static constexpr void operator/=(T_Left& l,const T_Right& r)
 {
 	N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Quotient(&l, &r);
 };
-
-
-//template<class T_Left, class T_Right>
-//	requires requires(const T_Left& l, const T_Right& r)
-//{
-//	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Compare(&l, &r)};
-//}
-//static constexpr auto operator<=>(const T_Left& l, const T_Right& r)
-//{
-//	return N_Tuple::I_Calculation<T_Left, T_Right>::type::Compare(&l, &r);
-//};

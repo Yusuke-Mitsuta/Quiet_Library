@@ -23,7 +23,7 @@ namespace N_Tuple
 	//•â‘«
 	//[t_operator]‚Í["+"]["-"]["*"]["/"]‚ÅŽw’è‚·‚é‚±‚Æ
 	template<class T_Tuple_v, N_Constexpr::String t_operator,auto number>
-	struct I_Tuple_Calculate
+	struct I_Template_Calculate
 	{
 		template<class T_Tuple_v>
 		struct S_Tuple_Calculate

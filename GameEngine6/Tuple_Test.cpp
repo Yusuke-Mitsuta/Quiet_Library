@@ -14,7 +14,7 @@ using Tuple_t5 = tuple_t<char, short, int, float, double>;
 using Tuple_tp5 = U_Create_p<Tuple_t5>;
 
 template<N_Constexpr::String t_operator>
-using Tuple_Calculate = I_Tuple_Calculate<Tuple_v5, t_operator, 5>;
+using Tuple_Calculate = I_Template_Calculate<Tuple_v5, t_operator, 5>;
 
 template<int n>
 using Tuple_Select = U_Select<n, Tuple_v5>;

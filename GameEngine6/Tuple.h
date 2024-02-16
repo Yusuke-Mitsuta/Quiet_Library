@@ -40,6 +40,8 @@
 
 #include"Tuple_Calculation.h"
 
+
+
 template<class ..._Types>
 struct Tuple :
 	public std::tuple<_Types...>

@@ -128,16 +128,13 @@ namespace N_Tuple
 
 	template<class T_Tuple_p>
 	using U_Remove_p = typename I_Remove_Pointer<T_Tuple_p>::type;
-
-
-	template<class T_Tuple_v, auto number>
-	using U_Calculate_plus = typename I_Tuple_Calculate<T_Tuple_v, "+", number>::type;
+	
 
 	template<class T_Tuple_v, auto number>
-	using U_Calculate_minus = typename I_Tuple_Calculate<T_Tuple_v, "-", number>::type;
+	using U_Template_Calculate_plus = typename I_Template_Calculate<T_Tuple_v, "+", number>::type;
 
 	template<class T_Tuple_v, auto number>
-	using U_Calculate_multiply = typename I_Tuple_Calculate<T_Tuple_v, "*", number>::type;
+	using U_Template_Calculate_minus = typename I_Template_Calculate<T_Tuple_v, "-", number>::type;
 
 	//d—l
 	//[T_Tuple]‚©‚ç[tuple_v< ... >]‚Ì‡”Ô‚ÅŒ^‚ğ‡”Ô‚É’Šo

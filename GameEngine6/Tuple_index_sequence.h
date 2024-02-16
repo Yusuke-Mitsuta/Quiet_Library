@@ -37,7 +37,7 @@ namespace N_Tuple
 	{
 	private:
 		template<size_t N_1, size_t N_2>
-		using start_number_change = typename I_Tuple_Calculate<typename
+		using start_number_change = typename I_Template_Calculate<typename
 			I_index_sequence<N_2 - N_1>::type, "+", N_1>::type;
 
 
