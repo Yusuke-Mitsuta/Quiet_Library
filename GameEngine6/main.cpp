@@ -250,11 +250,11 @@ union MyUnion
 int main()
 {
 	//Array<int, 4> aa;
-	int i = 4;
+	const int i = 4;
 	
 
 	Array ary_1(2, 4, 6);
-	Array<int,3>* ary_1p = &ary_1;
+	const Array<int,3>* ary_1p = &ary_1;
 
 	H h(2, 4);
 	Array<H,3> ary_2(h,h,h);
@@ -276,8 +276,8 @@ int main()
 
 	//auto a= ary_1 + ary_1;
 
+	int b = 2;
 
-	auto o= ary_1p + 10;
 
 
 

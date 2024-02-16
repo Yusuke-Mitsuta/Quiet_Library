@@ -1,12 +1,13 @@
 #pragma once
 
+#include <compare>
 #include"Tuple_Declare.h"
 #include"Tuple_Get.h"
 #include"If_Type.h"
 
 
 
-#define TUPLE_CALCULATION(name,oper)\
+#define TUPLE_CALCULATION_BASE(name,oper)\
 template<class T_Left, class T_Right>\
 	requires requires(const T_Left* l,const T_Right* r)\
 {\
@@ -50,9 +51,55 @@ template<class T_Left, class T_Right>\
 }\
 static constexpr auto name(const T_Left* l,const T_Right* r)\
 {\
-	return T_Right{ ( *l oper std::get<t_Copy_Element_Number>(r))...};\
+	return T_Right{( *l oper std::get<t_Copy_Element_Number>(r))...};\
 }\
 
+#define TUPLE_COMPARE(name,oper) \
+template<class T_Left, class T_Right>\
+	requires requires(const T_Left* l,const T_Right* r)\
+{\
+	requires N_Tuple::N_Apply::I_Type_Chack<tuple_t<Array<std::strong_ordering,sizeof...(t_Calculation_Element_Number)>>,tuple_t<decltype(std::get<t_Calculation_Element_Number>(l) oper std::get<t_Calculation_Element_Number>(r))...>>::value==0;\
+	requires std::tuple_size_v<T_Left> >= std::tuple_size_v<T_Right>;\
+	requires sizeof...(t_Calculation_Element_Number)!=0;\
+}\
+static constexpr auto name(const T_Left* l,const T_Right* r)\
+{\
+	return Array<std::strong_ordering,sizeof...(t_Calculation_Element_Number)>{ (std::get<t_Calculation_Element_Number>(l)) oper (std::get<t_Calculation_Element_Number>(r))...,std::get<t_Copy_Element_Number>(l)... };\
+}\
+\
+template<class T_Left, class T_Right>\
+	requires requires(const T_Left* l,const  T_Right* r)\
+{\
+	requires N_Tuple::N_Apply::I_Type_Chack<tuple_t<Array<std::strong_ordering,sizeof...(t_Calculation_Element_Number)>>,tuple_t<decltype(std::get<t_Calculation_Element_Number>(l) oper std::get<t_Calculation_Element_Number>(r))...>>::value==0;\
+	requires std::tuple_size_v<T_Left> < std::tuple_size_v<T_Right>;\
+	requires sizeof...(t_Calculation_Element_Number)!=0;\
+}\
+static constexpr auto name(const T_Left* l,const T_Right* r)\
+{\
+	return Array<std::strong_ordering,sizeof...(t_Calculation_Element_Number)>{(std::get<t_Calculation_Element_Number>(l)) oper( std::get<t_Calculation_Element_Number>(r))...};\
+}\
+\
+template<class T_Left, class T_Right>\
+	requires requires(const T_Left* l, const T_Right* r)\
+{\
+	requires N_Tuple::N_Apply::I_Type_Chack<tuple_t<Array<std::strong_ordering,sizeof...(t_Copy_Element_Number)>>, tuple_t<decltype(std::get<t_Copy_Element_Number>(l) oper *r)...>>::value == 0; \
+	requires sizeof...(t_Calculation_Element_Number)==0;\
+}\
+static constexpr auto name(const T_Left* l,const T_Right* r)\
+{\
+	return Array<std::strong_ordering,sizeof...(t_Copy_Element_Number)>{std::get<t_Copy_Element_Number>(l) oper *r ...};\
+}\
+\
+template<class T_Left, class T_Right>\
+	requires requires(const T_Left* l,const T_Right* r)\
+{\
+	requires N_Tuple::N_Apply::I_Type_Chack<tuple_t<Array<std::strong_ordering,sizeof...(t_Copy_Element_Number)>>, tuple_t<decltype(*l oper std::get<t_Copy_Element_Number>(r))...>>::value == 0; \
+	requires sizeof...(t_Calculation_Element_Number)==0;\
+}\
+static constexpr auto name(const T_Left* l,const T_Right* r)\
+{\
+	return Array<std::strong_ordering,sizeof...(t_Copy_Element_Number)>{( *l oper std::get<t_Copy_Element_Number>(r))...};\
+}\
 
 
 
@@ -141,7 +188,7 @@ namespace N_Tuple
 
 		static constexpr size_t r_size= S_Size_Chack<T_Right>::value;
 
-		using return_type = U_if_t1<T_Left, T_Right, (l_size >= r_size)>;
+		using return_type = U_if_t1<T_Left, T_Right, l_size>;
 		
 		static constexpr size_t min = std::min(l_size, r_size);
 		static constexpr size_t max = std::max(l_size, r_size);
@@ -163,6 +210,8 @@ namespace N_Tuple
 			TUPLE_CALCULATION_ASSIGNMENT(Assignment_Difference, -=)
 			TUPLE_CALCULATION_ASSIGNMENT(Assignment_Product, *=)
 			TUPLE_CALCULATION_ASSIGNMENT(Assignment_Quotient, /=)
+
+			//TUPLE_COMPARE(Compare,<=>)
 
 		};
 
@@ -252,3 +301,14 @@ static constexpr void operator/=(T_Left& l,const T_Right& r)
 {
 	N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Quotient(&l, &r);
 };
+
+
+//template<class T_Left, class T_Right>
+//	requires requires(const T_Left& l, const T_Right& r)
+//{
+//	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Compare(&l, &r)};
+//}
+//static constexpr auto operator<=>(const T_Left& l, const T_Right& r)
+//{
+//	return N_Tuple::I_Calculation<T_Left, T_Right>::type::Compare(&l, &r);
+//};
