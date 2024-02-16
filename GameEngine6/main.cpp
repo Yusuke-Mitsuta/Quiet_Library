@@ -252,8 +252,12 @@ int main()
 	//Array<int, 4> aa;
 	int i = 4;
 	
+
 	Array ary_1(2, 4, 6);
-	Array<int,7> ary_2(i,ary_1,ary_1);
+	Array<int,3>* ary_1p = &ary_1;
+
+	H h(2, 4);
+	Array<H,3> ary_2(h,h,h);
 
 	//N_Tuple::N_Apply::I_Args_Convert_Action<tuple_t<int, int, int, int, int, int, int>, tuple_t<int, Array<int, 3>, Array<int, 3> > >
 	//	::I_Args_Expand<tuple_t<int, Array<int, 3>, Array<int, 3> >, tuple_t<N_Tuple::N_Apply::S_Conversion_Expand<Array<int, 3>, 2>, N_Tuple::N_Apply::S_Conversion_Expand<Array<int, 3>, 1> > >
@@ -263,10 +267,26 @@ int main()
 		
 	Vector3 v3(3, 6, 9);
 	//auto sum = N_Tuple::I_Calculation<Vector3, Vector3>::type::Plus(ve_3, ve_3);
+	// 
+	// 
+
+	//N_Tuple::N_Apply::I_Type_Chack<tuple_t<N_Tuple::N_Apply::S_Infinite_Args<int>>,tuple_t<Array<H,3>>>::
+	//Array<int, 3> a{
+	//	std::get<0>(ary_1) + std::get<0>(ary_2)};
+
+	//auto a= ary_1 + ary_1;
+
+
+	auto o= ary_1p + 10;
+
+
+
+	 //ary_1 /= 10;
+
+
+	//v3 = j;
 	//H h(2, 4);
-	//ary_1 *= h;
 	
-	//v3 = ary_1;
 
 	C_OUT(v3[0], v3[1], v3[2]);
 

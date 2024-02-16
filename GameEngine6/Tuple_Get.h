@@ -22,8 +22,6 @@ namespace std
 		return std::forward<T>(t).get<I>();
 	}
 
-
-
 	template<size_t I, class T>
 		requires requires(T t)
 	{
@@ -36,6 +34,20 @@ namespace std
 	{
 		return t->get<I>();
 	}
+
+	template<size_t I, class T>
+		requires requires(const T* t)
+	{
+		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
+		requires !N_Tuple::is_Tuple<T>;
+		requires N_Tuple::S_Parameter<T>::size >= I;
+		{const_cast<T*>(t)->get<I>()};
+	}
+	const auto& get(const T* t)
+	{
+		return const_cast<T*>(t)->get<I>();
+	}
+
 
 	//仕様
 	//[S_Parameter<T>]が呼び出せる型かつ、メンバー関数に[get<I>]が定義される場合、
