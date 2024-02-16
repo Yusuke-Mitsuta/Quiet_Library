@@ -29,7 +29,7 @@
 #include"Tuple_Remove_Pointer.h"
 #include"Tuple_Create_Pointer.h"
 
-#include"Tuple_v_Calculate.h"
+#include"Tuple_Template_Calculate.h"
 #include"Tuple_index_sequence.h"
 #include"Tuple_Size.h"
 #include"Tuple_Get.h"
@@ -39,8 +39,6 @@
 #include"Tuple_Zip.h"
 
 #include"Tuple_Calculation.h"
-
-
 
 template<class ..._Types>
 struct Tuple :

@@ -55,7 +55,8 @@ namespace N_Vector
 		explicit constexpr S_Core(Ts... ts) :
 			S_Storge<T, t_vec>({ N_Tuple::I_Apply_Action<Array<T, N>,Ts...>::Apply(ts...) }) {}
 
-
+		//仕様
+		//引数がゼロ、かつデフォルトで構築可能な場合
 		template<size_t N = t_vec, class T = T>
 			requires requires
 		{
