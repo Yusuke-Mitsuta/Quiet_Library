@@ -1,6 +1,6 @@
 #include "Time_Test.h"
 
-
+#include"Array.h"
 
 void Time_Test::Action()
 {
@@ -53,11 +53,24 @@ int& return_2()
 
 void Time_Test::Test_1()
 {
-    int* a = return_1();
-    
+   // N_Tuple::I_Apply_Action<std::array<int, 4>, int, int, int, int>::Apply(2, 4, 4, 7);
+   // constexpr 
+
+    //constexpr 
+    Array<int, 4> i{5, 10, 4,4};
+
+
+
+     
+
+   // std::array i{ 2, 3, 4, 5 };
 }
 
 void Time_Test::Test_2()
 {
-    int& a = return_2();
+    //N_Array::S_Storge<int,4> i{ 2, 5, 10, 4 };
+    
+    int n = 0;
+    std::array i{n, 3, 4, 5};
+    //int a[4] = { 1,3,4,9 };
 }

@@ -62,7 +62,7 @@ namespace N_Tuple
 		template<class T_Create_class = T_Fn, class ...T_Args>
 			requires (N_Apply::is_apply_type<T_Create_class, N_Apply::E_Type::CLASS> ||
 					  N_Apply::is_apply_type<T_Create_class, N_Apply::E_Type::CLASS_NEW>)
-		static auto Apply(T_Args&&... args)
+		static constexpr auto Apply(T_Args&&... args)
 		{
 			N_Apply::S_Class_Create<T_Create_class> fn_action = {};
 			return apply::Apply(&fn_action, std::forward<T_Set_Types>(args)...);
@@ -71,10 +71,10 @@ namespace N_Tuple
 		//仕様
 		//配列型のポインター[array_p]に[T_Fn]の0次元目の要素数を追加する。
 		template<class T_Array, class ...T_Args>
-			requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::ARRAY>
-		static constexpr auto Apply(T_Array* array_p, T_Args&&... args)
+			//requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::ARRAY>
+		static constexpr auto Applya(T_Array* array_p, T_Args&&... args)
 		{
-			N_Apply::S_Array_Create fn_action = { array_p };
+			N_Apply::S_Array_Create<T_Fn> fn_action = { array_p };
 			return apply::Apply(&fn_action, std::forward<T_Set_Types>(args)...);
 		}
 

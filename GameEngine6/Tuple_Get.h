@@ -17,9 +17,25 @@ namespace std
 		requires N_Tuple::S_Parameter<T>::size >= I;
 		{t.get<I>()};
 	}
-	auto& get(T&& t)
+	static constexpr auto& get(T&& t)
 	{
 		return std::forward<T>(t).get<I>();
+	}
+
+	//仕様
+	//[S_Parameter<T>]が呼び出せる型かつ、メンバー関数に[get<I>]が定義される場合、
+	// 特殊化し動作を可能にする
+	template<size_t I, class T>
+		requires requires(const T&& t)
+	{
+		requires is_invalid_not<typename N_Tuple::S_Parameter<remove_const_t<T>>::tuple>;
+		requires !N_Tuple::is_Tuple<remove_const_t<T>>;
+		requires N_Tuple::S_Parameter<remove_const_t<T>>::size >= I;
+		//{const_cast<T>(std::forward<const T>(t)).get<I>()};
+	}
+	static constexpr const auto get(const T& t)
+	{
+		return const_cast<T&>(t).get<I>();
 	}
 
 	template<size_t I, class T>
@@ -30,7 +46,7 @@ namespace std
 		requires N_Tuple::S_Parameter<T>::size >= I;
 		{t.get<I>()};
 	}
-	auto& get(T* t)
+	static constexpr auto& get(T* t)
 	{
 		return t->get<I>();
 	}
@@ -43,7 +59,7 @@ namespace std
 		requires N_Tuple::S_Parameter<T>::size >= I;
 		{const_cast<T*>(t)->get<I>()};
 	}
-	const auto& get(const T* t)
+	static constexpr const auto& get(const T* t)
 	{
 		return const_cast<T*>(t)->get<I>();
 	}

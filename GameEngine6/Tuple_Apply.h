@@ -13,7 +13,7 @@ namespace N_Tuple
 		requires requires
 	{
 		requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::FN>;
-		//requires N_Apply::Chack<T_Fn, T_Args...>();
+		requires N_Apply::Chack<T_Fn, T_Args...>();
 	}
 	static constexpr auto Apply(T_Fn&& fn, T_Args&&... args)
 	{
@@ -115,3 +115,6 @@ namespace N_Tuple
 	}
 
 }
+
+
+using N_Tuple::Apply;

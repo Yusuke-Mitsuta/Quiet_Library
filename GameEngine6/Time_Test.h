@@ -8,7 +8,7 @@ class Time_Test
 public:
 
     static constexpr int count_N = 10;
-    static constexpr int one_cycle_N = 100000000;
+    static constexpr int one_cycle_N = 1000'0000;
 
     static void Action();
 

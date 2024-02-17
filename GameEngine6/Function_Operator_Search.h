@@ -9,7 +9,6 @@ class Function;
 
 namespace N_Function
 {
-
 	template<class T_Fn,class T_Set_Types>
 	struct I_Function_Operator_Search
 	{};
@@ -17,7 +16,7 @@ namespace N_Function
 	template<class ...T_Parts, class T_Set_Types>
 	struct I_Function_Operator_Search<Function<T_Parts...>,T_Set_Types>
 	{
-	//private:
+	private:
 		using function_operator_data_list = typename I_Function_Operator_Helper<T_Parts...>::type;
 
 

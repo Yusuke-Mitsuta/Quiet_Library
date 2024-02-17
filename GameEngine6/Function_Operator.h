@@ -42,6 +42,7 @@ namespace N_Function
 		struct S_Function_Operator
 		{
 		public:
+
 			tuple_t<T_Parts...> data;
 
 			//Žd—l

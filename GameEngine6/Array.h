@@ -11,47 +11,65 @@ namespace N_Tuple
 		S_Parameter<U_Repeat_Multiple<T, N>>
 	{};
 
-	
+
 }
 
 namespace N_Array
 {
 
 	template<class T_Base_Type, class ...T_Args>
-	static constexpr int args_size = 
+	static constexpr int args_size =
 		N_Tuple::N_Apply::I_Type_Chack<
 		tuple_t<N_Tuple::N_Apply::S_Infinite_Args<T_Base_Type>>,
 		tuple_t<T_Args...>>::value;
 
-	template<class _Ty1,size_t N>
-	struct S_Storge
+	template<class _Ty1, size_t N>
+	struct S_Storge :
+		std::array<_Ty1, N>
 	{
-		std::array<_Ty1, N> elems;
+
+		//std::array<_Ty1, N> elems;
+
+		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
+			requires requires
+		{
+			requires sizeof...(_Ty2) == N;
+			requires convertible_from_and<_Ty1, _Ty2...>;
+		}
+		constexpr S_Storge(_Ty2... t)
+			:std::array<_Ty1, N>({static_cast<_Ty1>(t)... })
+		{}
+
 
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
-		template<size_t N = N, class _Ty1=_Ty1, class ..._Ty2>
+		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
 			requires requires
 		{
 			requires args_size<_Ty1, _Ty2...> == N;
+			requires convertible_from_nand<_Ty1, _Ty2...>;
 		}
 		constexpr S_Storge(_Ty2... t)
-			:elems(N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply
-				(t...)) {}
+			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
+		{
+			//N_Tuple::I_Apply_Action<_Ty1[N], _Ty2...>::Apply(&std::array<_Ty1, N>::_Elems[0], t...);
+		}
 
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、
 		// 要素が不足している場合は、デフォルトで構築を行う
-		template<size_t N = N, class _Ty1=_Ty1, class ..._Ty2>
+		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
 			requires requires
 		{
 			requires !(args_size<_Ty1, _Ty2...> <= 0);
 			requires !(args_size<_Ty1, _Ty2...> >= N);
-			_Ty1{};
+		_Ty1{};
 		}
 		explicit constexpr S_Storge(_Ty2 ...t)
-			: elems(N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply
-				(t...)) {}
+			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
+		{
+			//N_Tuple::I_Apply_Action<_Ty1[N], _Ty2...>::Apply(std::array<_Ty1, N>::data(), t...);
+		}
 
 
 		template<size_t N = N, class _Ty1 = _Ty1>
@@ -59,9 +77,9 @@ namespace N_Array
 		{
 			_Ty1{};
 		}
-		explicit constexpr S_Storge()
-			:elems({}) {}
-
+		explicit constexpr S_Storge() :
+			std::array<_Ty1, N>({})
+		{}
 
 	};
 }
@@ -86,7 +104,7 @@ namespace N_Array
 //	}
 template<class _Ty1, size_t N>
 class Array :
-	public N_Array::S_Storge<_Ty1,N>
+	public N_Array::S_Storge<_Ty1, N>
 {
 public:
 
@@ -94,11 +112,6 @@ public:
 
 	using N_Array::S_Storge<_Ty1, N>::S_Storge;
 
-	using N_Array::S_Storge<_Ty1, N>::elems;
-	
-	//仕様
-	//配列のポインタを取得する
-	constexpr _Ty1* data();
 
 	//仕様
 	//[I]番目の配列の要素を参照で取得する
@@ -106,43 +119,25 @@ public:
 	constexpr _Ty1& get();
 
 	//仕様
-	//[i]番目の配列の要素を参照で取得する
-	constexpr auto& operator[](const size_t& i);
-
-	//仕様
 	//単一の要素で配列を全て埋め尽くす
 	constexpr void operator=(const convertible_to<_Ty1> auto& copy);
-							
+
 };
 
 template<class _Ty2, class ..._Ty3>
 	requires (N_Array::args_size<_Ty2, _Ty3...> >= 0)
-Array(_Ty2 t, _Ty3 ...ts) -> Array<_Ty2,N_Array::args_size<_Ty2, _Ty2,_Ty3...>>;
+Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, N_Array::args_size<_Ty2, _Ty2, _Ty3...>>;
 
-
-template<class _Ty1, size_t N>
-inline constexpr _Ty1* Array<_Ty1, N>::data()
-{
-	return elems.data();
-}
 
 template<class _Ty1, size_t N>
 template<size_t I>
 inline constexpr _Ty1& Array<_Ty1, N>::get()
 {
-	return elems[I];
+	return N_Array::S_Storge<_Ty1, N>::std::array<_Ty1, N>::_Elems[I];
 }
-
-
-template<class _Ty1, size_t N>
-inline constexpr auto& Array<_Ty1, N>::operator[](const size_t& i)
-{
-	return elems[i];
-}
-
 
 template<class _Ty1, size_t N>
 inline constexpr void Array<_Ty1, N>::operator=(const convertible_to<_Ty1> auto& copy)
 {
-	elems.fill(static_cast<_Ty1>(copy));
+	std::array<_Ty1, N>::fill(static_cast<_Ty1>(copy));
 }
