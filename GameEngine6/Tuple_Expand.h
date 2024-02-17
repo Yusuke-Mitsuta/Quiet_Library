@@ -47,7 +47,6 @@ namespace N_Tuple
 			using type = S_Element_Expand<typename S_Parameter<T_Expand_Type>::tuple>::type;
 		};
 
-
 		template<class ...T_Result, class T_Front, class ...Ts, size_t t_expand_lelve>
 			requires (static_cast<bool>(t_expand_lelve))
 		struct S_Expand<tuple_t<T_Result...>, tuple_t<T_Front, Ts...>, t_expand_lelve>
@@ -57,9 +56,17 @@ namespace N_Tuple
 			using type = S_Expand<result, tuple_t<Ts...>, t_expand_lelve>::type;
 		};
 
-		template<class ...T_Result, class ...Ts>
-			requires (static_cast<bool>(sizeof...(Ts)))
-		struct S_Expand<tuple_t<T_Result...>, tuple_t<Ts...>, 0>
+		template<class ...T_Result, class ...Ts, size_t t_expand_lelve>
+		struct S_Expand<tuple_t<T_Result...>,tuple_tp<Ts...> , t_expand_lelve>
+		{
+			using type = S_Expand<tuple_t<T_Result...>, typename tuple_tp<Ts...>::remove_p, t_expand_lelve>::type;
+		};
+
+
+
+		template<class ...T_Result, class ...Ts, size_t t_expand_lelve>
+			requires (static_cast<bool>(sizeof...(Ts))&& !static_cast<bool>(t_expand_lelve))
+		struct S_Expand<tuple_t<T_Result...>, tuple_t<Ts...>, t_expand_lelve>
 		{
 			using type = tuple_t<T_Result..., Ts...>;
 		};

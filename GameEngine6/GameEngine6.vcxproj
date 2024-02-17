@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Output_Message.h" />
+    <ClInclude Include="Test_Code.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />
     <ClInclude Include="Tuple_Apply_Type.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Valid_Data.h" />
     <ClCompile Include="Output_Message.cpp" />
+    <ClCompile Include="Test_Code.cpp" />
     <ClCompile Include="Time_Test.cpp" />
     <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="Link.cpp" />

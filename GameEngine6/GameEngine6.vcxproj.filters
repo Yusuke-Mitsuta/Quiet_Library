@@ -13,41 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Core">
-      <UniqueIdentifier>{44ffb08f-d45a-43da-b952-308f2e746ca7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Array">
-      <UniqueIdentifier>{f2f61019-da3c-459e-b4a7-44fc2fb78a87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Message">
-      <UniqueIdentifier>{246979ea-f37b-47d1-92af-70d0143b1f41}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Core_Control">
-      <UniqueIdentifier>{cf2e13f7-f655-46f5-b911-3d913f39f68e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\String">
       <UniqueIdentifier>{29933a39-dfbd-41b2-ac34-fcc5746085cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Core_Control\Manager">
-      <UniqueIdentifier>{271c0601-246f-4d03-bc3e-5521ef77b26a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Core_Control\Add">
-      <UniqueIdentifier>{f94522a7-3fc1-4508-bf0c-d3c685fc31b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Core_Control\Get">
-      <UniqueIdentifier>{e6c87ec7-f9e7-4477-90e8-5e6b86a8d580}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Time">
-      <UniqueIdentifier>{1fc74d49-c527-4e45-8818-b0c90fd035fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Function">
       <UniqueIdentifier>{d80d7c99-db8f-4eba-9366-bf0c706e949b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Parameter">
-      <UniqueIdentifier>{b9e8e00c-e0a7-40a6-abbe-cddb542c4ed1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\N_Tuple">
-      <UniqueIdentifier>{d1606bf9-2038-4b16-9846-1c3d4ad472c0}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Function\Function_Single_Data">
       <UniqueIdentifier>{55f58fc5-f54b-4652-b4bb-82ddf348b2c7}</UniqueIdentifier>
@@ -55,14 +25,8 @@
     <Filter Include="ヘッダー ファイル\Function\Function_Core">
       <UniqueIdentifier>{2f00da72-c433-4d32-b517-54b6937c8b35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\N_Tuple\Tuple_Control">
-      <UniqueIdentifier>{47cfb076-28d9-43dd-a2c3-c3ee0c8cc158}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Vector">
       <UniqueIdentifier>{01f11266-b565-4af4-ad8d-f42fe56a0172}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Function\Function_Args">
-      <UniqueIdentifier>{0ff4059a-8606-4bf3-9619-513bcc220d96}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Function\Function_Operator">
       <UniqueIdentifier>{c5858560-1092-44aa-83c0-2f2f9a9f34f2}</UniqueIdentifier>
@@ -70,10 +34,16 @@
     <Filter Include="ヘッダー ファイル\Type_Remove">
       <UniqueIdentifier>{613058ce-cccc-497b-afd3-a19a2f44149b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\N_Tuple\Tuple_Parameter">
+    <Filter Include="ヘッダー ファイル\Tuple">
+      <UniqueIdentifier>{d1606bf9-2038-4b16-9846-1c3d4ad472c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Control">
+      <UniqueIdentifier>{47cfb076-28d9-43dd-a2c3-c3ee0c8cc158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Parameter">
       <UniqueIdentifier>{c498380b-c9c1-4469-a828-9d66b83e6e13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\N_Tuple\Tuple_Apply">
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Apply">
       <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -84,109 +54,10 @@
     <ClInclude Include="Concept.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Game_Object.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Args_Type.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Game_Engine.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core_Name.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Constexpr_Array.h">
-      <Filter>ヘッダー ファイル\Array</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>ヘッダー ファイル\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="Message_Router.h">
-      <Filter>ヘッダー ファイル\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="Core_Control_Tower.h">
-      <Filter>ヘッダー ファイル\Core_Control</Filter>
-    </ClInclude>
-    <ClInclude Include="Core_Parentage.h">
-      <Filter>ヘッダー ファイル\Core_Control</Filter>
-    </ClInclude>
-    <ClInclude Include="Core_Storge.h">
-      <Filter>ヘッダー ファイル\Core_Control</Filter>
-    </ClInclude>
     <ClInclude Include="Constexpr_String.h">
       <Filter>ヘッダー ファイル\String</Filter>
     </ClInclude>
-    <ClInclude Include="Manager_Scene.h">
-      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Add_Scene.h">
-      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
-    </ClInclude>
-    <ClInclude Include="Add_Object.h">
-      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
-    </ClInclude>
-    <ClInclude Include="Add_Component.h">
-      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager_Origin.h">
-      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Add_Origin.h">
-      <Filter>ヘッダー ファイル\Core_Control\Add</Filter>
-    </ClInclude>
-    <ClInclude Include="Get_Origin.h">
-      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
-    </ClInclude>
-    <ClInclude Include="Get_Scene.h">
-      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
-    </ClInclude>
-    <ClInclude Include="Get_Object.h">
-      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
-    </ClInclude>
-    <ClInclude Include="Get_Component.h">
-      <Filter>ヘッダー ファイル\Core_Control\Get</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager_Component.h">
-      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager_Object.h">
-      <Filter>ヘッダー ファイル\Core_Control\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Storge_Access.h">
-      <Filter>ヘッダー ファイル\Core_Control</Filter>
-    </ClInclude>
-    <ClInclude Include="Core_Base.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>ヘッダー ファイル\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeControl.h">
-      <Filter>ヘッダー ファイル\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerManager.h">
-      <Filter>ヘッダー ファイル\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>ヘッダー ファイル\Time</Filter>
-    </ClInclude>
     <ClInclude Include="Link.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Message_Receive.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SwapType.h">
@@ -202,37 +73,31 @@
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Tuple.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Type.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Size_T.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Using.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Class_Declare.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Concept.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Outer_Change.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Extract.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="If_Type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Test.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Template_Calculate.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Invalid.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -240,14 +105,11 @@
     <ClInclude Include="While_Type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Select_Type.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Base_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Move_Template.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Function_Core.h">
       <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
@@ -268,40 +130,40 @@
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Elements_Action.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Change.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Create_Pointer.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Control.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Prev.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Remove.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Reverse.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Remove_Pointer.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Swap.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_t_To_v.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_v_To_t.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Next.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>ヘッダー ファイル\Vector</Filter>
@@ -310,7 +172,7 @@
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_index_sequence.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Function_Valid_Data_Get.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
@@ -328,85 +190,85 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Action.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Array_Set.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Class_Create.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Fn.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Repeat_Multiple.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Type_Change_Action_Helper.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Remove_reference.h">
       <Filter>ヘッダー ファイル\Type_Remove</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Request.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_ID.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Parameter</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Size.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Parameter</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Parameter.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Parameter</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Insert.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Element.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Parameter</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Merge.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Range.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Get.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Parameter</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_ID_Select.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Parameter</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
     </ClInclude>
     <ClInclude Include="Function_Operator_Search.h">
       <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Type_Chack.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Output_Message.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Infinite.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Type.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Convert_Order.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Expand.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Zip.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Vector_Core.h">
       <Filter>ヘッダー ファイル\Vector</Filter>
@@ -414,106 +276,37 @@
     <ClInclude Include="Vector_Storge.h">
       <Filter>ヘッダー ファイル\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Array_Calculation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Calculation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Calculation.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Test_Code.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Constexpr_Array.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Constexpr_String.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Game_Object.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Message_Router.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Core_Name.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Game_Engine.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Core_Storge.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager_Origin.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Core_Parentage.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Add_Origin.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Core_Type.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Get_Origin.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeControl.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Link.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Tuple_Agrs.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Function_Single_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Value.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Declare.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
-    </ClCompile>
-    <ClCompile Include="Tuple_Test.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClCompile>
     <ClCompile Include="Function_Args_Chack.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Select.h">
-      <Filter>ヘッダー ファイル\N_Tuple\Tuple_Control</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
     </ClCompile>
     <ClCompile Include="Function_Valid_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
@@ -522,13 +315,13 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Type_Change_Action.h">
-      <Filter>ヘッダー ファイル\N_Tuple</Filter>
+      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClCompile>
     <ClCompile Include="Output_Message.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HTMLPage.htm" />
+    <ClCompile Include="Test_Code.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

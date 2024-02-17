@@ -47,9 +47,9 @@ namespace N_Function
 		template<class T_Args, class T_Operator_Parameter = function_operator_data_list>
 		struct S_Function_Operator_Search
 		{
-			using merge_pointer = S_Merge_Pointer<typename T_Operator_Parameter::type>::type::back;
+			using merge_pointer = S_Merge_Pointer<typename T_Operator_Parameter::type>::type;
 
-			static constexpr bool args_chack = N_Tuple::N_Apply::I_Type_Chack<merge_pointer, T_Args>::value;
+			static constexpr bool args_chack = N_Tuple::N_Apply::I_Type_Chack<merge_pointer,T_Args>::value + 1;
 
 			template<bool t_detect_fg = args_chack>
 			struct S_Next_Search
