@@ -87,7 +87,7 @@
     <ClInclude Include="Tuple_Concept.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Outer_Change.h">
+    <ClInclude Include="Move_Template.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Extract.h">

@@ -3,7 +3,7 @@
 #include"Tuple_Declare.h"
 #include"Concept.h"
 
-#include"Outer_Change.h"
+#include"Move_Template.h"
 #include"SwapType.h"
 
 namespace N_Tuple
@@ -73,7 +73,7 @@ namespace N_Tuple
 
 			using Swap_Head = U_if_t1<Swap_Null, tuple_t<>, (t_Point > 0)>;
 
-			using Swap_Tail = U_if_t1<tuple_t<>, U_Change_Outer<tuple_t, Swap_Null>, (t_Point > 0)>;
+			using Swap_Tail = U_if_t1<tuple_t<>, U_Move_Template<tuple_t, Swap_Null>, (t_Point > 0)>;
 
 			using type = tuple_tp<Swap_Head, invalid_t, Swap_Tail>;
 

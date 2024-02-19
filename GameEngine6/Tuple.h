@@ -40,20 +40,3 @@
 
 #include"Tuple_Calculation.h"
 
-template<class ..._Types>
-struct Tuple :
-	public std::tuple<_Types...>
-{
-private:
-
-	using tuple = std::tuple<_Types...>;
-
-public:
-	template<class ..._Types>
-	constexpr Tuple(_Types... types) :
-		std::tuple<_Types...>(types...) {}
-
-};
-
-template<class ..._Types>
-Tuple(_Types... types) -> Tuple<_Types...>;

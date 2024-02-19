@@ -12,7 +12,7 @@
 //T_2::タイプ2
 //t_Order::trueなら[T_1],[T_2]を入れ替える
 template<class T_1, class T_2,long long t_Order>
-struct IS_Swap_Type
+struct I_Swap_Type
 {
 	template<bool t_Order>
 	struct S_SwapType
@@ -38,7 +38,7 @@ struct IS_Swap_Type
 //T_2::タイプ2
 //t_Order::trueなら[T_1],[T_2]を入れ替える
 template<class T_1, class T_2, long long t_Order>
-using U_Swap_t1 = typename IS_Swap_Type<T_1, T_2, t_Order>::Type_1;
+using U_Swap_t1 = typename I_Swap_Type<T_1, T_2, t_Order>::Type_1;
 
 //仕様
 //[t_Order]が0なら[T_2],0以外なら[T_1]を返す
@@ -48,16 +48,16 @@ using U_Swap_t1 = typename IS_Swap_Type<T_1, T_2, t_Order>::Type_1;
 //T_2::タイプ2
 //t_Order::trueなら[T_1],[T_2]を入れ替える
 template<class T_1, class T_2, long long t_Order>
-using U_Swap_t2 = typename IS_Swap_Type<T_1, T_2, t_Order>::Type_2;
+using U_Swap_t2 = typename I_Swap_Type<T_1, T_2, t_Order>::Type_2;
 
 //仕様
-//[T],[invalid_t]で[IS_Swap_Type]を作成する
+//[T],[invalid_t]で[I_Swap_Type]を作成する
 //
 //template
 //T::タイプ
 //t_Order::trueなら[Type1 = T],falseなら[Type1 = invalid_t]
 template<class T, long long t_Order>
-using U_Judge = IS_Swap_Type<invalid_t, T, t_Order>;
+using U_Judge = I_Swap_Type<invalid_t, T, t_Order>;
 
 //仕様
 //[t_Order]が0なら[invalid_t],0以外なら[T]を返す

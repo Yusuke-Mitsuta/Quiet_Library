@@ -51,9 +51,7 @@ namespace N_Array
 		}
 		constexpr S_Storge(_Ty2... t)
 			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
-		{
-			//N_Tuple::I_Apply_Action<_Ty1[N], _Ty2...>::Apply(&std::array<_Ty1, N>::_Elems[0], t...);
-		}
+		{}
 
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、
@@ -63,13 +61,11 @@ namespace N_Array
 		{
 			requires !(args_size<_Ty1, _Ty2...> <= 0);
 			requires !(args_size<_Ty1, _Ty2...> >= N);
-		_Ty1{};
+			_Ty1{};
 		}
 		explicit constexpr S_Storge(_Ty2 ...t)
 			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
-		{
-			//N_Tuple::I_Apply_Action<_Ty1[N], _Ty2...>::Apply(std::array<_Ty1, N>::data(), t...);
-		}
+		{}
 
 
 		template<size_t N = N, class _Ty1 = _Ty1>

@@ -33,11 +33,11 @@ public:
 	//using sort = N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::function_operator_sort;
 #endif // FUNCTION_FG
 
-	using data =N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
+	//using data =N_Function::I_Function_Operator_Helper<T_Front_Parts, T_Parts...>::type;
 
-	using function = N_Function::I_Function_Helper<T_Front_Parts, T_Parts...>::type;
+	//using function = N_Function::I_Function_Helper<T_Front_Parts, T_Parts...>::type;
 
-	using vaild= N_Function::I_Function_Valid_Data<Function>;
+	//using vaild= N_Function::I_Function_Valid_Data<Function>;
 
 };
 
