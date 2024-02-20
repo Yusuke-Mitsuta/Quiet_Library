@@ -3,8 +3,11 @@
 #include"Tuple.h"
 #include"Function_Superficial_Data.h"
 
-template<is_invalid_not T_Front_Parts, class ...T_Parts>
-class Function;
+namespace quiet
+{
+	template<is_invalid_not T_Front_Parts, class ...T_Parts>
+	class Function;
+}
 
 namespace quiet::N_Function
 {

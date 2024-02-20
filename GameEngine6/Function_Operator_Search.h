@@ -4,8 +4,11 @@
 #include"Function_Operator_Helper.h"
 #include"Function_Operator_Sort.h"
 
-template<is_invalid_not T_Front_Parts, class ...T_Parts>
-class Function;
+namespace quiet
+{
+	template<is_invalid_not T_Front_Parts, class ...T_Parts>
+	class Function;
+}
 
 namespace quiet::N_Function
 {
