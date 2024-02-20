@@ -2,18 +2,22 @@
 
 #include"Tuple_Concept.h"
 
-template<class ...T_Types>
-struct tuple_t;
+namespace quiet
+{
 
-template<quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
-struct tuple_tp;
+	template<class ...T_Types>
+	struct tuple_t;
 
-template<auto ..._Value>
-struct tuple_v;
+	template<quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
+	struct tuple_tp;
 
-template<quiet::N_Tuple::same_as_tuple_v T_Head, auto _value, quiet::N_Tuple::same_as_tuple_v T_Tail>
-struct tuple_vp;
+	template<auto ..._Value>
+	struct tuple_v;
 
+	template<quiet::N_Tuple::same_as_tuple_v T_Head, auto _value, quiet::N_Tuple::same_as_tuple_v T_Tail>
+	struct tuple_vp;
+
+}
 namespace quiet::N_Tuple
 {
 

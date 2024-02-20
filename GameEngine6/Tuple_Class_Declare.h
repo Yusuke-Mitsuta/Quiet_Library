@@ -6,22 +6,25 @@
 
 #include"Constexpr_String.h"
 
+namespace quiet
+{
 
+	template<auto t_Value>
+	struct integral_constant;
 
-template<auto t_Value>
-struct integral_constant;
+	template<class ...T_Types>
+	struct tuple_t;
 
-template<class ...T_Types>
-struct tuple_t;
+	template<quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
+	struct tuple_tp;
 
-template<quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
-struct tuple_tp;
+	template<auto ..._Value>
+	struct tuple_v;
 
-template<auto ..._Value>
-struct tuple_v;
+	template<quiet::N_Tuple::same_as_tuple_v T_Head, auto _value, quiet::N_Tuple::same_as_tuple_v T_Tail>
+	struct tuple_vp;
 
-template<quiet::N_Tuple::same_as_tuple_v T_Head, auto _value, quiet::N_Tuple::same_as_tuple_v T_Tail>
-struct tuple_vp;
+}
 
 namespace quiet::N_Tuple
 {
