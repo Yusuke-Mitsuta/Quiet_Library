@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Function">
+      <UniqueIdentifier>{d80d7c99-db8f-4eba-9366-bf0c706e949b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Function\Function_Single_Data">
+      <UniqueIdentifier>{55f58fc5-f54b-4652-b4bb-82ddf348b2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Function\Function_Core">
+      <UniqueIdentifier>{2f00da72-c433-4d32-b517-54b6937c8b35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Vector">
+      <UniqueIdentifier>{01f11266-b565-4af4-ad8d-f42fe56a0172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Function\Function_Operator">
+      <UniqueIdentifier>{c5858560-1092-44aa-83c0-2f2f9a9f34f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple">
+      <UniqueIdentifier>{d1606bf9-2038-4b16-9846-1c3d4ad472c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Control">
+      <UniqueIdentifier>{47cfb076-28d9-43dd-a2c3-c3ee0c8cc158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Parameter">
+      <UniqueIdentifier>{c498380b-c9c1-4469-a828-9d66b83e6e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Apply">
+      <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Concept.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapType.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="DBG_NEW.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Helper.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Type.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Using.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Class_Declare.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Concept.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Move_Template.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Extract.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Template_Calculate.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Invalid.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Base_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Move_Template.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Core.h">
+      <Filter>ヘッダー ファイル\Function\Function_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Superficial_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Args.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_pointer.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Multiple_Helper.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Elements_Action.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Change.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Create_Pointer.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Control.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Prev.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Remove.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Reverse.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Remove_Pointer.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Swap.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_t_To_v.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_v_To_t.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Next.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>ヘッダー ファイル\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Request_Core.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_index_sequence.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Valid_Data_Get.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator.h">
+      <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator_Sort.h">
+      <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator_Helper.h">
+      <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Action.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Array_Set.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Class_Create.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Fn.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Repeat_Multiple.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Type_Change_Action_Helper.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Request.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_ID.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Size.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Parameter.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Insert.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Element.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Merge.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Range.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Get.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_ID_Select.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Function_Operator_Search.h">
+      <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Type_Chack.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Args_Convert_Action.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Output_Message.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Infinite.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Type.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Apply_Convert_Order.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Expand.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Zip.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector_Core.h">
+      <Filter>ヘッダー ファイル\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector_Storge.h">
+      <Filter>ヘッダー ファイル\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Calculation.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Test_Code.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Function_Single_Helper.h">
+      <Filter>ヘッダー ファイル\Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Value.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Declare.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="Function_Args_Chack.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Select.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Function_Valid_Data.h">
+      <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuple_Type_Change_Action.h">
+      <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="Output_Message.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Test_Code.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
