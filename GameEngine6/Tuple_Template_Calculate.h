@@ -1,7 +1,7 @@
 #pragma once
 
 #include"Tuple_Declare.h"
-#include"Constexpr_String.h"
+#include"String.h"
 
 #define TUPLE_V_OPERATOR(select_operator) \
 template<> \
@@ -22,7 +22,7 @@ namespace quiet::N_Tuple
 	//
 	//•â‘«
 	//[t_operator]‚Í["+"]["-"]["*"]["/"]‚ÅŽw’è‚·‚é‚±‚Æ
-	template<class T_Tuple_v, N_Constexpr::String t_operator,auto number>
+	template<class T_Tuple_v, String t_operator,auto number>
 	struct I_Template_Calculate
 	{
 	private:
@@ -35,7 +35,7 @@ namespace quiet::N_Tuple
 		template<auto ...value>
 		struct S_Tuple_Calculate<tuple_t<integral_constant<value>...>>
 		{
-			template<N_Constexpr::String t_operator=t_operator>
+			template<String t_operator=t_operator>
 			struct S_Operator
 			{
 				using type = T_Tuple_v;

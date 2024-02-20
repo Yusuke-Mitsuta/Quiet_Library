@@ -4,7 +4,7 @@
 
 #include"Tuple_Concept.h"
 
-#include"Constexpr_String.h"
+#include"String.h"
 
 namespace quiet
 {
@@ -174,7 +174,7 @@ namespace quiet::N_Tuple
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Tuple_v_Change_Action = S_Tuple_Type_Change_Action_Helper<false, false, T_Action, T_Tuple>;
 
-	template<class T_Tuple_v, N_Constexpr::String t_operator, auto number>
+	template<class T_Tuple_v, String t_operator, auto number>
 	struct I_Template_Calculate;
 
 	template<template<class...>class T_Outer_class, class ...T_Types>

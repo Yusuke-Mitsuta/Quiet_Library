@@ -45,7 +45,6 @@
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Concept.h" />
     <ClInclude Include="Array.h" />
-    <ClInclude Include="Constexpr_String.h" />
     <ClInclude Include="DBG_NEW.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Function_Core.h" />

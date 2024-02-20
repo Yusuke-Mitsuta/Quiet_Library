@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\String">
-      <UniqueIdentifier>{29933a39-dfbd-41b2-ac34-fcc5746085cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Function">
       <UniqueIdentifier>{d80d7c99-db8f-4eba-9366-bf0c706e949b}</UniqueIdentifier>
     </Filter>
@@ -50,9 +47,6 @@
     </ClInclude>
     <ClInclude Include="Concept.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Constexpr_String.h">
-      <Filter>ヘッダー ファイル\String</Filter>
     </ClInclude>
     <ClInclude Include="SwapType.h">
       <Filter>ヘッダー ファイル</Filter>

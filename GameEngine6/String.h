@@ -3,7 +3,7 @@
 #include<string>
 #include"Concept.h"
 
-namespace N_Constexpr
+namespace quiet
 {
 	//仕様
 	//静的に文字列を扱う
