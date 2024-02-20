@@ -2,7 +2,7 @@
 
 #include"Tuple_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 
 {	//仕様
 	//[tuple_t]の選択位置をひとつ前にする

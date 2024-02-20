@@ -2,7 +2,7 @@
 
 #include"Tuple_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//選択位置の値を削除する

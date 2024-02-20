@@ -10,17 +10,17 @@ namespace std
 	template <size_t I, class T>
 		requires requires
 	{
-		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
+		requires is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
 	}
 	struct tuple_element<I, T> 
 	{
-		using type = N_Tuple::U_Element_t<I, T>;
+		using type = quiet::N_Tuple::U_Element_t<I, T>;
 	};
 
 
 }
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//Žd—l
 	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚ÌŒ^‚ðŽæ“¾‚·‚é

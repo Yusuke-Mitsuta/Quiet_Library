@@ -3,7 +3,7 @@
 #include"Tuple.h"
 #include"SwapType.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 	template<class ...T_Parts>
 	struct Function_Core;

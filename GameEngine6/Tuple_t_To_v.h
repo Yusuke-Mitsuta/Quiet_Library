@@ -2,7 +2,7 @@
 
 #include"Tuple_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//[T]を[tuple_t,tp]から、要素を[integral_constant]で取り出し、[tuple_v,vp]に変換する

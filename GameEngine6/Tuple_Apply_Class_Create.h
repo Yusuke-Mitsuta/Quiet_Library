@@ -3,7 +3,7 @@
 
 #include"Tuple_Declare.h"
 
-namespace N_Tuple::N_Apply
+namespace quiet::N_Tuple::N_Apply
 {
 	//仕様
 	//生成するクラス[T_Fn]型の変数を生成する。

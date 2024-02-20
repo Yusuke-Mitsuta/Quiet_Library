@@ -7,7 +7,7 @@
 #include"Tuple_Size.h"
 #include"Tuple_ID_Select.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 
 	//Žd—l

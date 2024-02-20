@@ -10,7 +10,7 @@ struct S_Operator<#select_operator>\
 	using type = tuple_t<integral_constant<value select_operator number >...>;\
 }\
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//[Tuple_v< value...>]に対して[number]を["t_operator"]の演算子で計算する

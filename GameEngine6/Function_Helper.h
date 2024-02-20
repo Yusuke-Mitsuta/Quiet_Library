@@ -4,7 +4,7 @@
 #include"Function_Single_Helper.h"
 #include"Function_Multiple_Helper.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 
 	//Žd—l

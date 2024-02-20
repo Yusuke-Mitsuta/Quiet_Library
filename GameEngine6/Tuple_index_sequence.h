@@ -3,7 +3,7 @@
 #include"Move_Template.h"
 #include"Tuple_Class_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//Žd—l
 	//[0 ... (N-1)]‚Ì’l‚ð[tuple_v]‚É“ü‚ê‚Ä•Ô‚·

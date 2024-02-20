@@ -2,10 +2,10 @@
 
 #include"Tuple_Declare.h"
 #include"Tuple_Type_Change_Action_Helper.h"
-#include"If_Type.h"
+#include"SwapType.h"
 
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 
 	//Žd—l

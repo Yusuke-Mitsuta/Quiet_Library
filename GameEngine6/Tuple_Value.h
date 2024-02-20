@@ -12,15 +12,15 @@ struct integral_constant
 
 };
 
-template<N_Tuple::same_as_tuple_v T_Head, auto value, N_Tuple::same_as_tuple_v T_Tail>
+template<quiet::N_Tuple::same_as_tuple_v T_Head, auto value, quiet::N_Tuple::same_as_tuple_v T_Tail>
 struct tuple_vp :
-	N_Tuple::Control_v<tuple_vp<T_Head, value, T_Tail>>
+	quiet::N_Tuple::Control_v<tuple_vp<T_Head, value, T_Tail>>
 {
 };
 
 template<auto ...t_Value>
 struct tuple_v :
-	N_Tuple::Control_v<tuple_v<t_Value...>>
+	quiet::N_Tuple::Control_v<tuple_v<t_Value...>>
 {
 
 };
@@ -30,10 +30,10 @@ namespace std
 
 	template<class T_Head,auto t_Value,class T_Tail>
 	struct tuple_size<tuple_vp<T_Head,t_Value,T_Tail>> :
-		integral_constant<size_t, N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::size>
+		integral_constant<size_t, quiet::N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::size>
 	{
 		static constexpr size_t value =
-			N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::size;
+			quiet::N_Tuple::S_Parameter<tuple_vp<T_Head, t_Value, T_Tail>>::size;
 	};
 
 	template<auto ...t_Value>

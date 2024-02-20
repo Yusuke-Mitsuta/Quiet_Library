@@ -1,6 +1,6 @@
 #pragma once
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	enum class E_Tuple_ID
 	{

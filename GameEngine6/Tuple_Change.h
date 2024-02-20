@@ -2,7 +2,7 @@
 
 #include"Tuple_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//[T_Tuple_p]の[t_Change_Point]の値を[T_Change]に変更する

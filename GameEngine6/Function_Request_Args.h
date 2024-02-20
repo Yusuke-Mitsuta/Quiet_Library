@@ -2,7 +2,7 @@
 
 #include"Function_Args_Chack.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 
 	//Žd—l

@@ -5,7 +5,7 @@
 #include"Tuple_Declare.h"
 #include"Tuple_Apply_Type_Chack.h"
 
-namespace N_Tuple::N_Apply
+namespace quiet::N_Tuple::N_Apply
 {
 
 	template<class T_Expand, size_t t_point>

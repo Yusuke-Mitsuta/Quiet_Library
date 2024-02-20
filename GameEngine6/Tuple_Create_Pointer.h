@@ -2,7 +2,7 @@
 
 #include"Tuple_Class_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//[T_Tuple_p]の型が、[tuple_t]ならば、[tuple_tp]に、[tuple_v]ならば、[tuple_vp]に変更する

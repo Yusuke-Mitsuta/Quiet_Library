@@ -5,7 +5,7 @@
 #include"Function_Request_Args.h"
 #include"Function_Request_pointer.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 
 	template<class ...T_Parts>

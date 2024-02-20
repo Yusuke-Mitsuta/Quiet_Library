@@ -8,7 +8,7 @@
 
 #include"main.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 
 	namespace N_Apply

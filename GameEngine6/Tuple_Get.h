@@ -12,9 +12,9 @@ namespace std
 	template<size_t I, class T>
 		requires requires(T&& t)
 	{
-		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
-		requires !N_Tuple::is_Tuple<T>;
-		requires N_Tuple::S_Parameter<T>::size >= I;
+		requires is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
+		requires !quiet::N_Tuple::is_Tuple<T>;
+		requires quiet::N_Tuple::S_Parameter<T>::size >= I;
 		{t.get<I>()};
 	}
 	static constexpr auto& get(T&& t)
@@ -28,9 +28,9 @@ namespace std
 	template<size_t I, class T>
 		requires requires(const T&& t)
 	{
-		requires is_invalid_not<typename N_Tuple::S_Parameter<remove_const_t<T>>::tuple>;
-		requires !N_Tuple::is_Tuple<remove_const_t<T>>;
-		requires N_Tuple::S_Parameter<remove_const_t<T>>::size >= I;
+		requires is_invalid_not<typename quiet::N_Tuple::S_Parameter<remove_const_t<T>>::tuple>;
+		requires !quiet::N_Tuple::is_Tuple<remove_const_t<T>>;
+		requires quiet::N_Tuple::S_Parameter<remove_const_t<T>>::size >= I;
 		//{const_cast<T>(std::forward<const T>(t)).get<I>()};
 	}
 	static constexpr const auto get(const T& t)
@@ -41,9 +41,9 @@ namespace std
 	template<size_t I, class T>
 		requires requires(T t)
 	{
-		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
-		requires !N_Tuple::is_Tuple<T>;
-		requires N_Tuple::S_Parameter<T>::size >= I;
+		requires is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
+		requires !quiet::N_Tuple::is_Tuple<T>;
+		requires quiet::N_Tuple::S_Parameter<T>::size >= I;
 		{t.get<I>()};
 	}
 	static constexpr auto& get(T* t)
@@ -54,9 +54,9 @@ namespace std
 	template<size_t I, class T>
 		requires requires(const T* t)
 	{
-		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
-		requires !N_Tuple::is_Tuple<T>;
-		requires N_Tuple::S_Parameter<T>::size >= I;
+		requires is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
+		requires !quiet::N_Tuple::is_Tuple<T>;
+		requires quiet::N_Tuple::S_Parameter<T>::size >= I;
 		{const_cast<T*>(t)->get<I>()};
 	}
 	static constexpr const auto& get(const T* t)
@@ -71,9 +71,9 @@ namespace std
 	template<size_t I, class T>
 		requires requires(T t)
 	{
-		requires is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
-		requires !N_Tuple::is_Tuple<T>;
-		requires N_Tuple::S_Parameter<T>::size < I;
+		requires is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
+		requires !quiet::N_Tuple::is_Tuple<T>;
+		requires quiet::N_Tuple::S_Parameter<T>::size < I;
 	}
 	auto get(T t)
 	{
@@ -92,6 +92,6 @@ namespace std
 	}
 
 	template<class T>
-	concept is_compatible_tuple = is_invalid_not<typename N_Tuple::S_Parameter<T>::tuple>;
+	concept is_compatible_tuple = is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
 
 }

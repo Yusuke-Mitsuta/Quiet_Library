@@ -2,7 +2,7 @@
 
 #include"Tuple.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 
 	template<class T_Request_Args, class T_Bind_Args>

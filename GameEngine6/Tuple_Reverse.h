@@ -2,7 +2,7 @@
 
 #include"Tuple_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 
 	//Žd—l

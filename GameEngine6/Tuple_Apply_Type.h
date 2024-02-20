@@ -8,7 +8,7 @@ class Function;
 template<class _Ty1, size_t N>
 class Array;
 
-namespace N_Tuple::N_Apply
+namespace quiet::N_Tuple::N_Apply
 {
 	enum class E_Type
 	{

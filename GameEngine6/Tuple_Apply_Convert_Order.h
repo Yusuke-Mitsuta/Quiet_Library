@@ -7,9 +7,9 @@
 #include"Tuple_Apply_Request.h"
 #include"Tuple_Apply_Class_Create.h"
 #include"Tuple_Infinite.h"
-#include"If_Type.h"
+#include"SwapType.h"
 
-namespace N_Tuple::N_Apply
+namespace quiet::N_Tuple::N_Apply
 {
 
 	template<class T_Expand, size_t t_point>

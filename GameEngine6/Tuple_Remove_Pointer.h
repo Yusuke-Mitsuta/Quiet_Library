@@ -2,7 +2,7 @@
 
 #include"Tuple_Class_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//d—l
 	//[T]‚ğ[tuple_tp,vp]‚©‚çA[tuple_t,v]‚É•ÏŠ·‚·‚é

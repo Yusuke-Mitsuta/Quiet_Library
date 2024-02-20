@@ -4,7 +4,7 @@
 #include"Tuple.h"
 #include"Function_Args_Chack.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	template<class T, size_t N>
 	struct S_Parameter<std::array<T, N>> :
@@ -14,7 +14,7 @@ namespace N_Tuple
 
 }
 
-namespace N_Array
+namespace quiet::N_Array
 {
 
 	template<class T_Base_Type, class ...T_Args>
@@ -100,13 +100,13 @@ namespace N_Array
 //	}
 template<class _Ty1, size_t N>
 class Array :
-	public N_Array::S_Storge<_Ty1, N>
+	public quiet::N_Array::S_Storge<_Ty1, N>
 {
 public:
 
-	using tuple = N_Tuple::U_Repeat_Multiple<_Ty1, N>;
+	using tuple = quiet::N_Tuple::U_Repeat_Multiple<_Ty1, N>;
 
-	using N_Array::S_Storge<_Ty1, N>::S_Storge;
+	using quiet::N_Array::S_Storge<_Ty1, N>::S_Storge;
 
 
 	//Žd—l
@@ -121,15 +121,15 @@ public:
 };
 
 template<class _Ty2, class ..._Ty3>
-	requires (N_Array::args_size<_Ty2, _Ty3...> >= 0)
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, N_Array::args_size<_Ty2, _Ty2, _Ty3...>>;
+	requires (quiet::N_Array::args_size<_Ty2, _Ty3...> >= 0)
+Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, quiet::N_Array::args_size<_Ty2, _Ty2, _Ty3...>>;
 
 
 template<class _Ty1, size_t N>
 template<size_t I>
 inline constexpr _Ty1& Array<_Ty1, N>::get()
 {
-	return N_Array::S_Storge<_Ty1, N>::std::array<_Ty1, N>::_Elems[I];
+	return quiet::N_Array::S_Storge<_Ty1, N>::std::array<_Ty1, N>::_Elems[I];
 }
 
 template<class _Ty1, size_t N>

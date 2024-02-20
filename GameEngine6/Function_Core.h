@@ -2,7 +2,7 @@
 
 #include"Function_Valid_Data.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 	//仕様
 	//クラスメソッドとメソッドを同一方法で扱う為のクラス

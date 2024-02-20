@@ -4,7 +4,7 @@
 #include"Tuple_Apply_Type.h"
 #include<array>
 
-namespace N_Function
+namespace quiet::N_Function
 {
 	template<class ...T_Parts>
 	struct Function_Core;
@@ -16,7 +16,7 @@ namespace N_Function
 template<class _Ty1, size_t N>
 class Array;
 
-namespace N_Tuple::N_Apply
+namespace quiet::N_Tuple::N_Apply
 {
 	//仕様
 	//関数オブジェクトの引数とポインターの型を取得する.

@@ -2,7 +2,7 @@
 
 #include"Concept.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 
 	//Žd—l

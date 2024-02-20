@@ -3,7 +3,7 @@
 #include"Tuple_Declare.h"
 #include"Tuple_Apply_Action.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 
 	//Žd—l
@@ -117,4 +117,4 @@ namespace N_Tuple
 }
 
 
-using N_Tuple::Apply;
+using quiet::N_Tuple::Apply;

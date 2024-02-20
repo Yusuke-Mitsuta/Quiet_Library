@@ -6,7 +6,7 @@
 template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function;
 
-namespace N_Function
+namespace quiet::N_Function
 {
 	template<class ...T_Parts>
 	struct Function_Core;

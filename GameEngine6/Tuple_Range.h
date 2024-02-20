@@ -3,7 +3,7 @@
 #include"Tuple_Declare.h"
 #include"SwapType.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//Žd—l
 	//[T_Tuple]‚Ì[t_Point_1]‚Æ[t_Point_2]‚ÌŠÔ‚Ì—v‘f‚ðŽæ“¾‚·‚é

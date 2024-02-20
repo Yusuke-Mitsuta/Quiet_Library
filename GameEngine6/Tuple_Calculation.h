@@ -2,7 +2,7 @@
 
 #include"Tuple_Declare.h"
 #include"Tuple_Get.h"
-#include"If_Type.h"
+#include"SwapType.h"
 
 
 
@@ -106,7 +106,7 @@ static constexpr auto operator+(const T_Left& l, const T_Right& r)\
 };\
 
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//édól
 	//ç\ë¢âªë©îõÇ…ëŒâûÇµÇƒÇÈå^ìØémÇÃåvéZÅA
@@ -179,40 +179,40 @@ namespace N_Tuple
 template<class T_Left, class T_Right> 
 	requires requires(const T_Left& l, const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Sum(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Sum(&l, &r)};
 }
 static constexpr auto operator+(const T_Left& l,const T_Right& r)
 {
-	return N_Tuple::I_Calculation<T_Left, T_Right>::type::Sum(&l, &r);
+	return quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Sum(&l, &r);
 };
 
 template<class T_Left, class T_Right>
 	requires requires(const T_Left& l,const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Difference(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Difference(&l, &r)};
 }
 static constexpr auto operator-(const T_Left& l, const T_Right& r) {
-	return N_Tuple::I_Calculation<T_Left, T_Right>::type::Difference(&l, &r);
+	return quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Difference(&l, &r);
 };
 
 template<class T_Left, class T_Right> 
 	requires requires(const T_Left& l, const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Product(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Product(&l, &r)};
 }
 static constexpr auto operator*(const T_Left& l, const T_Right& r)
 {
-	return N_Tuple::I_Calculation<T_Left, T_Right>::type::Product(&l, &r);
+	return quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Product(&l, &r);
 }
 
 template<class T_Left, class T_Right> 
 	requires requires(const T_Left& l, const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Quotient(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Quotient(&l, &r)};
 }
 static constexpr auto operator/(const T_Left& l, const T_Right& r)
 {
-	return N_Tuple::I_Calculation<T_Left, T_Right>::type::Quotient(&l, &r);
+	return quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Quotient(&l, &r);
 };
 
 
@@ -220,39 +220,39 @@ static constexpr auto operator/(const T_Left& l, const T_Right& r)
 template<class T_Left, class T_Right>
 	requires requires(T_Left& l, const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Sum(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Sum(&l, &r)};
 }
 static constexpr void operator+=(T_Left& l,const T_Right& r)
 {
-	N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Sum(&l, &r);
+	quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Sum(&l, &r);
 };
 
 template<class T_Left, class T_Right>
 	requires requires(T_Left& l, const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Difference(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Difference(&l, &r)};
 }
 static constexpr void operator-=(T_Left& l, const T_Right& r)
 {
-	N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Difference(&l, &r);
+	quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Difference(&l, &r);
 };
 
 template<class T_Left, class T_Right>
 	requires requires(T_Left& l, const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Product(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Product(&l, &r)};
 }
 static constexpr void operator*=(T_Left& l, const T_Right& r)
 {
-	N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Product(&l, &r);
+	quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Product(&l, &r);
 };
 
 template<class T_Left, class T_Right>
 	requires requires(T_Left& l, const T_Right& r)
 {
-	{N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Quotient(&l, &r)};
+	{quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Quotient(&l, &r)};
 }
 static constexpr void operator/=(T_Left& l,const T_Right& r)
 {
-	N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Quotient(&l, &r);
+	quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Quotient(&l, &r);
 };

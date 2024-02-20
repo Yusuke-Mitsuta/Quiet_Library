@@ -3,7 +3,7 @@
 #include"Function_Base_Data.h"
 #include"Function_Request_Data.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 	template<class ...T_Parts>
 	struct Function_Core;

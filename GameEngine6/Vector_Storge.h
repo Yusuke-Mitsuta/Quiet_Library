@@ -2,7 +2,7 @@
 
 #include"Array.h"
 
-namespace N_Vector
+namespace quiet::N_Vector
 {
 	//d—l
 	//Array‚Ì—v‘f”(2`4)‚É‘Î‰‚µ‚Ä•Ï”[x,y,z,w]‚ğ

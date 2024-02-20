@@ -1,9 +1,9 @@
 #pragma once
 
 #include"Tuple_Declare.h"
-#include"If_Type.h"
+#include"SwapType.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 
 	//Žd—l

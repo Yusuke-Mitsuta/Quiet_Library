@@ -4,7 +4,7 @@
 
 #include"Vector_Storge.h"
 
-namespace N_Vector
+namespace quiet::N_Vector
 {
 
 	//Žd—l

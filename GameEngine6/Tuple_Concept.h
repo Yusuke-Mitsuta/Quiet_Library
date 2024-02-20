@@ -3,7 +3,7 @@
 #include"Concept.h"
 #include"Tuple_ID.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	template<class T_Tuple>
 	struct S_ID_Select;

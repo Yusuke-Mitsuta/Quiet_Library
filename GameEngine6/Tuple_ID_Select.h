@@ -5,16 +5,16 @@
 template<class ...T_Types>
 struct tuple_t;
 
-template<N_Tuple::same_as_tuple_t T_Head, class T, N_Tuple::same_as_tuple_t T_Tail>
+template<quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
 struct tuple_tp;
 
 template<auto ..._Value>
 struct tuple_v;
 
-template<N_Tuple::same_as_tuple_v T_Head, auto _value, N_Tuple::same_as_tuple_v T_Tail>
+template<quiet::N_Tuple::same_as_tuple_v T_Head, auto _value, quiet::N_Tuple::same_as_tuple_v T_Tail>
 struct tuple_vp;
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 
 	template<class T_Tuple>

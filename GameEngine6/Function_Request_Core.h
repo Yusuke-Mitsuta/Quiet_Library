@@ -2,7 +2,7 @@
 
 #include"Invalid.h"
 
-namespace N_Function
+namespace quiet::N_Function
 {
 
 	template<class T_Request_Args = invalid_t, class T_Request_Pointer = invalid_t>

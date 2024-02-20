@@ -6,7 +6,7 @@
 #include"Tuple_Parameter.h"
 #include"Tuple_Declare.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//[T_Tuple]の選択位置の操作、削除の実施

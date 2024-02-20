@@ -7,7 +7,7 @@
 template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function;
 
-namespace N_Function
+namespace quiet::N_Function
 {
 	template<class T_Fn,class T_Set_Types>
 	struct I_Function_Operator_Search

@@ -31,9 +31,6 @@
     <Filter Include="ヘッダー ファイル\Function\Function_Operator">
       <UniqueIdentifier>{c5858560-1092-44aa-83c0-2f2f9a9f34f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Type_Remove">
-      <UniqueIdentifier>{613058ce-cccc-497b-afd3-a19a2f44149b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Tuple">
       <UniqueIdentifier>{d1606bf9-2038-4b16-9846-1c3d4ad472c0}</UniqueIdentifier>
     </Filter>
@@ -56,9 +53,6 @@
     </ClInclude>
     <ClInclude Include="Constexpr_String.h">
       <Filter>ヘッダー ファイル\String</Filter>
-    </ClInclude>
-    <ClInclude Include="Link.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SwapType.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -93,16 +87,10 @@
     <ClInclude Include="Tuple_Extract.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="If_Type.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Template_Calculate.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Invalid.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="While_Type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Function_Base_Data.h">
@@ -186,9 +174,6 @@
     <ClInclude Include="Function_Operator_Helper.h">
       <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
     </ClInclude>
-    <ClInclude Include="Time_Test.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Apply_Action.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
@@ -209,9 +194,6 @@
     </ClInclude>
     <ClInclude Include="Tuple_Type_Change_Action_Helper.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Remove_reference.h">
-      <Filter>ヘッダー ファイル\Type_Remove</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Request.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
@@ -290,9 +272,6 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Link.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Function_Single_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
@@ -310,9 +289,6 @@
     </ClCompile>
     <ClCompile Include="Function_Valid_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Time_Test.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Type_Change_Action.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>

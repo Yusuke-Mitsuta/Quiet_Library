@@ -3,7 +3,7 @@
 #include"Tuple_Declare.h"
 #include"SwapType.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//[T_Base_Tuple]の選択位置に[T_Add_Type...]の要素を追加する

@@ -3,7 +3,7 @@
 #include"Tuple_Declare.h"
 #include"Tuple.h"
 
-namespace N_Tuple
+namespace quiet::N_Tuple
 {
 	//仕様
 	//要素に型[T]を[N]個持つ、[tuple_t]を作る
