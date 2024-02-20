@@ -80,60 +80,64 @@ namespace quiet::N_Array
 	};
 }
 
-//仕様
-//[_Ty1[N] elems]の配列を生成し、管理する
-//
-//補足
-//コンストラクタの引数に対して、
-// [N_Tuple::Apply]を用いて適切に変換の結果、
-//	要素数が不足している場合、
-// デフォルトで型を構築可能な場合かつ、
-// 暗黙的な変換でない場合は不足分をデフォルトで構築する
-// 
-//	void Hoge(Array<int, 3>　);
-//	
-//	void main()
-//	{
-//	　Hoge(1); //これは[int]から[Array<int, 3>]に暗黙的に変換されている為、不可となる
-//	　Hoge(Array<int, 2>()); //これは[Array<int, 3>]から[Array<int, 3>]に暗黙的に変換れている為、不可となる
-//	　Hoge(Array<int, 3>(1)); ///これは[Array<int, 3>]のコンストラクタを[int]で呼び出為、可となる
-//	}
-template<class _Ty1, size_t N>
-class Array :
-	public quiet::N_Array::S_Storge<_Ty1, N>
+namespace quiet
 {
-public:
-
-	using tuple = quiet::N_Tuple::U_Repeat_Multiple<_Ty1, N>;
-
-	using quiet::N_Array::S_Storge<_Ty1, N>::S_Storge;
-
 
 	//仕様
-	//[I]番目の配列の要素を参照で取得する
+	//[_Ty1[N] elems]の配列を生成し、管理する
+	//
+	//補足
+	//コンストラクタの引数に対して、
+	// [N_Tuple::Apply]を用いて適切に変換の結果、
+	//	要素数が不足している場合、
+	// デフォルトで型を構築可能な場合かつ、
+	// 暗黙的な変換でない場合は不足分をデフォルトで構築する
+	// 
+	//	void Hoge(Array<int, 3>　);
+	//	
+	//	void main()
+	//	{
+	//	　Hoge(1); //これは[int]から[Array<int, 3>]に暗黙的に変換されている為、不可となる
+	//	　Hoge(Array<int, 2>()); //これは[Array<int, 3>]から[Array<int, 3>]に暗黙的に変換れている為、不可となる
+	//	　Hoge(Array<int, 3>(1)); ///これは[Array<int, 3>]のコンストラクタを[int]で呼び出為、可となる
+	//	}
+	template<class _Ty1, size_t N>
+	class Array :
+		public quiet::N_Array::S_Storge<_Ty1, N>
+	{
+	public:
+
+		using tuple = quiet::N_Tuple::U_Repeat_Multiple<_Ty1, N>;
+
+		using quiet::N_Array::S_Storge<_Ty1, N>::S_Storge;
+
+
+		//仕様
+		//[I]番目の配列の要素を参照で取得する
+		template<size_t I>
+		constexpr _Ty1& get();
+
+		//仕様
+		//単一の要素で配列を全て埋め尽くす
+		constexpr void operator=(const convertible_to<_Ty1> auto& copy);
+
+	};
+
+	template<class _Ty2, class ..._Ty3>
+		requires (quiet::N_Array::args_size<_Ty2, _Ty3...> >= 0)
+	Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, quiet::N_Array::args_size<_Ty2, _Ty2, _Ty3...>>;
+
+
+	template<class _Ty1, size_t N>
 	template<size_t I>
-	constexpr _Ty1& get();
+	inline constexpr _Ty1& Array<_Ty1, N>::get()
+	{
+		return quiet::N_Array::S_Storge<_Ty1, N>::std::array<_Ty1, N>::_Elems[I];
+	}
 
-	//仕様
-	//単一の要素で配列を全て埋め尽くす
-	constexpr void operator=(const convertible_to<_Ty1> auto& copy);
-
-};
-
-template<class _Ty2, class ..._Ty3>
-	requires (quiet::N_Array::args_size<_Ty2, _Ty3...> >= 0)
-Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, quiet::N_Array::args_size<_Ty2, _Ty2, _Ty3...>>;
-
-
-template<class _Ty1, size_t N>
-template<size_t I>
-inline constexpr _Ty1& Array<_Ty1, N>::get()
-{
-	return quiet::N_Array::S_Storge<_Ty1, N>::std::array<_Ty1, N>::_Elems[I];
-}
-
-template<class _Ty1, size_t N>
-inline constexpr void Array<_Ty1, N>::operator=(const convertible_to<_Ty1> auto& copy)
-{
-	std::array<_Ty1, N>::fill(static_cast<_Ty1>(copy));
+	template<class _Ty1, size_t N>
+	inline constexpr void Array<_Ty1, N>::operator=(const convertible_to<_Ty1> auto& copy)
+	{
+		std::array<_Ty1, N>::fill(static_cast<_Ty1>(copy));
+	}
 }

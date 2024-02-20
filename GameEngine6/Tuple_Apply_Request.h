@@ -12,9 +12,11 @@ namespace quiet::N_Function
 	template<class T_Fn, class T_Set_Types>
 	struct I_Function_Operator_Search;
 };
-
-template<class _Ty1, size_t N>
-class Array;
+namespace quiet
+{
+	template<class _Ty1, size_t N>
+	class Array;
+}
 
 namespace quiet::N_Tuple::N_Apply
 {

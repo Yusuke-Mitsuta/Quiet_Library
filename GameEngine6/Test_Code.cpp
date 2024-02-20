@@ -1,5 +1,7 @@
 #include "Test_Code.h"
 
+using namespace quiet;
+
 void Test_Code::Array_Test()
 {
 	//Time_Test::Action();
@@ -23,12 +25,13 @@ void Int_3(const int& n1, int n2, int n3)
 
 void Ary_Int_3(Array<int,3> ary_int_3)
 {
-	
 }
 
 
 void Test_Code::Function_Test()
 {
+
+
 	constexpr std::array<int, 3> a{ 2,4,5 };
 	//constexpr Array b(222, 5, 7);
 	//auto ab= std::get<0>(a);

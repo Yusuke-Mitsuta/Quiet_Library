@@ -5,8 +5,13 @@
 template<is_invalid_not T_Front_Parts, class ...T_Parts>
 class Function;
 
-template<class _Ty1, size_t N>
-class Array;
+
+namespace quiet
+{
+
+	template<class _Ty1, size_t N>
+	class Array;
+}
 
 namespace quiet::N_Tuple::N_Apply
 {
