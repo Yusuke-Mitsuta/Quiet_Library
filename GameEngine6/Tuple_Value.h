@@ -5,7 +5,6 @@
 #include"Tuple_Control.h"
 
 namespace quiet
-
 {
 	template<auto t_Value>
 	struct integral_constant

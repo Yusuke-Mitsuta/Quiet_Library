@@ -10,7 +10,7 @@ namespace std
 	template <size_t I, class T>
 		requires requires
 	{
-		requires is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
+		requires quiet::is_invalid_not<typename quiet::N_Tuple::S_Parameter<T>::tuple>;
 	}
 	struct tuple_element<I, T> 
 	{

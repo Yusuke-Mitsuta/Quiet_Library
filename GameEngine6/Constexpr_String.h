@@ -29,7 +29,7 @@ namespace N_Constexpr
 
 
 		template<size_t t_StrSize>
-			requires Fg<(t_Size > t_StrSize)>
+			requires quiet::Fg<(t_Size > t_StrSize)>
 			constexpr String(const char(&initstr)[t_StrSize]) :
 			str()
 		{
@@ -46,7 +46,7 @@ namespace N_Constexpr
 		constexpr String() :String("") {}
 
 		template<size_t t_StrSize>
-			requires Fg<(t_Size >= t_StrSize)>
+			requires quiet::Fg<(t_Size >= t_StrSize)>
 		constexpr String(String<t_StrSize> str2)
 		{
 			for (int i = 0; i < t_StrSize; i++)
@@ -69,7 +69,7 @@ namespace N_Constexpr
 		}
 
 		template<size_t t_StrSize>
-			requires Fg<(t_Size >= t_StrSize)>
+			requires quiet::Fg<(t_Size >= t_StrSize)>
 		constexpr bool operator==(const char(&initstr)[t_StrSize])
 		{
 			return this->operator==(String{ initstr });
