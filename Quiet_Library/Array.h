@@ -22,62 +22,6 @@ namespace quiet::N_Array
 		N_Tuple::N_Apply::I_Type_Chack<
 		tuple_t<N_Tuple::N_Apply::S_Infinite_Args<T_Base_Type>>,
 		tuple_t<T_Args...>>::value;
-
-	template<class _Ty1, size_t N>
-	struct S_Storge :
-		std::array<_Ty1, N>
-	{
-
-		//std::array<_Ty1, N> elems;
-
-		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
-			requires requires
-		{
-			requires sizeof...(_Ty2) == N;
-			requires convertible_from_and<_Ty1, _Ty2...>;
-		}
-		constexpr S_Storge(_Ty2... t)
-			:std::array<_Ty1, N>({static_cast<_Ty1>(t)... })
-		{}
-
-
-		//仕様
-		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
-		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
-			requires requires
-		{
-			requires args_size<_Ty1, _Ty2...> == N;
-			requires convertible_from_nand<_Ty1, _Ty2...>;
-		}
-		constexpr S_Storge(_Ty2... t)
-			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
-		{}
-
-		//仕様
-		// [N_Tuple::Apply]を用いて適切に変換の結果、
-		// 要素が不足している場合は、デフォルトで構築を行う
-		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
-			requires requires
-		{
-			requires !(args_size<_Ty1, _Ty2...> <= 0);
-			requires !(args_size<_Ty1, _Ty2...> >= N);
-			_Ty1{};
-		}
-		explicit constexpr S_Storge(_Ty2 ...t)
-			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
-		{}
-
-
-		template<size_t N = N, class _Ty1 = _Ty1>
-			requires requires
-		{
-			_Ty1{};
-		}
-		explicit constexpr S_Storge() :
-			std::array<_Ty1, N>({})
-		{}
-
-	};
 }
 
 namespace quiet
@@ -103,13 +47,58 @@ namespace quiet
 	//	}
 	template<class _Ty1, size_t N>
 	class Array :
-		public quiet::N_Array::S_Storge<_Ty1, N>
+		public std::array<_Ty1, N>
 	{
 	public:
 
 		using tuple = quiet::N_Tuple::U_Repeat_Multiple<_Ty1, N>;
 
-		using quiet::N_Array::S_Storge<_Ty1, N>::S_Storge;
+
+		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
+			requires requires
+		{
+			requires sizeof...(_Ty2) == N;
+			requires convertible_from_and<_Ty1, _Ty2...>;
+		}
+		constexpr Array(_Ty2... t)
+			:std::array<_Ty1, N>({ static_cast<_Ty1>(t)... })
+		{}
+
+		//仕様
+		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
+		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
+			requires requires
+		{
+			requires N_Array::args_size<_Ty1, _Ty2...> == N;
+			requires convertible_from_nand<_Ty1, _Ty2...>;
+		}
+		constexpr Array(_Ty2... t)
+			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
+		{}
+
+		//仕様
+		// [N_Tuple::Apply]を用いて適切に変換の結果、
+		// 要素が不足している場合は、デフォルトで構築を行う
+		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
+			requires requires
+		{
+			requires !(N_Array::args_size<_Ty1, _Ty2...> <= 0);
+			requires !(N_Array::args_size<_Ty1, _Ty2...> >= N);
+		_Ty1{};
+		}
+		explicit constexpr Array(_Ty2 ...t)
+			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
+		{}
+
+		template<size_t N = N, class _Ty1 = _Ty1>
+			requires requires
+		{
+			_Ty1{};
+		}
+		explicit constexpr Array() :
+			std::array<_Ty1, N>({})
+		{}
+
 
 
 		//仕様

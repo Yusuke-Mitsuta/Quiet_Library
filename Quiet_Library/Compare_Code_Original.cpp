@@ -17,6 +17,12 @@ void Compare_Code::Original_Array()
 
 	auto plus_ary_int3 = ary_int3_1 + ary_int3_2;
 
+	Array<int, 6> ary_int_6(ary_int3_1, ary_int3_2);
+
+	type_id(ary_int_6);
+	OUTPUT_MESSAGE::C_Out_For(ary_int_6);
+
+
 
 
 }
