@@ -8,14 +8,15 @@
 #include"Tuple.h"
 
 #include"Output_Message.h"
-
-#include"Test_Code.h"
+#include"Compare_Code_Original.h"
 
 int main()
 {
-	Test_Code::Array_Test();
 
-	Test_Code::Function_Test();
+	Compare_Code::Original_Array();
+
+
+
 
 
 	_CrtDumpMemoryLeaks();

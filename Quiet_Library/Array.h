@@ -132,7 +132,7 @@ namespace quiet
 	template<size_t I>
 	inline constexpr _Ty1& Array<_Ty1, N>::get()
 	{
-		return quiet::N_Array::S_Storge<_Ty1, N>::std::array<_Ty1, N>::_Elems[I];
+		return std::array<_Ty1, N>::_Elems[I];
 	}
 
 	template<class _Ty1, size_t N>

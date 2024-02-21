@@ -47,6 +47,23 @@ namespace OUTPUT_MESSAGE
 		C_Out<N + 1>(ts...);
 	}
 
+
+
+	template<size_t N = 0, class T>
+	static void C_Out_For(T t) {}
+
+	template<size_t N = 0,class T>
+		requires requires
+	{
+		requires N < std::tuple_size_v<T>;
+	}
+	static void C_Out_For(T t)
+	{
+		std::cout << "  " << N << " : " << 
+			std::get<N>(t) <<
+			std::endl;
+		C_Out_For<N + 1>(t);
+	}
 	
 	static void Action_C_Out(auto... ts)
 	{
@@ -197,6 +214,32 @@ namespace OUTPUT_MESSAGE
 		Action_Type_Name<1, Ts...>();
 	};
 
+	template<size_t dimension_Limit, class ...Ts>
+	static void Action_Type_Name(Ts... t)
+	{
+		switch (static_cast<int>(sizeof...(Ts)) * dimension_Limit)
+		{
+		case 0:
+			std::cout << std::endl;
+			break;
+		case 1:
+			std::cout << " << ";
+			Type_Name_Output<Ts...>();
+			std::cout << std::endl;
+			break;
+		default:
+			std::cout << std::endl;
+			I_Type_Name<dimension_Limit, Ts...>::Action();
+			break;
+		}
+	};
+
+	template<class ...Ts>
+	static void Action_Type_Name(Ts... t)
+	{
+		Action_Type_Name<1, Ts...>();
+	};
+
 }
 #define HEADER \
 std::cout << getLastPathComponent(__FILE__) << " : " << __LINE__;\
@@ -205,7 +248,14 @@ std::cout << getLastPathComponent(__FILE__) << " : " << __LINE__;\
 #define C_OUT(...) \
 HEADER;OUTPUT_MESSAGE::Action_C_Out(__VA_ARGS__);
 
+#define C_OUT_FOR(...)\
+HEADER;OUTPUT_MESSAGE::C_Out_For(__VA_ARGS__);
 
 #define TYPE_ID(...) \
 HEADER;OUTPUT_MESSAGE::Action_Type_Name<__VA_ARGS__>();\
+
+
+#define type_id(...) \
+HEADER;OUTPUT_MESSAGE::Action_Type_Name(__VA_ARGS__);\
+
 
