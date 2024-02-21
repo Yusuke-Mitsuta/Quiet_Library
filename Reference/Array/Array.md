@@ -17,7 +17,7 @@ namespace quiet {
 ### 構築/破棄
 |                               名前                                |      説明      |
 |:-----------------------------------------------------------------:|:--------------:|
-| <a href="constructor" target="_self">(constructor)</a> | コンストラクタ |
+| <a href="constructor.md" target="_self">(constructor)</a> | コンストラクタ |
 |   <a href="/@Mitsuta-Hal-Osaka/quiet-Array-operator-assign" target="_self">operator=</a>   |   代入演算子  |
 
 
