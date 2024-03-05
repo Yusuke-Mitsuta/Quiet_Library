@@ -71,7 +71,6 @@ namespace quiet
 			:std::array<_Ty1, N>({ static_cast<_Ty1>(t)... })
 		{}
 
-
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
 		template<size_t N = N, class _Ty1 = _Ty1, class ..._Ty2>
