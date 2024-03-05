@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Request.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -68,7 +75,10 @@ namespace quiet::N_Tuple::N_Apply
 		struct S_Request<T,E_Type::FN>
 		{
 			using fn_core = N_Function::Function_Core<T>;
-			using args = fn_core::request_args;
+			using args = 
+				//fn_core::request_args; 
+				N_Tuple::U_Elements_Action<std::remove_reference,typename fn_core::request_args>;
+
 			using pointer = fn_core::request_pointer;
 		};
 

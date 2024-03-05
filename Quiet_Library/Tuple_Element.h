@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Element.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -24,23 +31,13 @@ namespace quiet::N_Tuple
 {
 	//Žd—l
 	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚ÌŒ^‚ðŽæ“¾‚·‚é
-	template<size_t _Index, class ...T_Types>
+	template<size_t _Index, class T_Tuple>
 	struct I_Element
 	{
-		template<class ...T_Types>
+		template<class T_Tuple>
 		struct S_Element
 		{
 			using type= invalid_t;
-		};
-
-		template<class ...T_Types>
-			requires requires
-		{
-			requires sizeof...(T_Types) > _Index;
-		}
-		struct S_Element<T_Types...>
-		{
-			using type = std::tuple_element_t<_Index, std::tuple<T_Types...>>;
 		};
 
 		template<class T>
@@ -53,7 +50,6 @@ namespace quiet::N_Tuple
 		{
 			using type = S_Element<typename N_Tuple::S_Parameter<T>::tuple>::type;
 		};
-
 
 		template<class ...T_Types>
 			requires (sizeof...(T_Types)>_Index)
@@ -76,7 +72,7 @@ namespace quiet::N_Tuple
 			using type = std::tuple_element_t<_Index, std::tuple<T_Head..., T_Tail...>>;
 		};
 
-		using type =typename S_Element<T_Types...>::type;
+		using type =typename S_Element<T_Tuple>::type;
 	};
 
 

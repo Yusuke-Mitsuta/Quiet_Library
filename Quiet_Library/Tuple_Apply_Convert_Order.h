@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Convert_Order.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -17,7 +24,6 @@ namespace quiet::N_Tuple::N_Apply
 
 	template<class T_Zip, size_t t_point>
 	struct S_Conversion_Zip;
-
 
 	//仕様
 	//供給する型のリストから、要求する型のリストに、型の展開を伴い変換を出来るか判定し、

@@ -1,3 +1,10 @@
+/*!
+ * DBG_NEW.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #define _CRTDBG_MAP_ALLOC

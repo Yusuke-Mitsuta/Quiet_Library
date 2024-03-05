@@ -1,3 +1,10 @@
+/*!
+ * SwapType.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 #include<optional>
 #include"Concept.h"

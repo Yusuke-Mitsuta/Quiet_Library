@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Type.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -16,6 +23,7 @@ namespace quiet::N_Tuple::N_Apply
 	{
 		NONE,
 		FN,
+		FN_OBJECT,
 		ARRAY,
 		CLASS,
 		CLASS_NEW,
@@ -65,6 +73,7 @@ namespace quiet::N_Tuple::N_Apply
 		requires requires
 	{
 		requires is_function_pointer<T>;
+		requires is_class_not<T>;
 	}
 	struct S_Select_Type<T> :
 		integral_constant<E_Type::FN>
@@ -74,7 +83,12 @@ namespace quiet::N_Tuple::N_Apply
 	//Applyが関数オブジェクト[T]を実行する
 	template<class ...T_Parts>
 	struct S_Select_Type<Function<T_Parts...>> :
-		integral_constant<E_Type::FN>
+		integral_constant<E_Type::FN_OBJECT>
+	{};
+	
+	template<class ...T_Parts>
+	struct S_Select_Type<Function<T_Parts...>*> :
+		integral_constant<E_Type::FN_OBJECT>
 	{};
 
 	template<class T>

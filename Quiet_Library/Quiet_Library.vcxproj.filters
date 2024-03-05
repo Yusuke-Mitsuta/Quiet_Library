@@ -42,9 +42,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Concept.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -261,17 +258,11 @@
     <ClInclude Include="Sample_Code.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Compare_Code_Existing.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Compare_Code_Original.h">
+    <ClInclude Include="main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Function_Single_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClCompile>
@@ -293,13 +284,7 @@
     <ClCompile Include="Tuple_Type_Change_Action.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClCompile>
-    <ClCompile Include="Output_Message.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Compare_Code_Original.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Compare_Code_Existing.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

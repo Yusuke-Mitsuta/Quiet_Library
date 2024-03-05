@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Type.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -7,7 +14,6 @@
 
 namespace quiet
 {
-
 	template<quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
 	struct tuple_tp :
 		quiet::N_Tuple::Control_t<tuple_tp<T_Head, T, T_Tail>>

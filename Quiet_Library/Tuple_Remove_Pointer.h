@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Remove_Pointer.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Class_Declare.h"

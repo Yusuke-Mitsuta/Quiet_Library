@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Type_Change_Action_Helper.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"

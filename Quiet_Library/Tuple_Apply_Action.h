@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Action.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -5,8 +12,6 @@
 #include"Tuple_Apply_Convert_Order.h"
 #include"Tuple_Apply_Args_Convert_Action.h"
 #include"Tuple_Apply_Type_Chack.h"
-
-#include"main.h"
 
 namespace quiet::N_Tuple
 {
@@ -22,10 +27,8 @@ namespace quiet::N_Tuple
 				tuple_t<T_Set_Types...>>::value+1);
 		}
 
+
 	}
-
-
-
 
 	//仕様
 	//変数に対して、一対多、多対一、多対多の変換を行い、
@@ -71,7 +74,7 @@ namespace quiet::N_Tuple
 		//仕様
 		//配列型のポインター[array_p]に[T_Fn]の0次元目の要素数を追加する。
 		template<class T_Array, class ...T_Args>
-			//requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::ARRAY>
+			requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::ARRAY>
 		static constexpr auto Applya(T_Array* array_p, T_Args&&... args)
 		{
 			N_Apply::S_Array_Create<T_Fn> fn_action = { array_p };

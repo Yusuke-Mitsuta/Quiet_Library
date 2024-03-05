@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Type_Chack.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -62,7 +69,7 @@ namespace quiet::N_Tuple::N_Apply
 			using type = S_Type_Chack;
 			static constexpr int value = -1;
 		};
-
+		
 		//仕様
 		//可変長引数が定義されて無く、型リスト同士の判定が成功の場合
 		template<size_t ...t_Expand_Number>

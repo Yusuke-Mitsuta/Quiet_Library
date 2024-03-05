@@ -1,3 +1,10 @@
+/*!
+ * Function_Valid_Data.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Function_Superficial_Data.h"

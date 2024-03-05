@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Args_Convert_Action.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Output_Message.h"
@@ -99,34 +106,21 @@ namespace quiet::N_Tuple::N_Apply
 				using select_type = N_Tuple::U_Element_t<t_select_number, T_Args_Types_list>;
 
 				//仕様
-				//[change_args]の[t_select_number]番目の変数を取得する
+				//[change_args]の[t_select_number]番目の変数をユニバーサル参照で取得する
 				template<size_t t_select_number>
-				static constexpr auto get(auto change_args)
+				static constexpr auto&& get(auto& change_args)
 				{
 					return std::get<t_select_number>(change_args);
 				}
-
-				////仕様
-				////[change_args]の[t_select_number]番目の変数を参照で取得する
-				//template<size_t t_select_number>
-				//	requires is_reference<select_type<t_select_number>>
-				//static constexpr auto& get(auto change_args)
-				//{
-				//	return std::get<t_select_number>(change_args);
-				//}
 
 				//仕様
 				//[change_args]の[t_select_number]番目の変数をポインターで取得する
 				template<size_t t_select_number>
 					requires is_pointer<select_type<t_select_number>>
-				static constexpr auto* get(auto change_args)
+				static constexpr auto* get(auto& change_args)
 				{
 					return &std::get<t_select_number>(change_args);
 				}
-
-				using test = tuple_tp<tuple_t<T_Flont_Args_Types...>, T_Args, tuple_t< T_Back_Args_Types...>>;
-
-				using N = tuple_v<T_Args_Types_list::size, convert_order::point>;
 
 				static constexpr auto Apply(auto* fn,
 					T_Flont_Args_Types&&... front_args,
@@ -135,9 +129,10 @@ namespace quiet::N_Tuple::N_Apply
 				{
 					return type::Apply(fn,
 						std::forward<T_Flont_Args_Types>(front_args)...,
-						get<t_Expand_Number>(args)...,
+						std::move(get<t_Expand_Number>(args))...,
 						std::forward<T_Back_Args_Types>(back_args)...);
 				}
+
 
 			};
 
@@ -200,10 +195,12 @@ namespace quiet::N_Tuple::N_Apply
 			using first_order = T_Args_Zip_Order_List::type;
 
 			template<
-				class T_Flont_Args_Number = U_index_sequence<T_Args_Types_list::size - (first_order::point+first_order::zip_size-1)>,
+				class T_Flont_Args_Number = U_index_sequence<T_Args_Types_list::size - (first_order::point + first_order::zip_size - 1)>,
 				class T_Zip_Args_Numebr = U_Template_Calculate_plus<U_index_sequence<first_order::zip_size>, T_Args_Types_list::size - (first_order::point + first_order::zip_size - 1)>,
+
 				class T_Back_Args_Number = U_Template_Calculate_plus <U_index_sequence <first_order::point - 1>
-				, T_Args_Types_list::size - first_order::point + first_order::zip_size - 2>,
+				, T_Flont_Args_Number::size + T_Zip_Args_Numebr::size>, 
+
 				class T_Zip_Args = typename S_Parameter<typename first_order::type>::tuple
 			>
 			struct S_Args_Zip;
@@ -265,7 +262,7 @@ namespace quiet::N_Tuple::N_Apply
 				}
 				static constexpr auto Apply(auto* fn,
 					U_Element_t<t_Flont_Args_Number, T_Args_Types_list>&&... front_args,
-					U_Element_t<t_Zip_Args_Number, T_Args_Types_list> &&... zip_args,
+					U_Element_t<t_Zip_Args_Number, T_Args_Types_list>&&... zip_args,
 					U_Element_t<t_Back_Args_Number, T_Args_Types_list>&&... back_args)
 				{
 					//参照を返す為の一時オブジェクト
@@ -284,11 +281,20 @@ namespace quiet::N_Tuple::N_Apply
 					U_Element_t<t_Zip_Args_Number, T_Args_Types_list>&& ... zip_args,
 					U_Element_t<t_Back_Args_Number, T_Args_Types_list>&&... back_args)
 				{
+					//C_OUT(t_Flont_Args_Number...);
+					//C_OUT(t_Zip_Args_Number...);
+					//C_OUT(t_Back_Args_Number...);
+					//TYPE_ID(2, tuple_v< t_Flont_Args_Number...>);
+					//TYPE_ID(2, tuple_v< t_Zip_Args_Number...>);
+					//TYPE_ID(2, tuple_v< t_Back_Args_Number...>);
+					//TYPE_ID(2,T_Args_Types_list);
+					//std::cout << std::endl;
+
 					return type::Apply(fn,
 						std::forward<U_Element_t<t_Flont_Args_Number, T_Args_Types_list>>(front_args)...,
 						typename first_order::type{ static_cast<T_Zip_Args>(std::forward<U_Element_t<t_Zip_Args_Number, T_Args_Types_list>>(zip_args))... },
 						std::forward<U_Element_t<t_Back_Args_Number, T_Args_Types_list>>(back_args)...);
-
+				
 				}
 
 			};

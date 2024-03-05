@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Control.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include<tuple>

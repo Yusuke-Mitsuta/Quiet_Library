@@ -1,3 +1,10 @@
+/*!
+ * Function_Multiple_Helper.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple.h"
@@ -150,9 +157,11 @@ namespace quiet::N_Function
 				}
 				struct S_Pointer_Chack<T_Function, T_Dedicated_Point_Check, T_Commond_Point_Check>
 				{
+	
 					using type = Method_Bound<T_Method_Point,
 						T_Commond_Point_Check,
-						typename N_Tuple::U_Insert_v<access_numbers<T_Method_Point>,0>::next>;
+						typename N_Tuple::U_Next<typename N_Tuple::U_Insert_v<access_numbers<T_Method_Point>,
+						static_cast<size_t>(0)>>>;
 				};
 
 				//仕様
@@ -190,11 +199,19 @@ namespace quiet::N_Function
 			using type = S_Method_Point<>::type;
 		};
 
+		//仕様
+		//全ての型の探査が正常に終了した場合、結果を出力する
+		template<class T_Head, class T_Fns, class T_Tuple_Access_Number>
+			requires is_class_pointer <std::remove_reference_t<front_t>>
+		struct S_Method_Bound<tuple_tp<T_Head, front_t, tuple_t<>>, T_Fns, T_Tuple_Access_Number>
+		{
+			using type = S_Result<T_Fns, T_Tuple_Access_Number>;
+		};
 
 		//仕様
 		//全ての型の探査が正常に終了した場合、結果を出力する
-		template<class T_Head, class T_Tail, class T_Fns, class T_Tuple_Access_Number>
-		struct S_Method_Bound<tuple_tp<T_Head, invalid_t, T_Tail>, T_Fns, T_Tuple_Access_Number>
+		template<class T_Head,  class T_Fns, class T_Tuple_Access_Number>
+		struct S_Method_Bound<tuple_tp<T_Head, invalid_t, tuple_t<>>, T_Fns, T_Tuple_Access_Number>
 		{
 			using type = S_Result<T_Fns, T_Tuple_Access_Number>;
 		};

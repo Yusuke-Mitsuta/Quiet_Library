@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Fn.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
@@ -34,6 +41,19 @@ namespace quiet::N_Tuple::N_Apply
 		constexpr auto Apply(T_Args&&... args)
 		{
 			return fn(args...);
+		}
+
+		//関数オブジェクトが[Function*]の場合
+		template<class MT_Fn = T_Fn_Action, is_invalid MT_pointer = T_pointer, class... T_Args>
+			requires requires
+		{
+			requires std::is_pointer_v<MT_Fn>;
+			requires std::is_class_v<std::remove_pointer_t<MT_Fn>>;
+			requires !std::is_member_function_pointer_v<MT_Fn>;
+		}
+		constexpr auto Apply(T_Args&&... args)
+		{
+			return fn->operator()(args...);
 		}
 
 		//ポインターを使用し関数オブジェクトにアクセスする

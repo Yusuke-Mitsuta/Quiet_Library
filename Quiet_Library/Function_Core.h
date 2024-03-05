@@ -1,3 +1,10 @@
+/*!
+ * Function_Core.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Function_Valid_Data.h"

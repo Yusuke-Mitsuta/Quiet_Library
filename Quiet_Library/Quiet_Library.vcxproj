@@ -19,8 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Compare_Code_Existing.h" />
-    <ClInclude Include="Compare_Code_Original.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="Output_Message.h" />
     <ClInclude Include="Sample_Code.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
@@ -54,7 +53,6 @@
     <ClInclude Include="Function_Base_Data.h" />
     <ClInclude Include="Function_Helper.h" />
     <ClInclude Include="Function_Multiple_Helper.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="Move_Template.h" />
     <ClInclude Include="SwapType.h" />
     <ClInclude Include="Tuple_Apply_Action.h" />
@@ -96,13 +94,10 @@
     <ClInclude Include="Vector_Storge.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Compare_Code_Existing.cpp" />
-    <ClCompile Include="Compare_Code_Original.cpp" />
     <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Valid_Data.h" />
-    <ClCompile Include="Output_Message.cpp" />
-    <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="Function_Single_Helper.h" />
     <ClCompile Include="Tuple_Declare.h" />
     <ClCompile Include="Tuple_Select.h" />

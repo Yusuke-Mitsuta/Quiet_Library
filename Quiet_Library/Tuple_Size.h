@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Size.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 #include"Tuple_Declare.h"
 
@@ -53,5 +60,4 @@ namespace std
 	}
 	struct tuple_size<T> :
 		integral_constant<size_t, quiet::N_Tuple::S_Parameter<T>::tuple::size> {};
-
 }

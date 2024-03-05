@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Extract.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 

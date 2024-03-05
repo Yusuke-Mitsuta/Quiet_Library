@@ -1,3 +1,10 @@
+/*!
+ * Vector_Core.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Array.h"
@@ -62,7 +69,7 @@ namespace quiet::N_Vector
 		{
 			T{};
 		}
-		explicit constexpr S_Core()
+		constexpr S_Core()
 			:S_Storge<T, t_vec>({}) {}
 
 		//Žd—l

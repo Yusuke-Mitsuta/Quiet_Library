@@ -1,3 +1,10 @@
+/*!
+ * Function_Operator.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include<utility>
@@ -27,7 +34,7 @@ namespace quiet::N_Function
 	template<class ...T_Parts>
 	struct I_Function_Operator
 	{
-	private:
+	//private:
 
 		using function_operator_data_list = typename I_Function_Operator_Helper<T_Parts...>::type;
 
@@ -37,15 +44,12 @@ namespace quiet::N_Function
 		using function_operator_search = I_Function_Operator_Search<Function<T_Parts...>, tuple_t<T_Args...>>::type;
 
 
-		template<class T_Operator_Parameter = function_operator_sort,
-		class T_Access_Number = N_Tuple::U_Element_t<0,typename T_Operator_Parameter::type>,
-		class T_Request_Args = N_Tuple::U_Element_t<1,typename T_Operator_Parameter::type>,
-		class T_Request_Pointer = N_Tuple::U_Element_t<2,typename T_Operator_Parameter::type>>
+		template<class ...T_Operator_Parameter>
 		struct S_Function_Operator
 		{
 		public:
 
-			tuple_t<T_Parts...> data;
+			Tuple<T_Parts...> data;
 
 			//仕様
 			//送られて来た変数から、第一引数が関数オブジェクトかつ、[Function]でなければ、
@@ -79,7 +83,7 @@ namespace quiet::N_Function
 				requires is_invalid_not< function_operator_search<T_Args...>>
 			constexpr auto Relay_Forward(T_Args&&... args)
 			{
-				return S_Function_Operator<tuple_t<function_operator_search<T_Args...>>>::Action_Operator(this,
+				return S_Function_Operator<function_operator_search<T_Args...>>::Action_Operator(this,
 					std::forward<T_Args>(args)...);
 				
 			}
@@ -89,7 +93,7 @@ namespace quiet::N_Function
 			// [T_Args...]と互換性のある引数を有する関数オブジェクトを呼び出す。
 			template<class ...T_Args>				
 				requires is_invalid_not<function_operator_search<T_Args...>>
-			constexpr auto operator()(T_Args... args)
+			constexpr auto operator()(T_Args&&... args)
 			{
 				return this->Relay_Forward(std::forward<T_Args>(args)...);
 			}
@@ -98,20 +102,22 @@ namespace quiet::N_Function
 
 		};
 
-		using operator_core = S_Function_Operator<tuple_t<>>;
+		using operator_core = S_Function_Operator<>;
 		
+
 		template<
-			class T_Operator_Parameter,
 			size_t ...t_pointer_access_number,
 			size_t t_fn_access_number,
 			size_t ...t_args_access_number,
 			class ...T_request_args,
-			class T_request_pointer>
+			class T_request_pointer,
+			class ...T_Operator_Parameter>
 		struct S_Function_Operator<
-			T_Operator_Parameter,
+			tuple_t<
 			tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
 			tuple_t<T_request_args...>,
-			T_request_pointer>
+			T_request_pointer>,
+			T_Operator_Parameter...>
 		{
 			//仕様
 			//[data_storage_p]データの保管場所のポインターから、
@@ -126,20 +132,22 @@ namespace quiet::N_Function
 					std::forward<T_Args>(args)...);
 			}
 
-
-
-			using next = S_Function_Operator<typename T_Operator_Parameter::remove>::type;
+			using next = S_Function_Operator<T_Operator_Parameter...>::type;
 
 			template<class T_request_pointer= T_request_pointer>
 			struct S_Function_Operator_Create :
 				next
 			{
+
 				template<class T_pointer,class ...T_Args>
 					requires (convertible_to<T_Args, T_request_args> &&... &&
 							  convertible_to< T_pointer ,T_request_pointer*>)
 				constexpr auto Relay_Forward(T_pointer&& p, T_Args&&... args)
 				{
-					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,
+					return S_Function_Operator<tuple_t<
+						tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
+						tuple_t<T_request_args...>,
+						T_request_pointer>>::Action_Operator(this,
 						std::forward<T_pointer>(p),
 						std::forward<T_Args>(args)...);
 				}
@@ -163,12 +171,16 @@ namespace quiet::N_Function
 			struct S_Function_Operator_Create<invalid_t> :
 				next
 			{	
+
 				template<class ...T_Args>
 					requires (convertible_to<T_Args,T_request_args> &&...)
 				constexpr auto Relay_Forward(T_Args&&... args)
 				{
 
-					return S_Function_Operator<T_Operator_Parameter>::Action_Operator(this,
+					return S_Function_Operator<tuple_t<
+						tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
+						tuple_t<T_request_args...>,
+						T_request_pointer>>::Action_Operator(this,
 						std::forward<T_Args>(args)...);
 				}
 
@@ -181,8 +193,9 @@ namespace quiet::N_Function
 
 				using next::operator();
 
-				constexpr S_Function_Operator_Create(T_Parts&& ...args) :
-					next(std::forward<T_Parts>(args)...) {}
+				S_Function_Operator_Create(T_Parts&& ...args) :
+					next(std::forward<T_Parts>(args)...) 
+				{}
 			};
 
 			using type = S_Function_Operator_Create<>;
@@ -191,7 +204,8 @@ namespace quiet::N_Function
 		
 	public:
 
-		using type = S_Function_Operator<>::type;
+		using type = U_Move_Template<S_Function_Operator, function_operator_sort>::type;
+			
 
 	};
 

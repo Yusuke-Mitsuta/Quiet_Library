@@ -1,3 +1,10 @@
+/*!
+ * Move_Template.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 template<template<class...>class T_New_Outer,class T_Old>

@@ -1,3 +1,10 @@
+/*!
+ * Function_Operator_Sort.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple.h"

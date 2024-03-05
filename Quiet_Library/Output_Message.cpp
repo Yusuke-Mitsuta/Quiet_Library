@@ -85,6 +85,14 @@ std::string Type_id_delete_head_class_struct(std::string path)
 		delete_p = path.find("struct ");
 	}
 
+	delete_p = path.find("quiet::");
+
+	while (delete_p != std::string::npos)
+	{
+		path = path.erase(delete_p, 7);
+		delete_p = path.find("quiet::");
+	}
+
 	return path;
 }
 

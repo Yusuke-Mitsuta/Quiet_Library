@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Expand.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"

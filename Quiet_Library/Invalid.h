@@ -1,3 +1,10 @@
+/*!
+ * Invalid.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 namespace quiet
@@ -12,20 +19,12 @@ namespace quiet
 
 		using type = invalid_t;
 
-
-		static constexpr size_t point = 0;
-		static constexpr size_t expand_size = 0;
-
 	};
-
-
-	inline constexpr invalid_t invalid = invalid_t{};
-
 
 
 	//仕様
 	//無効値を示す
-
+	inline constexpr invalid_t invalid = invalid_t{};
 
 	//仕様
 	//[T_Main::type]を実行し、結果が無効値[invalid_t]なら

@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Apply_Class_Create.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 

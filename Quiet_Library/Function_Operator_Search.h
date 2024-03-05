@@ -1,3 +1,10 @@
+/*!
+ * Function_Operator_Search.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple.h"
@@ -14,7 +21,21 @@ namespace quiet::N_Function
 {
 	template<class T_Fn,class T_Set_Types>
 	struct I_Function_Operator_Search
-	{};
+	{
+		using type = invalid_t;
+	};
+
+	template<class T_Fn, class T_Set_Types>
+	struct I_Function_Operator_Search<T_Fn*,T_Set_Types>
+	{
+		using type = I_Function_Operator_Search<T_Fn, T_Set_Types>::type;
+	};
+
+	template<class T_Fn, class T_Set_Types>
+	struct I_Function_Operator_Search<T_Fn&,T_Set_Types>
+	{
+		using type = I_Function_Operator_Search<T_Fn, T_Set_Types>::type;
+	};
 
 	template<class ...T_Parts, class T_Set_Types>
 	struct I_Function_Operator_Search<Function<T_Parts...>,T_Set_Types>
@@ -30,7 +51,10 @@ namespace quiet::N_Function
 			class T_Request_Pointer = N_Tuple::U_Element_t<2, T_Operator_data>>
 			struct S_Merge_Pointer
 		{
-			using type = T_Request_Args;
+			using type =
+				//T_Request_Args;
+				N_Tuple::U_Elements_Action<std::remove_reference, T_Request_Args>;
+				
 		};
 
 		template<class T_Operator_data, class ...T_Request_Args, class T_Request_Pointer>
@@ -40,7 +64,7 @@ namespace quiet::N_Function
 		}
 		struct S_Merge_Pointer<T_Operator_data, tuple_t<T_Request_Args...>, T_Request_Pointer>
 		{
-			using type = tuple_t<T_Request_Pointer*, T_Request_Args...>;
+			using type = tuple_t<T_Request_Pointer*,std::remove_reference_t<T_Request_Args>...>;
 		};
 
 

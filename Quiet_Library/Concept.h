@@ -1,3 +1,10 @@
+/*!
+ * Concept.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include<concepts>
@@ -156,6 +163,14 @@ namespace quiet
 
 
 		using std::constructible_from;
+	
+	template<class _Ty1>
+	struct is_class_pointer_C :
+		std::bool_constant<
+		std::is_pointer_v<_Ty1>&& std::is_class_v<
+		std::remove_pointer_t<_Ty1>>>{};
+
+	CONCEPT_TYPE_1_DEFAULT(is_class_pointer)
 
 	template<class _Ty1>
 	struct is_pointer_C :

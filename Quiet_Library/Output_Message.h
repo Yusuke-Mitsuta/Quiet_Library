@@ -1,3 +1,10 @@
+/*!
+ * Output_Message.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include<concepts>

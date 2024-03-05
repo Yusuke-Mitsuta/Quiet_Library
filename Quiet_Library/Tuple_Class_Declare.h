@@ -1,3 +1,10 @@
+/*!
+ * Tuple_Class_Declare.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include<tuple>
@@ -54,7 +61,7 @@ namespace quiet::N_Tuple
 	template<int t_Point, class T_Tuple_t>
 	struct I_Select;
 
-	template<size_t _Index, class ...T_Types>
+	template<size_t _Index, class T_Tuple>
 	struct I_Element;
 
 	template<class T_Tuple_p, size_t t_Remove_Point = S_Parameter<T_Tuple_p>::head_size>

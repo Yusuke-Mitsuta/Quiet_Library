@@ -1,3 +1,10 @@
+/*!
+ * Function_Single_Helper.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"SwapType.h"

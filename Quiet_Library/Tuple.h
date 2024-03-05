@@ -1,3 +1,10 @@
+/*!
+ * Tuple.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include<tuple>
@@ -40,3 +47,46 @@
 
 #include"Tuple_Calculation.h"
 
+namespace quiet
+{
+	template<class ..._Types>
+	struct N_Tuple::S_Parameter<std::tuple<_Types...>> :
+		N_Tuple::S_Parameter<tuple_t<_Types...>>
+	{};
+
+	template<class ..._Types>
+	struct Tuple :
+		std::tuple<_Types...>
+	{
+
+		using tuple = tuple_t<_Types...>;
+
+		template<class T_Tuple = tuple, class ...T_Args>
+			requires requires
+		{
+			requires same_as<T_Tuple, tuple_t<T_Args...>>;
+		}
+		constexpr Tuple(T_Args... args):
+			std::tuple<T_Args...>(args...)
+		{}
+
+		//仕様
+		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
+		template<class T_Tuple =tuple, class ...T_Args>
+			requires requires
+		{
+			requires N_Tuple::N_Apply::Chack<T_Tuple, T_Args...>();
+			requires same_as_not<T_Tuple, tuple_t<T_Args...>>;
+		}
+		constexpr Tuple(T_Args... args) :
+			std::tuple<_Types...>({N_Tuple::Apply<std::tuple<_Types...>>(args...)})
+		{}
+
+		
+
+	};
+
+	template<class ..._Types>
+	Tuple(_Types...) -> Tuple<_Types...>;
+
+}

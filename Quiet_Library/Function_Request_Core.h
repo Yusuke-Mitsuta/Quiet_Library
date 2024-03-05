@@ -1,3 +1,10 @@
+/*!
+ * Function_Request_Core.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Invalid.h"

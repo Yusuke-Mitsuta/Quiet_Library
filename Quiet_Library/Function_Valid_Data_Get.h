@@ -1,3 +1,10 @@
+/*!
+ * Function_Valid_Data_Get.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple.h"

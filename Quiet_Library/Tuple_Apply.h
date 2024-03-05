@@ -1,16 +1,42 @@
+/*!
+ * Tuple_Apply.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple_Declare.h"
 #include"Tuple_Apply_Action.h"
 
+namespace N_Function
+{
+	template<class T_Fn, class T_Set_Types>
+	struct I_Function_Operator_Search;
+}
+
 namespace quiet::N_Tuple
 {
+
+	//仕様
+	//[Function< ... >()]を呼び出す
+	template<class T_Fn, class ...T_Args>
+		requires requires
+	{
+		requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::FN_OBJECT>;
+		requires is_invalid_not<typename N_Function::I_Function_Operator_Search<T_Fn, tuple_t<T_Args...>>::type>;
+	}
+	static constexpr auto Apply(T_Fn&& fn, T_Args&&... args)
+	{
+		return std::forward<T_Fn>(fn)->operator()(std::forward<T_Args>(args)...);
+	}
 
 	//仕様
 	//関数[fn]に対して、
 	// [args...]の中身を適切に展開し、実行する
 	template<class T_Fn, class ...T_Args>
-		requires requires
+		requires requires(T_Fn fn,T_Args... args)
 	{
 		requires N_Apply::is_apply_type<T_Fn, N_Apply::E_Type::FN>;
 		requires N_Apply::Chack<T_Fn, T_Args...>();
@@ -116,5 +142,7 @@ namespace quiet::N_Tuple
 
 }
 
-
-using quiet::N_Tuple::Apply;
+namespace quiet
+{
+	using N_Tuple::Apply;
+}
