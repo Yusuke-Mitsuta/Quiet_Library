@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include"Output_Message.h"
-
 #include"Tuple_Declare.h"
 #include"Tuple_Apply_Type_Chack.h"
 

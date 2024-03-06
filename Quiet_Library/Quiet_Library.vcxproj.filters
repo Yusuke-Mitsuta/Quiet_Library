@@ -225,9 +225,6 @@
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
-    <ClInclude Include="Output_Message.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Infinite.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
@@ -255,12 +252,6 @@
     <ClInclude Include="Array.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Sample_Code.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Function_Single_Helper.h">
@@ -283,9 +274,6 @@
     </ClCompile>
     <ClCompile Include="Tuple_Type_Change_Action.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

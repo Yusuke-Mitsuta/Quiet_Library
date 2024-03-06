@@ -141,14 +141,6 @@ namespace quiet
 
 	CONCEPT_TYPE_2(convertible_to, _From, _To)
 
-		template <class _Ty1, class _Ty2>
-	struct convertible_mutual_C :
-		std::bool_constant<
-		std::convertible_to<_Ty1, _Ty2>&&
-		std::convertible_to<_Ty2, _Ty1> > {};
-
-	CONCEPT_TYPE_2(convertible_mutual, _Ty1, _Ty2)
-
 		template <class _To, class _From>
 	struct convertible_from_C :
 		std::bool_constant<convertible_to<_From, _To>> {};

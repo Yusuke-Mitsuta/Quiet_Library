@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -18,99 +18,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
-    <ClInclude Include="Tuple_Apply_Convert_Order.h" />
-    <ClInclude Include="Tuple_Apply_Type.h" />
-    <ClInclude Include="Tuple_Apply_Type_Chack.h" />
-    <ClInclude Include="Function_Operator_Search.h" />
-    <ClInclude Include="Function_Operator_Sort.h" />
-    <ClInclude Include="Function_Request_Core.h" />
-    <ClInclude Include="Function_Operator.h" />
-    <ClInclude Include="Function_Request_Args.h" />
-    <ClInclude Include="Function_Request_Data.h" />
-    <ClInclude Include="Function_Request_pointer.h" />
-    <ClInclude Include="Function_Superficial_Data.h" />
-    <ClInclude Include="Function_Valid_Data_Get.h" />
-    <ClInclude Include="Invalid.h" />
-    <ClInclude Include="Tuple_Apply.h" />
-    <ClInclude Include="Tuple_Apply_Request.h" />
-    <ClInclude Include="Tuple_Apply_Array_Set.h" />
-    <ClInclude Include="Tuple_Apply_Fn.h" />
-    <ClInclude Include="Tuple_Apply_Class_Create.h" />
-    <ClInclude Include="Tuple_Calculation.h" />
-    <ClInclude Include="Tuple_Expand.h" />
-    <ClInclude Include="Tuple_Repeat_Multiple.h" />
-    <ClInclude Include="Concept.h" />
-    <ClInclude Include="Array.h" />
-    <ClInclude Include="DBG_NEW.h" />
-    <ClInclude Include="Function.h" />
-    <ClInclude Include="Function_Core.h" />
-    <ClInclude Include="Function_Operator_Helper.h" />
-    <ClInclude Include="Function_Base_Data.h" />
-    <ClInclude Include="Function_Helper.h" />
-    <ClInclude Include="Function_Multiple_Helper.h" />
-    <ClInclude Include="Move_Template.h" />
-    <ClInclude Include="SwapType.h" />
-    <ClInclude Include="Tuple_Apply_Action.h" />
-    <ClInclude Include="Tuple_Type_Change_Action_Helper.h" />
-    <ClInclude Include="Tuple_Create_Pointer.h" />
-    <ClInclude Include="Tuple_Zip.h" />
-    <ClInclude Include="Tuple_Move_Template.h" />
-    <ClInclude Include="Tuple_Extract.h" />
-    <ClInclude Include="Tuple_Elements_Action.h" />
-    <ClInclude Include="Tuple_Get.h" />
-    <ClInclude Include="Tuple_ID.h" />
-    <ClInclude Include="Tuple_ID_Select.h" />
-    <ClInclude Include="Tuple_Range.h" />
-    <ClInclude Include="Tuple_Size.h" />
-    <ClInclude Include="Tuple_t_To_v.h" />
-    <ClInclude Include="Tuple.h" />
-    <ClInclude Include="Tuple_Change.h" />
-    <ClInclude Include="Tuple_Class_Declare.h" />
-    <ClInclude Include="Tuple_Element.h" />
-    <ClInclude Include="Tuple_Control.h" />
-    <ClInclude Include="Tuple_Concept.h" />
-    <ClInclude Include="Tuple_Insert.h" />
-    <ClInclude Include="Tuple_Merge.h" />
-    <ClInclude Include="Tuple_Next.h" />
-    <ClInclude Include="Tuple_Prev.h" />
-    <ClInclude Include="Tuple_Remove.h" />
-    <ClInclude Include="Tuple_Parameter.h" />
-    <ClInclude Include="Tuple_Remove_Pointer.h" />
-    <ClInclude Include="Tuple_Reverse.h" />
-    <ClInclude Include="Tuple_Swap.h" />
-    <ClInclude Include="Tuple_Type.h" />
-    <ClInclude Include="Tuple_Using.h" />
-    <ClInclude Include="Tuple_Template_Calculate.h" />
-    <ClInclude Include="Tuple_index_sequence.h" />
-    <ClInclude Include="Tuple_v_To_t.h" />
-    <ClInclude Include="Vector.h" />
-    <ClInclude Include="Tuple_Infinite.h" />
-    <ClInclude Include="Vector_Core.h" />
-    <ClInclude Include="Vector_Storge.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Function_Args_Chack.h" />
-    <ClCompile Include="Function_Valid_Data.h" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Tuple_Type_Change_Action.h" />
-    <ClCompile Include="Function_Single_Helper.h" />
-    <ClCompile Include="Tuple_Declare.h" />
-    <ClCompile Include="Tuple_Select.h" />
-    <ClCompile Include="Tuple_Value.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
+    <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{26bbab76-2613-4c76-a02e-52894f92cd09}</ProjectGuid>
-    <RootNamespace>GameEngine6</RootNamespace>
+    <ProjectGuid>{8416f209-7963-40a0-86d2-4d39d8901b97}</ProjectGuid>
+    <RootNamespace>UseQuietLibrary</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Quiet_Library</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -123,15 +40,17 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -151,9 +70,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -176,6 +92,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -190,19 +108,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\6hura\source\repos\Yusuke-Mitsuta\Quiet_Library\Quiet_Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <ForcedIncludeFiles>
-      </ForcedIncludeFiles>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LinkStatus>
-      </LinkStatus>
-      <ShowProgress />
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -213,20 +127,22 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\6hura\source\repos\Yusuke-Mitsuta\Quiet_Library\Quiet_Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <ForcedIncludeFiles>
-      </ForcedIncludeFiles>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
