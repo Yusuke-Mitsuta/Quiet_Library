@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Float3.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />
     <ClInclude Include="Tuple_Apply_Type.h" />
@@ -91,6 +92,7 @@
     <ClInclude Include="Vector_Storge.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Float3.cpp" />
     <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Valid_Data.h" />
     <ClCompile Include="main.cpp" />
