@@ -1,32 +1,32 @@
 
-### [README](../../README.md)/quietを利用するメリット
+### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/関数の引数に互換性を持たせる場合
 
 ***
-4. 次は、`float`型3つで関数を使用します。
+3.  `int`型３つを使用して、`Output_Int3`を出力します。
+
 ``` C++
 #include<iostream>
-struct Vector3
-{
-    float x;
-    float y;
-    float z;
-};
+#include<array>
 
-void Output_Vector3(Vector3 vec3)
+void Output_Int3(std::array<int,3> ary_int3)
 {
-    std::cout<<"x : "<<vec3.x<<" , y : "<<vec3.y<<" , z : "<<vec3.z<<std::endl;
+    for (int& n : ary_int3)
+    {
+        std::cout << n << std::endl;
+    }
+    std::cout << std::endl;
+    return;
 }
 
 int main()
 {
-    float x = 1.0f;
-    float y = 2.0f;
-    float z = 3.0f;
-
-    Output_Vector3(x,y,z);
+    //std::array<int, 3> ary_int3{ 1, 2, 3 };
+    Output_Int3(1,2,3);
     return 0;
 }
-```
-`Output_Vector3(x,y,z)`の呼び出し引数が多すぎる為、エラーになると思います。
+``` 
+`Output_Int3(int,int,int)`は呼び出し引数が多すぎる為、エラーになると思います。
+
+次は
 
 ## [Back](merit_0_2.md)　[Home](merit_0_0.md)　[Next](merit_0_4.md)　

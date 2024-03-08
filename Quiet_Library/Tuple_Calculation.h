@@ -23,7 +23,7 @@ static constexpr auto name(const T_Left* l,const T_Right* r)\
 template<class T_Left, class T_Right>\
 	requires requires(const T_Left* l,const  T_Right* r)\
 {\
-	requires N_Tuple::N_Apply::I_Type_Chack<tuple_t<T_Left>,tuple_t<decltype(std::get<t_Calculation_Element_Number>(*l) oper std::get<t_Calculation_Element_Number>(*r))...>>::value==0;\
+	requires N_Apply::I_Type_Chack<tuple_t<T_Left>,tuple_t<decltype(std::get<t_Calculation_Element_Number>(*l) oper std::get<t_Calculation_Element_Number>(*r))...>>::value==0;\
 	requires std::tuple_size_v<T_Left> < std::tuple_size_v<T_Right>;\
 	requires sizeof...(t_Calculation_Element_Number)!=0;\
 }\
@@ -35,7 +35,7 @@ static constexpr auto name(const T_Left* l,const T_Right* r)\
 template<class T_Left, class T_Right>\
 	requires requires(const T_Left* l, const T_Right* r)\
 {\
-	requires N_Tuple::N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Copy_Element_Number>(*l) oper *r)...>>::value == 0; \
+	requires N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Copy_Element_Number>(*l) oper *r)...>>::value == 0; \
 	requires sizeof...(t_Calculation_Element_Number)==0;\
 }\
 static constexpr auto name(const T_Left* l,const T_Right* r)\
@@ -46,7 +46,7 @@ static constexpr auto name(const T_Left* l,const T_Right* r)\
 template<class T_Left, class T_Right>\
 	requires requires(const T_Left* l,const T_Right* r)\
 {\
-	requires N_Tuple::N_Apply::I_Type_Chack<tuple_t<T_Right>, tuple_t<decltype(*l oper std::get<t_Copy_Element_Number>(*r))...>>::value == 0; \
+	requires N_Apply::I_Type_Chack<tuple_t<T_Right>, tuple_t<decltype(*l oper std::get<t_Copy_Element_Number>(*r))...>>::value == 0; \
 	requires sizeof...(t_Calculation_Element_Number)==0;\
 }\
 static constexpr auto name(const T_Left* l,const T_Right* r)\
@@ -146,7 +146,6 @@ namespace quiet::N_Tuple
 		struct S_Calculation<tuple_v<t_Calculation_Element_Number...>, tuple_v<t_Copy_Element_Number...>>
 		{
 
-		
 			TUPLE_CALCULATION(Sum, +)
 			TUPLE_CALCULATION(Difference, -)
 			TUPLE_CALCULATION(Product, *)

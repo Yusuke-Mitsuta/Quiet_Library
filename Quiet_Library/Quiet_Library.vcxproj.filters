@@ -252,6 +252,9 @@
     <ClInclude Include="Array.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Float3.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Function_Single_Helper.h">
@@ -274,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="Tuple_Type_Change_Action.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
