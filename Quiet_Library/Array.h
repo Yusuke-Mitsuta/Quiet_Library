@@ -9,7 +9,7 @@
 
 #include<array>
 #include"Tuple.h"
-#include"Function_Args_Chack.h"
+#include"Array_deduction_guide.h"
 
 namespace quiet::N_Tuple
 {
@@ -18,16 +18,6 @@ namespace quiet::N_Tuple
 		S_Parameter<U_Repeat_Multiple<T, N>>
 	{};
 
-}
-
-namespace quiet::N_Array
-{
-
-	template<class T_Base_Type, class ...T_Args>
-	static constexpr int args_size =
-		N_Tuple::N_Apply::I_Type_Chack<
-		tuple_t<N_Tuple::N_Apply::S_Infinite_Args<T_Base_Type>>,
-		tuple_t<T_Args...>>::value;
 }
 
 namespace quiet
@@ -108,30 +98,19 @@ namespace quiet
 		{}
 
 
-
-		//仕様
-		//[I]番目の配列の要素を参照で取得する
-		//template<size_t I>
-		//constexpr _Ty1& get();
-
 		//仕様
 		//単一の要素で配列を全て埋め尽くす
 		constexpr void operator=(const convertible_to<_Ty1> auto& copy);
 
 	};
 
-	template<class _Ty2, class ..._Ty3>
-		requires (quiet::N_Array::args_size<_Ty2, _Ty3...> >= 0)
-	Array(_Ty2 t, _Ty3 ...ts)->Array<_Ty2, quiet::N_Array::args_size<_Ty2, _Ty2, _Ty3...>>;
+	template<class ..._Ty2>
+		requires (static_cast<bool>(N_Array::I_deduction_guide<_Ty2...>::size))
+	Array(_Ty2 ...ts)->
+		Array<typename N_Array::I_deduction_guide<_Ty2...>::type, 
+		N_Array::I_deduction_guide<_Ty2...>::size>;
 
-	
 
-	//template<class _Ty1, size_t N>
-	//template<size_t I>
-	//inline constexpr _Ty1& Array<_Ty1, N>::get()
-	//{
-	//	return std::array<_Ty1, N>::_Elems[I];
-	//}
 
 	template<class _Ty1, size_t N>
 	inline constexpr void Array<_Ty1, N>::operator=(const convertible_to<_Ty1> auto& copy)

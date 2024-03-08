@@ -1,48 +1,26 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/クラスの生成に互換性を持たせる
 
 ***
-6. もう一つ解決方法として、`Vector3`型のコンストラクタを[`Vector2`+`float`]でも受け取れる様に**オーバーロード**します。
+3. `quiet::Array`の推論補助の限界についてです。
 
 ``` C++
-#include<iostream>
-
-struct Vector2
-{
-    float x;
-    float y;
-
-    Vector2(float set_x,float set_y):
-        x(set_x),y(set_y)
-    {}
-};
-
-struct Vector3
-{
-    float x;
-    float y;
-    float z;
-
-    Vector3(float set_x,float set_y,float set_z):
-        x(set_x),y(set_y),z(set_z)
-    {}
-
-    Vector3(Vector2 set_xy,float set_z):
-        x(set_xy.x),y(set_xy.y),z(set_z)
-    {}
-};
+#include"Array.h"
+#include<array>
 
 int main()
 {
-    Vector2 vec2(1.0f,2.0f);
+    std::array<int, 2> ary_2( 1,2 );
 
-    Vector3 vec3(vec2,3.0f);
+    quiet::Array ary_4_0(ary_2,3,4);
+    quiet::Array ary_4_1(1,ary_2,4);
+    quiet::Array ary_4_2(1,2,ary_2);
+    
     return 0;
 }
 ``` 
-`Vector3`のコンストラクタのオーバーロードにより、[`Vector2`+`float`]でも初期化出来る様になりました。
+[`ary_4_0`=`quiet::Array<quiet::Array<int,2>,2>`]
+[`ary_4_1`,`ary_4_2`=`quiet::Array<int,4>`]
 
-これで手間なく初期化出来る様になりましたね。
+尚、型の互換性については 「[関数の引数に互換性を持たせる場合](merit_0_3.md)」と同様になります。
 
-では、[`float`+`Vector2`]の場合はどうでしょう。
-
-## [Back](merit_1_3.md)　[Home](merit_0_0.md)　[Next](merit_1_5.md)　
+## [Back](merit_1_3.md)　[Home](merit_0_0.md)

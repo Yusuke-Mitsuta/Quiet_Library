@@ -1,43 +1,26 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/クラスの生成に互換性を持たせる
 
 ***
-5. [`Vector2`+`float`]で`Vector3`型の初期化する方法として、`Vector2`型を`float`型２つに直して宣言します。
+3. [`std::array`->`quiet::Array`]に変更し、柔軟性の高いコンストラクタを利用します。
 
 ``` C++
-#include<iostream>
-
-struct Vector2
-{
-    float x;
-    float y;
-
-    Vector2(float set_x,float set_y):
-        x(set_x),y(set_y)
-    {}
-};
-
-struct Vector3
-{
-    float x;
-    float y;
-    float z;
-
-    Vector3(float set_x,float set_y,float set_z):
-        x(set_x),y(set_y),z(set_z)
-    {}
-};
+#include"Array.h"
+#include<array>
 
 int main()
 {
-    Vector2 vec2(1.0f,2.0f);
+    std::array<int, 2> ary_2( 1,2 );
 
-    //Vector3 vec3(vec2,3.0f);
-    Vector3 vec3(vec2.x,vec2.y,3.0f);
+    quiet::Array ary_3_0(1, 2, 3);
+    quiet::Array ary_3_1(ary_2, 3);
+    quiet::Array ary_3_2(3, ary_2);
+    quiet::Array ary_3_3(ary_3_0);
+    
     return 0;
 }
 ``` 
-`Vector3`は`float`型3つを取る様になる為、宣言が出来ます。
+`quiet::Array`を利用する事により、全て`quiet::Array<int,3>`に推論されます。
 
-ですが、毎回分解するのは、**面倒**ですよね。
+次は、**推論補助**の柔軟性の高さです。
 
 ## [Back](merit_1_2.md)　[Home](merit_0_0.md)　[Next](merit_1_4.md)　

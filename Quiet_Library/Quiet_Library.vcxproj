@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Array_deduction_guide.h" />
     <ClInclude Include="Float3.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />

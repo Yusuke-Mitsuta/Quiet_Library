@@ -7,9 +7,6 @@
 
 #pragma once
 
-
-struct TESTaaa{ };
-
 namespace quiet
 {
 

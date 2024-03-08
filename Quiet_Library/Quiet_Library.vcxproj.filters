@@ -40,6 +40,9 @@
     <Filter Include="ヘッダー ファイル\Tuple\Tuple_Apply">
       <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Array">
+      <UniqueIdentifier>{7df08d3b-5f86-4ed9-8aec-e603c108d301}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Concept.h">
@@ -249,11 +252,14 @@
     <ClInclude Include="Tuple_Calculation.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Array.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Float3.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>ヘッダー ファイル\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="Array_deduction_guide.h">
+      <Filter>ヘッダー ファイル\Array</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

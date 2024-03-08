@@ -1,43 +1,30 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/クラスの生成に互換性を持たせる
 
 ***
-3. `float`の要素を2つ持つ型、`Vector2`を作成します。
-4. `Vector3`型を`Vector2`型と`float`型で宣言します
+2. `std::array`のコンストラクタは追加定義する事が出来ない為、関数`quiet::Apply<T>`を用いて生成する事により、引数に柔軟性を持たせます。
 
 ``` C++
-#include<iostream>
+#include"Array.h"
+#include"Tuple.h"
 
-struct Vector2
-{
-    float x;
-    float y;
-
-    Vector2(float set_x,float set_y):
-        x(set_x),y(set_y)
-    {}
-};
-
-struct Vector3
-{
-    float x;
-    float y;
-    float z;
-
-    Vector3(float set_x,float set_y,float set_z):
-        x(set_x),y(set_y),z(set_z)
-    {}
-};
+#include<array>
 
 int main()
 {
-    Vector2 vec2(1.0f,2.0f);
+    std::array<int, 2> ary_2{ 1,2 };
 
-    Vector3 vec3(vec2,3.0f);
+    std::array<int, 3> ary_3_0 = quiet::Apply<std::array<int, 3>>(1, 2, 3);
+    std::array<int, 3> ary_3_1 = quiet::Apply<std::array<int, 3>>(ary_2, 3);
+    std::array<int, 3> ary_3_2 = quiet::Apply<std::array<int, 3>>(3, ary_2);
+    std::array<int, 3> ary_3_3 = quiet::Apply<std::array<int, 3>>(ary_3_0);
+
     return 0;
 }
 ``` 
-`Vector3`は`float`型３つで初期化を行う為、[`Vector2`+`float`]では初期出来ずエラーになります。
+`quiet::Apply<T>`を利用する事により、`ary_2`を明示的に分解せずとも、`std::array<int,3>`を作成する事が出来ました。
 
-次は[`Vector2`+`float`]で`Vector3`を初期化する方法について
+ただ、初期化用に毎回、関数を呼び出していると、**推論補助**が使えずは不便ですよね。
+
+次は、`std::array`を元に拡張されたクラス`quiet::Array`を利用します。
 
 ## [Back](merit_1_1.md)　[Home](merit_0_0.md)　[Next](merit_1_3.md)　

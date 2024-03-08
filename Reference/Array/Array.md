@@ -23,11 +23,6 @@ namespace quiet {
 |  [operator=](erator-assign.md)  |   代入演算子   |
 
 
-### 要素へのアクセス
-|     名前      |           説明           |
-|:-------------:|:------------------------:|
-| [get](get.md) | 静的な要素にアクセスする |
-
 
 ***
 
@@ -46,5 +41,4 @@ namespace quiet {
 ***
 ## 関連　
 [Vector](../Vector/Vector.md)   
-[std::array](https://cpprefjp.github.io/reference/array/array.html)   
-[std::get(quiet)](../Tuple/N_Tuple/get.md)  
+[std::array](https://cpprefjp.github.io/reference/array/array.html)    

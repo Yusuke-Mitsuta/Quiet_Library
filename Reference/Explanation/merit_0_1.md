@@ -38,6 +38,19 @@ void Output_Int3(int n_1, std::array<int, 2>  n_23)
 {
     Output_Int3(n_1, n_23[0], n_23[1]);
 }
+
+int main()
+{
+    std::array<int, 3> ary_int3{ 1, 2, 3 };
+    std::array<int, 2> ary_int2{ 1, 2};
+
+    fn_Output_Int3(1,2,3);
+    fn_Output_Int3(ary_int3);
+    fn_Output_Int3(ary_int2,3);
+    fn_Output_Int3(3,ary_int2);
+
+    return 0;
+}
 ```
 `std::array<int,N>`と`int`型を混合し、**3つの要素**を受け取るだけでも、**+3のオーバーロード**になってしまいます。
 
