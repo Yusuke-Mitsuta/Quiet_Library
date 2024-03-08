@@ -10,6 +10,7 @@
 |[Tuple](Tuple/Tuple.md)|標準ライブラリ`std::tuple`を元にコンストラクタが拡張されたクラス|
 |[Function](Function/Function.md)|`Function`は標準ライブラリ`std::function`から**複数の関数オブジェクト**、**引数の一部バインド**機能が追加されたクラス|
 |[Apply](Tuple/N_Tuple/Apply.md)|`Apply`に渡されたテンプレート、引数によって、要求されている型を認識し、引数を要求されている型にそって変形し、`関数オブジェクトの実行`,`クラスの生成`,`配列への追加`を行う。|
+|[operator](operator.md)|[構造化束縛](https://cpprefjp.github.io/lang/cpp17/structured_bindings.html)に対応している型に対して、**算術**,**代入演算子**を提供する|
 
 ***
 ## 補助用の名前空間、クラス、関数
