@@ -54,9 +54,6 @@
     <ClInclude Include="Function.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
-    <ClInclude Include="DBG_NEW.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Function_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
