@@ -63,7 +63,8 @@ struct Float3
 };
 #endif // FG
 
-static void Output(auto data)
+
+static void Output(quiet::Array<float,3> data)
 {
     std::cout << typeid(data).name()<<std::endl;
 
