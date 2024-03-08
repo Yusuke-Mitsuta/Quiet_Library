@@ -18,6 +18,7 @@ namespace quiet::N_Array
 		N_Tuple::N_Apply::I_Type_Chack<
 		tuple_t<N_Tuple::N_Apply::S_Infinite_Args<T_Array_Type>>,
 		tuple_t<T_Args...>>::value;
+
 	//d—l
 	//[Array]‚Ì„˜_•â•‚ÌÀ‘••”•ª
 	template<class T_Base_Type, class ...T_Args>
