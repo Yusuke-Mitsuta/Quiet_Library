@@ -252,9 +252,6 @@
     <ClInclude Include="Tuple_Calculation.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Float3.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Array.h">
       <Filter>ヘッダー ファイル\Array</Filter>
     </ClInclude>

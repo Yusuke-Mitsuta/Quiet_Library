@@ -1,3 +1,10 @@
+/*!
+ * Array_deduction_guide.h
+ *
+ * (C) 2024 Mitsuta Yusuke
+ *
+ */
+
 #pragma once
 
 #include"Tuple.h"
