@@ -13,7 +13,7 @@ namespace quiet::N_Tuple
 {
 	//仕様
 	//選択位置の値を削除する
-	template<class T_Tuple_p, size_t t_Remove_Point>
+	template<class T_Remove_Tuple, size_t t_Remove_Point>
 	struct I_Remove
 	{
 	private:
@@ -48,19 +48,19 @@ namespace quiet::N_Tuple
 		};
 
 		template<same_as_tuple_t T_Head,class T, same_as_tuple_t T_Tail>
-			requires (t_Remove_Point != S_Parameter<T_Tuple_p>::head_size)
+			requires (t_Remove_Point != S_Parameter<T_Remove_Tuple>::head_size)
 		struct S_Remove<tuple_tp<T_Head, T,T_Tail>>
 		{
 		private:
 			using Tuple_Remove = typename S_Remove<U_Select<t_Remove_Point, tuple_tp<T_Head, T, T_Tail>>>::type;
 
 		public:
-			using type = U_Select<(t_Remove_Point<S_Parameter<T_Tuple_p>::head_size) ? S_Parameter<T_Tuple_p>::head_size - 1 : S_Parameter<T_Tuple_p>::head_size, Tuple_Remove>;
+			using type = U_Select<(t_Remove_Point<S_Parameter<T_Remove_Tuple>::head_size) ? S_Parameter<T_Remove_Tuple>::head_size - 1 : S_Parameter<T_Remove_Tuple>::head_size, Tuple_Remove>;
 		};
 
 	public:
 		
-		using type =S_Tuple_tp_Change_Action<S_Remove, T_Tuple_p>::type;
+		using type =S_Tuple_tp_Change_Action<S_Remove, T_Remove_Tuple>::type;
 
 	};
 

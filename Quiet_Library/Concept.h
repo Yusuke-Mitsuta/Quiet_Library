@@ -84,10 +84,10 @@ namespace quiet
 		is_or<is_concept, _Ty1, _Ty...> {};
 
 	//仕様
-	//[T_Tuple]の要素に[t_Number]の要素が存在するか判定する
+	//[T_Tuple_Data]の要素に[t_Number]の要素が存在するか判定する
 	//
 	//テンプレート
-	//T_Tuple::要素を持つクラスで[std::tuple_size_v<T_Tuple>]で呼び出せる事
+	//T_Tuple_Data::要素を持つクラスで[std::tuple_size_v<T_Tuple_Data>]で呼び出せる事
 	//t_Number::存在するか判定する要素の番号
 	template<class T_Size, int t_Number>
 	concept is_Element = (0 <= t_Number && t_Number < std::tuple_size_v<T_Size>);

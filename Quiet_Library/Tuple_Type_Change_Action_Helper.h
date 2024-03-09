@@ -14,15 +14,15 @@ namespace quiet::N_Tuple
 {
 
 	//仕様
-	//[T_Tuple]を[t_Action_Type_Tuple_p,t_Action_Type_Tuple_t]の値によって変換し
+	//[T_Tuple_Data]を[t_Action_Type_Tuple_p,t_Action_Type_Tuple_t]の値によって変換し
 	// [T_Action]の[::type]を呼び出す、
-	// 結果から[T_Tuple]と同タイプのTupleに変換し返す。
+	// 結果から[T_Tuple_Data]と同タイプのTupleに変換し返す。
 	//
 	//テンプレート
 	//[t_Action_Type_Tuple_p]::要求するTupleが[tuple_tp,vp]なら[true]にする
 	//[t_Action_Type_Tuple_t]::要求するTupleが[tuple_t,tp]なら[true]にする
 	//[T_Action]::変換した型で[::type]を呼び出すクラステンプレート
-	//[T_Tuple]::変数するTuple型
+	//[T_Tuple_Data]::変数するTuple型
 	//[t_Start_Point]::変換した[tuple_tp,vp]の初期選択の場所
 	// 
 	//using
@@ -32,8 +32,8 @@ namespace quiet::N_Tuple
 	//	選択位置を外す処理をスキップする
 	// 
 	//補足
-	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Tuple, size_t t_Start_Point>
+	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Convert_Tuple, size_t t_Start_Point>
 	struct S_Tuple_Type_Change_Action_Helper
 	{
 	private:
@@ -68,7 +68,7 @@ namespace quiet::N_Tuple
 
 		template<bool t_Action_break>
 		using Return_Tuple =
-			S_Tuple_Type_Change_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Tuple>), I_Tuple_Start_Point_Set, T_Tuple>;
+			S_Tuple_Type_Change_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Convert_Tuple>), I_Tuple_Start_Point_Set, T_Convert_Tuple>;
 
 
 		
@@ -86,9 +86,9 @@ namespace quiet::N_Tuple
 		using Return_p = Return_Tuple<false>::type;
 
 		//仕様
-		//[T_Tuple]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
-		//　結果を[tuple_vp]から[T_Tuple]と同タイプのTupleに変換し返す。
-		using type = Return_Tuple<is_Tuple_not_p<T_Tuple>>::type;
+		//[T_Tuple_Data]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
+		//　結果を[tuple_vp]から[T_Tuple_Data]と同タイプのTupleに変換し返す。
+		using type = Return_Tuple<is_Tuple_not_p<T_Convert_Tuple>>::type;
 
 	};
 

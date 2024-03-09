@@ -4,6 +4,7 @@
 
 #include"Tuple_Declare.h"
 #include"Tuple_Get.h"
+#include"Tuple_Apply_Type_Chack.h"
 #include"SwapType.h"
 
 
@@ -109,7 +110,7 @@ namespace quiet::N_Tuple
 	//補足
 	// 左辺値のサイズの方が大きい場合、右辺値と計算されない値はそのままとなる
 	// 右辺値のサイズの方が大きい場合は無視される
-	template<class T_Left, class T_Right>
+	template<class T_Left_Type, class T_Right_Type>
 	struct I_Calculation
 	{
 	private:
@@ -129,11 +130,11 @@ namespace quiet::N_Tuple
 			static constexpr size_t value = std::tuple_size<T>::value;
 		};
 
-		static constexpr size_t l_size = S_Size_Chack<T_Left>::value;
+		static constexpr size_t l_size = S_Size_Chack<T_Left_Type>::value;
 
-		static constexpr size_t r_size = S_Size_Chack<T_Right>::value;
+		static constexpr size_t r_size = S_Size_Chack<T_Right_Type>::value;
 
-		using return_type = U_if_t1<T_Left, T_Right, l_size>;
+		using return_type = U_if_t1<T_Left_Type, T_Right_Type, l_size>;
 
 		static constexpr size_t min = std::min(l_size, r_size);
 		static constexpr size_t max = std::max(l_size, r_size);
@@ -146,7 +147,51 @@ namespace quiet::N_Tuple
 		struct S_Calculation<tuple_v<t_Calculation_Element_Number...>, tuple_v<t_Copy_Element_Number...>>
 		{
 
-			TUPLE_CALCULATION(Sum, +)
+			template<class T_Left, class T_Right> requires requires(const T_Left* l, const T_Right* r) 
+			{
+				requires N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Calculation_Element_Number>(*l) + std::get<t_Calculation_Element_Number>(*r))...>>::value == 0; 
+				requires std::tuple_size_v<T_Left> >= std::tuple_size_v<T_Right>;
+				requires sizeof...(t_Calculation_Element_Number) != 0;
+			}
+			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
+			{
+				return T_Left{ (std::get<t_Calculation_Element_Number>(*l)) + (std::get<t_Calculation_Element_Number>(*r))...,std::get<t_Copy_Element_Number>(*l)... };
+			}
+			
+			template<class T_Left, class T_Right> requires requires(const T_Left* l, const T_Right* r) 
+			{
+				requires N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Calculation_Element_Number>(*l) + std::get<t_Calculation_Element_Number>(*r))...>>::value == 0; 
+				requires std::tuple_size_v<T_Left> < std::tuple_size_v<T_Right>; 
+				requires sizeof...(t_Calculation_Element_Number) != 0;
+			}
+			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
+			{
+				return T_Left{ (std::get<t_Calculation_Element_Number>(*l)) + (std::get<t_Calculation_Element_Number>(*r))... };
+			}
+
+			template<class T_Left, class T_Right> 
+				requires requires(const T_Left* l, const T_Right* r) 
+			{
+				requires N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Copy_Element_Number>(*l) + *r)...>>::value == 0; 
+				requires sizeof...(t_Calculation_Element_Number) == 0;
+			}
+			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
+			{
+				return T_Left{ std::get<t_Copy_Element_Number>(*l) + *r ... };
+			}
+			
+			template<class T_Left, class T_Right> 
+				requires requires(const T_Left* l, const T_Right* r) 
+			{
+				requires N_Apply::I_Type_Chack<tuple_t<T_Right>, tuple_t<decltype(*l + std::get<t_Copy_Element_Number>(*r))...>>::value == 0; 
+				requires sizeof...(t_Calculation_Element_Number) == 0;
+			}
+			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
+			{
+				return T_Right{ (*l + std::get<t_Copy_Element_Number>(*r))... };
+			}
+
+
 			TUPLE_CALCULATION(Difference, -)
 			TUPLE_CALCULATION(Product, *)
 			TUPLE_CALCULATION(Quotient, / )

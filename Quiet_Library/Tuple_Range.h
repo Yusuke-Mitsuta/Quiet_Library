@@ -13,9 +13,9 @@
 namespace quiet::N_Tuple
 {
 	//仕様
-	//[T_Tuple]の[t_Point_1]と[t_Point_2]の間の要素を取得する
+	//[T_Tuple_Data]の[t_Point_1]と[t_Point_2]の間の要素を取得する
 	//[t_Point2]が設定されない場合、現在の選択位置を指定する
-	template<class T_Tuple,size_t t_Point_1, size_t t_Point_2= S_Parameter<T_Tuple>::head_size>
+	template<class T_Range_Tuple,size_t t_Point_1, size_t t_Point_2= S_Parameter<T_Range_Tuple>::head_size>
 	struct I_Range
 	{
 	private:
@@ -76,7 +76,7 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using type = S_Tuple_t_Change_Action<S_Action, T_Tuple>::Return_not_p;
+		using type = S_Tuple_t_Change_Action<S_Action, T_Range_Tuple>::Return_not_p;
 	};
 
 }

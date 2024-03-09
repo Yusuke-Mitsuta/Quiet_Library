@@ -13,7 +13,7 @@ namespace quiet::N_Tuple
 {	
 	//仕様
 	//[tuple_t]の選択位置をひとつ進める
-	template<class T_Tuple_t>
+	template<class T_Control_Tuple>
 	struct I_Next
 	{
 	private:
@@ -46,7 +46,7 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using type = S_Tuple_tp_Change_Action<S_Next, T_Tuple_t>::Return_p;
+		using type = S_Tuple_tp_Change_Action<S_Next, T_Control_Tuple>::Return_p;
 
 	};
 

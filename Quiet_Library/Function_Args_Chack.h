@@ -19,12 +19,12 @@ namespace quiet::N_Function
 	};
 	
 	//仕様
-	//[T_Request_Args]と[T_Bind_Args]を比較し、
+	//[T_Request_Args]と[T_Set_Args]を比較し、
 	//　互換性のある型か判定する。
 	//
 	// テンプレート
 	// [T_Request_Args]：要求する引数の型(tuple_tp)
-	// [T_Bind_Args]：セットする引数の型(tuple_t)
+	// [T_Set_Args]：セットする引数の型(tuple_t)
 	// 
 	//補足
 	// 互換性のある型の定義は、[N_Tuple::S_Parameter]の特殊化にて定義を行う
@@ -53,7 +53,7 @@ namespace quiet::N_Function
 		template<class T_Chack_Result =
 			typename N_Tuple::N_Apply::I_Convert_Order<typename T_Request_Args::remove_p, T_Bind_Args>::type,
 			//class T_Request_Args = typename T_Chack_Result::request,
-			class T_Bind_Args= typename T_Chack_Result::set>
+			class T_Set_Args= typename T_Chack_Result::set>
 		struct S_Function_Args_Chack
 		{
 			using type = invalid_t;

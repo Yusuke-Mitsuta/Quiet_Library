@@ -103,12 +103,12 @@ namespace quiet::N_Tuple
 
 
 	//仕様
-	//[T_Tuple]を[tuple_tp]に変換し[T_Action]の[::type]を呼び出し
-	//　結果を[tuple_tp]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//[T_Tuple_Data]を[tuple_tp]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_tp]から[T_Tuple_Data]と同タイプのTupleに変換し返す。
 	//
 	//テンプレート
 	//[T_Action]::変換した、Tuple_tpで[::type]を呼び出すクラステンプレート
-	//[T_Tuple]::変数するTuple型
+	//[T_Tuple_Data]::変数するTuple型
 	//[t_Start_Point]::変換したTuple_tpの初期選択の場所
 	// 
 	//using
@@ -118,17 +118,17 @@ namespace quiet::N_Tuple
 	//	選択位置を外す処理をスキップする
 	// 
 	//補足
-	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
+	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	using S_Tuple_tp_Change_Action = S_Tuple_Type_Change_Action_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様
-	//[T_Tuple]を[tuple_t]に変換し[T_Action]の[::type]を呼び出し
-	//　結果を[tuple_t]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//[T_Tuple_Data]を[tuple_t]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_t]から[T_Tuple_Data]と同タイプのTupleに変換し返す。
 	//
 	//テンプレート
 	//[T_Action]::変換した、Tuple_tで[::type]を呼び出すクラステンプレート
-	//[T_Tuple]::変数するTuple型
+	//[T_Tuple_Data]::変数するTuple型
 	// 
 	//using
 	//[Return_not_p]::[tuple_tp,vp]から[tuple_t,v]に変換し[T_Action]を呼び出した際、
@@ -137,17 +137,17 @@ namespace quiet::N_Tuple
 	//	選択位置を外す処理をスキップする
 	// 
 	//補足
-	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
+	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Tuple_t_Change_Action = S_Tuple_Type_Change_Action_Helper<false, true, T_Action, T_Tuple>;
 
 	//仕様
-	//[T_Tuple]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
-	//　結果を[tuple_vp]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//[T_Tuple_Data]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_vp]から[T_Tuple_Data]と同タイプのTupleに変換し返す。
 	//
 	//テンプレート
 	//[T_Action]::変換した、Tuple_vpで[::type]を呼び出すクラステンプレート
-	//[T_Tuple]::変数するTuple型
+	//[T_Tuple_Data]::変数するTuple型
 	//[t_Start_Point]::変換したTuple_vpの初期選択の場所
 	// 
 	//using
@@ -157,17 +157,17 @@ namespace quiet::N_Tuple
 	//	選択位置を外す処理をスキップする
 	// 
 	//補足
-	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
+	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
 	using S_Tuple_vp_Change_Action = S_Tuple_Type_Change_Action_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
 
 	//仕様
-	//[T_Tuple]を[tuple_v]に変換し[T_Action]の[::type]を呼び出し
-	//　結果を[tuple_v]から[T_Tuple]と同タイプのTupleに変換し返す。
+	//[T_Tuple_Data]を[tuple_v]に変換し[T_Action]の[::type]を呼び出し
+	//　結果を[tuple_v]から[T_Tuple_Data]と同タイプのTupleに変換し返す。
 	//
 	//テンプレート
 	//[T_Action]::変換した、Tuple_vで[::type]を呼び出すクラステンプレート
-	//[T_Tuple]::変数するTuple型
+	//[T_Tuple_Data]::変数するTuple型
 	//[t_Start_Point]::変換したTuple_vの初期選択の場所
 	// 	
 	//using
@@ -177,7 +177,7 @@ namespace quiet::N_Tuple
 	//	選択位置を外す処理をスキップする
 	// 
 	//補足
-	//変数に失敗した場合、未処理の[T_Tuple]がそのまま返される
+	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Tuple_v_Change_Action = S_Tuple_Type_Change_Action_Helper<false, false, T_Action, T_Tuple>;
 
@@ -200,7 +200,7 @@ namespace quiet::N_Tuple
 	struct I_Apply_Action;
 
 	//仕様
-	//要素に型[T]を[N]個持つ、[tuple_t]を作る
+	//要素に型[T_Request_Order]を[t_array_size]個持つ、[tuple_t]を作る
 	template<class T, size_t N>
 	struct I_Repeat_Multiple;
 
@@ -208,7 +208,7 @@ namespace quiet::N_Tuple
 	//指定した回数までタプル内の要素を展開する
 	//
 	// テンプレート
-	//[T_Tuple]::展開する[Tuple_t]の型
+	//[T_Tuple_Data]::展開する[Tuple_t]の型
 	//[t_expand_lelve]::展開する階層の上限
 	template<class T_Tuple, size_t t_expand_lelve = 1>
 	struct I_Expand;
@@ -219,12 +219,12 @@ namespace quiet::N_Tuple
 	struct tuple_zip;
 
 	//仕様
-	//パラメータパック[Ts...]から連続する型を{tuple_zip< T, N >}に圧縮する
+	//パラメータパック[Ts...]から連続する型を{tuple_zip< T_Request_Order, t_array_size >}に圧縮する
 	template<class ...Ts>
 	struct I_Zip;
 
 	//仕様
-	//タプル内の要素から連続する型を{tuple_zip< T, N >}に圧縮する
+	//タプル内の要素から連続する型を{tuple_zip< T_Request_Order, t_array_size >}に圧縮する
 	template<class T_Tuple>
 	struct I_Zip_Tuple;
 

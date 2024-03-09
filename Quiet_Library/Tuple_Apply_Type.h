@@ -30,14 +30,14 @@ namespace quiet::N_Tuple::N_Apply
 	};
 
 	//仕様
-	//Applyの動作タイプを型[T]から判定する
+	//Applyの動作タイプを型[T_Request_Order]から判定する
 	template<class T>
 	struct S_Select_Type :
 		integral_constant<E_Type::NONE>
 	{};
 
 	//仕様
-	//Applyがクラス型[T]の生成を実施する。
+	//Applyがクラス型[T_Request_Order]の生成を実施する。
 	template<class T>
 		requires requires
 	{
@@ -48,7 +48,7 @@ namespace quiet::N_Tuple::N_Apply
 	{};
 
 	//仕様
-	//Applyがクラス型[T]のNew生成を実施する。
+	//Applyがクラス型[T_Request_Order]のNew生成を実施する。
 	template<is_class T>
 	struct S_Select_Type<T*> :
 		integral_constant<E_Type::CLASS_NEW>
@@ -61,14 +61,14 @@ namespace quiet::N_Tuple::N_Apply
 
 
 	//仕様
-	//Applyが配列[ T[N] ]に要素を格納する。
+	//Applyが配列[ T_Request_Order[t_array_size] ]に要素を格納する。
 	template<class T, size_t N>
 	struct S_Select_Type<T[N]> :
 		integral_constant<E_Type::ARRAY>
 	{};
 
 	//仕様
-	//Applyが関数型[T]を実行する
+	//Applyが関数型[T_Request_Order]を実行する
 	template<class T>
 		requires requires
 	{
@@ -80,7 +80,7 @@ namespace quiet::N_Tuple::N_Apply
 	{};
 
 	//仕様
-	//Applyが関数オブジェクト[T]を実行する
+	//Applyが関数オブジェクト[T_Request_Order]を実行する
 	template<class ...T_Parts>
 	struct S_Select_Type<Function<T_Parts...>> :
 		integral_constant<E_Type::FN_OBJECT>

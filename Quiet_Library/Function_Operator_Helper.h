@@ -44,7 +44,7 @@ namespace quiet::N_Function
 		//
 		//テンプレート
 		//[T_access_number]::関数オブジェクト１つ１つの使用する引数の番号を纏めた型
-		//[T_request_pointer]::関数オブジェクト１つ１つの要求するポインターの型を纏めた型
+		//[T_request_pointer_Fg]::関数オブジェクト１つ１つの要求するポインターの型を纏めた型
 		//[T_request_args]::関数オブジェクト１つ１つの要求する引数の型を纏めた型
 		// 
 		//補足
@@ -60,7 +60,7 @@ namespace quiet::N_Function
 		};
 
 		//仕様
-		// [T_access_number],[T_request_args],[T_request_pointer]の全てが[tuple_t]で纏められておらず、
+		// [T_access_number],[T_request_args],[T_request_pointer_Fg]の全てが[tuple_t]で纏められておらず、
 		// 要求する引数が有効な場合、[T_Rusult]にデータを追加する。
 		template<class T_access_number, class T_request_args,
 			class T_request_pointer, class ...T_Result>

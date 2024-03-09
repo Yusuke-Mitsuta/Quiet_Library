@@ -44,60 +44,60 @@ namespace quiet::N_Tuple::N_Apply
 
 		//仕様
 		//型の判定が終了する際に呼び出される
-		template<class T_Request_Types_Tuple = invalid_t,
-			class T_Set_Types_Tuple = invalid_t,
-			class T_Conversion_Expand_List = tuple_t<>,
-			class T_Conversion_Zip_List = tuple_t<>>
+		template<class T_Result_Request_Types_Tuple = invalid_t,
+			class T_Result_Set_Types_Tuple = invalid_t,
+			class T_Result_Conversion_Expand_List = tuple_t<>,
+			class T_Result_Conversion_Zip_List = tuple_t<>>
 		struct S_Result
 		{
 			using type = S_Result;
 
 			//供給する型リストとの照合の結果、使用しなかった要求する型リスト
-			using request = T_Request_Types_Tuple;
+			using request = T_Result_Request_Types_Tuple;
 
 			//要求する型リストとの照合の結果、使用しなかった供給する型リスト
-			using set = T_Set_Types_Tuple;
+			using set = T_Result_Set_Types_Tuple;
 
 			//供給する型リストの展開命令
-			using conversion_expand_list = T_Conversion_Expand_List;
+			using conversion_expand_list = T_Result_Conversion_Expand_List;
 
 			//供給する型リストの圧縮命令
-			using conversion_zip_list = T_Conversion_Zip_List;
+			using conversion_zip_list = T_Result_Conversion_Zip_List;
 
 		};
 
 
-		template<class T_Request_Types_Tuple,
-			class T_Set_Types_Tuple,
+		template<class T_Control_Request_Types_Tuple,
+			class T_Control_Set_Types_Tuple,
 			class T_Conversion_Expand_List = tuple_t<>,
 			class T_Conversion_Zip_List = tuple_t<>
 		>
 		struct S_Convert_Order
 		{
-			using type = S_Result<T_Request_Types_Tuple, T_Set_Types_Tuple, T_Conversion_Expand_List, T_Conversion_Zip_List>::type;
+			using type = S_Result<T_Control_Request_Types_Tuple, T_Control_Set_Types_Tuple, T_Conversion_Expand_List, T_Conversion_Zip_List>::type;
 		};
 
-		template<class T_Request_Types_Tuple,
-			class T_Set_Types_Tuple,
+		template<class T_Control_Request_Types_Tuple,
+			class T_Control_Set_Types_Tuple,
 			class ...T_Conversion_Expand,
 			class ...T_Conversion_Zip>
 			requires requires
 		{
-			requires same_as_not<tuple_t<>, T_Request_Types_Tuple>;
-			requires same_as_not<tuple_t<>, T_Set_Types_Tuple>;
+			requires same_as_not<tuple_t<>, T_Control_Request_Types_Tuple>;
+			requires same_as_not<tuple_t<>, T_Control_Set_Types_Tuple>;
 		}
-		struct S_Convert_Order<T_Request_Types_Tuple, T_Set_Types_Tuple,
+		struct S_Convert_Order<T_Control_Request_Types_Tuple, T_Control_Set_Types_Tuple,
 			tuple_t<T_Conversion_Expand...>,
 			tuple_t<T_Conversion_Zip...>>
 		{
 
 			//仕様
 			//要求する型リストが選択している型
-			using request_t = T_Request_Types_Tuple::type;
+			using request_t = T_Control_Request_Types_Tuple::type;
 
 			//仕様
 			//供給する型リストが選択している型
-			using set_t = T_Set_Types_Tuple::type;
+			using set_t = T_Control_Set_Types_Tuple::type;
 
 			//仕様
 			//互換性のある型に展開する
@@ -121,12 +121,12 @@ namespace quiet::N_Tuple::N_Apply
 			// 判定３：判定２が失敗した場合、要求する引数の型を展開出来るか判定する
 			// 判定３が失敗した場合、エラーとして無効値を返す
 			template<
-				class T_Request=typename T_Request_Types_Tuple::type,
-				class T_Set = typename T_Set_Types_Tuple::type>
+				class T_Request=typename T_Control_Request_Types_Tuple::type,
+				class T_Set = typename T_Control_Set_Types_Tuple::type>
 			struct S_Apply_Control
 			{
 				//エラーの場合は無効値を返す
-				using type = S_Result<T_Request_Types_Tuple, T_Set_Types_Tuple, tuple_t<T_Conversion_Expand...>, tuple_t<T_Conversion_Zip...>>::type;
+				using type = S_Result<T_Control_Request_Types_Tuple, T_Control_Set_Types_Tuple, tuple_t<T_Conversion_Expand...>, tuple_t<T_Conversion_Zip...>>::type;
 
 			};
 
@@ -141,8 +141,8 @@ namespace quiet::N_Tuple::N_Apply
 			{
 				//要求する型、供給する型のリストを次に進め、次の型の判定に移る。
 				using type = S_Convert_Order<
-					typename T_Request_Types_Tuple::remove,
-					typename T_Set_Types_Tuple::remove,
+					typename T_Control_Request_Types_Tuple::remove,
+					typename T_Control_Set_Types_Tuple::remove,
 					tuple_t<T_Conversion_Expand...>,
 					tuple_t<T_Conversion_Zip...>
 				>::type;
@@ -163,9 +163,9 @@ namespace quiet::N_Tuple::N_Apply
 				//供給する型を展開し、
 				// 展開した型の情報を別途保存する
 				using type = S_Convert_Order<
-					T_Request_Types_Tuple,
-					select_type_expand<T_Set_Types_Tuple>,
-					tuple_t<T_Conversion_Expand..., S_Conversion_Expand<set_t, T_Set_Types_Tuple::size>>,
+					T_Control_Request_Types_Tuple,
+					select_type_expand<T_Control_Set_Types_Tuple>,
+					tuple_t<T_Conversion_Expand..., S_Conversion_Expand<set_t, T_Control_Set_Types_Tuple::size>>,
 					tuple_t<T_Conversion_Zip...>
 				>::type;
 
@@ -186,10 +186,10 @@ namespace quiet::N_Tuple::N_Apply
 				// 展開した型の情報を別途保存する
 				using type =
 					S_Convert_Order<
-					select_type_expand<T_Request_Types_Tuple>,
-					T_Set_Types_Tuple,
+					select_type_expand<T_Control_Request_Types_Tuple>,
+					T_Control_Set_Types_Tuple,
 					tuple_t<T_Conversion_Expand...>,
-					tuple_t<S_Conversion_Zip<request_t, T_Request_Types_Tuple::size>, T_Conversion_Zip...>
+					tuple_t<S_Conversion_Zip<request_t, T_Control_Request_Types_Tuple::size>, T_Conversion_Zip...>
 					>::type;
 			};
 

@@ -9,6 +9,7 @@
 
 #include"Tuple.h"
 #include"Function_Args_Chack.h"
+#include"Tuple_Infinite.h"
 
 namespace quiet::N_Array
 {
@@ -33,10 +34,10 @@ namespace quiet::N_Array
 		//仕様
 		//[T_Array_Type]で[Array]が変換出来る場合、
 		//Arrayの型と要素数を推論する
-		template<class T_Array_Type, size_t t_size = args_size<T_Array_Type>>
+		template<class T_Array_Type, int t_size = args_size<T_Array_Type>>
 		struct S_deduction_guide
 		{
-			static constexpr size_t size = t_size;
+			static constexpr int size = t_size;
 			using type = T_Array_Type;
 		};
 
@@ -63,7 +64,7 @@ namespace quiet::N_Array
 
 		//仕様
 		//Arrayの要素数を推論する
-		static constexpr size_t size = S_deduction_guide<T_Base_Type>::size;
+		static constexpr int size = S_deduction_guide<T_Base_Type>::size;
 
 		//仕様
 		//Arrayの型を推論する

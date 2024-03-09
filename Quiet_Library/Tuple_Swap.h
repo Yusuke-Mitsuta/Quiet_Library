@@ -14,9 +14,9 @@ namespace quiet::N_Tuple
 {
 
 	//Žd—l
-	//[T_Tuple]‚Ì[t_Swap_Num_1]”Ô–Ú‚Æ[t_Swap_Num_2]”Ô–Ú‚Ì—v‘f‚ð“ü‚ê‘Ö‚¦‚é
-	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2>
-		requires is_Element<T_Tuple, t_Swap_Num_1>&& is_Element<T_Tuple, t_Swap_Num_2>
+	//[T_Tuple_Data]‚Ì[t_Swap_Num_1]”Ô–Ú‚Æ[t_Swap_Num_2]”Ô–Ú‚Ì—v‘f‚ð“ü‚ê‘Ö‚¦‚é
+	template<class T_Swap_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2>
+		requires is_Element<T_Swap_Tuple, t_Swap_Num_1>&& is_Element<T_Swap_Tuple, t_Swap_Num_2>
 	struct I_Swap
 	{
 	private:
@@ -89,7 +89,7 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using type =S_Tuple_t_Change_Action<S_Action, T_Tuple>::type;
+		using type =S_Tuple_t_Change_Action<S_Action, T_Swap_Tuple>::type;
 
 	};
 

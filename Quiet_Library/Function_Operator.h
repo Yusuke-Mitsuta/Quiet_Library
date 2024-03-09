@@ -134,27 +134,27 @@ namespace quiet::N_Function
 
 			using next = S_Function_Operator<T_Operator_Parameter...>::type;
 
-			template<class T_request_pointer= T_request_pointer>
+			template<class T_request_pointer_Fg= T_request_pointer>
 			struct S_Function_Operator_Create :
 				next
 			{
 
 				template<class T_pointer,class ...T_Args>
 					requires (convertible_to<T_Args, T_request_args> &&... &&
-							  convertible_to< T_pointer ,T_request_pointer*>)
+							  convertible_to< T_pointer ,T_request_pointer_Fg*>)
 				constexpr auto Relay_Forward(T_pointer&& p, T_Args&&... args)
 				{
 					return S_Function_Operator<tuple_t<
 						tuple_vp<tuple_v<t_pointer_access_number...>, t_fn_access_number, tuple_v<t_args_access_number...>>,
 						tuple_t<T_request_args...>,
-						T_request_pointer>>::Action_Operator(this,
+						T_request_pointer_Fg>>::Action_Operator(this,
 						std::forward<T_pointer>(p),
 						std::forward<T_Args>(args)...);
 				}
 
 				//仕様
-				//[T_request_pointer*]ポインター、[T_request_args...]を要求する関数オブジェクトに引数を転送する
-				constexpr auto operator()(T_request_pointer* p, T_request_args... args)
+				//[T_request_pointer_Fg*]ポインター、[T_request_args...]を要求する関数オブジェクトに引数を転送する
+				constexpr auto operator()(T_request_pointer_Fg* p, T_request_args... args)
 				{
 					return Relay_Forward(p, args...);
 				}

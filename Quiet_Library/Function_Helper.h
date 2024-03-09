@@ -21,7 +21,7 @@ namespace quiet::N_Function
 	//この操作を繰り返し、全て成功すれば、[Function_Core]事に纏められた後、[tuple_t]に纏められる。
 	//
 	//テンプレート
-	//[T_Fn_Parts...]:
+	//[T_Fn_Leftovers_Parts...]:
 	//	メソッドに使用する共通のポインターの型(省略可能)
 	//	関数オブジェクトの型
 	//	それに対する引数の型(並びの一番後ろの型が、関数の引数型の一番後ろと判定される)
@@ -56,7 +56,7 @@ namespace quiet::N_Function
 		};
 
 		using function_helper =
-			//I_Function_Multiple_Helper<T_Fn_Parts...>;
+			//I_Function_Multiple_Helper<T_Fn_Leftovers_Parts...>;
 			S_Function_Helper<>::type;
 		
 	public:
@@ -70,7 +70,7 @@ namespace quiet::N_Function
 		using access_number = function_helper::access_number;
 
 		//仕様
-		//纏め作業が成功すれば、[T_Fn_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
+		//纏め作業が成功すれば、[T_Fn_Leftovers_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
 		using judge = function_helper::judge;
 
 	};

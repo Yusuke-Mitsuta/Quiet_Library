@@ -23,7 +23,7 @@ namespace quiet
 	template<class T_1, class T_2, long long t_Order>
 	struct I_Swap_Type
 	{
-		template<bool t_Order>
+		template<bool t_Order_Fg>
 		struct S_SwapType
 		{
 			using type = T_1;
@@ -70,19 +70,19 @@ namespace quiet
 	using U_Swap_t2 = typename I_Swap_Type<T_1, T_2, t_Order>::type_2;
 
 	//仕様
-	//[T],[invalid_t]で[I_Swap_Type]を作成する
+	//[T_Request_Order],[invalid_t]で[I_Swap_Type]を作成する
 	//
 	//template
-	//T::タイプ
-	//t_Order::trueなら[Type1 = T],falseなら[Type1 = invalid_t]
+	//T_Request_Order::タイプ
+	//t_Order::trueなら[Type1 = T_Request_Order],falseなら[Type1 = invalid_t]
 	template<class T, long long t_Order>
 	using U_Judge = I_Swap_Type<invalid_t, T, t_Order>;
 
 	//仕様
-	//[t_Order]が0なら[invalid_t],0以外なら[T]を返す
+	//[t_Order]が0なら[invalid_t],0以外なら[T_Request_Order]を返す
 	//
 	//template
-	//T::タイプ
+	//T_Request_Order::タイプ
 	//t_Order::フラグ
 	template<class T, long long t_Order>
 	using U_Judge_t = typename U_Judge<T, t_Order>::type_1;
@@ -97,7 +97,7 @@ namespace quiet
 	template<auto t_1, auto t_2, int t_Order>
 	struct IS_Swap_Variable
 	{
-		template<bool t_Order>
+		template<bool t_Order_Fg>
 		struct S_SwapType
 		{
 			static constexpr auto Variable = t_1;

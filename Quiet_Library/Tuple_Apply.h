@@ -67,7 +67,7 @@ namespace quiet::N_Tuple
 
 
 	//仕様
-	//クラス[T]のコンストラクタに対して、
+	//クラス[T_Request_Order]のコンストラクタに対して、
 	//[args...]の中身を適切に展開し、実行する
 	template<class T, class ...T_Args>
 		requires requires
@@ -82,7 +82,7 @@ namespace quiet::N_Tuple
 	};
 
 	//仕様
-	//クラス[T]のコンストラクタに対して、
+	//クラス[T_Request_Order]のコンストラクタに対して、
 	//[args...]の中身を適切に展開し、Newする
 	template<class T, class ...T_Args>
 		requires requires

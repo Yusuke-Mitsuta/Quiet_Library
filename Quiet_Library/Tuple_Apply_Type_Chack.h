@@ -29,8 +29,8 @@ namespace quiet::N_Tuple::N_Apply
 	//供給する型のリストから、要求する型のリストに、型の展開を伴い変換を出来るか判定する。
 	//
 	//テンプレート
-	//[T_Request_Types_Tuple]::[tuple_t<...>]で定義された要求する型リスト
-	//[T_Set_Types_Tuple]::[tuple_t<...>]で定義された供給する型リスト
+	//[T_Result_Request_Types_Tuple]::[tuple_t<...>]で定義された要求する型リスト
+	//[T_Result_Set_Types_Tuple]::[tuple_t<...>]で定義された供給する型リスト
 	// 
 	//変数
 	//[value]::判定の結果
@@ -40,7 +40,7 @@ namespace quiet::N_Tuple::N_Apply
 	// 
 	//補足
 	//供給する型リストに可変長引数を定義する際
-	// [N_Tuple::N_Apply::S_Infinite_Args< T >]をリストの最後に定義する事。
+	// [N_Tuple::N_Apply::S_Infinite_Args< T_Request_Order >]をリストの最後に定義する事。
 	template<class T_Request_Types_Tuple,
 		class T_Set_Types_Tuple>
 	struct I_Type_Chack
@@ -51,11 +51,11 @@ namespace quiet::N_Tuple::N_Apply
 		using set_expand = U_Expand_All<T_Set_Types_Tuple>;
 
 		//仕様
-		//[T_Request_Types_Tuple,T_Set_Types_Tuple]リスト内の[tuple]と互換性がある型を全て展開し、
+		//[T_Result_Request_Types_Tuple,T_Result_Set_Types_Tuple]リスト内の[tuple]と互換性がある型を全て展開し、
 		// 型の互換性があるか判定する
 		// 
 		//テンプレート
-		//[T_Expand_Number]::[T_Request_Types_Tuple]を展開した際の要素に対応する
+		//[T_Expand_Number]::[T_Result_Request_Types_Tuple]を展開した際の要素に対応する
 		// 番号のリスト
 		// ※std::index_sequence< 要素数 >の中身を[tuple_v]で定義した型
 		// 
@@ -177,7 +177,7 @@ namespace quiet::N_Tuple::N_Apply
 	//可変長引数と同等の型に置き換える。
 	//
 	// 補足
-	// 可変長引数は[N_Tuple::N_Apply::S_Infinite_Args< T >]型であり、
+	// 可変長引数は[N_Tuple::N_Apply::S_Infinite_Args< T_Request_Order >]型であり、
 	// リストの最後に定義される。
 	template<class T_Request_Types_Tuple,
 		class T_Set_Types_Tuple>

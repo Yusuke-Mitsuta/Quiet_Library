@@ -21,8 +21,8 @@ namespace quiet::N_Tuple
 	//[tuple_t]の各種Size、及び型を呼び出す
 	//
 	//補足
-	// [tuple_t,tp,v,vp]又は、[T_Types::tuple]の場合([S_Parameter]が無効値を返さない場合)に
-	//	[std::tuple_element,std::tuple_size,std::get<N>(t)]が特殊化される。
+	// [tuple_t,tp,v,vp]又は、[T_Leftover_Types::tuple]の場合([S_Parameter]が無効値を返さない場合)に
+	//	[std::tuple_element,std::tuple_size,std::get<t_array_size>(t)]が特殊化される。
 	template<class T_Types>
 	struct S_Parameter :
 		S_ID_Select<T_Types>,
@@ -127,28 +127,28 @@ namespace quiet::N_Tuple
 		requires requires
 	{
 		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
-		//typename T::tuple;
-		//requires is_invalid_not<typename S_Parameter<typename T::tuple>::tuple>;
-		//requires std::is_class_v<typename T::tuple>;
+		//typename T_Request_Order::tuple;
+		//requires is_invalid_not<typename S_Parameter<typename T_Request_Order::tuple>::tuple>;
+		//requires std::is_class_v<typename T_Request_Order::tuple>;
 	}
 	struct S_Parameter<T&> :
 		S_Parameter<T>
 	{
-		//using tuple = N_Tuple::U_Elements_Action<std::add_lvalue_reference, typename T::tuple>;
+		//using tuple = N_Tuple::U_Elements_Action<std::add_lvalue_reference, typename T_Request_Order::tuple>;
 	};
 
 	template<class T>
 		requires requires
 	{
 		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
-		//typename T::tuple;
-		//requires is_invalid_not<typename S_Parameter<typename T::tuple>::tuple>;
-		//requires std::is_class_v<typename T::tuple>;
+		//typename T_Request_Order::tuple;
+		//requires is_invalid_not<typename S_Parameter<typename T_Request_Order::tuple>::tuple>;
+		//requires std::is_class_v<typename T_Request_Order::tuple>;
 	}
 	struct S_Parameter<T*> :
 		S_Parameter<T>
 	{
-		//using tuple = N_Tuple::U_Elements_Action<std::add_pointer, typename T::tuple>;
+		//using tuple = N_Tuple::U_Elements_Action<std::add_pointer, typename T_Request_Order::tuple>;
 	};
 
 

@@ -25,7 +25,7 @@ namespace quiet::N_Function
 	//この操作を繰り返し、全て成功すれば、[Function_Core]事に纏められた後、[tuple_t]に纏められる。
 	//
 	//テンプレート
-	//[T_Fn_Parts...]:
+	//[T_Fn_Leftovers_Parts...]:
 	//	メソッドに使用する共通のポインターの型(省略可能)
 	//	関数オブジェクトの型
 	//	それに対する引数の型(並びの一番後ろの型が、関数の引数型の一番後ろと判定される)
@@ -80,20 +80,20 @@ namespace quiet::N_Function
 		};
 
 
-		template<class T_Tuple,class T_Tuple_Method_Bound = tuple_t<>,class T_Tuple_Access_Number = tuple_t<>>
+		template<class T_Tuple_Method_Start_Point,class T_Tuple_Method_Bound = tuple_t<>,class T_Tuple_Access_Number = tuple_t<>>
 		struct S_Method_Bound
 		{
-			template<class T_Method_Point = typename S_Method_Search<T_Tuple>::type>
+			template<class T_Method_Select = typename S_Method_Search<T_Tuple_Method_Start_Point>::type>
 			struct S_Method_Point
 			{
 
 				template<class T_Method_Point>
 				using chack_Data = typename
-					N_Tuple::U_Range<T_Tuple, T_Method_Point::head_size +1 - (T_Method_Point::head_size == T_Method_Point::size)>::reverse;
+					N_Tuple::U_Range<T_Tuple_Method_Start_Point, T_Method_Point::head_size +1 - (T_Method_Point::head_size == T_Method_Point::size)>::reverse;
 
 				template<class T_Method_Point>
 				using access_numbers =
-					N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple::tail_size + 1>;
+					N_Tuple::U_range_index_sequence<T_Method_Point::tail_size, T_Tuple_Method_Start_Point::tail_size + 1>;
 
 				template<class T_Tuple, class T_Method, class T_access_numbers>
 				using Method_Bound = typename S_Method_Bound<typename T_Tuple::next,
@@ -117,21 +117,21 @@ namespace quiet::N_Function
 				//[T_Dedicated_Point_Check]:指定された引数の型と、関数の次に設定されているポインターを判定する
 				//[T_Commond_Point_Check]:指定された引数の型と、共通で設定されたポインターを判定する
 				//[T_Method_Check]:指定された引数の型を受け取るか判定する
-				template<class T_Function = Function_Data<chack_Data<T_Method_Point>>,
-					class T_Dedicated_Point_Check = Function_Data<chack_Data<typename T_Method_Point::next>>,
-					class T_Commond_Point_Check = Function_Data<N_Tuple::U_Insert<typename chack_Data<T_Method_Point>::front, front_t>>>
+				template<class T_Function = Function_Data<chack_Data<T_Method_Select>>,
+					class T_Dedicated_Point_Check = Function_Data<chack_Data<typename T_Method_Select::next>>,
+					class T_Commond_Point_Check = Function_Data<N_Tuple::U_Insert<typename chack_Data<T_Method_Select>::front, front_t>>>
 				struct S_Pointer_Chack
 				{
 					using type =
-						Method_Bound<T_Method_Point,
+						Method_Bound<T_Method_Select,
 						T_Function, 
-						typename access_numbers<T_Method_Point>::create_p>;
+						typename access_numbers<T_Method_Select>::create_p>;
 				};
 
 				//仕様
 				//専用で設定されたポインターを判定する
 				template<class T_Function, class T_Dedicated_Point_Check, class T_Commond_Point_Check>
-					requires pointer_chack<typename T_Method_Point::next_t> &&
+					requires pointer_chack<typename T_Method_Select::next_t> &&
 					requires
 				{
 					requires same_as_not<typename T_Function::request_pointer, typename T_Dedicated_Point_Check::request_pointer>;
@@ -139,9 +139,9 @@ namespace quiet::N_Function
 				struct S_Pointer_Chack<T_Function, T_Dedicated_Point_Check, T_Commond_Point_Check>
 				{
 					using type =
-						Method_Bound<typename T_Method_Point::next,
+						Method_Bound<typename T_Method_Select::next,
 						T_Dedicated_Point_Check,
-						typename access_numbers<typename T_Method_Point::next>::next>;
+						typename access_numbers<typename T_Method_Select::next>::next>;
 				};
 
 				//仕様
@@ -158,9 +158,9 @@ namespace quiet::N_Function
 				struct S_Pointer_Chack<T_Function, T_Dedicated_Point_Check, T_Commond_Point_Check>
 				{
 	
-					using type = Method_Bound<T_Method_Point,
+					using type = Method_Bound<T_Method_Select,
 						T_Commond_Point_Check,
-						typename N_Tuple::U_Next<typename N_Tuple::U_Insert_v<access_numbers<T_Method_Point>,
+						typename N_Tuple::U_Next<typename N_Tuple::U_Insert_v<access_numbers<T_Method_Select>,
 						static_cast<size_t>(0)>>>;
 				};
 
@@ -169,7 +169,7 @@ namespace quiet::N_Function
 				// 
 				// テンプレート
 				//[T_Function_Check]:指定された引数の型を受け取るか判定する
-				template<class T_Args_chack = typename Function_Data<chack_Data<T_Method_Point>>::request_args>
+				template<class T_Args_chack = typename Function_Data<chack_Data<T_Method_Select>>::request_args>
 				struct S_Callable_Check
 				{
 					using type = S_Pointer_Chack<>::type;
@@ -181,7 +181,7 @@ namespace quiet::N_Function
 				template<>
 				struct S_Callable_Check<invalid_t>
 				{
-					using type = S_Method_Point<typename S_Method_Search<typename T_Method_Point::next>::type>::type;
+					using type = S_Method_Point<typename S_Method_Search<typename T_Method_Select::next>::type>::type;
 				};
 
 				using type = S_Callable_Check<>::type;
@@ -232,7 +232,7 @@ namespace quiet::N_Function
 		using access_number = result::access_number;
 
 		//仕様
-		//纏め作業が成功すれば、[T_Fn_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
+		//纏め作業が成功すれば、[T_Fn_Leftovers_Parts...]の先頭の型が、失敗すれば、[invalid_t]を返す
 		using judge = U_Judge_t<front_t, is_invalid_not<type>>;
 	};
 

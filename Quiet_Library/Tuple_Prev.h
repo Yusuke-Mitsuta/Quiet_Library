@@ -13,7 +13,7 @@ namespace quiet::N_Tuple
 
 {	//仕様
 	//[tuple_t]の選択位置をひとつ前にする
-	template<class T_Tuple_t>
+	template<class T_Control_Tuple>
 	struct I_Prev
 	{
 	private:
@@ -40,7 +40,7 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using type = S_Tuple_tp_Change_Action<S_Prev, T_Tuple_t>::Return_p;
+		using type = S_Tuple_tp_Change_Action<S_Prev, T_Control_Tuple>::Return_p;
 
 	};
 

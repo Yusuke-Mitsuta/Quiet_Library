@@ -41,10 +41,10 @@ namespace quiet::N_Vector
 
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
-		template<size_t N = t_vec, class T = T, class ...Ts>
+		template<size_t N = t_vec, class T_Vector_Element_Type = T, class ...Ts>
 			requires requires
 		{
-			requires N_Array::args_size<T, Ts...> == N;
+			requires N_Array::args_size<T_Vector_Element_Type, Ts...> == N;
 		}
 		constexpr S_Core(Ts... ts) :
 			S_Storge<T, t_vec>({N_Tuple::I_Apply_Action<Array<T, N>,Ts...>::Apply(ts...)}) {}
@@ -52,11 +52,11 @@ namespace quiet::N_Vector
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、
 		// 要素が不足している場合は、デフォルトで構築を行う
-		template<size_t N = t_vec,class T=T, class ...Ts>
+		template<size_t N = t_vec,class T_Vector_Element_Type =T, class ...Ts>
 			requires requires
 		{
-			requires !(N_Array::args_size<T, Ts...> < 1);
-			requires !(N_Array::args_size<T, Ts...> >= N);
+			requires !(N_Array::args_size<T_Vector_Element_Type, Ts...> < 1);
+			requires !(N_Array::args_size<T_Vector_Element_Type, Ts...> >= N);
 			T{};
 		}
 		explicit constexpr S_Core(Ts... ts) :
@@ -64,10 +64,10 @@ namespace quiet::N_Vector
 
 		//仕様
 		//引数がゼロ、かつデフォルトで構築可能な場合
-		template<size_t N = t_vec, class T = T>
+		template<size_t N = t_vec, class T_Vector_Element_Type = T>
 			requires requires
 		{
-			T{};
+			T_Vector_Element_Type{};
 		}
 		constexpr S_Core()
 			:S_Storge<T, t_vec>({}) {}

@@ -13,18 +13,18 @@
 namespace quiet::N_Tuple
 {
 	//仕様
-	//[T_Base_Tuple]の選択位置に[T_Add_Type...]の要素を追加する
+	//[T_Insert_Base_Tuple]の選択位置に[T_Merge_Types...]の要素を追加する
 	//
 	//using
 	//[tuple_expand]::[T_Add_type...]の中にtupleが含まれる場合、tupleを展開し、格納する
-	template<class T_Base_Tuple, class ...T_Add_Type>
+	template<class T_Insert_Base_Tuple, class ...T_Insert_Type>
 	struct I_Insert
 	{
 	private:
 
 
 		template<class T_Base_Tuple,
-			class T_Add_Types_Tuple = tuple_t<T_Add_Type...>>
+			class T_Add_Types_Tuple = tuple_t<T_Insert_Type...>>
 		struct S_Insert
 		{
 			using type = T_Base_Tuple;
@@ -50,7 +50,7 @@ namespace quiet::N_Tuple
 
 
 		template<class T_Base_Tuple,
-			class T_Add_Types_Tuple = tuple_t<T_Add_Type...>,
+			class T_Add_Types_Tuple = tuple_t<T_Insert_Type...>,
 			class T_Insert_Tuple = U_Tuple_v_To_t<U_Remove_p<typename T_Add_Types_Tuple::type>>>
 		struct S_Insert_Tuple_Expand
 		{
@@ -67,9 +67,9 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using tuple_expand = S_Tuple_tp_Change_Action<S_Insert_Tuple_Expand, T_Base_Tuple>::type;
+		using tuple_expand = S_Tuple_tp_Change_Action<S_Insert_Tuple_Expand, T_Insert_Base_Tuple>::type;
 
-		using type = S_Tuple_tp_Change_Action<S_Insert, T_Base_Tuple>::type;
+		using type = S_Tuple_tp_Change_Action<S_Insert, T_Insert_Base_Tuple>::type;
 
 	};
 }

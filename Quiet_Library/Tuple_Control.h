@@ -16,7 +16,7 @@
 namespace quiet::N_Tuple
 {
 	//仕様
-	//[T_Tuple]の選択位置の操作、削除の実施
+	//[T_Tuple_Data]の選択位置の操作、削除の実施
 	template<class T_Tuple>
 	struct Control_p
 	{
@@ -31,7 +31,7 @@ namespace quiet::N_Tuple
 		static constexpr size_t size = S_Parameter<T_Tuple>::size;
 
 		//現在選択している番号
-		//static constexpr int select = S_Parameter<T_Tuple>::select;
+		//static constexpr int select = S_Parameter<T_Tuple_Data>::select;
 
 		//現在選択している型より、前の型リスト
 		// [tuple_t,v]の場合、先頭の値が選択されている物と見なす

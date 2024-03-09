@@ -31,11 +31,11 @@ namespace quiet::N_Tuple::N_Apply
 	//関数オブジェクトの引数とポインターの型を取得する.
 	// 関数オブジェクト内に関数オブジェクトが複数内包されている場合、
 	// 　一番初めに引数と互換性があったものが呼ばれる。
-	template<class T,class ...T_Set_Types>
+	template<class T_Request_Order,class ...T_Set_Types>
 	struct I_Request
 	{
 
-		template<class T=T,E_Type t_type = Select_Type_v<T>>
+		template<class T=T_Request_Order,E_Type t_type = Select_Type_v<T>>
 		struct S_Request
 		{
 			using args = invalid_t;
@@ -88,7 +88,7 @@ namespace quiet::N_Tuple::N_Apply
 		template<class ...T_Parts>
 		struct S_Request<Function<T_Parts...>,E_Type::FN>
 		{
-			using operator_search = N_Function::I_Function_Operator_Search<T, tuple_t<T_Set_Types...>>::type;
+			using operator_search = N_Function::I_Function_Operator_Search<T_Request_Order, tuple_t<T_Set_Types...>>::type;
 			using args = U_Select<1, operator_search>::back;
 			using pointer = U_Select<2, operator_search>;
 		};

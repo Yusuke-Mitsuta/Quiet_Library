@@ -12,10 +12,10 @@
 namespace quiet::N_Tuple
 {
 	//仕様
-	//[T_Tuple_p]の[t_Change_Point]の値を[T_Change]に変更する
+	//[T_Control_Tuple]の[t_Change_Point]の値を[T_Change]に変更する
 	// 
-	//[t_Change_Point]::[T_Tuple_p]の変更する要素番号、指定しない場合は、現在の選択位置が仕様される
-	template<class T_Tuple_p,class T_Change,size_t t_Change_Point>
+	//[t_Change_Point]::[T_Control_Tuple]の変更する要素番号、指定しない場合は、現在の選択位置が仕様される
+	template<class T_Control_Tuple,class T_Change,size_t t_Change_Point>
 	struct I_Change
 	{
 	private:
@@ -46,9 +46,9 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using tuple_expand = S_Tuple_tp_Change_Action<S_Change_Tuple_Expand, T_Tuple_p, t_Change_Point>::type;
+		using tuple_expand = S_Tuple_tp_Change_Action<S_Change_Tuple_Expand, T_Control_Tuple, t_Change_Point>::type;
 
-		using type = S_Tuple_tp_Change_Action<S_Change, T_Tuple_p,t_Change_Point>::type;
+		using type = S_Tuple_tp_Change_Action<S_Change, T_Control_Tuple,t_Change_Point>::type;
 
 	};
 

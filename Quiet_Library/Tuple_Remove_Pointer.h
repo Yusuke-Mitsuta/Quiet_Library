@@ -12,7 +12,7 @@
 namespace quiet::N_Tuple
 {
 	//仕様
-	//[T]を[tuple_tp,vp]から、[tuple_t,v]に変換する
+	//[T_Request_Order]を[tuple_tp,vp]から、[tuple_t,v]に変換する
 	template<class T_Tuple_p>
 	struct I_Remove_Pointer
 	{

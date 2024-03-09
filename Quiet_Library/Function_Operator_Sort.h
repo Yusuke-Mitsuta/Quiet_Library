@@ -17,7 +17,7 @@ namespace quiet::N_Function
 	// セットした順番通りに表示されるように並び替える
 	//
 	//テンプレート
-	//[T_Operator_Parameters]::[I_Function_Operator_Helper]からのデータを受け取る
+	//[T_Operator_Parameter_List]::[I_Function_Operator_Helper]からのデータを受け取る
 	// 
 	//補足
 	//[ 0, 1 , 2 , 3 , 4 , 5]　とした時、
@@ -25,7 +25,7 @@ namespace quiet::N_Function
 	// 
 	//[ 0, 5 , 1 , 4 , 2 , 3]　の順番になる様に並び替えると、
 	//[ 0, 1 , 2 , 3 , 4 , 5]　の順番になる
-	template<class T_Operator_Parameters>
+	template<class T_Operator_Parameter_List>
 	struct I_Function_Operator_Sort
 	{
 
@@ -35,7 +35,7 @@ namespace quiet::N_Function
 		//
 		//真ん中を超えた場合、格納処理を終了する。
 		template<class T_Result = tuple_t<>, 
-			class T_Operator_Parameters = T_Operator_Parameters,
+			class T_Operator_Parameters = T_Operator_Parameter_List,
 			class T_Reverse_Operator_Parameters = typename T_Operator_Parameters::reverse>
 		struct S_Function_Operator_Sort
 		{

@@ -35,7 +35,7 @@ namespace quiet::N_Function
 
 		//仕様
 		//存在しないパラメータの参照先
-		template<class ...T_Fn_Parts>
+		template<class ...T_Fn_Leftovers_Parts>
 		struct S_Function_Data
 		{
 			using function = invalid_t;
@@ -51,14 +51,14 @@ namespace quiet::N_Function
 		//
 		//補足
 		//[T_Dedicated_Point]が[Function]の場合はスキップする
-		template<class T_Dedicated_Point, class ...T_Fn_Parts>
+		template<class T_Dedicated_Point, class ...T_Fn_Leftovers_Parts>
 			requires requires
 		{
 			requires std::is_class_v<T_Dedicated_Point>;
 			requires !same_as_template_type<T_Dedicated_Point, Function>;
 		}
-		struct S_Function_Data<T_Dedicated_Point*, T_Fn_Parts...> :
-			S_Function_Data<T_Fn_Parts...>
+		struct S_Function_Data<T_Dedicated_Point*, T_Fn_Leftovers_Parts...> :
+			S_Function_Data<T_Fn_Leftovers_Parts...>
 		{
 			using pointer = T_Dedicated_Point;
 		};
@@ -68,14 +68,14 @@ namespace quiet::N_Function
 		//
 		//補足
 		//[T_Dedicated_Point]が[Function]の場合はスキップする
-		template<class T_Dedicated_Point, class ...T_Fn_Parts>
+		template<class T_Dedicated_Point, class ...T_Fn_Leftovers_Parts>
 			requires requires
 		{
 			requires std::is_class_v<T_Dedicated_Point>;
 			requires !same_as_template_type<T_Dedicated_Point, Function>;
 		}
-		struct S_Function_Data<T_Dedicated_Point*&, T_Fn_Parts...> :
-			S_Function_Data<T_Fn_Parts...>
+		struct S_Function_Data<T_Dedicated_Point*&, T_Fn_Leftovers_Parts...> :
+			S_Function_Data<T_Fn_Leftovers_Parts...>
 		{
 			using pointer = T_Dedicated_Point;
 		};
@@ -189,7 +189,7 @@ namespace quiet::N_Function
 	protected:
 
 		//仕様
-		//[T_Fn_Parts...]を処理した結果の[Function_Core]を出力する
+		//[T_Fn_Leftovers_Parts...]を処理した結果の[Function_Core]を出力する
 		struct I_Core_Molding
 		{
 			template<class T_Core, class T_Add>

@@ -56,8 +56,7 @@ namespace quiet::N_Tuple::N_Apply
 		using conversion_zip_list = conversion::conversion_zip_list;
 
 
-		template<class T_Args_Types_list,
-			class T_Args_Zip_Order_List = conversion_zip_list>
+		template<class T_Args_Types_list,class T_Args_Zip_Order_List>
 		struct I_Args_Zip;
 
 
@@ -145,27 +144,27 @@ namespace quiet::N_Tuple::N_Apply
 		}
 		struct I_Args_Expand<T_Args_Types_list, T_Args_Expand_Order_List>
 		{
-			using type = I_Args_Zip<T_Args_Types_list>::type;
+			using type = I_Args_Zip<T_Args_Types_list, conversion_zip_list>::type;
 		};
 
 		template<class T_Args_Types_list,
-			class T_Args_Zip_Order_List>
+			class T_Args_Zip_Order_List_Origin>
 		struct I_Args_Zip
 		{
-			template<class T_Args_Zip_Order_List = T_Args_Zip_Order_List>
+			template<class T_Args_Zip_Order_List = T_Args_Zip_Order_List_Origin>
 			struct I_Zip_Order_Part_Division
 			{
 
 				using zip_order = T_Args_Zip_Order_List::type;
 
-				template<class T_Args_Zip_Order_List, size_t t_end_back_args_point, class ...T_Division_Args_Zip_Order>
+				template<class T_Args_Zip_Order_List_Base, size_t t_end_back_args_point, class ...T_Division_Args_Zip_Order>
 				struct S_Zip_Order_Part_Division
 				{
 					using type = S_Zip_Order_Part_Division;
 
 					using first_order_part = tuple_t<T_Division_Args_Zip_Order...>;
 
-					using rest_order_part = T_Args_Zip_Order_List;
+					using rest_order_part = T_Args_Zip_Order_List_Base;
 
 				};
 
@@ -190,7 +189,7 @@ namespace quiet::N_Tuple::N_Apply
 
 
 
-			using first_order = T_Args_Zip_Order_List::type;
+			using first_order = T_Args_Zip_Order_List_Origin::type;
 
 			template<
 				class T_Flont_Args_Number = U_index_sequence<T_Args_Types_list::size - (first_order::point + first_order::zip_size - 1)>,
@@ -216,7 +215,7 @@ namespace quiet::N_Tuple::N_Apply
 					U_Element_t<t_Flont_Args_Number, T_Args_Types_list>...,
 					typename first_order::type,
 					U_Element_t<t_Back_Args_Number, T_Args_Types_list>...>,
-					typename T_Args_Zip_Order_List::remove>::type;
+					typename T_Args_Zip_Order_List_Origin::remove>::type;
 
 				//仕様
 				//[T_Request_Type]型を[args...]から作り、そのポインターを返す

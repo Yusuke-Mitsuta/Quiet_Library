@@ -13,10 +13,10 @@
 namespace quiet::N_Tuple
 {
 	//仕様
-	//[0 ... (N-1)]の値を[tuple_v]に入れて返す
+	//[0 ... (t_array_size-1)]の値を[tuple_v]に入れて返す
 	//
 	//補足
-	//つまり、[std::make_index_sequence<N>] で帰ってくる型が [std::integer_sequence<size_t,N...>]の所を、[tupel_v<N...>]に変更する
+	//つまり、[std::make_index_sequence<t_array_size>] で帰ってくる型が [std::integer_sequence<size_t,t_array_size...>]の所を、[tupel_v<t_array_size...>]に変更する
 	template<size_t N>
 	struct I_index_sequence
 	{
@@ -27,10 +27,10 @@ namespace quiet::N_Tuple
 			using type = tuple_v<>;
 		};
 
-		template<size_t ...N>
-		struct S_index_sequence<std::integer_sequence<size_t,N...>>
+		template<size_t ...Ns>
+		struct S_index_sequence<std::integer_sequence<size_t,Ns...>>
 		{
-			using type = tuple_v<N...>;
+			using type = tuple_v<Ns...>;
 		};
 	public:
 
@@ -39,26 +39,26 @@ namespace quiet::N_Tuple
 
 
 	//仕様
-	//[N_1 ... N-2]の値を[tuple_v]に入れて返す
+	//[N_1 ... t_array_size-2]の値を[tuple_v]に入れて返す
 	template<size_t N_1,size_t N_2>
 	struct I_range_index_sequence
 	{
 	private:
-		template<size_t N_1, size_t N_2>
+		template<size_t t_N_1, size_t t_N_2>
 		using start_number_change = typename I_Template_Calculate<typename
-			I_index_sequence<N_2 - N_1>::type, "+", N_1>::type;
+			I_index_sequence<t_N_2 - t_N_1>::type, "+", t_N_1>::type;
 
 
-		template<size_t N_1 = N_1, size_t N_2 = N_2, bool t_max_judge = (N_1 < N_2)>
+		template<size_t t_N_1 = N_1, size_t t_N_2 = N_2, bool t_max_judge = (t_N_1 < t_N_2)>
 		struct S_range_index_sequence
 		{
-			using type = start_number_change<N_1, N_2>;
+			using type = start_number_change<t_N_1, t_N_2>;
 		};
 
-		template<size_t N_1, size_t N_2>
-		struct S_range_index_sequence<N_1,N_2,false>
+		template<size_t t_N_1, size_t t_N_2>
+		struct S_range_index_sequence<t_N_1, t_N_2,false>
 		{
-			using type = typename start_number_change<N_2, N_1>::reverse::remove_p;
+			using type = typename start_number_change<t_N_2, t_N_1>::reverse::remove_p;
 		};
 
 	public:

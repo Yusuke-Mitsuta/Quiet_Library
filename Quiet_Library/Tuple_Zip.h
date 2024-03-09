@@ -21,7 +21,7 @@ namespace quiet::N_Tuple
 	};
 
 	//仕様
-	//パラメータパック[Ts...]から連続する型を{tuple_zip< T, N >}に圧縮する
+	//パラメータパック[Ts...]から連続する型を{tuple_zip< T_Request_Order, t_array_size >}に圧縮する
 	template<class ...Ts>
 	struct I_Zip
 	{
@@ -81,8 +81,8 @@ namespace quiet::N_Tuple
 
 
 	//仕様
-	//タプル内の要素から連続する型を{tuple_zip< T, N >}に圧縮する
-	template<class T_Tuple>
+	//タプル内の要素から連続する型を{tuple_zip< T_Request_Order, t_array_size >}に圧縮する
+	template<class T_Zip_Tuple>
 	struct I_Zip_Tuple
 	{
 	private:
@@ -92,7 +92,7 @@ namespace quiet::N_Tuple
 			using type = I_Move_Template<I_Zip, T_Tuple>::type::type;
 		};
 	public:
-		using type = S_Tuple_t_Change_Action<S_Zip_Action, T_Tuple>::Return_not_p;
+		using type = S_Tuple_t_Change_Action<S_Zip_Action, T_Zip_Tuple>::Return_not_p;
 	};
 
 }

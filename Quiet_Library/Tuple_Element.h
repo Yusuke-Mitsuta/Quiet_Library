@@ -30,8 +30,8 @@ namespace std
 namespace quiet::N_Tuple
 {
 	//Žd—l
-	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚ÌŒ^‚ðŽæ“¾‚·‚é
-	template<size_t _Index, class T_Tuple>
+	//[T_Tuple_Data]‚Ì[_Index]”Ô–Ú‚ÌŒ^‚ðŽæ“¾‚·‚é
+	template<size_t _Index, class T_Tuple_Data>
 	struct I_Element
 	{
 		template<class T_Tuple>
@@ -72,17 +72,17 @@ namespace quiet::N_Tuple
 			using type = std::tuple_element_t<_Index, std::tuple<T_Head..., T_Tail...>>;
 		};
 
-		using type =typename S_Element<T_Tuple>::type;
+		using type =typename S_Element<T_Tuple_Data>::type;
 	};
 
 
 	//Žd—l
-	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚Ì—v‘f‚ðŽæ“¾‚·‚é
-	template<size_t _Index,class T_Head_v,auto value,class T_Tail_v>
-	struct I_Element<_Index,tuple_vp<T_Head_v,value,T_Tail_v>>
+	//[T_Tuple_Data]‚Ì[_Index]”Ô–Ú‚Ì—v‘f‚ðŽæ“¾‚·‚é
+	template<size_t _Index,class T_Head_v,auto t_value,class T_Tail_v>
+	struct I_Element<_Index,tuple_vp<T_Head_v,t_value,T_Tail_v>>
 	{
 	private:
-		using T_Tuple = tuple_vp<T_Head_v, value, T_Tail_v>;
+		using T_Tuple = tuple_vp<T_Head_v, t_value, T_Tail_v>;
 
 	public:
 
@@ -91,12 +91,12 @@ namespace quiet::N_Tuple
 	
 	
 	//Žd—l
-	//[T_Tuple]‚Ì[_Index]”Ô–Ú‚Ì—v‘f‚ðŽæ“¾‚·‚é
-	template<size_t _Index, auto ...value>
-	struct I_Element<_Index, tuple_v<value...>>
+	//[T_Tuple_Data]‚Ì[_Index]”Ô–Ú‚Ì—v‘f‚ðŽæ“¾‚·‚é
+	template<size_t _Index, auto ...t_values>
+	struct I_Element<_Index, tuple_v<t_values...>>
 	{
 	private:
-		using T_Tuple = tuple_v<value...>;
+		using T_Tuple = tuple_v<t_values...>;
 
 	public:
 		static constexpr auto value = std::tuple_element_t<_Index, T_Tuple>::value;

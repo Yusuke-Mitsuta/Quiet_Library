@@ -20,16 +20,16 @@ struct S_Operator<#select_operator>\
 namespace quiet::N_Tuple
 {
 	//仕様
-	//[Tuple_v< value...>]に対して[number]を["t_operator"]の演算子で計算する
+	//[Tuple_v< value...>]に対して[number]を["t_calculate_operator"]の演算子で計算する
 	//
 	//テンプレート
-	//T_Tuple_v::[number]に対して計算する[Tuple_v]
-	//t_operator::[Tuple_v]と[number]の計算する演算子
+	//T_Calculate_Tuple::[number]に対して計算する[Tuple_v]
+	//t_calculate_operator::[Tuple_v]と[number]の計算する演算子
 	//number::[Tuple_v]の要素全てに対して計算する値
 	//
 	//補足
-	//[t_operator]は["+"]["-"]["*"]["/"]で指定すること
-	template<class T_Tuple_v, String t_operator,auto number>
+	//[t_calculate_operator]は["+"]["-"]["*"]["/"]で指定すること
+	template<class T_Calculate_Tuple, String t_calculate_operator,auto number>
 	struct I_Template_Calculate
 	{
 	private:
@@ -42,10 +42,10 @@ namespace quiet::N_Tuple
 		template<auto ...value>
 		struct S_Tuple_Calculate<tuple_t<integral_constant<value>...>>
 		{
-			template<String t_operator=t_operator>
+			template<String t_operator=t_calculate_operator>
 			struct S_Operator
 			{
-				using type = T_Tuple_v;
+				using type = T_Calculate_Tuple;
 			};
 
 			TUPLE_V_OPERATOR(+);
@@ -56,7 +56,7 @@ namespace quiet::N_Tuple
 			using type = S_Operator<>::type;
 		};
 	public:
-		using type = S_Tuple_t_Change_Action<S_Tuple_Calculate,T_Tuple_v>::type;
+		using type = S_Tuple_t_Change_Action<S_Tuple_Calculate,T_Calculate_Tuple>::type;
 
 	};
 
