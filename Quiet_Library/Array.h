@@ -52,7 +52,8 @@ namespace quiet
 
 		using std::array<_Ty1, N>::operator[];
 
-
+		//d—l
+		//[_Ty2...]‚ª[_Ty1]‚ÆŒİŠ·«‚ª‚ ‚éê‡
 		template< class ..._Ty2>
 			requires ( convertible_from_and<_Ty1, _Ty2...> &&
 		(sizeof...(_Ty2) == static_cast<int>(N) ))

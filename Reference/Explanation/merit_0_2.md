@@ -1,15 +1,16 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/関数の引数に互換性を持たせる場合
 
 ***
+## quietライブラリを追加で使用する場合
+
 3. 互換性を持たせる為に作成したオーバーロードをすべて削除します。
-4. 関数`Output_Int3`を`quiet::Function`でラッピングし、`fn_Output_Int3`を作成します。
+4. 関数`Output_Int3`を[quiet::Function](../Function/Function.md)でラッピングし、`fn_Output_Int3`を作成します。
 
 ``` C++
 #include<iostream>
 #include<array>
 
-#include"Function.h"
-#include"Array.h"
+#include"Quiet_Library.h"
 
 void Output_Int3(int n_1,int n_2,int n_3)
 {
@@ -30,7 +31,7 @@ int main()
     return 0;
 }
 ``` 
-quietライブラリを利用すると、オーバーロードを全て削減されました。
+`Output_Int3`は[quiet::Function]()にてラッピングされた事により、`int`型と互換性のある型が、合計で3つ以下であれば**全てに対応出来る**ようになりました。
 
 次は作成した関数オブジェクト`fn_Output_Int3`の柔軟性の高さについてです。
 

@@ -35,6 +35,7 @@ namespace quiet::N_Tuple::N_Apply
 		constexpr S_Fn_Action(T_Fn_Action set_fn, T_pointer set_pointer) :
 			fn(set_fn), p(&invalid) {}
 
+		//関数実行の際に互換性のある型から要求される型へキャストする
 		struct S_Cast_Args
 		{
 			template<class T_RType, class ...T_Request_Args, class... T_Args>
@@ -61,8 +62,6 @@ namespace quiet::N_Tuple::N_Apply
 		{
 			return S_Cast_Args::Apply(fn, std::forward<T_Args>(args)...);
 		}
-
-
 
 		//ポインターを使用せず、[Function]にアクセスする
 		template<class MT_Fn = T_Fn_Action, is_invalid MT_pointer = T_pointer, class... T_Args>

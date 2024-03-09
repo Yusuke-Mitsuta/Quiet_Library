@@ -1,6 +1,9 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/クラスの生成に互換性を持たせる
 
 ***
+
+## 標準ライブラリのみ使用する場合
+
 1. `std::array<int,3> `を`std::array<int,2>`と`int`を組み合わせて初期化します。
 
 ``` C++
@@ -21,4 +24,4 @@ int main()
 
 次は、quietライブラリを利用すると、どうなるか見ていきましょう。
 
-[Home](merit_0_0.md)　[Next](merit_1_2.md)　
+## [Home](merit_0_0.md)　[Next](merit_1_2.md)　

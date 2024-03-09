@@ -1,10 +1,12 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/クラスの生成に互換性を持たせる
 
 ***
+## 推論補助の柔軟性について
+
 3. `quiet::Array`の推論補助の限界についてです。
 
 ``` C++
-#include"Array.h"
+#include"Quiet_Library.h"
 #include<array>
 
 int main()

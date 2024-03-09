@@ -3,41 +3,25 @@
 # quiet::Array::constructor
 
 ``` C++
-template<size_t N = N, class _Ty1 = T, class ..._Ty2>
-    requires requires
-{
-    requires sizeof...(_Ty2) == N;
-    requires convertible_from_and<_Ty1, _Ty2...>;
-}
-constexpr Array(_Ty2... t) :
-    std::array<_Ty1, N>({ static_cast<_Ty1>(t)... }) {}
-    
-template<size_t N = N, class _Ty1 = T, class ..._Ty2>
-    requires requires
-{
-    requires N_Array::args_size<_Ty1, _Ty2...> == N;
-    requires convertible_from_nand<_Ty1, _Ty2...>;
-}
-constexpr Array(_Ty2... t) :
-    std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) }) {}
+template< class ..._Ty2>
+    requires ( convertible_from_and<_Ty1, _Ty2...> &&
+        (sizeof...(_Ty2) == static_cast<int>(N) ))
+constexpr Array(_Ty2... t);
 
-template<size_t N = N, class _Ty1 = T, class ..._Ty2>
-    requires requires
-{
-    requires !(N_Array::args_size<_Ty1, _Ty2...> <= 0);
-    requires !(N_Array::args_size<_Ty1, _Ty2...> >= N);
-    _Ty1{};
-}
-explicit constexpr Array(_Ty2 ...t) :
-    std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) }) {}
+template< class ..._Ty2>
+    requires (convertible_from_nand<_Ty1, _Ty2...> &&
+	(N_Array::args_size<_Ty1, _Ty2...> == static_cast<int>(N)) )
+constexpr Array(_Ty2... t);
 
-template<size_t N = N, class _Ty1 = T>
-    requires requires
-{
-    _Ty1{};
-}
-explicit constexpr Array() :
-    std::array<_Ty1, N>({}) {}
+
+template<class ..._Ty2>
+    requires ( (N_Array::args_size<_Ty1, _Ty2...> > 0) &&
+        (N_Array::args_size<_Ty1, _Ty2...> < static_cast<int>(N))) &&
+    requires
+    {
+        _Ty1{};
+    }
+explicit constexpr Array(_Ty2 ...t);
     
 ```
 ***

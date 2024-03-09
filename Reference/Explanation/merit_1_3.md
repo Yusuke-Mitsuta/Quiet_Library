@@ -1,10 +1,13 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/クラスの生成に互換性を持たせる
 
 ***
+
+## quietライブラリを追加で使用する場合 ( 2 / 2 )
+
 3. [`std::array`->`quiet::Array`]に変更し、柔軟性の高いコンストラクタを利用します。
 
 ``` C++
-#include"Array.h"
+#include"Quiet_Library.h"
 #include<array>
 
 int main()

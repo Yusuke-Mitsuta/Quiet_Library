@@ -1,6 +1,8 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/関数の引数に互換性を持たせる場合
 
 ***
+## [ quiet::Function ]の柔軟性について
+
 5. `std::tuple`,`std::array`を組み合わせて限界に迫ります。
 
 ``` C++
@@ -8,9 +10,7 @@
 #include<array>
 #include<tuple>
 
-#include"Function.h"
-#include"Tuple.h"
-#include"Array.h"
+#include"Quiet_Library.h"
 
 void Output_Int3(int n_1,int n_2,int n_3)
 {
@@ -35,7 +35,7 @@ int main()
 ``` 
 `int`型と互換性のある`float`,`double`なども使用でき、`std::array`,`std::tuple`を混合しても、問題無く動作します。
 
-通常使用しない「要素数1の`std::array`」などでも問題無く使用する事が出来ます。
+通常使用しない「**要素数1**の`std::array`」などでも問題無く使用する事が出来ます。
 
 今回は整数型を例にしましたがユーザー定義等、他の型であっても`std::convertible_to<_Ty1,_Ty2>`が`true`であれば同様に使用できます。
 

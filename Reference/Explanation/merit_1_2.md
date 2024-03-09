@@ -1,12 +1,13 @@
 ### [README](../../README.md)/[quietを利用するメリット](merit_0_0.md)/クラスの生成に互換性を持たせる
 
 ***
-2. `std::array`のコンストラクタは追加定義する事が出来ない為、関数`quiet::Apply<T>`を用いて生成する事により、引数に柔軟性を持たせます。
+
+## quietライブラリを追加で使用する場合 ( 1 / 2 )
+
+1. `std::array`のコンストラクタは追加定義する事が出来ない為、関数`quiet::Apply<T>`を用いて生成する事により、引数に柔軟性を持たせます。
 
 ``` C++
-#include"Array.h"
-#include"Tuple.h"
-
+#include"Quiet_Library.h"
 #include<array>
 
 int main()

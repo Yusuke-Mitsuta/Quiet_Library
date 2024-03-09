@@ -62,6 +62,8 @@ namespace quiet
 
 		using tuple = tuple_t<_Types...>;
 
+		//d—l
+		//—v‹‚·‚éˆø”‚ªˆø”‚ÌŒ^‚Æˆê’v‚µ‚½ê‡
 		template<class T_Tuple = tuple, class ...T_Args>
 			requires requires
 		{
