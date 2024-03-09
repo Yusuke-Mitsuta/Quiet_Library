@@ -35,9 +35,41 @@ namespace quiet::N_Tuple::N_Apply
 		constexpr S_Fn_Action(T_Fn_Action set_fn, T_pointer set_pointer) :
 			fn(set_fn), p(&invalid) {}
 
+		struct S_Cast_Args
+		{
+			template<class T_RType, class ...T_Request_Args, class... T_Args>
+			static constexpr auto Apply(T_RType(*fn)(T_Request_Args...), T_Args&&... args)
+			{
+				return fn(static_cast<T_Request_Args>(args)...);
+			}
+
+			template<class T_CName, class T_RType, class ...T_Requet_Args, is_invalid_not MT_pointer, class... T_Args>
+			static constexpr auto Apply(T_RType(T_CName::*fn)(T_Requet_Args...),MT_pointer* p,T_Args&&... args)
+			{
+				return (p->*fn)(static_cast<T_Requet_Args>(args)...);
+			}
+
+		};
 
 		//ポインターを使用せず関数オブジェクトにアクセスする
 		template<class MT_Fn = T_Fn_Action, is_invalid MT_pointer = T_pointer, class... T_Args>
+			requires requires
+		{
+			requires !std::is_class_v<MT_Fn>;
+		}
+		constexpr auto Apply(T_Args&&... args)
+		{
+			return S_Cast_Args::Apply(fn, std::forward<T_Args>(args)...);
+		}
+
+
+
+		//ポインターを使用せず、[Function]にアクセスする
+		template<class MT_Fn = T_Fn_Action, is_invalid MT_pointer = T_pointer, class... T_Args>
+			requires requires
+		{
+			requires std::is_class_v<MT_Fn>;
+		}
 		constexpr auto Apply(T_Args&&... args)
 		{
 			return fn(args...);
@@ -64,7 +96,7 @@ namespace quiet::N_Tuple::N_Apply
 		}
 		constexpr auto Apply(T_Args&&... args)
 		{
-			return (p->*fn)(args...);
+			return S_Cast_Args::Apply(fn,p,std::forward<T_Args>(args)...);
 		}
 
 		//ポインターを引数に追加し、[Function]にアクセスする

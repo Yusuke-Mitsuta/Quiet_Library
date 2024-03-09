@@ -52,24 +52,20 @@ namespace quiet
 
 		using std::array<_Ty1, N>::operator[];
 
-		template<size_t t_array_size_limit = N, class T_Base = _Ty1, class ..._Ty2>
-			requires requires
-		{
-			requires sizeof...(_Ty2) == t_array_size_limit;
-			requires convertible_from_and<T_Base, _Ty2...>;
-		}
+
+		template< class ..._Ty2>
+			requires ( convertible_from_and<_Ty1, _Ty2...> &&
+		(sizeof...(_Ty2) == static_cast<int>(N) ))
 		constexpr Array(_Ty2... t)
 			:std::array<_Ty1, N>({ static_cast<_Ty1>(t)... })
 		{}
 
+
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
-		template<size_t t_array_size_limit = N, class T_Base = _Ty1, class ..._Ty2>
-			requires requires
-		{
-			requires N_Array::args_size<T_Base, _Ty2...> == t_array_size_limit;
-			requires convertible_from_nand<T_Base, _Ty2...>;
-		}
+		template< class ..._Ty2>
+			requires (convertible_from_nand<_Ty1, _Ty2...> &&
+		(N_Array::args_size<_Ty1, _Ty2...> == static_cast<int>(N)) )
 		constexpr Array(_Ty2... t)
 			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
 		{}
@@ -78,24 +74,30 @@ namespace quiet
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、
 		// 要素が不足している場合は、デフォルトで構築を行う
-		template<size_t t_array_size_limit = N, class T_Base = _Ty1, class ..._Ty2>
-			requires requires
+		template<class ..._Ty2>
+			requires ( (N_Array::args_size<_Ty1, _Ty2...> > 0) &&
+		(N_Array::args_size<_Ty1, _Ty2...> < static_cast<int>(N))) &&
+			requires
 		{
-			requires !(N_Array::args_size<T_Base, _Ty2...> <= 0);
-			requires !(N_Array::args_size<T_Base, _Ty2...> >= t_array_size_limit);
 			_Ty1{};
 		}
 		explicit constexpr Array(_Ty2 ...t)
+
+
+
+
+
+
 			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
 		{}
 
-		template<size_t t_array_size_limit = N, class T_Base = _Ty1>
+		
+		constexpr Array()
 			requires requires
 		{
-			T_Base{};
+			_Ty1{};
 		}
-		constexpr Array() :
-			std::array<_Ty1, N>({})
+			:std::array<_Ty1, N>({ 0 })
 		{}
 
 
@@ -106,10 +108,9 @@ namespace quiet
 	};
 
 	template<class ..._Ty2>
-		requires (static_cast<bool>(N_Array::I_deduction_guide<_Ty2...>::size))
 	Array(_Ty2 ...ts)->
 		Array<typename N_Array::I_deduction_guide<_Ty2...>::type, 
-		N_Array::I_deduction_guide<_Ty2...>::size>;
+		 N_Array::I_deduction_guide<_Ty2...>::size>;
 
 
 

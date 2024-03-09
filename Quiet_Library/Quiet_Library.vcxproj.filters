@@ -255,6 +255,9 @@
     <ClInclude Include="Array_deduction_guide.h">
       <Filter>ヘッダー ファイル\Array</Filter>
     </ClInclude>
+    <ClInclude Include="Quiet_Library.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Function_Single_Helper.h">

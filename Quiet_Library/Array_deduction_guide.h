@@ -27,14 +27,11 @@ namespace quiet::N_Array
 	{
 	private:
 
-		template<class T_Array_Type>
-		static constexpr int args_size =
-			N_Array::args_size<T_Array_Type, T_Base_Type, T_Args...>;
-
 		//仕様
 		//[T_Array_Type]で[Array]が変換出来る場合、
 		//Arrayの型と要素数を推論する
-		template<class T_Array_Type, int t_size = args_size<T_Array_Type>>
+		template<class T_Array_Type, int t_size = 
+			N_Array::args_size<T_Array_Type, T_Base_Type, T_Args...>>
 		struct S_deduction_guide
 		{
 			static constexpr int size = t_size;
