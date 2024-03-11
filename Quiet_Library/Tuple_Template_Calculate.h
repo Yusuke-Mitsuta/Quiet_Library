@@ -42,18 +42,21 @@ namespace quiet::N_Tuple
 		template<auto ...value>
 		struct S_Tuple_Calculate<tuple_t<integral_constant<value>...>>
 		{
-			template<String t_operator=t_calculate_operator>
+			template<String t_operator>
 			struct S_Operator
 			{
 				using type = T_Calculate_Tuple;
 			};
 
 			TUPLE_V_OPERATOR(+);
+
 			TUPLE_V_OPERATOR(-);
+
 			TUPLE_V_OPERATOR(*);
+
 			TUPLE_V_OPERATOR(/);
 
-			using type = S_Operator<>::type;
+			using type = S_Operator<t_calculate_operator>::type;
 		};
 	public:
 		using type = S_Tuple_t_Change_Action<S_Tuple_Calculate,T_Calculate_Tuple>::type;

@@ -64,23 +64,17 @@ namespace quiet
 
 		//仕様
 		//要求する引数が引数の型と一致した場合
-		template<class T_Tuple = tuple, class ...T_Args>
-			requires requires
-		{
-			requires same_as<T_Tuple, tuple_t<T_Args...>>;
-		}
+		template<class ...T_Args>
+			requires same_as<tuple, tuple_t<T_Args...>>
 		constexpr Tuple(T_Args... args):
 			std::tuple<T_Args...>(args...)
 		{}
 
 		//仕様
 		// [N_Tuple::Apply]を用いて適切に変換の結果、成功した場合
-		template<class T_Tuple =tuple, class ...T_Args>
-			requires requires
-		{
-			requires N_Tuple::N_Apply::Chack<T_Tuple, T_Args...>();
-			requires same_as_not<T_Tuple, tuple_t<T_Args...>>;
-		}
+		template<class T_Tuple = tuple, class ...T_Args>
+			requires (N_Tuple::N_Apply::Chack<T_Tuple, T_Args...>() &&
+		same_as_not<T_Tuple, tuple_t<T_Args...>>)
 		constexpr Tuple(T_Args... args) :
 			std::tuple<_Types...>({N_Tuple::Apply<std::tuple<_Types...>>(args...)})
 		{}
