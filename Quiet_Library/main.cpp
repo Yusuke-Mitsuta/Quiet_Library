@@ -1,12 +1,9 @@
-#include<iostream>
 
 #include"Test_Cord.h"
-#include"Quiet_Library.h"
-
 
 int main()
 {
-    Test_Cord::Cord_2();
+    Test_Cord::Cord_1();
 
    
     return 0;

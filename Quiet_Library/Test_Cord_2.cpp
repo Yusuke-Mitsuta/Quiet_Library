@@ -1,3 +1,4 @@
+
 #include "Test_Cord.h"
 
 #include<iostream>
@@ -25,7 +26,6 @@ struct Int3
         data({ n_1, n_23[0], n_23[1]})
     { Output_Int3(); }
     
-
 };
 
 void Int3::Output_Int3()
@@ -43,7 +43,6 @@ void Test_Cord::Cord_2()
     Int3 int3_1(ary_int3);
     Int3 int3_2(ary_int2, 13);
     Int3 int3_3(11, ary_int2);
-
 
 }
 

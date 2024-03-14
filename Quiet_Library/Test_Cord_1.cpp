@@ -3,7 +3,7 @@
 #include<iostream>
 #include<array>
 
-
+//std::array<int,3>‚ğó‚¯æ‚è‚»‚Ì’l‚ğo—Í‚·‚é
 void Output_Int3(std::array<int, 3> ary_int3)
 {
     std::cout << ary_int3[0] << " , " << ary_int3[1] << " , " << ary_int3[2] << std::endl;
