@@ -95,7 +95,6 @@
   <ItemGroup>
     <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Valid_Data.h" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="Function_Single_Helper.h" />
     <ClCompile Include="Tuple_Declare.h" />
