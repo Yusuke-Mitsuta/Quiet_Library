@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Array_deduction_guide.h" />
     <ClInclude Include="Quiet_Library.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />
     <ClInclude Include="Tuple_Apply_Type.h" />
