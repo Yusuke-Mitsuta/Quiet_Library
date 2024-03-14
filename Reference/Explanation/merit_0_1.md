@@ -47,10 +47,10 @@ int main()
     std::array<int, 3> ary_int3{ 1, 2, 3 };
     std::array<int, 2> ary_int2{ 1, 2};
 
-    fn_Output_Int3(1,2,3);
-    fn_Output_Int3(ary_int3);
-    fn_Output_Int3(ary_int2,3);
-    fn_Output_Int3(3,ary_int2);
+    Output_Int3(1,2,3);
+    Output_Int3(ary_int3);
+    Output_Int3(ary_int2,3);
+    Output_Int3(3,ary_int2);
 
     return 0;
 }

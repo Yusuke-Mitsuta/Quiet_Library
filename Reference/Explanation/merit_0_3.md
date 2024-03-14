@@ -3,7 +3,7 @@
 ***
 ## [ quiet::Function ]の柔軟性について
 
-5. `std::tuple`,`std::array`を組み合わせて限界に迫ります。
+1. `std::tuple`,`std::array`を組み合わせて限界に迫ります。
 
 ``` C++
 #include<iostream>
@@ -39,4 +39,4 @@ int main()
 
 今回は整数型を例にしましたがユーザー定義等、他の型であっても`std::convertible_to<_Ty1,_Ty2>`が`true`であれば同様に使用できます。
 
-## [Back](merit_0_2.md)　[Home](merit_0_0.md)
+## [Back](merit_0_2.md)　[Home](merit_0_0.md)　[Next](merit_0_4.md)　
