@@ -18,15 +18,6 @@ void Output_Int3(int n_1,int n_2,int n_3)
     std::cout<<n_1<<" , "<<n_2<<" , "<<n_3<<std::endl;
 }
 
-void Output_Int3(std::array<int,3> ary_int3)
-{
-    for (int& n : ary_int3)
-    {
-        std::cout << n << std::endl;
-    }
-    std::cout << std::endl;
-}
-
 void Output_Int3(std::array<int,3> n_123)
 {
     Output_Int3(n_123[0], n_123[1],n_123[2]);
