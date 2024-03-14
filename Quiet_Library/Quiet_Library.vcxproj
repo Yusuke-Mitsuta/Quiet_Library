@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Array_deduction_guide.h" />
     <ClInclude Include="Quiet_Library.h" />
+    <ClInclude Include="Test_Cord.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />
     <ClInclude Include="Tuple_Apply_Type.h" />
@@ -95,6 +96,8 @@
     <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Valid_Data.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Test_Cord_1.cpp" />
+    <ClCompile Include="Test_Cord_2.cpp" />
     <ClCompile Include="Tuple_Type_Change_Action.h" />
     <ClCompile Include="Function_Single_Helper.h" />
     <ClCompile Include="Tuple_Declare.h" />
