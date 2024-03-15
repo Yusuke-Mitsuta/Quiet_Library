@@ -83,12 +83,6 @@ namespace quiet
 			_Ty1{};
 		}
 		explicit constexpr Array(_Ty2 ...t)
-
-
-
-
-
-
 			:std::array<_Ty1, N>({ N_Tuple::I_Apply_Action<std::array<_Ty1, N>, _Ty2...>::Apply(t...) })
 		{}
 

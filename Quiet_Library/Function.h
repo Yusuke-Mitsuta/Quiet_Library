@@ -13,7 +13,8 @@
 
 namespace quiet
 {
-
+	//仕様
+	//複雑の関数オブジェクトの管理、変数のバインドを行う
 	template<is_invalid_not T_Front_Parts, class ...T_Parts>
 	class Function
 		:public quiet::N_Function::I_Function_Operator<T_Front_Parts, T_Parts...>::type

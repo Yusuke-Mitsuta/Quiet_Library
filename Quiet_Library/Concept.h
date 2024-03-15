@@ -53,9 +53,6 @@ concept name##_nand = !name##_and<type_name_1,type_name_2...>;\
 namespace quiet
 {
 
-	template <bool t_Fg>
-	concept Fg = t_Fg;
-
 	template<template<class, class>class is_concept, class _Ty1, class ..._Ty>
 	struct is_or :
 		std::false_type {};
