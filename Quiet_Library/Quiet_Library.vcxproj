@@ -43,6 +43,7 @@
     <ClInclude Include="Tuple_Apply_Class_Create.h" />
     <ClInclude Include="Tuple_Calculation.h" />
     <ClInclude Include="Tuple_Expand.h" />
+    <ClInclude Include="Tuple_Name.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Concept.h" />
     <ClInclude Include="Array.h" />

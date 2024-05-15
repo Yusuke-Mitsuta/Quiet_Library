@@ -9,8 +9,8 @@
 
 #include<tuple>
 
+#include"Tuple_Name.h"
 #include"Tuple_Concept.h"
-
 #include"String.h"
 
 namespace quiet
@@ -24,6 +24,18 @@ namespace quiet
 
 	template<quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
 	struct tuple_tp;
+
+	template<N_Tuple::S_Name name, class ...T_Types>
+	struct tuple_t_name;
+
+	template<N_Tuple::S_Name name, quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
+	struct tuple_tp_name;
+
+	template<class T_Tag, class ...T_Types>
+	struct tuple_t_tag;
+
+	template<class T_Tag, quiet::N_Tuple::same_as_tuple_t T_Head, class T, quiet::N_Tuple::same_as_tuple_t T_Tail>
+	struct tuple_tp_tag;
 
 	template<auto ..._Value>
 	struct tuple_v;

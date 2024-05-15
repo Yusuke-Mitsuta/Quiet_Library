@@ -70,9 +70,6 @@ namespace quiet::N_Tuple
 		using Return_Tuple =
 			S_Tuple_Type_Change_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Convert_Tuple>), I_Tuple_Start_Point_Set, T_Convert_Tuple>;
 
-
-		
-
 	public:
 
 		//仕様
@@ -89,6 +86,13 @@ namespace quiet::N_Tuple
 		//[T_Tuple_Data]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
 		//　結果を[tuple_vp]から[T_Tuple_Data]と同タイプのTupleに変換し返す。
 		using type = Return_Tuple<is_Tuple_not_p<T_Convert_Tuple>>::type;
+
+	};
+
+
+	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Convert_Tuple, size_t t_Start_Point>
+	struct S_Tuple_Type_Change_Action_Helper< t_Action_Type_Tuple_p,t_Action_Type_Tuple_t,T_Action,
+	{
 
 	};
 
