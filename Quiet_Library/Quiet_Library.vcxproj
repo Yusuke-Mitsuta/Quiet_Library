@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array_deduction_guide.h" />
+    <ClInclude Include="Function_Core_Multiple.h" />
     <ClInclude Include="Quiet_Library.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
