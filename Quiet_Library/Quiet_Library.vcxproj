@@ -20,8 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array_deduction_guide.h" />
+    <ClInclude Include="Change_Tuple.h" />
+    <ClInclude Include="Change_Tuple_tp.h" />
     <ClInclude Include="Quiet_Library.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="Tag.h" />
+    <ClInclude Include="Tag_Concept.h" />
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h" />
     <ClInclude Include="Tuple_Apply_Convert_Order.h" />
     <ClInclude Include="Tuple_Apply_Type.h" />
@@ -43,7 +47,6 @@
     <ClInclude Include="Tuple_Apply_Class_Create.h" />
     <ClInclude Include="Tuple_Calculation.h" />
     <ClInclude Include="Tuple_Expand.h" />
-    <ClInclude Include="Tuple_Name.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Concept.h" />
     <ClInclude Include="Array.h" />
@@ -56,6 +59,7 @@
     <ClInclude Include="Move_Template.h" />
     <ClInclude Include="SwapType.h" />
     <ClInclude Include="Tuple_Apply_Action.h" />
+    <ClInclude Include="Tuple_Search.h" />
     <ClInclude Include="Tuple_Type_Change_Action_Helper.h" />
     <ClInclude Include="Tuple_Create_Pointer.h" />
     <ClInclude Include="Tuple_Zip.h" />

@@ -43,6 +43,15 @@
     <Filter Include="ヘッダー ファイル\Array">
       <UniqueIdentifier>{7df08d3b-5f86-4ed9-8aec-e603c108d301}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Tag">
+      <UniqueIdentifier>{e776e016-4390-4fcc-b590-312cc6ea6dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Base">
+      <UniqueIdentifier>{e7dadc14-93e0-448f-9f38-9bb19706c976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Change_Tuple_Type">
+      <UniqueIdentifier>{2c038ec0-40cb-4c99-9e7b-64f48285fc3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Concept.h">
@@ -58,9 +67,6 @@
       <Filter>ヘッダー ファイル\Function</Filter>
     </ClInclude>
     <ClInclude Include="Tuple.h">
-      <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuple_Type.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Using.h">
@@ -258,19 +264,31 @@
     <ClInclude Include="Quiet_Library.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Test_Cord.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="String.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Tag.h">
+      <Filter>ヘッダー ファイル\Tag</Filter>
+    </ClInclude>
+    <ClInclude Include="Tag_Concept.h">
+      <Filter>ヘッダー ファイル\Tag</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Type.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Search.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Change_Tuple_tp.h">
+      <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
+    </ClInclude>
+    <ClInclude Include="Change_Tuple.h">
+      <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Function_Single_Helper.h">
       <Filter>ヘッダー ファイル\Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Tuple_Value.h">
-      <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Declare.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
@@ -290,11 +308,8 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Test_Cord_1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Test_Cord_2.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Tuple_Value.h">
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

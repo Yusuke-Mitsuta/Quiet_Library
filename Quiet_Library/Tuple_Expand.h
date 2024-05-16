@@ -87,6 +87,7 @@ namespace quiet::N_Tuple
 		};
 
 	public:
+
 		using type = I_Element_Expand<tuple_t<>, T_Expand_Tuple, t_expand_lelve>::type;
 
 	};

@@ -90,10 +90,4 @@ namespace quiet::N_Tuple
 	};
 
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Convert_Tuple, size_t t_Start_Point>
-	struct S_Tuple_Type_Change_Action_Helper< t_Action_Type_Tuple_p,t_Action_Type_Tuple_t,T_Action,
-	{
-
-	};
-
 }
