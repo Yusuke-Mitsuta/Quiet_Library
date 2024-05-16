@@ -182,6 +182,19 @@ namespace quiet::N_Tuple
 	template<template<class...>class T_Action, class T_Tuple>
 	using S_Tuple_v_Change_Action = S_Tuple_Type_Change_Action_Helper<false, false, T_Action, T_Tuple>;
 
+	//仕様
+	//[T_Change_Type]を任意のTupleに変換する。
+	//その後、[tuple_t,tuple_tp,tuple_v,tuple_vp]のいずれかに変換する。
+	//
+	//テンプレート
+	//[t_is_Target_Tuple_p]::要求するTupleがポイントを所持[tuple_tp,tuple_vp]であるか？
+	//[t_is_Target_Tuple_t]::要求するTupleが型を管理[tuple_t,tuple_tp]であるか？
+	//
+	//型の変化は[2つ進む or 1つ戻る]のどちらかで変化をさせる
+	//[tp → t → v → vp → tp]
+	template<class T_Change_Type, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
+	struct I_Change_Tuple;
+
 	template<class T_Tuple_v, String t_operator, auto number>
 	struct I_Template_Calculate;
 
@@ -229,4 +242,21 @@ namespace quiet::N_Tuple
 	template<class T_Tuple>
 	struct I_Zip_Tuple;
 
+	//仕様
+	//[Tuple]と互換性のある型のリストから、指定した型が何番目に含まれるか探す。
+	//
+	//テンプレート
+	//[T_Search_Tuple]::指定した型を探す、[Tuple]と互換性のある型
+	//[T_Search_Type]::[T_Search_Tuple]から探す型
+	template<class T_Search_Tuple, class T_Search_Type>
+	struct I_Search_t;
+
+	//仕様
+	//[Tuple_v]と互換性のある型のリストから、指定した値が何番目に含まれるか探す。
+	//
+	//テンプレート
+	//[T_Search_Tuple]::指定した値を探す、[Tuple_v]と互換性のある型
+	//[T_Search_Value]::[T_Search_Tuple]から探す型
+	template<class T_Search_Tuple, auto t_Search_Value>
+	struct I_Search_v;
 }

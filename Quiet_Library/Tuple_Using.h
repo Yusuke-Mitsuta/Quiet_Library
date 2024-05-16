@@ -96,6 +96,51 @@ namespace quiet::N_Tuple
 
 
 	//仕様
+	//[T_Change_Type]を任意のTupleに変換する。
+	//その後、[tuple_t,tuple_tp,tuple_v,tuple_vp]のいずれかに変換する。
+	//
+	//テンプレート
+	//[t_is_Target_Tuple_p]::要求するTupleがポイントを所持[tuple_tp,tuple_vp]であるか？
+	//[t_is_Target_Tuple_t]::要求するTupleが型を管理[tuple_t,tuple_tp]であるか？
+	// 
+	//補足
+	//互換性の無い型の場合[invalid_t]を返す
+	template<class T_Change_Type, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
+	using U_Change_Tuple = I_Change_Tuple<T_Change_Type, t_is_Target_Tuple_p, t_is_Target_Tuple_t>::type;
+
+	//仕様
+	//{Tuple}と互換性のある型を[tuple_t]型に変換する。
+	// 
+	//補足
+	//互換性の無い型の場合[invalid_t]を返す
+	template<class T_Change_Type>
+	using U_Change_Tuple_t = I_Change_Tuple<T_Change_Type, false, true>::type;
+	
+	//仕様
+	//{Tuple}と互換性のある型を[tuple_tp]型に変換する。
+	// 
+	//補足
+	//互換性の無い型の場合[invalid_t]を返す
+	template<class T_Change_Type>
+	using U_Change_Tuple_tp = I_Change_Tuple<T_Change_Type, true, true>::type;
+
+	//仕様
+	//{Tuple}と互換性のある型を[tuple_v]型に変換する。
+	// 
+	//補足
+	//互換性の無い型の場合[invalid_t]を返す
+	template<class T_Change_Type>
+	using U_Change_Tuple_v = I_Change_Tuple<T_Change_Type, false, false>::type;
+
+	//仕様
+	//{Tuple}と互換性のある型を[tuple_vp]型に変換する。
+	// 
+	//補足
+	//互換性の無い型の場合[invalid_t]を返す
+	template<class T_Change_Type>
+	using U_Change_Tuple_vp = I_Change_Tuple<T_Change_Type, true, false>::type;
+
+	//仕様
 	//[T_Tuple_Data]の[t_Swap_Num_1]番目と[t_Swap_Num_2]番目の要素を入れ替える
 	template<class T_Tuple, size_t t_Swap_Num_1, size_t t_Swap_Num_2 = S_Parameter<T_Tuple>::head_size>
 		requires is_Element<T_Tuple, t_Swap_Num_1>&& is_Element<T_Tuple, t_Swap_Num_2>
@@ -225,6 +270,24 @@ namespace quiet::N_Tuple
 	template<class T_Tuple>
 	using U_Zip_Tuple = I_Zip_Tuple<T_Tuple>::type;
 
+
+	//仕様
+	//[Tuple]と互換性のある型のリストから、指定した型が何番目に含まれるか探す。
+	//
+	//テンプレート
+	//[T_Search_Tuple]::指定した型を探す、[Tuple]と互換性のある型
+	//[T_Search_Type]::[T_Search_Tuple]から探す型
+	template<class T_Search_Tuple, class T_Search_Type>
+	using U_Search_t = I_Search_t<T_Search_Tuple, T_Search_Type>::type;
+
+	//仕様
+	//[Tuple_v]と互換性のある型のリストから、指定した値が何番目に含まれるか探す。
+	//
+	//テンプレート
+	//[T_Search_Tuple]::指定した値を探す、[Tuple_v]と互換性のある型
+	//[T_Search_Value]::[T_Search_Tuple]から探す型
+	template<class T_Search_Tuple, auto t_Search_Value>
+	using U_Search_v = I_Search_v<T_Search_Tuple, t_Search_Value>::type;
 
 }
 

@@ -279,9 +279,6 @@
     <ClInclude Include="Tuple_Search.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
     </ClInclude>
-    <ClInclude Include="Change_Tuple_tp.h">
-      <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
-    </ClInclude>
     <ClInclude Include="Change_Tuple.h">
       <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClInclude>

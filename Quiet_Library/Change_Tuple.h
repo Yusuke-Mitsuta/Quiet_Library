@@ -6,7 +6,7 @@ namespace quiet::N_Tuple
 {
 
 	//仕様
-	//[T_Change_Type]をTupleに変換する。
+	//[T_Change_Type]を任意のTupleに変換する。
 	//その後、[tuple_t,tuple_tp,tuple_v,tuple_vp]のいずれかに変換する。
 	//
 	//テンプレート
@@ -15,8 +15,6 @@ namespace quiet::N_Tuple
 	//
 	//型の変化は[2つ進む or 1つ戻る]のどちらかで変化をさせる
 	//[tp → t → v → vp → tp]
-	//
-
 	template<class T_Change_Type,bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
 	struct I_Change_Tuple
 	{

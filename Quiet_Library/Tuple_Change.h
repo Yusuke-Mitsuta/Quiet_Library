@@ -32,7 +32,9 @@ namespace quiet::N_Tuple
 			using type = tuple_tp<T_Head, T_Change, T_Tail>;
 		};
 
-		template<class T_Base_Tuple, class T_Change_Tuple = U_Tuple_v_To_t<U_Remove_p<T_Change>>>
+		template<class T_Base_Tuple, class T_Change_Tuple = 
+			
+			U_Tuple_v_To_t<U_Remove_p<T_Change>>>
 		struct S_Change_Tuple_Expand
 		{
 			using type = T_Base_Tuple;
