@@ -18,14 +18,28 @@ namespace quiet::N_Tuple
 	template<class T_Convert_Tuple,bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t, bool t_Action_break, template<class...>class T_Action>
 	struct I_Change_Tuple_Action
 	{
+
 		using action = T_Action<U_Change_Tuple<T_Convert_Tuple, t_is_Target_Tuple_p, t_is_Target_Tuple_t>>::type;
 
 		template<class T_Result_t = action>
 		struct S_Result_Tuple
 		{
-
+			
 		};
 
+
+
+		template<class T_Result_t = action>
+			requires requires
+		{
+			requires (!t_Action_break);
+		}
+		struct S_Result_Tuple<T_Result_t>
+		{
+			using type = U_Change_Tuple<T_Result_t,is_Tuple_p<T_Convert_Tuple> ,is_Tuple_t<T_Convert_Tuple>>::type;
+		};
+
+		
 	};
 
 

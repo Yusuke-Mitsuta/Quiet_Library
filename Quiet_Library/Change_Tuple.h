@@ -5,21 +5,26 @@
 namespace quiet::N_Tuple
 {
 
+	template<class T_Change_Type, class T_Target_Type>
+	struct I_Change_Tuple {};
+
 	//仕様
 	//[T_Change_Type]を任意のTupleに変換する。
 	//その後、[tuple_t,tuple_tp,tuple_v,tuple_vp]のいずれかに変換する。
 	//
 	//テンプレート
+	//
+	//
 	//[t_is_Target_Tuple_p]::要求するTupleがポイントを所持[tuple_tp,tuple_vp]であるか？
 	//[t_is_Target_Tuple_t]::要求するTupleが型を管理[tuple_t,tuple_tp]であるか？
 	//
 	//型の変化は[2つ進む or 1つ戻る]のどちらかで変化をさせる
 	//[tp → t → v → vp → tp]
-	template<class T_Change_Type,bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
+	template<class T_Change_Type,class T_Target_Type>
 	struct I_Change_Tuple
 	{
 
-		template<class T_Convert_Tuple,bool t_Target_Tuple_p= t_is_Target_Tuple_p, bool t_Target_Tuple_t= t_is_Target_Tuple_t>
+		template<class T_Convert_Tuple,bool t_Target_Tuple_p = t_is_Target_Tuple_p, bool t_Target_Tuple_t= t_is_Target_Tuple_t>
 		struct S_Change_Tuple
 		{
 			using type = T_Convert_Tuple;

@@ -282,6 +282,9 @@
     <ClInclude Include="Change_Tuple.h">
       <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClInclude>
+    <ClInclude Include="Change_TemplateClass.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Function_Single_Helper.h">
