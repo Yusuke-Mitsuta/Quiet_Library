@@ -192,7 +192,7 @@ namespace quiet::N_Tuple
 	//
 	//Œ^‚Ì•Ï‰»‚Í[2‚Âi‚Ş or 1‚Â–ß‚é]‚Ì‚Ç‚¿‚ç‚©‚Å•Ï‰»‚ğ‚³‚¹‚é
 	//[tp ¨ t ¨ v ¨ vp ¨ tp]
-	template<class T_Change_Type, class T_Target_Type>
+	template<class T_Change_Type, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
 	struct I_Change_Tuple;
 
 	template<class T_Tuple_v, String t_operator, auto number>

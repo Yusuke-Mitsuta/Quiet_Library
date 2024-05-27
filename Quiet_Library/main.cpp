@@ -2,16 +2,7 @@
 
 #include"Tag.h"
 #include"Vector.h"
-
-class TEST
-{
-public:
-
-    int operator+(int t)
-    {
-        return 0;
-    }
-};
+#include"Template_Control.h"
 
 int main()
 {

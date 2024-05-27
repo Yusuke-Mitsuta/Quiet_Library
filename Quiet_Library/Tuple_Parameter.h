@@ -9,7 +9,7 @@
 
 #include<tuple>
 
-#include"Tuple_Class_Declare.h"
+#include"Tuple_Declare.h"
 
 #include"Tuple_Size.h"
 #include"Tuple_ID_Select.h"
@@ -123,13 +123,21 @@ namespace quiet::N_Tuple
 	struct S_Parameter<T> :
 		S_Parameter<typename T::tuple> {};
 
+
 	template<class T>
 		requires requires
 	{
 		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
-		//typename T_Request_Order::tuple;
-		//requires is_invalid_not<typename S_Parameter<typename T_Request_Order::tuple>::tuple>;
-		//requires std::is_class_v<typename T_Request_Order::tuple>;
+		requires is_invalid_not<U_Change_Tuple_t<T>>;
+	}
+	struct S_Parameter<T> :
+		S_Parameter<U_Change_Tuple_t<T>> {};
+
+
+	template<class T>
+		requires requires
+	{
+		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
 	}
 	struct S_Parameter<T&> :
 		S_Parameter<T>
@@ -141,9 +149,6 @@ namespace quiet::N_Tuple
 		requires requires
 	{
 		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
-		//typename T_Request_Order::tuple;
-		//requires is_invalid_not<typename S_Parameter<typename T_Request_Order::tuple>::tuple>;
-		//requires std::is_class_v<typename T_Request_Order::tuple>;
 	}
 	struct S_Parameter<T*> :
 		S_Parameter<T>

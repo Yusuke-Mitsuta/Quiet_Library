@@ -52,6 +52,9 @@
     <Filter Include="ヘッダー ファイル\Tuple\Change_Tuple_Type">
       <UniqueIdentifier>{2c038ec0-40cb-4c99-9e7b-64f48285fc3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Template_Control">
+      <UniqueIdentifier>{ec7fc4a2-30f4-4394-b512-5298dab70dea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Concept.h">
@@ -282,8 +285,11 @@
     <ClInclude Include="Change_Tuple.h">
       <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClInclude>
-    <ClInclude Include="Change_TemplateClass.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Template_Control.h">
+      <Filter>ヘッダー ファイル\Template_Control</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateClass_Change.h">
+      <Filter>ヘッダー ファイル\Template_Control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
