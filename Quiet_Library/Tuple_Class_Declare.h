@@ -11,6 +11,7 @@
 
 #include"Tuple_Concept.h"
 #include"String.h"
+#include"Invalid.h"
 
 namespace quiet
 {
@@ -96,8 +97,14 @@ namespace quiet::N_Tuple
 	template<class T>
 	struct Tuple_t_To_v;
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, bool t_Action_break, template<class...>class T_Action, class T_Tuple>
-	struct S_Tuple_Type_Change_Action;
+	template<
+		template<class...>class T_Action,
+		class T_Convert_Tuple, 
+		bool t_is_Target_Tuple_p, 
+		bool t_is_Target_Tuple_t, 
+		size_t t_Start_Point = S_Parameter<T_Convert_Tuple>::head_size, 
+		bool t_Action_break = false>
+	struct I_Change_Tuple_Action;
 
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::head_size>
 	struct S_Tuple_Type_Change_Action_Helper;
@@ -121,7 +128,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
-	using S_Tuple_tp_Change_Action = S_Tuple_Type_Change_Action_Helper<true, true, T_Action, T_Tuple, t_Start_Point>;
+	using S_Tuple_tp_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, true, true,t_Start_Point>;
 
 	//仕様
 	//[T_Tuple_Data]を[tuple_t]に変換し[T_Action]の[::type]を呼び出し
@@ -140,7 +147,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Tuple_t_Change_Action = S_Tuple_Type_Change_Action_Helper<false, true, T_Action, T_Tuple>;
+	using S_Tuple_t_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, false, true>;
 
 	//仕様
 	//[T_Tuple_Data]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
@@ -160,7 +167,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
-	using S_Tuple_vp_Change_Action = S_Tuple_Type_Change_Action_Helper<true, false, T_Action, T_Tuple, t_Start_Point>;
+	using S_Tuple_vp_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, true, false, t_Start_Point>;
 
 	//仕様
 	//[T_Tuple_Data]を[tuple_v]に変換し[T_Action]の[::type]を呼び出し
@@ -180,7 +187,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Tuple_v_Change_Action = S_Tuple_Type_Change_Action_Helper<false, false, T_Action, T_Tuple>;
+	using S_Tuple_v_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, false, false>;
 
 	//仕様
 	//[T_Change_Type]を任意のTupleに変換する。

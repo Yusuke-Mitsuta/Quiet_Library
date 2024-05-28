@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array_deduction_guide.h" />
-    <ClInclude Include="TemplateClass_Change.h" />
+    <ClInclude Include="Template_Class_Change.h" />
     <ClInclude Include="Template_Control.h" />
     <ClInclude Include="Change_Tuple.h" />
     <ClInclude Include="Quiet_Library.h" />
@@ -102,7 +102,7 @@
     <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Valid_Data.h" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Tuple_Type_Change_Action.h" />
+    <ClCompile Include="Change_Tuple_Action.h" />
     <ClCompile Include="Function_Single_Helper.h" />
     <ClCompile Include="Tuple_Declare.h" />
     <ClCompile Include="Tuple_Select.h" />

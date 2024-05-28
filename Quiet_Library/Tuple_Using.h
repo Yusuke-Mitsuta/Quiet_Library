@@ -9,6 +9,7 @@
 
 #include"Tuple_Class_Declare.h"
 
+
 namespace quiet::N_Tuple
 {
 
@@ -215,6 +216,19 @@ namespace quiet::N_Tuple
 	//つまり、[std::make_index_sequence<t_array_size>] で帰ってくる型が [std::integer_sequence<size_t,t_array_size...>]の所を、[tupel_v<t_array_size...>]に変更する
 	template<size_t N>
 	using U_index_sequence = typename I_index_sequence<N>::type;
+
+	//仕様
+	//[0 ... (t_array_size-1)]の値を[tuple_v]に入れて返す
+	//
+	//補足
+	//つまり、[std::make_index_sequence<t_array_size>] で帰ってくる型が [std::integer_sequence<size_t,t_array_size...>]の所を、[tupel_v<t_array_size...>]に変更する
+	template<class T>
+		requires requires
+	{
+		requires std::tuple_size_v<T> >= 0;
+	}
+	using U_index_sequence_tuple = typename I_index_sequence<std::tuple_size_v<T>>::type;
+
 
 	//仕様
 	//[N_1 ... t_array_size-2]の値を[tuple_v]に入れて返す

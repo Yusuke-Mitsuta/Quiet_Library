@@ -1,6 +1,6 @@
 #pragma once
 
-namespace quiet::N_Template_Control
+namespace quiet::N_Template
 {
 	
 

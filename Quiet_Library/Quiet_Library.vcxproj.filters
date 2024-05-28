@@ -52,7 +52,7 @@
     <Filter Include="ヘッダー ファイル\Tuple\Change_Tuple_Type">
       <UniqueIdentifier>{2c038ec0-40cb-4c99-9e7b-64f48285fc3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Template_Control">
+    <Filter Include="ヘッダー ファイル\Template">
       <UniqueIdentifier>{ec7fc4a2-30f4-4394-b512-5298dab70dea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -286,10 +286,10 @@
       <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClInclude>
     <ClInclude Include="Template_Control.h">
-      <Filter>ヘッダー ファイル\Template_Control</Filter>
+      <Filter>ヘッダー ファイル\Template</Filter>
     </ClInclude>
-    <ClInclude Include="TemplateClass_Change.h">
-      <Filter>ヘッダー ファイル\Template_Control</Filter>
+    <ClInclude Include="Template_Class_Change.h">
+      <Filter>ヘッダー ファイル\Template</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,7 +308,7 @@
     <ClCompile Include="Function_Valid_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClCompile>
-    <ClCompile Include="Tuple_Type_Change_Action.h">
+    <ClCompile Include="Change_Tuple_Action.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">

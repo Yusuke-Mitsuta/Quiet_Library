@@ -109,21 +109,6 @@ namespace quiet::N_Tuple
 		using tail = T_Tail;
 	};
 
-
-	//仕様
-	//メンバーに[::tuple=tuple_t< _Ty1 , _Ty2 ...>]を持つ場合、そのタプルのパラメータを呼び出す
-	template<class T>
-		requires requires
-	{
-		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
-		typename T::tuple;
-		requires is_invalid_not<typename S_Parameter<typename T::tuple>::tuple>;
-		requires std::is_class_v<typename T::tuple>;
-	}
-	struct S_Parameter<T> :
-		S_Parameter<typename T::tuple> {};
-
-
 	template<class T>
 		requires requires
 	{
@@ -132,6 +117,7 @@ namespace quiet::N_Tuple
 	}
 	struct S_Parameter<T> :
 		S_Parameter<U_Change_Tuple_t<T>> {};
+
 
 
 	template<class T>

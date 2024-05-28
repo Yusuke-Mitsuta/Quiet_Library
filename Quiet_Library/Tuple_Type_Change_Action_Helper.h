@@ -33,42 +33,16 @@ namespace quiet::N_Tuple
 	// 
 	//•â‘«
 	//•Ï”‚É¸”s‚µ‚½ê‡A–¢ˆ—‚Ì[T_Tuple_Data]‚ª‚»‚Ì‚Ü‚Ü•Ô‚³‚ê‚é
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t, template<class...>class T_Action, class T_Convert_Tuple, size_t t_Start_Point>
-	struct S_Tuple_Type_Change_Action_Helper
+	template<template<class...>class T_Action, class T_Convert_Tuple, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t, size_t t_Start_Point>
+	struct I_Change_Tuple_Action_Helper
 	{
 	private:
 
-		template<class T_Tuple, class T_Start_Point_Judge = std::bool_constant<
-			((t_Start_Point < S_Parameter<T_Tuple>::size) &&
-				(t_Start_Point != S_Parameter<T_Tuple>::head_size))>>
-			struct I_Tuple_Start_Point_Set
-		{
-			using type = T_Action<T_Tuple>::type;
-		};
-
-		template<is_Tuple_p T_Tuple>
-		struct I_Tuple_Start_Point_Set<T_Tuple, std::true_type>
-		{
-			using return_type = T_Action<U_Select<t_Start_Point, T_Tuple>>::type;
-
-			template<bool t_not_size_change_Judge = (S_Parameter<T_Tuple>::head_size < S_Parameter<return_type>::size) >
-			struct S_Tuple_Start_Point_Set
-			{
-				using type = U_Select<S_Parameter<T_Tuple>::head_size, return_type>;
-			};
-
-			template<>
-			struct S_Tuple_Start_Point_Set<false>
-			{
-				using type = return_type;
-			};
-
-			using type = typename S_Tuple_Start_Point_Set<>::type;
-		};
 
 		template<bool t_Action_break>
 		using Return_Tuple =
-			S_Tuple_Type_Change_Action<t_Action_Type_Tuple_p, t_Action_Type_Tuple_t, (t_Action_break^ is_Tuple_not_p<T_Convert_Tuple>), I_Tuple_Start_Point_Set, T_Convert_Tuple>;
+			I_Change_Tuple_Action<T_Convert_Tuple,t_Action_Type_Tuple_p, t_Action_Type_Tuple_t,
+			(t_Action_break^ is_Tuple_not_p<T_Convert_Tuple>), I_Tuple_Start_Point_Set>;
 
 	public:
 

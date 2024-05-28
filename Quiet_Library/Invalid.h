@@ -19,12 +19,16 @@ namespace quiet
 
 		using type = invalid_t;
 
-	};
+		constexpr operator size_t()
+		{
+			return size_t(-1);
+		}
 
+	};
 
 	//Žd—l
 	//–³Œø’l‚ðŽ¦‚·
-	inline constexpr invalid_t invalid = invalid_t{};
+	inline  invalid_t invalid = invalid_t{};
 
 
 }

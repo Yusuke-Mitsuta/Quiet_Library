@@ -1,7 +1,11 @@
 #pragma once
 
 #include"Tuple_Declare.h"
+
+#include"Template_Class_Change.h"
 #include"SwapType.h"
+
+
 
 namespace quiet::N_Tuple
 {
@@ -34,13 +38,11 @@ namespace quiet::N_Tuple
 			requires requires
 		{
 			requires (same_as_tuple_t<T_Convert_Tuple>) || (same_as_tuple_tp<T_Convert_Tuple> && t_Target_Tuple_p);
+			requires same_as_not<T_Convert_Tuple, U_Tuple_t_To_v<T_Convert_Tuple>>;
 		}
 		struct S_Change_Tuple<T_Convert_Tuple,t_Target_Tuple_p, false>
 		{
-			using convert_tuple_v = U_Tuple_t_To_v<T_Convert_Tuple>;
-
-			using type = S_Change_Tuple<U_if_t1<T_Convert_Tuple, convert_tuple_v,same_as<T_Convert_Tuple,convert_tuple_v>>,
-				t_Target_Tuple_p, false>::type;
+			using type = S_Change_Tuple<U_Tuple_t_To_v<T_Convert_Tuple>,t_Target_Tuple_p, false>::type;
 		};
 
 		//vÅ®vp
@@ -84,26 +86,13 @@ namespace quiet::N_Tuple
 		template<class T_Convert_Tuple, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
 			requires requires
 		{
-			requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
-			{typename std::tuple_element_t<0, T_Convert_Tuple>};
-			requires std::tuple_size_v<T_Convert_Tuple> >= 0;
+			requires (E_Tuple_ID::NONE == S_ID_Select<T_Convert_Tuple>::ID);
 		}
 		struct S_Change_Tuple<T_Convert_Tuple, t_is_Target_Tuple_p, t_is_Target_Tuple_t>
 		{
-			template<class T_Indexs = U_index_sequence<std::tuple_size_v<T_Convert_Tuple>>>
-			struct S_Tuple_Create
-			{
-				using type = invalid_t;
-			};
 
-			template<size_t ...t_indexs>
-			struct S_Tuple_Create<tuple_v<t_indexs...>>
-			{
-				using type = S_Change_Tuple<tuple_t<std::tuple_element_t<t_indexs, T_Convert_Tuple>...>, 
-					t_is_Target_Tuple_p, t_is_Target_Tuple_t>::type;
-			};
-
-			using type = S_Tuple_Create<>::type;
+			using type = S_Change_Tuple<N_Template::U_Class_Change<T_Convert_Tuple,tuple_t>,
+				t_is_Target_Tuple_p, t_is_Target_Tuple_t>::type;
 		};
 
 		using type = S_Change_Tuple<T_Change_Type, t_is_Target_Tuple_p, t_is_Target_Tuple_t>::type;
