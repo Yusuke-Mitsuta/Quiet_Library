@@ -99,11 +99,13 @@ namespace quiet::N_Tuple
 
 	template<
 		template<class...>class T_Action,
-		class T_Convert_Tuple, 
-		bool t_is_Target_Tuple_p, 
-		bool t_is_Target_Tuple_t, 
-		size_t t_Start_Point = S_Parameter<T_Convert_Tuple>::head_size, 
-		bool t_Action_break = false>
+		class T_Convert_Tuple,
+		bool t_is_Target_Tuple_p,
+		bool t_is_Target_Tuple_t,
+		size_t t_Start_Point = S_Parameter<T_Convert_Tuple>::head_size,
+		bool t_Return_p_Convert_Skip = false,
+		bool t_Return_tv_Convert_Skip = false,
+		bool t_Return_p_Back = false>
 	struct I_Change_Tuple_Action;
 
 	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::head_size>

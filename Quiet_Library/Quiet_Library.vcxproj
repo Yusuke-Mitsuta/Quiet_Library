@@ -61,7 +61,6 @@
     <ClInclude Include="SwapType.h" />
     <ClInclude Include="Tuple_Apply_Action.h" />
     <ClInclude Include="Tuple_Search.h" />
-    <ClInclude Include="Tuple_Type_Change_Action_Helper.h" />
     <ClInclude Include="Tuple_Create_Pointer.h" />
     <ClInclude Include="Tuple_Zip.h" />
     <ClInclude Include="Tuple_Move_Template.h" />

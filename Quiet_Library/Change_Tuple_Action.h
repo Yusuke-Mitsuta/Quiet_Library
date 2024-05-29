@@ -42,10 +42,11 @@ namespace quiet::N_Tuple
 		bool t_is_Target_Tuple_t,
 		size_t t_Start_Point,
 		bool t_Return_p_Convert_Skip,
-		bool t_Return_tx_Convert_Skip, 
+		bool t_Return_tv_Convert_Skip, 
 		bool t_Return_p_Back>
 	struct I_Change_Tuple_Action
 	{
+	private:
 
 		template<class T_Action_Tuple, class T_Start_Point = integral_constant<t_Start_Point>>
 		struct S_Start_Point_Set
@@ -71,43 +72,11 @@ namespace quiet::N_Tuple
 		template<class T = T_Convert_Tuple>
 		struct S_Result
 		{
-			using type = action;
-		};
-
-		template<class T>
-			requires requires
-		{
-			requires !t_Action_break;
-		}
-		struct S_Result<T>
-		{
 			using result = U_Change_Tuple<action, 
-
-				a:元のpointの有無
-				b:要求する型のpointの有無
-				c:pointをスキップするか
-				a	b	c	Output
-				0	0	0	0
-				0	0	1	0
-				0	1	0	0
-				0	1	1	1
-
-				1	0	0	1
-				1	0	1	0
-				1	1	0	1
-				1	1	1	1
-
-				(~ABC)+(A~B~C)+(AB~C)
-
-				a~c + bc
-
-
-				is_Tuple_p<T_Convert_Tuple> ^p0 
-				action_p ^p1
-				,
-				
-				,
-				is_Tuple_t<T_Convert_Tuple>>::type;
+				((is_Tuple_p<T_Convert_Tuple> && !t_Return_p_Convert_Skip) ||
+				(t_is_Target_Tuple_p && t_Return_p_Convert_Skip)),
+				((is_Tuple_t<T_Convert_Tuple> && !t_Return_tv_Convert_Skip) ||
+				(t_is_Target_Tuple_t && t_Return_tv_Convert_Skip))>::type;
 
 			template<class T_Result_Tuple = result>
 			struct S_Create_p
@@ -138,16 +107,37 @@ namespace quiet::N_Tuple
 			using type = N_Template::U_Class_Change<action, T_Outer>;
 		};
 		
+		template<bool t_Return_p_Convert_Skip_Fg, bool t_Return_tv_Convert_Skip_Fg, bool t_Return_p_Back_Fg >
+		using Return_Convert_Skip_Base = 
+			I_Change_Tuple_Action<T_Action,
+			T_Convert_Tuple, 
+			t_is_Target_Tuple_p, 
+			t_is_Target_Tuple_t,
+			t_Start_Point, 
+			t_Return_p_Convert_Skip_Fg, 
+			t_Return_tv_Convert_Skip_Fg,
+			t_Return_p_Back_Fg>::type;
+
+	public:
+
 		using type = S_Result<>::type;
 
-		using Return_p_Convert_Skip = 
 
-		using Return_tv_Convert_Skip = 
+		//仕様
+		//[T_Action<...>::type]実行後のpointが元の状態への変換をスキップする
+		using Return_p_Convert_Skip = Return_Convert_Skip_Base<true, false, false>;
 
-		using Return_Point_Back =
+		//仕様
+		//[T_Action<...>::type]実行後の元の状態への[tuple_t→v],[tuple_v→t]変換をスキップする
+		using Return_tv_Convert_Skip = Return_Convert_Skip_Base<false, true, false>;
 
-		using Return_Not_Convert = I_Change_Tuple_Action<T_Action, T_Convert_Tuple, t_is_Target_Tuple_p, t_is_Target_Tuple_t, t_Start_Point, true>::type;
-	
+		//仕様
+		//[T_Action<...>::type]実行後の元の状態への変換をスキップする
+		using Return_Convert_Skip = Return_Convert_Skip_Base<true, true, false>;
+
+		//仕様
+		//[t_Start_Point]にて開始ポイントを変更した際、元の位置へのポイント移動をスキップする
+		using Return_Point_Back = Return_Convert_Skip_Base<false, false, true>;
 	};
 
 }

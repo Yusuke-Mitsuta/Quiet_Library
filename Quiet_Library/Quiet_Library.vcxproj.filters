@@ -37,6 +37,9 @@
     <Filter Include="ヘッダー ファイル\Tuple\Tuple_Parameter">
       <UniqueIdentifier>{c498380b-c9c1-4469-a828-9d66b83e6e13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Apply">
+      <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ヘッダー ファイル\Array">
       <UniqueIdentifier>{7df08d3b-5f86-4ed9-8aec-e603c108d301}</UniqueIdentifier>
     </Filter>
@@ -51,9 +54,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Template">
       <UniqueIdentifier>{ec7fc4a2-30f4-4394-b512-5298dab70dea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply">
-      <UniqueIdentifier>{bb2d2071-ebe7-4fa7-986e-8b32f3ba7e67}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -175,28 +175,25 @@
       <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Action.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Array_Set.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Class_Create.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Fn.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Repeat_Multiple.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
     </ClInclude>
-    <ClInclude Include="Tuple_Type_Change_Action_Helper.h">
-      <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClInclude>
     <ClInclude Include="Tuple_Apply_Request.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_ID.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Parameter</Filter>
@@ -229,19 +226,19 @@
       <Filter>ヘッダー ファイル\Function\Function_Operator</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Type_Chack.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Args_Convert_Action.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Infinite.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Type.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Apply_Convert_Order.h">
-      <Filter>ヘッダー ファイル\Tuple\Tuple_Base\Tuple_Apply</Filter>
+      <Filter>ヘッダー ファイル\Tuple\Tuple_Apply</Filter>
     </ClInclude>
     <ClInclude Include="Tuple_Expand.h">
       <Filter>ヘッダー ファイル\Tuple</Filter>
