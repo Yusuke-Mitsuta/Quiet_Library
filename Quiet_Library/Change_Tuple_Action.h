@@ -36,7 +36,14 @@ namespace quiet::N_Tuple
 	//
 	//注意
 	//[T_Action]の要求する型に非系テンプレートは含まない事
-	template<template<class...>class T_Action, class T_Convert_Tuple, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t, size_t t_Start_Point, bool t_Action_break>
+	template<template<class...>class T_Action, 
+		class T_Convert_Tuple,
+		bool t_is_Target_Tuple_p, 
+		bool t_is_Target_Tuple_t,
+		size_t t_Start_Point,
+		bool t_Return_p_Convert_Skip,
+		bool t_Return_tx_Convert_Skip, 
+		bool t_Return_p_Back>
 	struct I_Change_Tuple_Action
 	{
 
@@ -75,7 +82,31 @@ namespace quiet::N_Tuple
 		struct S_Result<T>
 		{
 			using result = U_Change_Tuple<action, 
-				is_Tuple_p<T_Convert_Tuple>,
+
+				a:元のpointの有無
+				b:要求する型のpointの有無
+				c:pointをスキップするか
+				a	b	c	Output
+				0	0	0	0
+				0	0	1	0
+				0	1	0	0
+				0	1	1	1
+
+				1	0	0	1
+				1	0	1	0
+				1	1	0	1
+				1	1	1	1
+
+				(~ABC)+(A~B~C)+(AB~C)
+
+				a~c + bc
+
+
+				is_Tuple_p<T_Convert_Tuple> ^p0 
+				action_p ^p1
+				,
+				
+				,
 				is_Tuple_t<T_Convert_Tuple>>::type;
 
 			template<class T_Result_Tuple = result>
@@ -84,10 +115,12 @@ namespace quiet::N_Tuple
 				using type = T_Result_Tuple;
 			};
 
+
 			template<class T_Result_Tuple>
 				requires requires
 			{
-				requires is_Tuple_p<T_Convert_Tuple>;
+				requires t_Return_p_Back;
+				requires (T_Convert_Tuple::head_size != t_Start_Point);
 				requires (T_Convert_Tuple::head_size >= T_Result_Tuple::size);
 			}
 			struct S_Create_p<T_Result_Tuple>
@@ -106,6 +139,12 @@ namespace quiet::N_Tuple
 		};
 		
 		using type = S_Result<>::type;
+
+		using Return_p_Convert_Skip = 
+
+		using Return_tv_Convert_Skip = 
+
+		using Return_Point_Back =
 
 		using Return_Not_Convert = I_Change_Tuple_Action<T_Action, T_Convert_Tuple, t_is_Target_Tuple_p, t_is_Target_Tuple_t, t_Start_Point, true>::type;
 	
