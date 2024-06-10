@@ -1,8 +1,7 @@
 #pragma once
 
 #include"Tuple_Declare.h"
-
-#include"Template_Class_Change.h"
+//#include"Template_Class_Change.h"
 #include"SwapType.h"
 
 
@@ -74,7 +73,7 @@ namespace quiet::N_Tuple
 		template<class T_Convert_Tuple,bool t_Target_Tuple_t>
 			requires requires
 		{
-			requires (same_as_tuple_tp<T_Convert_Tuple>) || (same_as_tuple_v<T_Convert_Tuple> && !t_Target_Tuple_t);
+			requires (same_as_tuple_tp<T_Convert_Tuple>) || (same_as_tuple_vp<T_Convert_Tuple> && !t_Target_Tuple_t);
 		}
 		struct S_Change_Tuple<T_Convert_Tuple,false, t_Target_Tuple_t>
 		{
@@ -83,17 +82,17 @@ namespace quiet::N_Tuple
 
 
 
-		template<class T_Convert_Tuple, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
-			requires requires
-		{
-			requires (E_Tuple_ID::NONE == S_ID_Select<T_Convert_Tuple>::ID);
-		}
-		struct S_Change_Tuple<T_Convert_Tuple, t_is_Target_Tuple_p, t_is_Target_Tuple_t>
-		{
-
-			using type = S_Change_Tuple<N_Template::U_Class_Change<T_Convert_Tuple,tuple_t>,
-				t_is_Target_Tuple_p, t_is_Target_Tuple_t>::type;
-		};
+		//template<class T_Convert_Tuple, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
+		//	requires requires
+		//{
+		//	requires (E_Tuple_ID::NONE == S_ID_Select<T_Convert_Tuple>::ID);
+		//}
+		//struct S_Change_Tuple<T_Convert_Tuple, t_is_Target_Tuple_p, t_is_Target_Tuple_t>
+		//{
+		//
+		//	using type = S_Change_Tuple<N_Template::U_Class_Change<T_Convert_Tuple,tuple_t>,
+		//		t_is_Target_Tuple_p, t_is_Target_Tuple_t>::type;
+		//};
 
 		using type = S_Change_Tuple<T_Change_Type, t_is_Target_Tuple_p, t_is_Target_Tuple_t>::type;
 

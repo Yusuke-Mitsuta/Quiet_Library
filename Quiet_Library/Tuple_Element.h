@@ -24,7 +24,6 @@ namespace std
 		using type = quiet::N_Tuple::U_Element_t<I, T>;
 	};
 
-
 }
 
 namespace quiet::N_Tuple

@@ -89,7 +89,7 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using type =S_Tuple_t_Change_Action<S_Action, T_Swap_Tuple>::type;
+		using type =I_Change_Tuple_t_Action<S_Action, T_Swap_Tuple>::type;
 
 	};
 

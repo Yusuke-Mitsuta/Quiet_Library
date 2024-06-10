@@ -32,7 +32,7 @@ namespace quiet::N_Tuple
 	template<class T_Calculate_Tuple, String t_calculate_operator,auto number>
 	struct I_Template_Calculate
 	{
-	private:
+
 		template<class T_Tuple_v>
 		struct S_Tuple_Calculate
 		{
@@ -47,22 +47,24 @@ namespace quiet::N_Tuple
 			{
 				using type = T_Calculate_Tuple;
 			};
-
+		
 			TUPLE_V_OPERATOR(+);
-
+		
 			TUPLE_V_OPERATOR(-);
-
+		
 			TUPLE_V_OPERATOR(*);
-
+		
 			TUPLE_V_OPERATOR(/);
-
+		
 			using type = S_Operator<t_calculate_operator>::type;
 		};
+
+
 	public:
-		using type = S_Tuple_t_Change_Action<S_Tuple_Calculate,T_Calculate_Tuple>::type;
+
+		using type = I_Change_Tuple_t_Action<S_Tuple_Calculate, T_Calculate_Tuple>::type;
 
 	};
-
 
 }
 

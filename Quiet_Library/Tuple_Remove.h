@@ -17,15 +17,13 @@ namespace quiet::N_Tuple
 	struct I_Remove
 	{
 	private:
+
 		template<class T_Tuple_p>
 		struct S_Remove;
 
 		template<is_invalid_not T>
 		struct S_Remove<tuple_tp<tuple_t<>, T, tuple_t<>>>
 		{
-		private:
-
-		public:
 			using type = tuple_tp<tuple_t<>, invalid_t, tuple_t<>>;
 		};
 
@@ -60,7 +58,7 @@ namespace quiet::N_Tuple
 
 	public:
 		
-		using type =S_Tuple_tp_Change_Action<S_Remove, T_Remove_Tuple>::type;
+		using type =I_Change_Tuple_tp_Action<S_Remove, T_Remove_Tuple>::type;
 
 	};
 

@@ -55,6 +55,7 @@ static constexpr auto name(const T_Left* l,const T_Right* r)\
 	return T_Right{( *l oper std::get<t_Copy_Element_Number>(*r))...};\
 }\
 
+
 #define TUPLE_CALCULATION_ASSIGNMENT(name,oper)\
 template<class T_Left, class T_Right, size_t N = 0>\
 	requires requires(T_Left* l,const T_Right* r)\
@@ -95,7 +96,7 @@ static constexpr void name(T_Left* l,const T_Right* r)\
 	name< T_Left, T_Right, N + 1>(l, r);\
 }\
 
-
+/*
 namespace quiet::N_Tuple
 {
 	//Žd—l
@@ -147,51 +148,7 @@ namespace quiet::N_Tuple
 		struct S_Calculation<tuple_v<t_Calculation_Element_Number...>, tuple_v<t_Copy_Element_Number...>>
 		{
 
-			template<class T_Left, class T_Right> requires requires(const T_Left* l, const T_Right* r) 
-			{
-				requires N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Calculation_Element_Number>(*l) + std::get<t_Calculation_Element_Number>(*r))...>>::value == 0; 
-				requires std::tuple_size_v<T_Left> >= std::tuple_size_v<T_Right>;
-				requires sizeof...(t_Calculation_Element_Number) != 0;
-			}
-			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
-			{
-				return T_Left{ (std::get<t_Calculation_Element_Number>(*l)) + (std::get<t_Calculation_Element_Number>(*r))...,std::get<t_Copy_Element_Number>(*l)... };
-			}
-			
-			template<class T_Left, class T_Right> requires requires(const T_Left* l, const T_Right* r) 
-			{
-				requires N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Calculation_Element_Number>(*l) + std::get<t_Calculation_Element_Number>(*r))...>>::value == 0; 
-				requires std::tuple_size_v<T_Left> < std::tuple_size_v<T_Right>; 
-				requires sizeof...(t_Calculation_Element_Number) != 0;
-			}
-			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
-			{
-				return T_Left{ (std::get<t_Calculation_Element_Number>(*l)) + (std::get<t_Calculation_Element_Number>(*r))... };
-			}
-
-			template<class T_Left, class T_Right> 
-				requires requires(const T_Left* l, const T_Right* r) 
-			{
-				requires N_Apply::I_Type_Chack<tuple_t<T_Left>, tuple_t<decltype(std::get<t_Copy_Element_Number>(*l) + *r)...>>::value == 0; 
-				requires sizeof...(t_Calculation_Element_Number) == 0;
-			}
-			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
-			{
-				return T_Left{ std::get<t_Copy_Element_Number>(*l) + *r ... };
-			}
-			
-			template<class T_Left, class T_Right> 
-				requires requires(const T_Left* l, const T_Right* r) 
-			{
-				requires N_Apply::I_Type_Chack<tuple_t<T_Right>, tuple_t<decltype(*l + std::get<t_Copy_Element_Number>(*r))...>>::value == 0; 
-				requires sizeof...(t_Calculation_Element_Number) == 0;
-			}
-			static constexpr auto Sum(const T_Left* l, const T_Right* r) 
-			{
-				return T_Right{ (*l + std::get<t_Copy_Element_Number>(*r))... };
-			}
-
-
+			TUPLE_CALCULATION(Sum, +)
 			TUPLE_CALCULATION(Difference, -)
 			TUPLE_CALCULATION(Product, *)
 			TUPLE_CALCULATION(Quotient, / )
@@ -203,10 +160,10 @@ namespace quiet::N_Tuple
 
 		};
 	public:
+
 		using type = S_Calculation<>;
 
 	};
-
 
 }
 
@@ -290,3 +247,4 @@ static constexpr void operator/=(T_Left& l, const T_Right& r)
 {
 	quiet::N_Tuple::I_Calculation<T_Left, T_Right>::type::Assignment_Quotient(&l, &r);
 };
+*/

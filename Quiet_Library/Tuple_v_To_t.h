@@ -44,4 +44,5 @@ namespace quiet::N_Tuple
 	{
 		using type = tuple_t<integral_constant<_Value>...>;
 	};
+
 }

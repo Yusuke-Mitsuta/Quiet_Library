@@ -10,7 +10,6 @@
 #include<tuple>
 
 #include"Tuple_Declare.h"
-
 #include"Tuple_Size.h"
 #include"Tuple_ID_Select.h"
 
@@ -109,14 +108,16 @@ namespace quiet::N_Tuple
 		using tail = T_Tail;
 	};
 
-	template<class T>
-		requires requires
-	{
-		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
-		requires is_invalid_not<U_Change_Tuple_t<T>>;
-	}
-	struct S_Parameter<T> :
-		S_Parameter<U_Change_Tuple_t<T>> {};
+	//template<class T>
+	//	requires requires
+	//{
+	//	requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
+	//	requires is_invalid_not<U_Change_Tuple_t<T>>;
+	//}
+	//struct S_Parameter<T> :
+	//	S_Parameter<U_Change_Tuple_t<T>> {};
+
+
 
 
 
@@ -126,10 +127,7 @@ namespace quiet::N_Tuple
 		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
 	}
 	struct S_Parameter<T&> :
-		S_Parameter<T>
-	{
-		//using tuple = N_Tuple::U_Elements_Action<std::add_lvalue_reference, typename T_Request_Order::tuple>;
-	};
+		S_Parameter<T> {};
 
 	template<class T>
 		requires requires
@@ -137,10 +135,7 @@ namespace quiet::N_Tuple
 		requires (E_Tuple_ID::NONE == S_ID_Select<T>::ID);
 	}
 	struct S_Parameter<T*> :
-		S_Parameter<T>
-	{
-		//using tuple = N_Tuple::U_Elements_Action<std::add_pointer, typename T_Request_Order::tuple>;
-	};
+		S_Parameter<T> {};
 
 
 }

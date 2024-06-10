@@ -288,6 +288,12 @@
     <ClInclude Include="Template_Class_Change.h">
       <Filter>ヘッダー ファイル\Template</Filter>
     </ClInclude>
+    <ClInclude Include="Change_Tuple_Action_Helper.h">
+      <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Function_Single_Helper.h">
@@ -305,14 +311,14 @@
     <ClCompile Include="Function_Valid_Data.h">
       <Filter>ヘッダー ファイル\Function\Function_Single_Data</Filter>
     </ClCompile>
-    <ClCompile Include="Change_Tuple_Action.h">
-      <Filter>ヘッダー ファイル\Tuple</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Tuple_Value.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Change_Tuple_Action.h">
+      <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

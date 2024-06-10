@@ -44,7 +44,7 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using type = S_Tuple_tp_Change_Action<S_Reverse, T_Tuple>::type;
+		using type = I_Change_Tuple_tp_Action<S_Reverse, T_Tuple>::type;
 
 	};
 

@@ -48,9 +48,9 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using tuple_expand = S_Tuple_tp_Change_Action<T_Control_Tuple,S_Change_Tuple_Expand, t_Change_Point>::type;
+		using tuple_expand = I_Change_Tuple_tp_Action<S_Change_Tuple_Expand,T_Control_Tuple, t_Change_Point>::type;
 
-		using type = S_Tuple_tp_Change_Action<T_Control_Tuple,S_Change,t_Change_Point>::type;
+		using type = I_Change_Tuple_tp_Action<S_Change,T_Control_Tuple,t_Change_Point>::type;
 
 	};
 

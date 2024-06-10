@@ -92,9 +92,12 @@ namespace quiet::N_Tuple
 			using type = typename Select_Range_Judge<t_Point, S_Parameter<T_Tuple_t>::size, T_Tuple_t>::type;
 		};
 
+
+
+
 	public:
 
-		using type = S_Tuple_tp_Change_Action<S_Action, T_Control_Tuple>::Return_p_Convert_Skip;
+		using type = I_Change_Tuple_tp_Action<S_Action, T_Control_Tuple>::Return_p_Convert_Skip;
 
 	};
 

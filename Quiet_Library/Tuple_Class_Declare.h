@@ -97,6 +97,20 @@ namespace quiet::N_Tuple
 	template<class T>
 	struct Tuple_t_To_v;
 
+	//仕様
+	//[T_Change_Type]を任意のTupleに変換する。
+	//その後、[tuple_t,tuple_tp,tuple_v,tuple_vp]のいずれかに変換する。
+	//
+	//テンプレート
+	//[t_is_Target_Tuple_p]::要求するTupleがポイントを所持[tuple_tp,tuple_vp]であるか？
+	//[t_is_Target_Tuple_t]::要求するTupleが型を管理[tuple_t,tuple_tp]であるか？
+	//
+	//型の変化は[2つ進む or 1つ戻る]のどちらかで変化をさせる
+	//[tp → t → v → vp → tp]
+	template<class T_Change_Type, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
+	struct I_Change_Tuple;
+
+
 	template<
 		template<class...>class T_Action,
 		class T_Convert_Tuple,
@@ -108,8 +122,13 @@ namespace quiet::N_Tuple
 		bool t_Return_p_Back = false>
 	struct I_Change_Tuple_Action;
 
-	template<bool t_Action_Type_Tuple_p, bool t_Action_Type_Tuple_t,template<class...>class T_Action, class T_Tuple, size_t t_Start_Point= S_Parameter<T_Tuple>::head_size>
-	struct S_Tuple_Type_Change_Action_Helper;
+	template<template<class...>class T_Action,
+		class T_Convert_Tuple,
+		bool t_is_Target_Tuple_p,
+		bool t_is_Target_Tuple_t,
+		size_t t_Start_Point = S_Parameter<T_Convert_Tuple>::head_size>
+	struct I_Change_Tuple_Action_Helper;
+
 
 
 	//仕様
@@ -130,7 +149,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple, size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
-	using S_Tuple_tp_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, true, true,t_Start_Point>;
+	using I_Change_Tuple_tp_Action = I_Change_Tuple_Action_Helper<T_Action, T_Tuple, true, true,t_Start_Point>;
 
 	//仕様
 	//[T_Tuple_Data]を[tuple_t]に変換し[T_Action]の[::type]を呼び出し
@@ -149,7 +168,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Tuple_t_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, false, true>;
+	using I_Change_Tuple_t_Action = I_Change_Tuple_Action_Helper<T_Action, T_Tuple, false, true>;
 
 	//仕様
 	//[T_Tuple_Data]を[tuple_vp]に変換し[T_Action]の[::type]を呼び出し
@@ -169,7 +188,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple,size_t t_Start_Point = S_Parameter<T_Tuple>::head_size>
-	using S_Tuple_vp_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, true, false, t_Start_Point>;
+	using I_Change_Tuple_vp_Action = I_Change_Tuple_Action_Helper<T_Action, T_Tuple, true, false, t_Start_Point>;
 
 	//仕様
 	//[T_Tuple_Data]を[tuple_v]に変換し[T_Action]の[::type]を呼び出し
@@ -189,20 +208,7 @@ namespace quiet::N_Tuple
 	//補足
 	//変数に失敗した場合、未処理の[T_Tuple_Data]がそのまま返される
 	template<template<class...>class T_Action, class T_Tuple>
-	using S_Tuple_v_Change_Action = I_Change_Tuple_Action<T_Action, T_Tuple, false, false>;
-
-	//仕様
-	//[T_Change_Type]を任意のTupleに変換する。
-	//その後、[tuple_t,tuple_tp,tuple_v,tuple_vp]のいずれかに変換する。
-	//
-	//テンプレート
-	//[t_is_Target_Tuple_p]::要求するTupleがポイントを所持[tuple_tp,tuple_vp]であるか？
-	//[t_is_Target_Tuple_t]::要求するTupleが型を管理[tuple_t,tuple_tp]であるか？
-	//
-	//型の変化は[2つ進む or 1つ戻る]のどちらかで変化をさせる
-	//[tp → t → v → vp → tp]
-	template<class T_Change_Type, bool t_is_Target_Tuple_p, bool t_is_Target_Tuple_t>
-	struct I_Change_Tuple;
+	using I_Change_Tuple_v_Action = I_Change_Tuple_Action_Helper<T_Action, T_Tuple, false, false>;
 
 	template<class T_Tuple_v, String t_operator, auto number>
 	struct I_Template_Calculate;
