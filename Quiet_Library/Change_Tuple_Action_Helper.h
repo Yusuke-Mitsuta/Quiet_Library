@@ -5,10 +5,10 @@
 namespace quiet::N_Tuple::N_Tuple_Convert_Action
 {
 
+
+
 	struct I_Tuple_Convert_Action_Helper
 	{
-	
-			
 		struct L_Target;
 
 		template<bool t_is_Target_Tuple_p,
@@ -21,6 +21,24 @@ namespace quiet::N_Tuple::N_Tuple_Convert_Action
 			bool t_Return_tv_Convert_Skip>
 		struct L_StartPoint;
 
+		template<bool t_is_Target_Tuple_p,
+			bool t_is_Target_Tuple_t,
+			bool t_Return_p_Convert_Skip,
+			bool t_Return_tv_Convert_Skip>
+		struct L_ReturnPoint;
+
+	};
+
+	template<bool t_is_Target_Tuple_p,
+		bool t_is_Target_Tuple_t,
+		bool t_Return_p_Convert_Skip,
+		bool t_Return_tv_Convert_Skip>
+	struct L_ReturnPoint
+	{
+		using Default = tuple_t<>;
+
+		using Reset_ReturnPoint= tuple_t<>;
+
 	};
 
 	template<bool t_is_Target_Tuple_p,
@@ -29,58 +47,58 @@ namespace quiet::N_Tuple::N_Tuple_Convert_Action
 		bool t_Return_tv_Convert_Skip>
 	struct I_Tuple_Convert_Action_Helper::L_StartPoint
 	{
-
-		struct Default
-		{
-
-		};
-
-		struct Set_StartPoint
-		{
-
-		};
+		using type = tuple_t<>;
 
 	};
+
+
+	template<
+		bool t_is_Target_Tuple_t,
+		bool t_Return_p_Convert_Skip,
+		bool t_Return_tv_Convert_Skip>
+	struct I_Tuple_Convert_Action_Helper::L_StartPoint<true,t_is_Target_Tuple_t,t_Return_p_Convert_Skip,t_Return_tv_Convert_Skip>
+	{
+		struct S_Is_Target_p
+		{
+			struct Default
+			{
+
+			};
+
+			using Set_StartPoint = int;
+		};
+
+		using type = S_Is_Target_p;
+
+	};
+
 
 	template<bool t_is_Target_Tuple_p,bool t_is_Target_Tuple_t>
 	struct I_Tuple_Convert_Action_Helper::L_Option
 	{
 	private:
+
 		template<bool t_Return_p_Convert_Skip,
 			bool t_Return_tv_Convert_Skip>
 		using StartPoint = L_StartPoint<
 			t_is_Target_Tuple_p, 
 			t_is_Target_Tuple_t, 
 			t_Return_p_Convert_Skip,
-			t_Return_tv_Convert_Skip>;
+			t_Return_tv_Convert_Skip>::type;
 
 	public:
 
-		struct Default:
-			StartPoint<false,false>
-		{
+		using Default = StartPoint<false, false>;
 
-		};
+		using Return_p_Convert_Skip =StartPoint<true, false>;
 
-		struct Return_p_Convert_Skip:
-			StartPoint<true,false>
-		{
+		using Return_tv_Convert_Skip = StartPoint<false, true>;
 
-		};
-
-		struct Return_tv_Convert_Skip:
-			StartPoint<false,true>
-		{
-
-		};
-
-		
-		struct Return_Convert_Skip:
-			StartPoint<true,true>
-		{
-		};
+		using Return_Convert_Skip = StartPoint<true, true>;
 		
 	};
+
+
 
 
 	struct I_Tuple_Convert_Action_Helper::L_Target
@@ -93,30 +111,13 @@ namespace quiet::N_Tuple::N_Tuple_Convert_Action
 
 	public:
 
-		struct Target_Tuple_tp :
-			Option<true,true>
-		{
+		using Target_Tuple_tp = Option<true, true>;
 
-		};
+		using Target_Tuple_vp = Option<true, false>;
 
-		struct Target_Tuple_vp :
-			Option<true,false>
-		{
+		using Target_Tuple_t = Option<false, true>;
 
-		};
-
-		struct Target_Tuple_t :
-			Option<false,true>
-		{
-
-		};
-
-		struct Target_Tuple_v :
-			Option<false,false>
-		{
-
-		};
-
+		using Target_Tuple_v = Option<false, false>;
 	};
 }
 
