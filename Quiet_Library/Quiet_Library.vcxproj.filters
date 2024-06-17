@@ -294,6 +294,9 @@
     <ClInclude Include="main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Change_Tuple_Action_Set_StartPoint.h">
+      <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Function_Single_Helper.h">
