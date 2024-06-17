@@ -58,7 +58,8 @@ namespace quiet::N_Tuple
 
 	public:
 		
-		using type =I_Change_Tuple_tp_Action<S_Remove, T_Remove_Tuple>::type;
+		using type =I_Tuple_Convert_Action::Target_Tuple_tp::Default::type
+			<S_Remove, T_Remove_Tuple>;
 
 	};
 

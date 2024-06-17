@@ -20,8 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array_deduction_guide.h" />
-    <ClInclude Include="Change_Tuple_Action_Helper.h" />
-    <ClInclude Include="Change_Tuple_Action_Set_StartPoint.h" />
+    <ClInclude Include="Tuple_Convert_Action_Helper.h" />
+    <ClInclude Include="Tuple_Convert_Action_Set_StartPoint.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Template_Class_Change.h" />
     <ClInclude Include="Template_Control.h" />
@@ -50,6 +50,7 @@
     <ClInclude Include="Tuple_Apply_Fn.h" />
     <ClInclude Include="Tuple_Apply_Class_Create.h" />
     <ClInclude Include="Tuple_Calculation.h" />
+    <ClInclude Include="Tuple_Convert_Action_Core.h" />
     <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Concept.h" />
@@ -104,7 +105,7 @@
     <ClCompile Include="Function_Args_Chack.h" />
     <ClCompile Include="Function_Valid_Data.h" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Change_Tuple_Action.h" />
+    <ClCompile Include="Tuple_Convert_Action.h" />
     <ClCompile Include="Function_Single_Helper.h" />
     <ClCompile Include="Tuple_Declare.h" />
     <ClCompile Include="Tuple_Select.h" />

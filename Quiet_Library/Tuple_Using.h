@@ -8,7 +8,7 @@
 #pragma once
 
 #include"Tuple_Class_Declare.h"
-
+#include"Tuple_Convert_Action.h"
 
 namespace quiet::N_Tuple
 {

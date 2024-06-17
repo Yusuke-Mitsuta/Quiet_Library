@@ -18,8 +18,6 @@
 #include"Tuple_Remove.h"
 #include"Tuple_Value.h"
 #include"Tuple_Parameter.h"
-#include"Change_Tuple_Action.h"
-#include"Change_Tuple_Action_Helper.h"
 #include"Tuple_Reverse.h"
 #include"Tuple_t_To_v.h"
 #include"Tuple_v_To_t.h"
@@ -45,6 +43,9 @@
 #include"Tuple_Repeat_Multiple.h"
 #include"Tuple_Expand.h"
 #include"Tuple_Zip.h"
+
+#include"Tuple_Convert_Action_Core.h"
+#include"Tuple_Convert_Action_Set_StartPoint.h"
 
 #include"Tuple_Calculation.h"
 

@@ -288,13 +288,16 @@
     <ClInclude Include="Template_Class_Change.h">
       <Filter>ヘッダー ファイル\Template</Filter>
     </ClInclude>
-    <ClInclude Include="Change_Tuple_Action_Helper.h">
+    <ClInclude Include="Tuple_Convert_Action_Helper.h">
       <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Change_Tuple_Action_Set_StartPoint.h">
+    <ClInclude Include="Tuple_Convert_Action_Set_StartPoint.h">
+      <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple_Convert_Action_Core.h">
       <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClInclude>
   </ItemGroup>
@@ -320,7 +323,7 @@
     <ClCompile Include="Tuple_Value.h">
       <Filter>ヘッダー ファイル\Tuple\Tuple_Base</Filter>
     </ClCompile>
-    <ClCompile Include="Change_Tuple_Action.h">
+    <ClCompile Include="Tuple_Convert_Action.h">
       <Filter>ヘッダー ファイル\Tuple\Change_Tuple_Type</Filter>
     </ClCompile>
   </ItemGroup>

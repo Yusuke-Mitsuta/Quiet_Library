@@ -89,7 +89,8 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using type =I_Change_Tuple_t_Action<S_Action, T_Swap_Tuple>::type;
+		using type = I_Tuple_Convert_Action::Target_Tuple_t::Default::type
+			<S_Action, T_Swap_Tuple>;
 
 	};
 

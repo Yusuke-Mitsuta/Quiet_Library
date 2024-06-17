@@ -67,9 +67,9 @@ namespace quiet::N_Tuple
 
 	public:
 
-		using tuple_expand = I_Change_Tuple_tp_Action<S_Insert_Tuple_Expand, T_Insert_Base_Tuple>::type;
+		using tuple_expand = I_Tuple_Convert_Action::Target_Tuple_tp::Default::type<S_Insert_Tuple_Expand, T_Insert_Base_Tuple>;
 
-		using type = I_Change_Tuple_tp_Action<S_Insert, T_Insert_Base_Tuple>::type;
+		using type = I_Tuple_Convert_Action::Target_Tuple_tp::Default::type<S_Insert, T_Insert_Base_Tuple>;
 
 	};
 }

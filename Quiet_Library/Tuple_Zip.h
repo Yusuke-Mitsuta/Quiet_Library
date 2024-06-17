@@ -92,7 +92,8 @@ namespace quiet::N_Tuple
 			using type = I_Move_Template<I_Zip, T_Tuple>::type::type;
 		};
 	public:
-		using type = I_Change_Tuple_t_Action<S_Zip_Action, T_Zip_Tuple>::Return_p_Convert_Skip;
+		using type = I_Tuple_Convert_Action::Target_Tuple_t::Return_p_Convert_Skip::Default::
+			type<S_Zip_Action, T_Zip_Tuple>;
 	};
 
 }
