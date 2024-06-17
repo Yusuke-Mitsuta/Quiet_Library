@@ -1,10 +1,10 @@
 #pragma once
 
+//#include"Tuple_Convert_Action_Set_StartPoint.h"
 
 namespace quiet::N_Tuple::N_Tuple_Convert_Action
 {
-	template<template<class...>class T_Action, size_t t_Start_Point, bool t_Return_p_Back>
-	struct I_Set_StartPoint;
+
 
 
 	template<template<class...>class T_Action,

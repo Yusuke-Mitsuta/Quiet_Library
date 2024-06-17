@@ -14,10 +14,10 @@ int main()
 {
     
     using T = tuple_t<int, float>::next::type;
-    
+    using TT= N_Tuple::U_Change<T, double, 1>;
     //using T = N_Tuple::U_Change_Tuple_t<tuple_v<0, 1, 2>>;
 
-    std::cout << typeid(T).name();
+    std::cout << typeid(TT).name();
 
     return 0;
 }
