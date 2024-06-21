@@ -44,8 +44,6 @@ namespace quiet::N_Tuple::N_Tuple_Convert_Action
 	public:
 
 		using type = S_Result<>::type;
-
 	};
-
 
 }

@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClInclude Include="Array_deduction_guide.h" />
     <ClInclude Include="Tuple_Convert_Action_Helper.h" />
-    <ClInclude Include="Tuple_Convert_Action_Set_StartPoint.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Template_Class_Change.h" />
     <ClInclude Include="Template_Control.h" />
@@ -51,6 +50,7 @@
     <ClInclude Include="Tuple_Apply_Class_Create.h" />
     <ClInclude Include="Tuple_Calculation.h" />
     <ClInclude Include="Tuple_Convert_Action_Core.h" />
+    <ClInclude Include="Tuple_Convert_Action_Set_StartPoint.h" />
     <ClInclude Include="Tuple_Expand.h" />
     <ClInclude Include="Tuple_Repeat_Multiple.h" />
     <ClInclude Include="Concept.h" />
